@@ -8,38 +8,36 @@ class NavigationMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FutureBuilder(
-          future: getLocationData(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              // while data is loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return FlutterMap(
-                options: MapOptions(
-                  center: LatLng(snapshot.data?.latitude ?? 0.0,
-                      snapshot.data?.longitude ?? 0.0),
-                  zoom: 20,
+    return FutureBuilder(
+        future: getLocationData(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            // while data is loading:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return FlutterMap(
+              options: MapOptions(
+                center: LatLng(snapshot.data?.latitude ?? 0.0,
+                    snapshot.data?.longitude ?? 0.0),
+                zoom: 13,
+                maxZoom: 15,
+              ),
+              nonRotatedChildren: [
+                AttributionWidget.defaultWidget(
+                  source: 'OpenStreetMap contributors',
+                  onSourceTapped: null,
                 ),
-                nonRotatedChildren: [
-                  AttributionWidget.defaultWidget(
-                    source: 'OpenStreetMap contributors',
-                    onSourceTapped: null,
-                  ),
-                ],
-                children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: 'com.vamonosmpg.app',
-                  ),
-                ],
-              );
-            }
-          }),
-    );
+              ],
+              children: [
+                TileLayer(
+                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  userAgentPackageName: 'com.vamonosmpg.app',
+                ),
+              ],
+            );
+          }
+        });
   }
 }

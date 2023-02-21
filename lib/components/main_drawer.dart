@@ -117,15 +117,16 @@ class MenuExpanderWidget extends StatelessWidget {
             style: TextStyle(fontSize: 10),
           ),
           const SizedBox(height: 20),
-          ...List<int>.generate(10, (i) => i + 1)
+          ...List<int>.generate(7, (i) => i + 1)
               .map((el) => sampleLineGenerator(el))
-          // sampleLineGenerator(1),
         ]),
       ),
     );
   }
 }
 
+// generates a single SizedBox representing a transportation line
+// in the expanding drawer.
 SizedBox sampleLineGenerator(int lineNumber) {
   int dueIn = Random().nextInt(30);
   return SizedBox(
