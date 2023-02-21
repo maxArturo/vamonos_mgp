@@ -1,16 +1,14 @@
 # vamonos_mgp
 
-A new Flutter project.
+Alternate flutter app for Municipio de General Purreydon's public transit tracker
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+this is a heavy WIP. 
 
-A few resources to get you started if this is your first Flutter project:
+## TODOs
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Scroll the drawer when the text bar is clicked
+- integrate the API into the actual app
+- show more functionality, such as finding routes closest to the user
+- show errors outside of a particular geofence
