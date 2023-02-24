@@ -19,9 +19,6 @@ class LocationProviderStore with ChangeNotifier {
   /// public map manipulation methods
   recenterMapLocation() => updateMapLocation(latestLocationData);
   updateMapLocation(LocationData location) {
-    final lat = location.latitude;
-    final long = location.longitude;
-    debugPrint("this is location: when recentering map: $lat $long");
     _mapController!
         .moveAndRotate(LatLng(location.latitude!, location.longitude!), 17, 0);
   }

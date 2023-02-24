@@ -18,10 +18,6 @@ class _NavigationMapController extends State<NavigationMap> {
   LocationData? _displayedLocation;
   LocationData? get displayedLocation => _displayedLocation;
 
-  /// overlapping detection for map markers
-  GlobalKey displayCenterKey = GlobalKey();
-  GlobalKey mapLocationKey = GlobalKey();
-
   void updateLocation(LocationData newLocation) {
     setState(() {
       _displayedLocation = newLocation;
@@ -63,14 +59,13 @@ class _NavigationMapView
               maxZoom: 18,
             ),
             nonRotatedChildren: [
-              Center(
-                  key: state.displayCenterKey,
-                  child: const Icon(
-                    Icons.circle_outlined,
-                    color: Colors.black,
-                    size: 40,
-                    weight: 800,
-                  )),
+              const Center(
+                  child: Icon(
+                Icons.location_on_sharp,
+                color: Colors.black,
+                size: 40,
+                weight: 800,
+              )),
               AttributionWidget.defaultWidget(
                 alignment: const Alignment(0.0, 0.6),
                 source: 'OpenStreetMap contributors',
@@ -87,18 +82,16 @@ class _NavigationMapView
                 builder: (context, provider, child) {
                   final lat = provider.latestLocationData.latitude;
                   final long = provider.latestLocationData.longitude;
-                  debugPrint(
-                      "this is location: when building location layer $lat $long");
                   return MarkerLayer(
-                    key: state.mapLocationKey,
                     markers: [
                       Marker(
+                          rotate: true,
                           point: LatLng(lat!, long!),
                           anchorPos: AnchorPos.align(AnchorAlign.center),
                           height: 40,
                           width: 40,
                           builder: (context) => const Icon(
-                                Icons.circle_outlined,
+                                Icons.location_on_sharp,
                                 color: Colors.red,
                                 size: 40,
                               )),

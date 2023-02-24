@@ -41,14 +41,13 @@ class HomePageState extends State<HomePage> {
   double _fabHeight = 0;
   double _panelHeightOpen = 300;
   final double _panelHeightClosed = 80.0;
+  final PanelController _panelController = PanelController();
 
   @override
   void initState() {
     super.initState();
     _fabHeight = _initFabHeight;
   }
-
-  final PanelController _panelController = PanelController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +74,12 @@ class HomePageState extends State<HomePage> {
             }),
           ),
 
-          // floating search bar
+          /// floating search bar
           Positioned(
             // these pixel dimensions below (left, right) ensure boundaries
             // for the poisitioned search bars
-            left: 10,
-            right: 10,
+            left: 20,
+            right: 20,
             top: max(MediaQuery.of(context).padding.top,
                 _panelHeightOpen - _fabHeight - _panelHeightClosed),
             child: Row(
@@ -93,7 +92,7 @@ class HomePageState extends State<HomePage> {
                   },
                   backgroundColor: Colors.white,
                   child: Icon(
-                    Icons.gps_fixed,
+                    Icons.near_me_sharp,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -101,8 +100,8 @@ class HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextField(
                     maxLines: 1,
-                    // controller: _emailController,
                     keyboardType: TextInputType.streetAddress,
+                    // controller: _emailController,
                     // cursorColor: currentTheme.colorScheme.secondary,
                     onTap: () {
                       _panelController.animatePanelToPosition(
