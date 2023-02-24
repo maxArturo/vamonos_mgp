@@ -68,7 +68,7 @@ class RoutesNearYouListView
                 height: 15,
               )
             ]);
-          } else if (idx < state.routes.length) {
+          } else {
             return _lineGenerator(
                 state.routes[idx - 1].name, state.routes[idx - 1].id);
           }

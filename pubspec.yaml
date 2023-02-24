@@ -36,7 +36,7 @@ dependencies:
   flutter_map_marker_cluster: any
   location: ^4.2.0
   sliding_up_panel: ^2.0.0+1
-  cached_network_image: 3.2.3
+  url_launcher:
 
   flutter:
     sdk: flutter

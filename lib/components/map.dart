@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vamonos_mgp/components/common/widget_view.dart';
 import 'package:vamonos_mgp/providers/location.dart';
-import 'package:vamonos_mgp/providers/map.dart';
 
 class NavigationMap extends StatefulWidget {
   const NavigationMap({super.key});
@@ -14,6 +15,19 @@ class NavigationMap extends StatefulWidget {
 }
 
 class _NavigationMapController extends State<NavigationMap> {
+  LocationData? _displayedLocation;
+  LocationData? get displayedLocation => _displayedLocation;
+
+  /// overlapping detection for map markers
+  GlobalKey displayCenterKey = GlobalKey();
+  GlobalKey mapLocationKey = GlobalKey();
+
+  void updateLocation(LocationData newLocation) {
+    setState(() {
+      _displayedLocation = newLocation;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return _NavigationMapView(this);
@@ -26,35 +40,74 @@ class _NavigationMapView
 
   @override
   Widget build(BuildContext context) {
-    final locationProvider = context.watch<LocationProviderStore>();
+    final locationProvider = Provider.of<LocationProviderStore>(context);
 
-    if (locationProvider.displayedLocation == null) {
+    if (state.displayedLocation == null) {
       locationProvider.currentLocationData
-          .then((locData) => locationProvider.updateLocation(locData));
+          .then((locData) => state.updateLocation(locData));
       return const Center(
         child: CircularProgressIndicator(),
       );
     } else {
-      Provider.of<MapProviderStore>(context).initializeMapController();
-      return FlutterMap(
-        mapController: Provider.of<MapProviderStore>(context).mapController,
-        options: MapOptions(
-          center: LatLng(locationProvider.displayedLocation?.latitude ?? 0.0,
-              locationProvider.displayedLocation?.longitude ?? 0.0),
-          zoom: 15,
-          maxZoom: 18,
-        ),
-        nonRotatedChildren: [
-          AttributionWidget.defaultWidget(
-            source: 'OpenStreetMap contributors',
-            onSourceTapped: null,
-          ),
-        ],
+      locationProvider.initializeMapController();
+      return Stack(
         children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.ar.vamonosmpg.app',
-          ),
+          FlutterMap(
+            mapController:
+                Provider.of<LocationProviderStore>(context, listen: false)
+                    .mapController,
+            options: MapOptions(
+              center: LatLng(state.displayedLocation?.latitude ?? 0.0,
+                  state.displayedLocation?.longitude ?? 0.0),
+              zoom: 16,
+              maxZoom: 18,
+            ),
+            nonRotatedChildren: [
+              Center(
+                  key: state.displayCenterKey,
+                  child: const Icon(
+                    Icons.circle_outlined,
+                    color: Colors.black,
+                    size: 40,
+                    weight: 800,
+                  )),
+              AttributionWidget.defaultWidget(
+                alignment: const Alignment(0.0, 0.6),
+                source: 'OpenStreetMap contributors',
+                onSourceTapped: () =>
+                    launchUrl(Uri.https('www.openstreetmap.org', '/fixthemap')),
+              ),
+            ],
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.ar.vamonosmpg.app',
+              ),
+              Consumer<LocationProviderStore>(
+                builder: (context, provider, child) {
+                  final lat = provider.latestLocationData.latitude;
+                  final long = provider.latestLocationData.longitude;
+                  debugPrint(
+                      "this is location: when building location layer $lat $long");
+                  return MarkerLayer(
+                    key: state.mapLocationKey,
+                    markers: [
+                      Marker(
+                          point: LatLng(lat!, long!),
+                          anchorPos: AnchorPos.align(AnchorAlign.center),
+                          height: 40,
+                          width: 40,
+                          builder: (context) => const Icon(
+                                Icons.circle_outlined,
+                                color: Colors.red,
+                                size: 40,
+                              )),
+                    ],
+                  );
+                },
+              )
+            ],
+          )
         ],
       );
     }

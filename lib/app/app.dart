@@ -7,7 +7,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vamonos_mgp/components/main_landing_page/routes_list/widget.dart';
 import 'package:vamonos_mgp/components/map.dart';
 import 'package:vamonos_mgp/providers/location.dart';
-import 'package:vamonos_mgp/providers/map.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,7 +17,6 @@ class App extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<LocationProviderStore>(
               create: (_) => LocationProviderStore()),
-          Provider<MapProviderStore>(create: (_) => MapProviderStore()),
         ],
         child: MaterialApp(
             title: 'Vamonos - MGP',
@@ -90,15 +88,8 @@ class HomePageState extends State<HomePage> {
               children: [
                 FloatingActionButton(
                   onPressed: () {
-                    final updateMap =
-                        Provider.of<MapProviderStore>(context, listen: false)
-                            .updateMapLocation;
-                    final locationData = Provider.of<LocationProviderStore>(
-                            context,
-                            listen: false)
-                        .latestLocationData;
-
-                    updateMap(locationData);
+                    Provider.of<LocationProviderStore>(context, listen: false)
+                        .recenterMapLocation();
                   },
                   backgroundColor: Colors.white,
                   child: Icon(
