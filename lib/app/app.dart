@@ -1,28 +1,34 @@
 import 'dart:math';
-
-import 'package:flutter/material.dart';
-
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_map/plugin_api.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
+import 'package:vamonos_mgp/components/main_landing_page/routes_list/widget.dart';
 import 'package:vamonos_mgp/components/map.dart';
-
-import '../components/routes_near_you.dart';
+import 'package:vamonos_mgp/providers/location.dart';
+import 'package:vamonos_mgp/providers/map.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Vamonos - MGP',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme:
-              ColorScheme.fromSeed(seedColor: Colors.lightBlue.shade400),
-        ),
-        home: const HomePage());
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LocationProviderStore>(
+              create: (_) => LocationProviderStore()),
+          Provider<MapProviderStore>(create: (_) => MapProviderStore()),
+        ],
+        child: MaterialApp(
+            title: 'Vamonos - MGP',
+            theme: ThemeData(
+              useMaterial3: true,
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: Colors.lightBlue.shade400),
+            ),
+            home: const HomePage()));
   }
 }
 
@@ -36,15 +42,12 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final double _initFabHeight = 60;
   double _fabHeight = 0;
-  double _panelHeightOpen = 0;
+  double _panelHeightOpen = 300;
   final double _panelHeightClosed = 80.0;
-
-  List<SizedBox> linesNearYou = [];
 
   @override
   void initState() {
     super.initState();
-
     _fabHeight = _initFabHeight;
   }
 
@@ -53,12 +56,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height;
-
-    if (linesNearYou.isEmpty) {
-      setState(() {
-        linesNearYou = getLineComponents();
-      });
-    }
 
     return Material(
       child: Stack(
@@ -72,11 +69,9 @@ class HomePageState extends State<HomePage> {
             parallaxOffset: .5,
             panelSnapping: false,
             body: const NavigationMap(),
-            panelBuilder: (sc) {
-              return Scaffold(body: _panel(sc));
-            },
-            // borderRadius: const BorderRadius.only(
-            //     topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+            panelBuilder: (sc) => _panel(sc),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24), topRight: Radius.circular(24)),
             onPanelSlide: (double pos) => setState(() {
               _fabHeight = pos * (_panelHeightOpen - _panelHeightClosed) +
                   _initFabHeight;
@@ -99,7 +94,21 @@ class HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final updateMap =
+                        Provider.of<MapProviderStore>(context, listen: false)
+                            .updateMapLocation;
+                    final getLocationData = Provider.of<LocationProviderStore>(
+                            context,
+                            listen: false)
+                        .currentLocationData;
+
+                    debugPrint("we're about to change provider store data@!");
+                    getLocationData.then((newLocation) {
+                      debugPrint("ok got data, about to update map");
+                      updateMap(newLocation);
+                    });
+                  },
                   backgroundColor: Colors.white,
                   child: Icon(
                     Icons.gps_fixed,
@@ -173,57 +182,6 @@ class HomePageState extends State<HomePage> {
 
   Widget _panel(ScrollController sc) {
     return MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: ListView(
-          controller: sc,
-          children: <Widget>[
-            MaterialButton(
-              onPressed: () {
-                debugPrint("closer got clicked!");
-                _panelController.isPanelOpen
-                    ? _panelController.close()
-                    : _panelController.open();
-              },
-              child: Column(children: [
-                const SizedBox(
-                  height: 12.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 30,
-                      height: 5,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(12.0))),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("routes near you".toUpperCase(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                )
-              ]),
-            ),
-            ...linesNearYou,
-            const SizedBox(
-              height: 24,
-            ),
-          ],
-        ));
+        context: context, removeTop: true, child: RoutesNearYouList(sc));
   }
 }
