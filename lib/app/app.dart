@@ -86,10 +86,6 @@ class HomePageState extends State<HomePage> {
             right: 10,
             top: max(MediaQuery.of(context).padding.top,
                 _panelHeightOpen - _fabHeight - _panelHeightClosed),
-            // bottom: min(
-            //     _fabHeight,
-            //     _panelHeightOpen -
-            //         max(MediaQuery.of(context).padding.top * 2, 60)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,16 +94,12 @@ class HomePageState extends State<HomePage> {
                     final updateMap =
                         Provider.of<MapProviderStore>(context, listen: false)
                             .updateMapLocation;
-                    final getLocationData = Provider.of<LocationProviderStore>(
+                    final locationData = Provider.of<LocationProviderStore>(
                             context,
                             listen: false)
-                        .currentLocationData;
+                        .latestLocationData;
 
-                    debugPrint("we're about to change provider store data@!");
-                    getLocationData.then((newLocation) {
-                      debugPrint("ok got data, about to update map");
-                      updateMap(newLocation);
-                    });
+                    updateMap(locationData);
                   },
                   backgroundColor: Colors.white,
                   child: Icon(
