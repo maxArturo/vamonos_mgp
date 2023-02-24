@@ -41,8 +41,8 @@ class _NavigationMapView
         options: MapOptions(
           center: LatLng(locationProvider.displayedLocation?.latitude ?? 0.0,
               locationProvider.displayedLocation?.longitude ?? 0.0),
-          zoom: 13,
-          maxZoom: 15,
+          zoom: 15,
+          maxZoom: 18,
         ),
         nonRotatedChildren: [
           AttributionWidget.defaultWidget(
@@ -53,7 +53,7 @@ class _NavigationMapView
         children: [
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.vamonosmpg.app',
+            userAgentPackageName: 'com.ar.vamonosmpg.app',
           ),
         ],
       );

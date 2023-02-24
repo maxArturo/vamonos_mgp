@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vamonos_mgp/components/main_landing_page/routes_list/widget.dart';
@@ -66,7 +65,7 @@ class HomePageState extends State<HomePage> {
             minHeight: _panelHeightClosed,
             parallaxEnabled: true,
             controller: _panelController,
-            parallaxOffset: .5,
+            parallaxOffset: .7,
             panelSnapping: false,
             body: const NavigationMap(),
             panelBuilder: (sc) => _panel(sc),

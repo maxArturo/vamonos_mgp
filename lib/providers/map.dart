@@ -9,7 +9,7 @@ class MapProviderStore {
   get mapController => _mapController;
 
   updateMapLocation(LocationData location) =>
-      _mapController!.move(LatLng(location.latitude!, location.longitude!), 25);
+      _mapController!.move(LatLng(location.latitude!, location.longitude!), 18);
 
   initializeMapController() => _mapController = MapController();
 }
