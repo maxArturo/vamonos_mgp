@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vamonos_mgp/adapters/transportation_api/routes.dart';
 import 'package:vamonos_mgp/components/main_landing_page/routes_near_you_list/view.dart';
 import 'package:vamonos_mgp/entities/route_stop.dart';
 
@@ -13,16 +12,6 @@ class RoutesNearYouList extends StatefulWidget {
 
 class RoutesNearYouListController extends State<RoutesNearYouList> {
   List<RouteStop> routes = [];
-
-  @override
-  void initState() {
-    getRoutesNearYou(location: null).then((el) {
-      setState(() {
-        routes = el;
-      });
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

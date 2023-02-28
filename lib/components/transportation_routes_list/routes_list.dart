@@ -1,8 +1,12 @@
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
-import 'package:vamonos_mgp/adapters/transportation_api/routes.dart';
+import 'package:provider/provider.dart';
 import 'package:vamonos_mgp/components/common/widget_view.dart';
+import 'package:vamonos_mgp/entities/route.dart' as route_entity;
 import 'package:vamonos_mgp/entities/route_stop.dart';
+import 'package:vamonos_mgp/providers/routes.dart';
 
+import '../../util/errors.dart';
 import '../navigation/drawer.dart';
 import '../navigation/menu_button.dart';
 
@@ -33,17 +37,6 @@ class MainRoutesListController extends State<MainRoutesList> {
   List<RouteStop> routes = [];
 
   @override
-  void initState() {
-    // TODO this should be all routes
-    getRoutesNearYou(location: null).then((el) {
-      setState(() {
-        routes = el;
-      });
-    });
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MainRoutesListView(this);
   }
@@ -59,39 +52,59 @@ class MainRoutesListView
       children: [
         const SizedBox(height: 20),
         const Center(
-            child: Text(
-          "All routes are here",
-          style: TextStyle(color: Colors.black),
-        )),
+            child: Text("All routes are here",
+                style: TextStyle(
+                  color: Colors.black,
+                ))),
         const SizedBox(height: 20),
         Expanded(
-          child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: state.routes.length,
-              itemBuilder: (context, idx) {
-                if (state.routes.isEmpty) {
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        children: [
-                          const Icon(
-                            Icons.block_sharp,
-                            size: 30,
-                            color: Color.fromARGB(255, 194, 63, 63),
-                          ),
-                          Text("No routes near you".toUpperCase(),
-                              style: const TextStyle(color: Colors.white)),
-                        ],
-                      ),
-                      const SizedBox(width: 13),
-                    ],
-                  );
-                }
+          child:
+              FutureProvider<dartz.Either<AppError, List<route_entity.Route>>>(
+            create: (context) => RouteProviderStore().allRoutes(),
+            initialData: const dartz.Right([]),
+            child: Consumer<dartz.Either<AppError, List<route_entity.Route>>>(
+              builder: (BuildContext context, value, Widget? child) =>
+                  value.fold((err) {
+                final errType = err.error;
 
-                return ListTile(title: Text("Route no: $idx"));
-              }),
+                return Text(
+                  "An error of type $errType occurred",
+                  style: const TextStyle(color: Colors.red),
+                );
+              },
+                      (data) => ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: data.length,
+                          itemBuilder: (context, idx) {
+                            if (data.isEmpty) {
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      const Icon(
+                                        Icons.block_sharp,
+                                        size: 30,
+                                        color: Color.fromARGB(255, 194, 63, 63),
+                                      ),
+                                      Text("No routes near you".toUpperCase(),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
+                                    ],
+                                  ),
+                                  const SizedBox(width: 13),
+                                ],
+                              );
+                            }
+
+                            final routeName = data[idx].name;
+                            return ListTile(
+                                title: Text("Route no: $routeName"));
+                          })),
+            ),
+          ),
         ),
       ],
     );

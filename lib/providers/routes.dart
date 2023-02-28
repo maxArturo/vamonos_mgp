@@ -1,12 +1,12 @@
-import 'package:vamonos_mgp/adapters/http.dart';
+import 'package:dartz/dartz.dart';
+import 'package:vamonos_mgp/services/route_list_service.dart';
 
 import '../entities/route.dart';
+import '../util/errors.dart';
 
 class RouteProviderStore {
-  HttpAdapter http = HttpAdapter();
+  final _service = RouteListService();
 
-  // WIP
-  Future<List<Route>> getAllAvailableRoutes() {
-    http.post(url, body)
-  }
+  Future<Either<AppError, List<Route>>> allRoutes() =>
+      _service.getAllAvailableRoutes();
 }

@@ -11,10 +11,11 @@ In general, this is a simple Flutter app - being able to run `flutter doctor` on
 
 ## TODOs
 
-- [x] Scroll the drawer when the text bar is clicked
-- [] integrate the API into the actual app
+- [] WIP integrate the API into the actual app -> serialize from JSON string with https://docs.flutter.dev/development/data-and-backend/json#code-generation
 - [] show more functionality, such as finding routes closest to the user
 - [] show errors outside of a particular geofence
+- [] request caching via https://github.com/Baseflow/flutter_cache_manager
+- [] add https://pub.dev/packages/dartvcr for ease of life 
 
 ## Services and considerations
 
