@@ -47,6 +47,7 @@ class _NavigationMapView
     } else {
       locationProvider.initializeMapController();
       return Stack(
+        // todo check if stack is needed here
         children: [
           FlutterMap(
             mapController:

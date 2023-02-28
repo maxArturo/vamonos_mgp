@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vamonos_mgp/providers/location.dart';
 
-import '../components/main_landing_page/home/home.dart';
+import '../components/main_landing_page/home.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
