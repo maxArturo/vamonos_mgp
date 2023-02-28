@@ -10,77 +10,73 @@ class RoutesNearYouListView
 
   @override
   Widget build(BuildContext context) {
-    dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: GestureDetector(
-        onVerticalDragDown: (_) => dismissKeyboard(),
-        child: ListView.builder(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            controller: widget.scrollController,
-            itemCount: state.routes.length + 1,
-            itemBuilder: (context, idx) {
-              if (state.routes.isEmpty) {
-                return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        const Icon(
-                          Icons.block_sharp,
-                          size: 30,
-                          color: Color.fromARGB(255, 194, 63, 63),
-                        ),
-                        Text("No routes near you".toUpperCase(),
-                            style: const TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                    const SizedBox(width: 13),
-                  ],
-                );
-              }
-              if (idx == 0) {
-                return Column(children: [
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 30,
-                        height: 5,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12.0))),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+      child: ListView.builder(
+          // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          controller: widget.scrollController,
+          itemCount: state.routes.length + 1,
+          itemBuilder: (context, idx) {
+            if (state.routes.isEmpty) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
                     children: [
-                      Text("routes near you".toUpperCase(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                          )),
+                      const Icon(
+                        Icons.block_sharp,
+                        size: 30,
+                        color: Color.fromARGB(255, 194, 63, 63),
+                      ),
+                      Text("No routes near you".toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
-                  )
-                ]);
-              } else {
-                return _lineGenerator(
-                    state.routes[idx - 1].name, state.routes[idx - 1].id);
-              }
-            }),
-      ),
+                  const SizedBox(width: 13),
+                ],
+              );
+            }
+            if (idx == 0) {
+              return Column(children: [
+                const SizedBox(
+                  height: 12.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: 30,
+                      height: 5,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12.0))),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("routes near you".toUpperCase(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                        )),
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                )
+              ]);
+            } else {
+              return _lineGenerator(
+                  state.routes[idx - 1].name, state.routes[idx - 1].id);
+            }
+          }),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:vamonos_mgp/components/main_landing_page/home/home_provider.dart';
 import 'package:vamonos_mgp/providers/location.dart';
 
 class FloatingSearchBar extends StatelessWidget {
@@ -51,6 +52,10 @@ class FloatingSearchBar extends StatelessWidget {
               maxLines: 1,
               keyboardType: TextInputType.streetAddress,
               onTap: () {
+                Provider.of<HomeComponentProvider>(context, listen: false)
+                    .setSearchBarFocused(true);
+                Provider.of<HomeComponentProvider>(context, listen: false)
+                    .setDisplayedPanel(BottomPanel.searchMenu);
                 _panelController.animatePanelToPosition(
                   1.0,
                   duration: const Duration(milliseconds: 400),

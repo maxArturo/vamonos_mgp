@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vamonos_mgp/adapters/transportation_api/routes.dart';
 import 'package:vamonos_mgp/components/main_landing_page/routes_near_you_list/view.dart';
 import 'package:vamonos_mgp/entities/route_stop.dart';
-import 'package:vamonos_mgp/adapters/transportation_api/routes.dart';
 
 class RoutesNearYouList extends StatefulWidget {
   final ScrollController scrollController;
