@@ -14,7 +14,6 @@ class RoutesNearYouListView
       context: context,
       removeTop: true,
       child: ListView.builder(
-          // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           controller: widget.scrollController,
           itemCount: state.routes.length + 1,
           itemBuilder: (context, idx) {
