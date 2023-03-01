@@ -23,3 +23,11 @@ Nothing in life is free. For this app, the external services used are generously
 
 - OSM for mapping
 - [nominatim](https://nominatim.org/) for geocoding and reverse
+
+## JSON Serialization
+
+THis is handled by `json_annotation` package. Run the code generation script via
+
+```shell
+flutter pub run build_runner watch --delete-conflicting-outputs
+```

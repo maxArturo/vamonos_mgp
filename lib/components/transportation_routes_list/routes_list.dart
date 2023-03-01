@@ -42,6 +42,8 @@ class MainRoutesListController extends State<MainRoutesList> {
   }
 }
 
+typedef ViewInput = dartz.Either<AppError, List<route_entity.Route>>;
+
 class MainRoutesListView
     extends WidgetView<MainRoutesList, MainRoutesListController> {
   const MainRoutesListView(super.state, {super.key});
@@ -58,52 +60,60 @@ class MainRoutesListView
                 ))),
         const SizedBox(height: 20),
         Expanded(
-          child:
-              FutureProvider<dartz.Either<AppError, List<route_entity.Route>>>(
-            create: (context) => RouteProviderStore().allRoutes(),
-            initialData: const dartz.Right([]),
-            child: Consumer<dartz.Either<AppError, List<route_entity.Route>>>(
-              builder: (BuildContext context, value, Widget? child) =>
-                  value.fold((err) {
-                final errType = err.error;
+          child: FutureProvider<dartz.Option<ViewInput>>(
+            create: (context) => RouteProviderStore()
+                .allRoutes()
+                .then((value) => dartz.Some(value)),
+            initialData: const dartz.None(),
+            child: Consumer<dartz.Option<ViewInput>>(
+                builder: (BuildContext context, value, Widget? child) =>
+                    value.fold(
+                      () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      (value) => value.fold((err) {
+                        final errType = err.error;
 
-                return Text(
-                  "An error of type $errType occurred",
-                  style: const TextStyle(color: Colors.red),
-                );
-              },
-                      (data) => ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: data.length,
-                          itemBuilder: (context, idx) {
-                            if (data.isEmpty) {
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
+                        return Text(
+                          "An error of type $errType occurred",
+                          style: const TextStyle(color: Colors.red),
+                        );
+                      },
+                          (data) => ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: data.length,
+                              itemBuilder: (context, idx) {
+                                if (data.isEmpty) {
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Icon(
-                                        Icons.block_sharp,
-                                        size: 30,
-                                        color: Color.fromARGB(255, 194, 63, 63),
+                                      Column(
+                                        children: [
+                                          const Icon(
+                                            Icons.block_sharp,
+                                            size: 30,
+                                            color: Color.fromARGB(
+                                                255, 194, 63, 63),
+                                          ),
+                                          Text(
+                                              "No routes near you"
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                        ],
                                       ),
-                                      Text("No routes near you".toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.white)),
+                                      const SizedBox(width: 13),
                                     ],
-                                  ),
-                                  const SizedBox(width: 13),
-                                ],
-                              );
-                            }
+                                  );
+                                }
 
-                            final routeName = data[idx].name;
-                            return ListTile(
-                                title: Text("Route no: $routeName"));
-                          })),
-            ),
+                                final routeName = data[idx].name;
+                                return ListTile(
+                                    title: Text("Route no: $routeName"));
+                              })),
+                    )),
           ),
         ),
       ],

@@ -25,7 +25,7 @@ class HttpAdapter {
     _dio.interceptors.removeImplyContentTypeInterceptor();
   }
 
-  Future<Either<HttpError, Map<String, dynamic>>> post(
+  Future<Either<HttpError, dynamic>> post(
       String url, String body, Map<String, dynamic>? extraHeaders) async {
     final response = await _dio.post(url,
         data: body,
