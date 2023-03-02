@@ -1,4 +1,4 @@
-enum ErrorType { httpError }
+enum ErrorType { httpError, initializationError }
 
 abstract class AppError {
   ErrorType error;
@@ -8,6 +8,15 @@ abstract class AppError {
 
 class HttpError extends AppError {
   HttpError() : super(ErrorType.httpError);
+
+  @override
+  String toString() {
+    return error.toString();
+  }
+}
+
+class InitializationError extends AppError {
+  InitializationError() : super(ErrorType.initializationError);
 
   @override
   String toString() {
