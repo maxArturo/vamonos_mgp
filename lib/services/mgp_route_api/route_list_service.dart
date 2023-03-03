@@ -19,8 +19,9 @@ class RouteListService {
             url: routeApiUrl,
             body: 'accion=RecuperarLineaPorCuandoLlega',
             extraHeaders: {
-          ...baseApiHeaders,
-        }))
+              ...baseApiHeaders,
+            },
+            maxDuration: const Duration(seconds: 10)))
         .map((res) {
       final rawJson = jsonDecode(res);
       final apiRouteList = RoutesByArrival.fromJson(rawJson);
