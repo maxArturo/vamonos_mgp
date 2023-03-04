@@ -1,50 +1,21 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
-import 'package:vamonos_mgp/adapters/location.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/// intended to be used in Provider(s).
-class LocationProviderStore with ChangeNotifier {
-  /// flutter_map control props
-  MapController? _mapController;
-  get mapController => _mapController;
+import '../adapters/location.dart';
 
-  /// this should be called once on startup, so that this map controller is
-  /// attached to the map before any calls are made to it.
-  initializeMapController() => _mapController = MapController();
+part 'location.g.dart';
 
-  /// public map manipulation methods
-  recenterMapLocation() => updateMapLocation(latestLocationData);
-  updateMapLocation(LocationData location) {
-    _mapController!
-        .moveAndRotate(LatLng(location.latitude!, location.longitude!), 17, 0);
+@riverpod
+class GpsLocation extends _$GpsLocation {
+  @override
+  FutureOr<LocationData> build() async {
+    return getLocationData();
   }
 
-  /// this will be periodically updated from the location provider's stream
-  LocationData latestLocationData =
-      LocationData.fromMap({'latitude': 0.0, 'longitude': 0.0});
-
-  final StreamController<LocationData> _currentLocationStreamController =
-      StreamController();
-
-  LocationProviderStore() {
-    _currentLocationStreamController
-        .addStream(locationProvider.onLocationChanged);
-    _currentLocationStreamController.stream.listen((e) {
-      latestLocationData = e;
-      notifyListeners();
+  refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await getLocationData();
     });
-  }
-
-  LocationData? _displayedLocation;
-  LocationData? get displayedLocation => _displayedLocation;
-
-  Future<LocationData> get currentLocationData async {
-    latestLocationData = await getLocationData();
-    notifyListeners();
-    return latestLocationData;
   }
 }
