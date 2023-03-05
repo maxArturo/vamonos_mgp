@@ -1,4 +1,9 @@
-enum ErrorType { httpError, initializationError }
+enum ErrorType {
+  httpError,
+  initializationError,
+  permissionError,
+  serviceUnavailableError
+}
 
 abstract class AppError {
   ErrorType error;
@@ -17,6 +22,24 @@ class HttpError extends AppError {
 
 class InitializationError extends AppError {
   InitializationError() : super(ErrorType.initializationError);
+
+  @override
+  String toString() {
+    return error.toString();
+  }
+}
+
+class PermissionError extends AppError {
+  PermissionError() : super(ErrorType.permissionError);
+
+  @override
+  String toString() {
+    return error.toString();
+  }
+}
+
+class ServiceUnavailableError extends AppError {
+  ServiceUnavailableError() : super(ErrorType.serviceUnavailableError);
 
   @override
   String toString() {

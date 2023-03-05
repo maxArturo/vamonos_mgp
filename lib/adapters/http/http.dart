@@ -5,18 +5,22 @@ import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:vamonos_mgp/adapters/cache.dart';
 import 'package:vamonos_mgp/util/errors.dart';
+
+import '../cache/cache.dart';
 
 typedef HttpAdapterResponse<T> = Future<Either<HttpError, T>>;
 
 String? cacheDisabled = dotenv.env['CACHE_DISABLED'];
 
 class HttpAdapter {
-  final _dio = Dio();
+  final Dio _dio;
+  final RequestCacheInterceptor _requestCacheInterceptor;
+  final ResponseCacheInterceptor _responseCacheInterceptor;
 
-  HttpAdapter() {
-    cacheDisabled ?? _dio.interceptors.add(RequestCacheInterceptor());
+  HttpAdapter(this._dio, this._requestCacheInterceptor,
+      this._responseCacheInterceptor) {
+    cacheDisabled ?? _dio.interceptors.add(_requestCacheInterceptor);
 
     _dio.interceptors.addAll([
       RetryInterceptor(
@@ -34,7 +38,7 @@ class HttpAdapter {
     ]);
     _dio.interceptors.removeImplyContentTypeInterceptor();
 
-    cacheDisabled ?? _dio.interceptors.add(ResponseCacheInterceptor());
+    cacheDisabled ?? _dio.interceptors.add(_responseCacheInterceptor);
   }
 
   final defaultHeaders = {
@@ -73,8 +77,7 @@ class HttpAdapter {
 
 class RequestCacheInterceptor extends InterceptorsWrapper {
   final CacheAdapter _cacheAdapter;
-
-  RequestCacheInterceptor() : _cacheAdapter = CacheAdapter();
+  RequestCacheInterceptor(this._cacheAdapter);
 
   @override
   void onRequest(
@@ -95,7 +98,7 @@ class ResponseCacheInterceptor extends InterceptorsWrapper {
   final CacheAdapter _cacheAdapter;
   static const cacheMaxAgeSecondsKey = '@cache_max_age_seconds@';
 
-  ResponseCacheInterceptor() : _cacheAdapter = CacheAdapter();
+  ResponseCacheInterceptor(this._cacheAdapter);
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {

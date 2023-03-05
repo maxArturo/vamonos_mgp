@@ -3,7 +3,7 @@ targets:
     builders:
       riverpod_generator:
         generate_for:
-          - lib/providers/*.dart
+          - lib/**/*_provider.dart
       json_serializable:
         generate_for:
           - lib/transformers/**/*.dart

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'location.dart';
+part of 'map_controller_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,19 +29,23 @@ class _SystemHash {
   }
 }
 
-String _$GpsLocationHash() => r'0619bd9da4222f68979131253e191a70622724cf';
+String _$MapControllerServiceHash() =>
+    r'ec531b917ee7a24cfc1397255e8eb18d951dfa0d';
 
-/// See also [GpsLocation].
-final gpsLocationProvider =
-    AutoDisposeAsyncNotifierProvider<GpsLocation, LocationData>(
-  GpsLocation.new,
-  name: r'gpsLocationProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$GpsLocationHash,
+/// See also [MapControllerService].
+final mapControllerServiceProvider =
+    AutoDisposeAsyncNotifierProvider<MapControllerService, MapController>(
+  MapControllerService.new,
+  name: r'mapControllerServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$MapControllerServiceHash,
 );
-typedef GpsLocationRef = AutoDisposeAsyncNotifierProviderRef<LocationData>;
+typedef MapControllerServiceRef
+    = AutoDisposeAsyncNotifierProviderRef<MapController>;
 
-abstract class _$GpsLocation extends AutoDisposeAsyncNotifier<LocationData> {
+abstract class _$MapControllerService
+    extends AutoDisposeAsyncNotifier<MapController> {
   @override
-  FutureOr<LocationData> build();
+  FutureOr<MapController> build();
 }

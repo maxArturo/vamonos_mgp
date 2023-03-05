@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'hello_world.dart';
+part of 'cache_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,13 +29,13 @@ class _SystemHash {
   }
 }
 
-String _$helloWorldHash() => r'77256da853957211772f11f09214e30a1d2041a0';
+String _$cacheAdapterHash() => r'c8b7d4c9fc599b0ff59eba70d2ff64bfff4e0da0';
 
-/// See also [helloWorld].
-final helloWorldProvider = AutoDisposeProvider<String>(
-  helloWorld,
-  name: r'helloWorldProvider',
+/// See also [cacheAdapter].
+final cacheAdapterProvider = AutoDisposeProvider<CacheAdapter>(
+  cacheAdapter,
+  name: r'cacheAdapterProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$helloWorldHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cacheAdapterHash,
 );
-typedef HelloWorldRef = AutoDisposeProviderRef<String>;
+typedef CacheAdapterRef = AutoDisposeProviderRef<CacheAdapter>;
