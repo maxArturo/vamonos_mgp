@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$LocationServiceHash() => r'a685d63fe59183e4e3f5a0ac654533e28d517702';
+String _$LocationServiceHash() => r'a2a71c55e8c68cfc03e1fc1307f476774495363a';
 
 /// See also [LocationService].
 final locationServiceProvider =

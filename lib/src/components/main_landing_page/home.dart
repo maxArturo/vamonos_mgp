@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/panel_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
@@ -114,7 +114,7 @@ class RecenterMapButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
         right: 20,
-        top: _panelHeightOpen - _fabHeight - _panelHeightClosed,
+        top: _panelHeightOpen - _fabHeight - _panelHeightClosed - 20,
         child: Consumer(
           builder: (context, ref, child) => FloatingActionButton(
             onPressed: () => ref

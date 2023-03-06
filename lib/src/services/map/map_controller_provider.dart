@@ -12,12 +12,12 @@ class MapControllerService extends _$MapControllerService {
   @override
   Future<MapController> build() {
     return ref
-        .read(locationServiceProvider.future)
+        .watch(locationServiceProvider.future)
         .then((value) => MapController());
   }
 
   recenterMapLocation() => ref
-      .read(locationServiceProvider)
+      .watch(locationServiceProvider)
       .whenData((value) => updateMapLocation(value));
 
   updateMapLocation(LocationData location) {

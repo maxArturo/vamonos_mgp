@@ -9,18 +9,18 @@ part 'http_provider.g.dart';
 @Riverpod(keepAlive: true)
 Dio dio(DioRef ref) => Dio();
 
-@Riverpod(keepAlive: true)
+@riverpod
 HttpAdapter httpAdapter(HttpAdapterRef ref) => HttpAdapter(
     ref.watch(dioProvider),
     ref.watch(requestCacheInterceptorProvider),
     ref.watch(responseCacheInterceptorProvider));
 
-@Riverpod(keepAlive: true)
+@riverpod
 RequestCacheInterceptor requestCacheInterceptor(
         RequestCacheInterceptorRef ref) =>
     RequestCacheInterceptor(ref.watch(cacheAdapterProvider));
 
-@Riverpod(keepAlive: true)
+@riverpod
 ResponseCacheInterceptor responseCacheInterceptor(
         ResponseCacheInterceptorRef ref) =>
     ResponseCacheInterceptor(ref.watch(cacheAdapterProvider));

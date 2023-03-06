@@ -66,35 +66,43 @@ class MainRoutesListView
                   style: const TextStyle(color: Colors.red),
                 );
               },
-                  (data) => ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: data.length,
-                      itemBuilder: (context, idx) {
-                        if (data.isEmpty) {
-                          return Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  const Icon(
-                                    Icons.block_sharp,
-                                    size: 30,
-                                    color: Color.fromARGB(255, 194, 63, 63),
-                                  ),
-                                  Text("No routes near you".toUpperCase(),
-                                      style:
-                                          const TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                              const SizedBox(width: 13),
-                            ],
-                          );
-                        }
+                  (data) => RefreshIndicator(
+                        onRefresh: () =>
+                            ref.refresh(latestRouteListProvider.future),
+                        child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            itemCount: data.length,
+                            itemBuilder: (context, idx) {
+                              if (data.isEmpty) {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Icon(
+                                          Icons.block_sharp,
+                                          size: 30,
+                                          color:
+                                              Color.fromARGB(255, 194, 63, 63),
+                                        ),
+                                        Text("No routes near you".toUpperCase(),
+                                            style: const TextStyle(
+                                                color: Colors.white)),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 13),
+                                  ],
+                                );
+                              }
 
-                        final routeName = data[idx].name;
-                        return ListTile(title: Text("Route no: $routeName"));
-                      })),
+                              final routeName = data[idx].name;
+                              return ListTile(
+                                  title: Text("Route no: $routeName"));
+                            }),
+                      )),
               loading: () => const Center(
                 child: CircularProgressIndicator(),
               ),

@@ -1,8 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
@@ -68,7 +67,7 @@ class HttpAdapter {
     final Response<dynamic> response =
         await _dio.post(url, data: body, options: requestOptions);
 
-    if (response.statusCode != 200) {
+    if (defaultRetryableStatuses.contains(response.statusCode)) {
       return Left(HttpError());
     }
     return Right(response.data);
@@ -82,12 +81,14 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    final key = options.uri.toString() + options.data.toString();
+    final key = "${options.uri}_${options.data}";
     final cacheResponse = (await _cacheAdapter.getFile(key));
     return cacheResponse.fold(() => super.onRequest(options, handler),
         (file) async {
+      debugPrint("cache found for $file");
       return handler.resolve(Response(
         requestOptions: options,
+        statusCode: 304,
         data: (await file.readAsString()),
       ));
     });
@@ -107,9 +108,9 @@ class ResponseCacheInterceptor extends InterceptorsWrapper {
     final responseData = Uint8List.fromList(response.data.toString().codeUnits);
 
     _cacheAdapter.putFile(
-        response.realUri.toString() + response.requestOptions.data.toString(),
-        responseData,
-        maxAge: cacheDuration ? Duration(seconds: cacheDuration) : null);
+        "${response.realUri}_${response.requestOptions.data}", responseData,
+        maxAge:
+            (cacheDuration != null) ? Duration(seconds: cacheDuration) : null);
 
     super.onResponse(response, handler);
   }

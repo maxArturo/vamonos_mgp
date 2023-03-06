@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'route_list_provider.dart';
+part of 'widget_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,13 +29,15 @@ class _SystemHash {
   }
 }
 
-String _$routeListHash() => r'48eb2061ad957493ab0e61cb9ecf65a91c73551a';
+String _$navigationMapViewWidgetHash() =>
+    r'd9d06b8c456593c31bc970efc425e3f612f8dcf2';
 
-/// See also [routeList].
-final routeListProvider = AutoDisposeProvider<RouteListService>(
-  routeList,
-  name: r'routeListProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routeListHash,
+/// See also [navigationMapViewWidget].
+final navigationMapViewWidgetProvider = AutoDisposeProvider<Widget>(
+  navigationMapViewWidget,
+  name: r'navigationMapViewWidgetProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$navigationMapViewWidgetHash,
 );
-typedef RouteListRef = AutoDisposeProviderRef<RouteListService>;
+typedef NavigationMapViewWidgetRef = AutoDisposeProviderRef<Widget>;

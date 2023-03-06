@@ -32,7 +32,6 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: Text('Map Search'.toUpperCase()),
             onTap: () {
-              debugPrint("map search tapped");
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const HomePage()));
               // Navigator.pop(context);
@@ -41,7 +40,6 @@ class HomeDrawer extends StatelessWidget {
           ListTile(
             title: Text('Route List'.toUpperCase()),
             onTap: () {
-              debugPrint("route list tapped");
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const MainRoutesPage()));
               // Navigator.pop(context);

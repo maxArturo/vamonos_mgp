@@ -13,7 +13,13 @@ class CacheAdapter {
 
   Future<Option<File>> getFile(String key) async {
     final response = await _cacheManager.getFileFromCache(key);
-    return Option.when(response != null, response!.file);
+    final validTill = response?.validTill;
+
+    if (validTill != null && DateTime.now().compareTo(validTill) >= 0) {
+      return none();
+    }
+
+    return optionOf(response).map((a) => a.file);
   }
 
   Future<File> putFile(String key, Uint8List bytes,

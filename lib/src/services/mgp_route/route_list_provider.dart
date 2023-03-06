@@ -7,7 +7,7 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'route_list_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 RouteListService routeList(RouteListRef ref) {
   return RouteListService(ref.watch(httpAdapterProvider));
 }

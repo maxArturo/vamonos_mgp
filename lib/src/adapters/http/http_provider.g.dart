@@ -39,37 +39,41 @@ final dioProvider = Provider<Dio>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
 );
 typedef DioRef = ProviderRef<Dio>;
-String _$httpAdapterHash() => r'53f61402515cbfa6fbcd6ebeb4eb8c295887aae8';
+String _$httpAdapterHash() => r'51656d77e206ff017e06704af9f4d6bd76119470';
 
 /// See also [httpAdapter].
-final httpAdapterProvider = Provider<HttpAdapter>(
+final httpAdapterProvider = AutoDisposeProvider<HttpAdapter>(
   httpAdapter,
   name: r'httpAdapterProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$httpAdapterHash,
 );
-typedef HttpAdapterRef = ProviderRef<HttpAdapter>;
+typedef HttpAdapterRef = AutoDisposeProviderRef<HttpAdapter>;
 String _$requestCacheInterceptorHash() =>
-    r'cfb66a875d9b35c164637071ed7b1e2ba80a6b71';
+    r'2cd7e3095b5b5b7774086426ee603f5a6ab206e6';
 
 /// See also [requestCacheInterceptor].
-final requestCacheInterceptorProvider = Provider<RequestCacheInterceptor>(
+final requestCacheInterceptorProvider =
+    AutoDisposeProvider<RequestCacheInterceptor>(
   requestCacheInterceptor,
   name: r'requestCacheInterceptorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$requestCacheInterceptorHash,
 );
-typedef RequestCacheInterceptorRef = ProviderRef<RequestCacheInterceptor>;
+typedef RequestCacheInterceptorRef
+    = AutoDisposeProviderRef<RequestCacheInterceptor>;
 String _$responseCacheInterceptorHash() =>
-    r'f2d1d2365370d44f175689fd3657f8d05f8bd04f';
+    r'9844437c86934f2fc905581296dff17a56c53a3b';
 
 /// See also [responseCacheInterceptor].
-final responseCacheInterceptorProvider = Provider<ResponseCacheInterceptor>(
+final responseCacheInterceptorProvider =
+    AutoDisposeProvider<ResponseCacheInterceptor>(
   responseCacheInterceptor,
   name: r'responseCacheInterceptorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$responseCacheInterceptorHash,
 );
-typedef ResponseCacheInterceptorRef = ProviderRef<ResponseCacheInterceptor>;
+typedef ResponseCacheInterceptorRef
+    = AutoDisposeProviderRef<ResponseCacheInterceptor>;
