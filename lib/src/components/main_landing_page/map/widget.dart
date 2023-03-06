@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vamonos_mgp/src/adapters/map_tile/map_tile_provider.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 
 class NavigationMapView extends StatelessWidget {
@@ -42,11 +43,13 @@ class NavigationMapView extends StatelessWidget {
             ),
           ],
           children: [
-            // WIP HERE!
-            NetworkTileProvider()
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              userAgentPackageName: 'com.ar.vamonosmpg.app',
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) =>
+                  TileLayer(
+                tileProvider: ref.watch(cachedTileAdapterProvider),
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.ar.vamonosmpg.app',
+              ),
             ),
             Consumer(
               builder: (context, ref, child) {

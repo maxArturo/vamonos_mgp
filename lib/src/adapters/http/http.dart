@@ -16,9 +16,10 @@ class HttpAdapter {
   final Dio _dio;
   final RequestCacheInterceptor _requestCacheInterceptor;
   final ResponseCacheInterceptor _responseCacheInterceptor;
+  final Map<String, String> _defaultHeaders;
 
   HttpAdapter(this._dio, this._requestCacheInterceptor,
-      this._responseCacheInterceptor) {
+      this._responseCacheInterceptor, this._defaultHeaders) {
     cacheDisabled ?? _dio.interceptors.add(_requestCacheInterceptor);
 
     _dio.interceptors.addAll([
@@ -40,12 +41,6 @@ class HttpAdapter {
     cacheDisabled ?? _dio.interceptors.add(_responseCacheInterceptor);
   }
 
-  final defaultHeaders = {
-    'User-Agent': 'com.vamonos-mgp.app',
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "en-US,en;q=0.5",
-  };
-
   HttpAdapterResponse<dynamic> post({
     required String url,
     required String body,
@@ -54,7 +49,7 @@ class HttpAdapter {
   }) async {
     final requestOptions = Options(
         headers: {
-          ...defaultHeaders,
+          ..._defaultHeaders,
           ...extraHeaders ?? {},
         },
         extra: maxDuration != null

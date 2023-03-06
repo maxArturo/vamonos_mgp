@@ -39,7 +39,18 @@ final dioProvider = Provider<Dio>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
 );
 typedef DioRef = ProviderRef<Dio>;
-String _$httpAdapterHash() => r'51656d77e206ff017e06704af9f4d6bd76119470';
+String _$defaultHeadersHash() => r'8a69837ca3192ac6b2d6ae37b1a8da9b27d10108';
+
+/// See also [defaultHeaders].
+final defaultHeadersProvider = AutoDisposeProvider<Map<String, String>>(
+  defaultHeaders,
+  name: r'defaultHeadersProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$defaultHeadersHash,
+);
+typedef DefaultHeadersRef = AutoDisposeProviderRef<Map<String, String>>;
+String _$httpAdapterHash() => r'50cf087750e0663b6bc190fac0663939b2d336bf';
 
 /// See also [httpAdapter].
 final httpAdapterProvider = AutoDisposeProvider<HttpAdapter>(

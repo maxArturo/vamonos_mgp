@@ -45,6 +45,8 @@ dependencies:
 
   # generic cache manager
   flutter_cache_manager: ^3.3.0
+  # specific image cache manager
+  cached_network_image: ^3.2.3
 
   # functional utilites
   dartz: ^0.10.1
