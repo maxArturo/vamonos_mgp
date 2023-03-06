@@ -10,7 +10,7 @@ part 'http_provider.g.dart';
 @Riverpod(keepAlive: true)
 Dio dio(DioRef ref) => Dio();
 
-@riverpod
+@Riverpod(keepAlive: true)
 Map<String, String> defaultHeaders(DefaultHeadersRef ref) =>
     config.defaultHeaders;
 

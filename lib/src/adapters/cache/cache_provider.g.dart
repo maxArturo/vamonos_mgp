@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$cacheAdapterHash() => r'd5fed085b6e106c16f749498bc397b94ff43cc0e';
+String _$cacheAdapterHash() => r'1442335eccf5810fa98a05887996600acbf0b125';
 
 /// See also [cacheAdapter].
 final cacheAdapterProvider = Provider<CacheAdapter>(

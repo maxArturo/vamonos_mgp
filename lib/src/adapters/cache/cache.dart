@@ -7,9 +7,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class CacheAdapter {
   final CacheManager _cacheManager;
 
-  CacheAdapter()
-      : _cacheManager = CacheManager(
-            Config('vamonos_mgp_cache', stalePeriod: const Duration(hours: 1)));
+  CacheAdapter(this._cacheManager);
 
   Future<Option<File>> getFile(String key) async {
     final response = await _cacheManager.getFileFromCache(key);

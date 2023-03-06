@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'map_tile_provider.dart';
+part of 'base_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-String _$cachedTileAdapterHash() => r'd34bf40b28ed6719faf3ba8fbb96185d49eb5503';
+String _$baseCacheManagerHash() => r'2eb0db535b9c25d62f7b58a0b883dac7b2c2effe';
 
-/// See also [cachedTileAdapter].
-final cachedTileAdapterProvider = AutoDisposeProvider<CachedTileAdapter>(
-  cachedTileAdapter,
-  name: r'cachedTileAdapterProvider',
+/// See also [baseCacheManager].
+final baseCacheManagerProvider = Provider<CacheManager>(
+  baseCacheManager,
+  name: r'baseCacheManagerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$cachedTileAdapterHash,
+      : _$baseCacheManagerHash,
 );
-typedef CachedTileAdapterRef = AutoDisposeProviderRef<CachedTileAdapter>;
+typedef BaseCacheManagerRef = ProviderRef<CacheManager>;
