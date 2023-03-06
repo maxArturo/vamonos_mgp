@@ -4,6 +4,6 @@ targets:
       riverpod_generator:
         generate_for:
           - lib/**/*_provider.dart
-      json_serializable:
+      freezed:
         generate_for:
-          - lib/transformers/**/*.dart
+          - lib/**/*_model.dart
