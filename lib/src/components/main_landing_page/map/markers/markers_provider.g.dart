@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'widget_provider.dart';
+part of 'markers_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,26 +29,15 @@ class _SystemHash {
   }
 }
 
-String _$navigationMapViewWidgetHash() =>
-    r'd9d06b8c456593c31bc970efc425e3f612f8dcf2';
+String _$allMarkersHash() => r'81e62655bf068d779616638f8c4cd586b36b9d69';
 
-/// See also [navigationMapViewWidget].
-final navigationMapViewWidgetProvider = AutoDisposeProvider<Widget>(
-  navigationMapViewWidget,
-  name: r'navigationMapViewWidgetProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$navigationMapViewWidgetHash,
+/// See also [allMarkers].
+final allMarkersProvider =
+    AutoDisposeFutureProvider<Either<AppError, List<Marker>>>(
+  allMarkers,
+  name: r'allMarkersProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$allMarkersHash,
 );
-typedef NavigationMapViewWidgetRef = AutoDisposeProviderRef<Widget>;
-String _$popupControllerHash() => r'1c6a3254b4e0ae38bf31122e1c3102483f1a2de3';
-
-/// See also [popupController].
-final popupControllerProvider = AutoDisposeProvider<PopupController>(
-  popupController,
-  name: r'popupControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$popupControllerHash,
-);
-typedef PopupControllerRef = AutoDisposeProviderRef<PopupController>;
+typedef AllMarkersRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<Marker>>>;

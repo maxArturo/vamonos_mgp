@@ -24,8 +24,8 @@ LandmarkService landMarkService(LandMarkServiceRef ref) {
 }
 
 @riverpod
-Future<Either<AppError, List<RouteStopLandMark>>> allLandMarksByProvider(
-        AllLandMarksByProviderRef ref,
+Future<Either<AppError, List<RouteStopLandMark>>> allLandMarksBySource(
+        AllLandMarksBySourceRef ref,
         {required TransportationProvider provider}) =>
     ref.watch(landMarkServiceProvider).allLandMarksByProvider(
         TransportationProvider.municipioGeneralPurreydon);

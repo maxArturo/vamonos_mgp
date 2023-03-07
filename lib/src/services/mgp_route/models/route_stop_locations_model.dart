@@ -32,10 +32,10 @@ class RouteGeoData with _$RouteGeoData {
           required bool isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required String description,
-      @JsonKey(name: 'Latitude')
-          required num latitude,
+      @JsonKey(name: 'Latitud')
+          num? latitude,
       @JsonKey(name: 'Longitud')
-          required num longitude}) = _RouteGeoData;
+          num? longitude}) = _RouteGeoData;
 
   factory RouteGeoData.fromJson(Map<String, Object?> json) =>
       _$RouteGeoDataFromJson(json);

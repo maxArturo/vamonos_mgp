@@ -29,11 +29,12 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   quiver: ^3.2.1
+  concurrent_queue: ^1.4.0
 
   # map dependencies
   latlong2: ^0.8.1
-  flutter_map: any
-  flutter_map_marker_cluster: ^1.0.2
+  flutter_map: 3.1.0
+  flutter_map_marker_cluster: 1.0.1
   location: ^4.2.0
 
   sliding_up_panel: ^2.0.0+1

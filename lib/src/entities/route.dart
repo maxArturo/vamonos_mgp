@@ -4,5 +4,6 @@ class Route {
   final TransportationMode mode;
   final String name;
   final String id;
-  Route(this.mode, this.id, this.name);
+
+  Route({required this.mode, required this.id, required this.name});
 }

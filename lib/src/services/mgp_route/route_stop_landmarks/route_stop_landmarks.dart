@@ -27,18 +27,19 @@ class RouteStopLandMarks {
             extraHeaders: {
               ...baseApiHeaders,
             },
-            maxDuration: const Duration(seconds: 30)))
+            maxDuration: const Duration(seconds: 600)))
         .flatMap((response) {
       try {
         final rawJson = jsonDecode(response);
         final routeStopList = RouteStopLocations.fromJson(rawJson);
-        return Right(routeStopList.routes
-            .map((r) => RouteStopLandMark(
-                route: route,
-                isStoppingPoint: r.isCrossingPoint,
-                location: LocationData.fromMap(
-                    {'latitude': r.latitude, 'longitude': r.longitude})))
-            .toList());
+        return Right(routeStopList.routes.map((r) {
+          final bigAns = RouteStopLandMark(
+              route: route,
+              isStoppingPoint: r.isCrossingPoint,
+              location: LocationData.fromMap(
+                  {'latitude': r.latitude, 'longitude': r.longitude}));
+          return bigAns;
+        }).toList());
       } catch (e) {
         return Left(ParsingError());
       }

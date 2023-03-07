@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
@@ -15,3 +16,6 @@ Widget navigationMapViewWidget(NavigationMapViewWidgetRef ref) {
           orElse: () => const Text("An error occurred fetching location data")),
       orElse: () => const Text("An error occurred fetching location data"));
 }
+
+@riverpod
+PopupController popupController(PopupControllerRef ref) => PopupController();

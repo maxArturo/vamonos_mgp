@@ -245,10 +245,10 @@ mixin _$RouteGeoData {
   bool get isCrossingPoint => throw _privateConstructorUsedError;
   @JsonKey(name: 'Descripcion', fromJson: _toString)
   String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Latitude')
-  num get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Latitud')
+  num? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'Longitud')
-  num get longitude => throw _privateConstructorUsedError;
+  num? get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -271,10 +271,10 @@ abstract class $RouteGeoDataCopyWith<$Res> {
           bool isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           String description,
-      @JsonKey(name: 'Latitude')
-          num latitude,
+      @JsonKey(name: 'Latitud')
+          num? latitude,
       @JsonKey(name: 'Longitud')
-          num longitude});
+          num? longitude});
 }
 
 /// @nodoc
@@ -294,8 +294,8 @@ class _$RouteGeoDataCopyWithImpl<$Res, $Val extends RouteGeoData>
     Object? lineAbbreviation = null,
     Object? isCrossingPoint = null,
     Object? description = null,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
       stopAbbreviation: null == stopAbbreviation
@@ -314,14 +314,14 @@ class _$RouteGeoDataCopyWithImpl<$Res, $Val extends RouteGeoData>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as num,
-      longitude: null == longitude
+              as num?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as num,
+              as num?,
     ) as $Val);
   }
 }
@@ -343,10 +343,10 @@ abstract class _$$_RouteGeoDataCopyWith<$Res>
           bool isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           String description,
-      @JsonKey(name: 'Latitude')
-          num latitude,
+      @JsonKey(name: 'Latitud')
+          num? latitude,
       @JsonKey(name: 'Longitud')
-          num longitude});
+          num? longitude});
 }
 
 /// @nodoc
@@ -364,8 +364,8 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
     Object? lineAbbreviation = null,
     Object? isCrossingPoint = null,
     Object? description = null,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_$_RouteGeoData(
       stopAbbreviation: null == stopAbbreviation
@@ -384,14 +384,14 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      latitude: null == latitude
+      latitude: freezed == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as num,
-      longitude: null == longitude
+              as num?,
+      longitude: freezed == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as num,
+              as num?,
     ));
   }
 }
@@ -408,10 +408,10 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
           required this.isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required this.description,
-      @JsonKey(name: 'Latitude')
-          required this.latitude,
+      @JsonKey(name: 'Latitud')
+          this.latitude,
       @JsonKey(name: 'Longitud')
-          required this.longitude});
+          this.longitude});
 
   factory _$_RouteGeoData.fromJson(Map<String, dynamic> json) =>
       _$$_RouteGeoDataFromJson(json);
@@ -429,11 +429,11 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
   @JsonKey(name: 'Descripcion', fromJson: _toString)
   final String description;
   @override
-  @JsonKey(name: 'Latitude')
-  final num latitude;
+  @JsonKey(name: 'Latitud')
+  final num? latitude;
   @override
   @JsonKey(name: 'Longitud')
-  final num longitude;
+  final num? longitude;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -501,10 +501,10 @@ abstract class _RouteGeoData implements RouteGeoData {
           required final bool isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required final String description,
-      @JsonKey(name: 'Latitude')
-          required final num latitude,
+      @JsonKey(name: 'Latitud')
+          final num? latitude,
       @JsonKey(name: 'Longitud')
-          required final num longitude}) = _$_RouteGeoData;
+          final num? longitude}) = _$_RouteGeoData;
 
   factory _RouteGeoData.fromJson(Map<String, dynamic> json) =
       _$_RouteGeoData.fromJson;
@@ -522,11 +522,11 @@ abstract class _RouteGeoData implements RouteGeoData {
   @JsonKey(name: 'Descripcion', fromJson: _toString)
   String get description;
   @override
-  @JsonKey(name: 'Latitude')
-  num get latitude;
+  @JsonKey(name: 'Latitud')
+  num? get latitude;
   @override
   @JsonKey(name: 'Longitud')
-  num get longitude;
+  num? get longitude;
   @override
   @JsonKey(ignore: true)
   _$$_RouteGeoDataCopyWith<_$_RouteGeoData> get copyWith =>

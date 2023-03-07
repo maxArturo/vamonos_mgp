@@ -78,8 +78,10 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final key = "${options.uri}_${options.data}";
     final cacheResponse = (await _cacheAdapter.getFile(key));
-    return cacheResponse.fold(() => super.onRequest(options, handler),
-        (file) async {
+    return cacheResponse.fold(() {
+      debugPrint("cache missed for $key");
+      return super.onRequest(options, handler);
+    }, (file) async {
       debugPrint("cache found for $file");
       return handler.resolve(Response(
         requestOptions: options,

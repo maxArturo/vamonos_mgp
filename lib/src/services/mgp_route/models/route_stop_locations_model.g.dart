@@ -30,8 +30,8 @@ _$_RouteGeoData _$$_RouteGeoDataFromJson(Map<String, dynamic> json) =>
       lineAbbreviation: _toString(json['AbreviaturaLineaSMP']),
       isCrossingPoint: json['IsPuntoPaso'] as bool,
       description: _toString(json['Descripcion']),
-      latitude: json['Latitude'] as num,
-      longitude: json['Longitud'] as num,
+      latitude: json['Latitud'] as num?,
+      longitude: json['Longitud'] as num?,
     );
 
 Map<String, dynamic> _$$_RouteGeoDataToJson(_$_RouteGeoData instance) =>
@@ -40,6 +40,6 @@ Map<String, dynamic> _$$_RouteGeoDataToJson(_$_RouteGeoData instance) =>
       'AbreviaturaLineaSMP': instance.lineAbbreviation,
       'IsPuntoPaso': instance.isCrossingPoint,
       'Descripcion': instance.description,
-      'Latitude': instance.latitude,
+      'Latitud': instance.latitude,
       'Longitud': instance.longitude,
     };

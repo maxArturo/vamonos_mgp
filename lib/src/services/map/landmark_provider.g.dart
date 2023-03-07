@@ -40,33 +40,32 @@ final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
       : _$landMarkServiceHash,
 );
 typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
-String _$allLandMarksByProviderHash() =>
-    r'd9a48df564fa4bd5f4ef626ccf9bc071fb14efa4';
+String _$allLandMarksBySourceHash() =>
+    r'e8387b739b6d26d1f20a2d2034a4e3f1e387aa5f';
 
-/// See also [allLandMarksByProvider].
-class AllLandMarksByProviderProvider extends AutoDisposeFutureProvider<
+/// See also [allLandMarksBySource].
+class AllLandMarksBySourceProvider extends AutoDisposeFutureProvider<
     Either<AppError, List<RouteStopLandMark>>> {
-  AllLandMarksByProviderProvider({
+  AllLandMarksBySourceProvider({
     required this.provider,
   }) : super(
-          (ref) => allLandMarksByProvider(
+          (ref) => allLandMarksBySource(
             ref,
             provider: provider,
           ),
-          from: allLandMarksByProviderProvider,
-          name: r'allLandMarksByProviderProvider',
+          from: allLandMarksBySourceProvider,
+          name: r'allLandMarksBySourceProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$allLandMarksByProviderHash,
+                  : _$allLandMarksBySourceHash,
         );
 
   final TransportationProvider provider;
 
   @override
   bool operator ==(Object other) {
-    return other is AllLandMarksByProviderProvider &&
-        other.provider == provider;
+    return other is AllLandMarksBySourceProvider && other.provider == provider;
   }
 
   @override
@@ -78,20 +77,20 @@ class AllLandMarksByProviderProvider extends AutoDisposeFutureProvider<
   }
 }
 
-typedef AllLandMarksByProviderRef
+typedef AllLandMarksBySourceRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStopLandMark>>>;
 
-/// See also [allLandMarksByProvider].
-final allLandMarksByProviderProvider = AllLandMarksByProviderFamily();
+/// See also [allLandMarksBySource].
+final allLandMarksBySourceProvider = AllLandMarksBySourceFamily();
 
-class AllLandMarksByProviderFamily
+class AllLandMarksBySourceFamily
     extends Family<AsyncValue<Either<AppError, List<RouteStopLandMark>>>> {
-  AllLandMarksByProviderFamily();
+  AllLandMarksBySourceFamily();
 
-  AllLandMarksByProviderProvider call({
+  AllLandMarksBySourceProvider call({
     required TransportationProvider provider,
   }) {
-    return AllLandMarksByProviderProvider(
+    return AllLandMarksBySourceProvider(
       provider: provider,
     );
   }
@@ -99,7 +98,7 @@ class AllLandMarksByProviderFamily
   @override
   AutoDisposeFutureProvider<Either<AppError, List<RouteStopLandMark>>>
       getProviderOverride(
-    covariant AllLandMarksByProviderProvider provider,
+    covariant AllLandMarksBySourceProvider provider,
   ) {
     return call(
       provider: provider.provider,
@@ -113,5 +112,5 @@ class AllLandMarksByProviderFamily
   List<ProviderOrFamily>? get dependencies => null;
 
   @override
-  String? get name => r'allLandMarksByProviderProvider';
+  String? get name => r'allLandMarksBySourceProvider';
 }

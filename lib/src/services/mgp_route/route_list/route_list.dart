@@ -23,13 +23,13 @@ class RouteListService {
             extraHeaders: {
               ...baseApiHeaders,
             },
-            maxDuration: const Duration(seconds: 30)))
+            maxDuration: const Duration(days: 1)))
         .map((res) {
       final rawJson = jsonDecode(res);
       final apiRouteList = RoutesByArrival.fromJson(rawJson);
       return apiRouteList.routes
           .map((e) => entity.Route(
-              TransportationMode.bus, e.description, e.description))
+              mode: TransportationMode.bus, name: e.description, id: e.code))
           .toList();
     });
   }

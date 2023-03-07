@@ -1,3 +1,4 @@
+import 'package:concurrent_queue/concurrent_queue.dart';
 import 'package:dartz/dartz.dart';
 import 'package:quiver/iterables.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
@@ -16,32 +17,42 @@ class LandmarkService {
       {required this.routeStopLandMarksById,
       required this.getAllAvailableRoutes});
 
+  final queue = ConcurrentQueue(concurrency: 2);
+
   /// Gets all landmarks available, depending on provider implementation
   Future<Either<AppError, List<RouteStopLandMark>>> allLandMarksByProvider(
       TransportationProvider provider) async {
     switch (provider) {
       case TransportationProvider.municipioGeneralPurreydon:
         final allRoutes = await getAllAvailableRoutes();
-
         final allLandmarks = allRoutes.map((routesList) async {
-          final chunks = partition(routesList, 3);
-          final futures = chunks.map(
-              (chunk) => chunk.map((route) => routeStopLandMarksById(route)));
+          final landmarksByRoute = await queue.addAll(
+              routesList.map((r) => () => routeStopLandMarksById(r)).toList());
 
-          Either<AppError, List<RouteStopLandMark>> result = const Right([]);
+          final res = landmarksByRoute
+              .reduce((value, element) => value.flatMap((prev) => element.map(
+                    (r) => [...prev, ...r],
+                  )));
+          return res;
 
-          for (final chunk in futures) {
-            final routeLandmarkData = await Future.wait(chunk);
-            final reduced = routeLandmarkData.reduce((value, element) =>
-                value.flatMap((currentLandmarks) => element.map(
-                      (newLandmarks) => [...newLandmarks, ...currentLandmarks],
-                    )));
+          // final chunks = partition(routesList, 3);
+          // final futures = chunks.map(
+          //     (chunk) => chunk.map((route) => routeStopLandMarksById(route)));
 
-            result = result.flatMap((landmarksList) =>
-                reduced.map((r) => [...r, ...landmarksList]));
-          }
+          // Either<AppError, List<RouteStopLandMark>> result = const Right([]);
 
-          return result;
+          // for (final chunk in futures) {
+          //   final routeLandmarkData = await Future.wait(chunk);
+          //   final reduced = routeLandmarkData.reduce((value, element) =>
+          //       value.flatMap((currentLandmarks) => element.map(
+          //             (newLandmarks) => [...newLandmarks, ...currentLandmarks],
+          //           )));
+
+          //   result = result.flatMap((landmarksList) =>
+          //       reduced.map((r) => [...r, ...landmarksList]));
+          // }
+
+          // return result;
         });
 
         return (await allLandmarks.traverseFuture((r) async => (await r)))

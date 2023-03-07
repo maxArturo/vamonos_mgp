@@ -6,7 +6,7 @@ import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as route_entity;
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
-import 'package:vamonos_mgp/src/services/mgp_route/route_list_provider.dart';
+import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 class MainRoutesPage extends StatelessWidget {
