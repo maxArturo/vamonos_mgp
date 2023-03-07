@@ -18,23 +18,28 @@ class RoutesNearYouListView
           itemCount: state.routes.length + 1,
           itemBuilder: (context, idx) {
             if (state.routes.isEmpty) {
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      const Icon(
-                        Icons.block_sharp,
-                        size: 30,
-                        color: Color.fromARGB(255, 194, 63, 63),
-                      ),
-                      Text("No routes near you".toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                  const SizedBox(width: 13),
-                ],
+              return Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        const Icon(
+                          Icons.block_sharp,
+                          size: 30,
+                          color: Color.fromARGB(255, 194, 63, 63),
+                        ),
+                        const SizedBox(height: 30),
+                        Text("No routes near you".toUpperCase(),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 30)),
+                      ],
+                    ),
+                    const SizedBox(width: 13),
+                  ],
+                ),
               );
             }
             if (idx == 0) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
@@ -75,7 +76,11 @@ class NavigationMapView extends StatelessWidget {
                           size: 40,
                         ));
               },
-            )
+            ),
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) =>
+                  MarkerClusterLayerOptions(builder: builder),
+            ),
           ],
         )
       ],

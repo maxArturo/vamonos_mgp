@@ -8,7 +8,7 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 import '../cache/cache.dart';
 
-typedef HttpAdapterResponse<T> = Future<Either<HttpError, T>>;
+typedef HttpAdapterResponse<T> = Future<Either<AppError, T>>;
 
 String? cacheDisabled = dotenv.env['CACHE_DISABLED'];
 

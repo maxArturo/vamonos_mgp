@@ -2,7 +2,8 @@ enum ErrorType {
   httpError,
   initializationError,
   permissionError,
-  serviceUnavailableError
+  serviceUnavailableError,
+  parsingError
 }
 
 abstract class AppError {
@@ -40,6 +41,15 @@ class PermissionError extends AppError {
 
 class ServiceUnavailableError extends AppError {
   ServiceUnavailableError() : super(ErrorType.serviceUnavailableError);
+
+  @override
+  String toString() {
+    return error.toString();
+  }
+}
+
+class ParsingError extends AppError {
+  ParsingError() : super(ErrorType.parsingError);
 
   @override
   String toString() {
