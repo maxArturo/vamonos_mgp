@@ -29,15 +29,15 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersHash() => r'81e62655bf068d779616638f8c4cd586b36b9d69';
+String _$allMarkersHash() => r'b1312a4f7b664b1161fd740bec46d32545e0fd07';
 
 /// See also [allMarkers].
 final allMarkersProvider =
-    AutoDisposeFutureProvider<Either<AppError, List<Marker>>>(
+    AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>(
   allMarkers,
   name: r'allMarkersProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$allMarkersHash,
 );
 typedef AllMarkersRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<Marker>>>;
+    = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;

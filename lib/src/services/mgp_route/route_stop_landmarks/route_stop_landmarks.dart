@@ -27,7 +27,7 @@ class RouteStopLandMarks {
             extraHeaders: {
               ...baseApiHeaders,
             },
-            maxDuration: const Duration(seconds: 600)))
+            maxDuration: const Duration(days: 1)))
         .flatMap((response) {
       try {
         final rawJson = jsonDecode(response);

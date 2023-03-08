@@ -9,19 +9,21 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 part 'markers_provider.g.dart';
 
 @riverpod
-Future<Either<AppError, List<Marker>>> allMarkers(AllMarkersRef ref) async {
+Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
   final allLandmarksResponse = ref.watch(allLandMarksBySourceProvider(
       provider: TransportationProvider.municipioGeneralPurreydon));
 
   return allLandmarksResponse.maybeWhen(
       data: (data) {
-        final response = data.flatMap<List<Marker>>((landmarks) {
+        final response = data.flatMap<List<StopMarker>>((landmarks) {
           try {
             final theThing = landmarks
                 .where((el) =>
                     el.location.latitude != null &&
-                    el.location.longitude != null)
-                .map((landmark) => toMarker(landmark))
+                    el.location.longitude != null &&
+                    !el.isStoppingPoint)
+                .map((landmark) =>
+                    StopMarker(stopName: "NO NAME YET", landmark: landmark))
                 .toList();
             return Right(theThing);
           } catch (e) {

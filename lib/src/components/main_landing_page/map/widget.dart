@@ -6,6 +6,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vamonos_mgp/src/adapters/map_tile/map_tile_provider.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget_provider.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
@@ -106,18 +107,21 @@ class NavigationMapView extends StatelessWidget {
                                         popupSnap: PopupSnap.markerTop,
                                         popupController:
                                             ref.watch(popupControllerProvider),
-                                        popupBuilder: (_, marker) => Container(
-                                              width: 200,
-                                              height: 100,
-                                              color: Colors.white,
-                                              child: GestureDetector(
-                                                onTap: () =>
-                                                    debugPrint('Popup tap!'),
-                                                child: Text(
-                                                  'Container popup for marker at ${marker.point}',
-                                                ),
+                                        popupBuilder: (_, marker) {
+                                          final stopMarker =
+                                              marker as StopMarker;
+                                          return Container(
+                                            width: 200,
+                                            height: 100,
+                                            color: Colors.white,
+                                            child: GestureDetector(
+                                              child: Text(
+                                                "Route Name: ${stopMarker.landmark.route.name}\n"
+                                                "Stop Name: ${stopMarker.stopName}",
                                               ),
-                                            )),
+                                            ),
+                                          );
+                                        }),
                                     builder: (context, markers) {
                                       return Container(
                                         decoration: BoxDecoration(
