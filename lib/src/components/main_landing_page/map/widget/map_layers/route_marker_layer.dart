@@ -6,7 +6,7 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 
-routeMarkerLayer() {
+stopMarkerLayer() {
   return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) =>
           ref.watch(allMarkersProvider).maybeWhen(

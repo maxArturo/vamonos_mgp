@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
@@ -22,8 +21,8 @@ Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
                     el.location.latitude != null &&
                     el.location.longitude != null &&
                     !el.isStoppingPoint)
-                .map((landmark) =>
-                    StopMarker(stopName: "NO NAME YET", landmark: landmark))
+                .map((landmark) => StopMarker(
+                    stopName: landmark.route.direction, landmark: landmark))
                 .toList();
             return Right(theThing);
           } catch (e) {

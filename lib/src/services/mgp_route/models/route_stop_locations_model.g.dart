@@ -26,7 +26,7 @@ Map<String, dynamic> _$$_RouteStopLocationsToJson(
 
 _$_RouteGeoData _$$_RouteGeoDataFromJson(Map<String, dynamic> json) =>
     _$_RouteGeoData(
-      stopAbbreviation: _toString(json['AbreviaturaBanderaSMP']),
+      routeDirection: _toString(json['AbreviaturaBanderaSMP']),
       lineAbbreviation: _toString(json['AbreviaturaLineaSMP']),
       isCrossingPoint: json['IsPuntoPaso'] as bool,
       description: _toString(json['Descripcion']),
@@ -36,7 +36,7 @@ _$_RouteGeoData _$$_RouteGeoDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_RouteGeoDataToJson(_$_RouteGeoData instance) =>
     <String, dynamic>{
-      'AbreviaturaBanderaSMP': instance.stopAbbreviation,
+      'AbreviaturaBanderaSMP': instance.routeDirection,
       'AbreviaturaLineaSMP': instance.lineAbbreviation,
       'IsPuntoPaso': instance.isCrossingPoint,
       'Descripcion': instance.description,

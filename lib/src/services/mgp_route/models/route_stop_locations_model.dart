@@ -25,7 +25,7 @@ class RouteStopLocations with _$RouteStopLocations {
 class RouteGeoData with _$RouteGeoData {
   const factory RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          required String stopAbbreviation,
+          required String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
           required String lineAbbreviation,
       @JsonKey(name: 'IsPuntoPaso')

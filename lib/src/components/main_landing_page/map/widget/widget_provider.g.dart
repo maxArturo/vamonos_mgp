@@ -29,6 +29,26 @@ class _SystemHash {
   }
 }
 
+String _$MapBrowserStateHash() => r'8ad85f17d0cc954e209b33b86707185a07c54ee6';
+
+/// See also [MapBrowserState].
+final mapBrowserStateProvider =
+    AutoDisposeNotifierProvider<MapBrowserState, MapBrowserStateEnum>(
+  MapBrowserState.new,
+  name: r'mapBrowserStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$MapBrowserStateHash,
+);
+typedef MapBrowserStateRef
+    = AutoDisposeNotifierProviderRef<MapBrowserStateEnum>;
+
+abstract class _$MapBrowserState
+    extends AutoDisposeNotifier<MapBrowserStateEnum> {
+  @override
+  MapBrowserStateEnum build();
+}
+
 String _$navigationMapViewWidgetHash() =>
     r'd9d06b8c456593c31bc970efc425e3f612f8dcf2';
 

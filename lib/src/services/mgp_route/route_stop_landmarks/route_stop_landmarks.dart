@@ -19,11 +19,10 @@ class RouteStopLandMarks {
 
   Future<Either<AppError, List<RouteStopLandMark>>> getAllStopLocations(
       entity.Route route) async {
-    final routeId = route.id;
     return (await _http.post(
             url: routeApiUrl,
             body:
-                "accion=RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea&codLinea=$routeId&isSublinea=0",
+                "accion=RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea&codLinea=${route.id}&isSublinea=0",
             extraHeaders: {
               ...baseApiHeaders,
             },
@@ -34,7 +33,8 @@ class RouteStopLandMarks {
         final routeStopList = RouteStopLocations.fromJson(rawJson);
         return Right(routeStopList.routes.map((r) {
           final bigAns = RouteStopLandMark(
-              route: route,
+              route: entity.DirectedRoute(
+                  direction: r.routeDirection, route: route),
               isStoppingPoint: r.isCrossingPoint,
               location: LocationData.fromMap(
                   {'latitude': r.latitude, 'longitude': r.longitude}));

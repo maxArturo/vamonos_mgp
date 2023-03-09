@@ -25,13 +25,12 @@ class HttpAdapter {
     _dio.interceptors.addAll([
       RetryInterceptor(
         dio: _dio,
-        logPrint: print, // specify log function (optional)
-        retries: 3, // retry count (optional)
+        logPrint: debugPrint,
+        retries: 3,
         retryDelays: const [
-          // set delays between retries (optional)
-          Duration(seconds: 1), // wait 1 sec before first retry
-          Duration(seconds: 2), // wait 2 sec before second retry
-          Duration(seconds: 3), // wait 3 sec before third retry
+          Duration(seconds: 1),
+          Duration(seconds: 2),
+          Duration(seconds: 3),
         ],
       ),
       PrettyDioLogger(),

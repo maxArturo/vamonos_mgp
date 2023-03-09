@@ -2,7 +2,7 @@ import 'package:vamonos_mgp/src/entities/landmark.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 
 class RouteStopLandMark extends LandMark {
-  final Route route;
+  final DirectedRoute route;
   final bool isStoppingPoint;
 
   RouteStopLandMark(

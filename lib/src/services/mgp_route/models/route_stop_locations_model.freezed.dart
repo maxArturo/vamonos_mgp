@@ -238,7 +238,7 @@ RouteGeoData _$RouteGeoDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RouteGeoData {
   @JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-  String get stopAbbreviation => throw _privateConstructorUsedError;
+  String get routeDirection => throw _privateConstructorUsedError;
   @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
   String get lineAbbreviation => throw _privateConstructorUsedError;
   @JsonKey(name: 'IsPuntoPaso')
@@ -264,7 +264,7 @@ abstract class $RouteGeoDataCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          String stopAbbreviation,
+          String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
           String lineAbbreviation,
       @JsonKey(name: 'IsPuntoPaso')
@@ -290,7 +290,7 @@ class _$RouteGeoDataCopyWithImpl<$Res, $Val extends RouteGeoData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopAbbreviation = null,
+    Object? routeDirection = null,
     Object? lineAbbreviation = null,
     Object? isCrossingPoint = null,
     Object? description = null,
@@ -298,9 +298,9 @@ class _$RouteGeoDataCopyWithImpl<$Res, $Val extends RouteGeoData>
     Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
-      stopAbbreviation: null == stopAbbreviation
-          ? _value.stopAbbreviation
-          : stopAbbreviation // ignore: cast_nullable_to_non_nullable
+      routeDirection: null == routeDirection
+          ? _value.routeDirection
+          : routeDirection // ignore: cast_nullable_to_non_nullable
               as String,
       lineAbbreviation: null == lineAbbreviation
           ? _value.lineAbbreviation
@@ -336,7 +336,7 @@ abstract class _$$_RouteGeoDataCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          String stopAbbreviation,
+          String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
           String lineAbbreviation,
       @JsonKey(name: 'IsPuntoPaso')
@@ -360,7 +360,7 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stopAbbreviation = null,
+    Object? routeDirection = null,
     Object? lineAbbreviation = null,
     Object? isCrossingPoint = null,
     Object? description = null,
@@ -368,9 +368,9 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
     Object? longitude = freezed,
   }) {
     return _then(_$_RouteGeoData(
-      stopAbbreviation: null == stopAbbreviation
-          ? _value.stopAbbreviation
-          : stopAbbreviation // ignore: cast_nullable_to_non_nullable
+      routeDirection: null == routeDirection
+          ? _value.routeDirection
+          : routeDirection // ignore: cast_nullable_to_non_nullable
               as String,
       lineAbbreviation: null == lineAbbreviation
           ? _value.lineAbbreviation
@@ -401,7 +401,7 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
 class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
   const _$_RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          required this.stopAbbreviation,
+          required this.routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
           required this.lineAbbreviation,
       @JsonKey(name: 'IsPuntoPaso')
@@ -418,7 +418,7 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
 
   @override
   @JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-  final String stopAbbreviation;
+  final String routeDirection;
   @override
   @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
   final String lineAbbreviation;
@@ -437,7 +437,7 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteGeoData(stopAbbreviation: $stopAbbreviation, lineAbbreviation: $lineAbbreviation, isCrossingPoint: $isCrossingPoint, description: $description, latitude: $latitude, longitude: $longitude)';
+    return 'RouteGeoData(routeDirection: $routeDirection, lineAbbreviation: $lineAbbreviation, isCrossingPoint: $isCrossingPoint, description: $description, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -445,7 +445,7 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'RouteGeoData'))
-      ..add(DiagnosticsProperty('stopAbbreviation', stopAbbreviation))
+      ..add(DiagnosticsProperty('routeDirection', routeDirection))
       ..add(DiagnosticsProperty('lineAbbreviation', lineAbbreviation))
       ..add(DiagnosticsProperty('isCrossingPoint', isCrossingPoint))
       ..add(DiagnosticsProperty('description', description))
@@ -458,8 +458,8 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RouteGeoData &&
-            (identical(other.stopAbbreviation, stopAbbreviation) ||
-                other.stopAbbreviation == stopAbbreviation) &&
+            (identical(other.routeDirection, routeDirection) ||
+                other.routeDirection == routeDirection) &&
             (identical(other.lineAbbreviation, lineAbbreviation) ||
                 other.lineAbbreviation == lineAbbreviation) &&
             (identical(other.isCrossingPoint, isCrossingPoint) ||
@@ -474,8 +474,8 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, stopAbbreviation,
-      lineAbbreviation, isCrossingPoint, description, latitude, longitude);
+  int get hashCode => Object.hash(runtimeType, routeDirection, lineAbbreviation,
+      isCrossingPoint, description, latitude, longitude);
 
   @JsonKey(ignore: true)
   @override
@@ -494,7 +494,7 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
 abstract class _RouteGeoData implements RouteGeoData {
   const factory _RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          required final String stopAbbreviation,
+          required final String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
           required final String lineAbbreviation,
       @JsonKey(name: 'IsPuntoPaso')
@@ -511,7 +511,7 @@ abstract class _RouteGeoData implements RouteGeoData {
 
   @override
   @JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-  String get stopAbbreviation;
+  String get routeDirection;
   @override
   @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
   String get lineAbbreviation;
