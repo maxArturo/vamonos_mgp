@@ -103,9 +103,6 @@ class MainRoutesListView
                                   title: Text("Route no: $routeName"));
                             }),
                       )),
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
               orElse: () => const Text(
                 "An unexpected error occurred",
                 style: TextStyle(color: Colors.red),
