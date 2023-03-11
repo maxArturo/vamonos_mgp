@@ -30,15 +30,21 @@ stopMarkerLayer() {
                             popupBuilder: (_, marker) {
                               final stopMarker = marker as StopMarker;
                               return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                                 width: 200,
                                 height: 100,
-                                color: Colors.white,
                                 child: GestureDetector(
-                                  child: Text(
-                                      "Route Name: ${stopMarker.landmark.route.name}\n"
-                                      "Route Direction: ${stopMarker.landmark.route.direction}\n"
-                                      "Route ID: ${stopMarker.landmark.route.id}\n"
-                                      "Stop Name: ${stopMarker.stopName}"),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                        "Route Name: ${stopMarker.routeStop.route.name}\n"
+                                        "Route Direction: ${stopMarker.routeStop.abbrevDirection}\n"
+                                        "Route ID: ${stopMarker.routeStop.route.id}\n"
+                                        "Stop Name: ${stopMarker.routeStop.description}"),
+                                  ),
                                 ),
                               );
                             }),

@@ -49,7 +49,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
 
   pageView(BuildContext context, WidgetRef ref, ValueNotifier notifier) {
     final color = Colors.primaries[
-        widget.markerList.first.landmark.route.id.hashCode %
+        widget.markerList.first.routeStop.route.id.hashCode %
             Colors.primaries.length];
     return SizedBox(
       height: 80,
@@ -65,7 +65,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
   }
 
   getCardColor(StopMarker marker) => Colors
-      .primaries[marker.landmark.route.id.hashCode % Colors.primaries.length];
+      .primaries[marker.routeStop.route.id.hashCode % Colors.primaries.length];
 
   singleStopCard(StopMarker marker, WidgetRef ref, Color color) =>
       MaterialButton(
@@ -91,10 +91,10 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                 Column(
                   children: [
                     Text(
-                        "route:${marker.landmark.route.name} - direction: ${marker.landmark.route.direction}"
+                        "route:${marker.routeStop.route.name} - direction: ${marker.routeStop.route.direction}"
                             .toUpperCase(),
                         style: const TextStyle(color: Colors.white)),
-                    Text("route id: ${marker.landmark.route.id}".toUpperCase(),
+                    Text("route id: ${marker.routeStop.route.id}".toUpperCase(),
                         style: const TextStyle(color: Colors.white)),
                   ],
                 ),

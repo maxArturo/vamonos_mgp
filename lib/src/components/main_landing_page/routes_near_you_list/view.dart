@@ -60,7 +60,7 @@ class RoutesNearYouListView extends StatelessWidget {
                           items: routes,
                           controller: scrollController,
                           keyingFunction: (markerList) =>
-                              Key(markerList.first.landmark.route.id),
+                              Key(markerList.first.routeStop.route.id),
                           itemBuilder: (BuildContext context, markerList,
                               Animation<double> animation) {
                             return FadeTransition(

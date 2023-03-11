@@ -41,7 +41,7 @@ class RouteLandMarks {
           return bigAns;
         }).toList());
       } catch (e) {
-        return Left(ParsingError());
+        return Left(ParsingError(description: e.toString()));
       }
     });
   }

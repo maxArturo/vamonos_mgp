@@ -11,7 +11,9 @@ abstract class AppError {
   ErrorType error;
   get errorType => ErrorType;
 
-  AppError(this.error);
+  String? description;
+
+  AppError(this.error, {this.description});
 }
 
 class HttpError extends AppError {
@@ -31,7 +33,7 @@ class ServiceUnavailableError extends AppError {
 }
 
 class ParsingError extends AppError {
-  ParsingError() : super(ErrorType.parsingError);
+  ParsingError({super.description}) : super(ErrorType.parsingError);
 }
 
 class UntypedError extends AppError {

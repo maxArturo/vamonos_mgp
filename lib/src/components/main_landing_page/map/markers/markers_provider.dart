@@ -12,19 +12,19 @@ part 'markers_provider.g.dart';
 
 @riverpod
 Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
-  final data = await ref.watch(allLandMarksBySourceProvider(
+  final data = await ref.watch(allStopsBySourceProvider(
           provider: TransportationProvider.municipioGeneralPurreydon)
       .future);
 
-  final response = data.flatMap<List<StopMarker>>((landmarks) {
+  final response = data.flatMap<List<StopMarker>>((stops) {
     try {
-      final stopMarkers = landmarks
+      final stopMarkers = stops
           .where((el) =>
               el.location.latitude != null &&
               el.location.longitude != null &&
               !el.isStoppingPoint)
-          .map((landmark) => StopMarker(
-              stopName: landmark.route.direction, landmark: landmark))
+          .map((routeStop) =>
+              StopMarker(stopName: routeStop.description, routeStop: routeStop))
           .toList();
       return Right(stopMarkers);
     } catch (e) {
@@ -45,9 +45,9 @@ final markersWithinMapBoundsProvider =
     yield allMarkers.flatMap((markerList) {
       return catching(() => markerList
           .where((marker) => event.bounds!.contains(LatLng(
-              marker.landmark.location.latitude!,
-              marker.landmark.location.longitude!)))
-          .toList()).leftMap((_) => ParsingError());
+              marker.routeStop.location.latitude!,
+              marker.routeStop.location.longitude!)))
+          .toList()).leftMap((e) => ParsingError(description: e.toString()));
     });
   }
 });

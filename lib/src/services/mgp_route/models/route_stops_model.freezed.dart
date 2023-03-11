@@ -25,7 +25,8 @@ mixin _$RouteStops {
   @JsonKey(name: 'MensajeEstado')
   String get statusMessage => throw _privateConstructorUsedError;
   @JsonKey(name: 'paradas')
-  List<RouteStopData> get stops => throw _privateConstructorUsedError;
+  Map<String, List<RouteStopData>> get stops =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,7 @@ abstract class $RouteStopsCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString) String statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
-      @JsonKey(name: 'paradas') List<RouteStopData> stops});
+      @JsonKey(name: 'paradas') Map<String, List<RouteStopData>> stops});
 }
 
 /// @nodoc
@@ -74,7 +75,7 @@ class _$RouteStopsCopyWithImpl<$Res, $Val extends RouteStops>
       stops: null == stops
           ? _value.stops
           : stops // ignore: cast_nullable_to_non_nullable
-              as List<RouteStopData>,
+              as Map<String, List<RouteStopData>>,
     ) as $Val);
   }
 }
@@ -90,7 +91,7 @@ abstract class _$$_RouteStopsCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString) String statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
-      @JsonKey(name: 'paradas') List<RouteStopData> stops});
+      @JsonKey(name: 'paradas') Map<String, List<RouteStopData>> stops});
 }
 
 /// @nodoc
@@ -120,7 +121,7 @@ class __$$_RouteStopsCopyWithImpl<$Res>
       stops: null == stops
           ? _value._stops
           : stops // ignore: cast_nullable_to_non_nullable
-              as List<RouteStopData>,
+              as Map<String, List<RouteStopData>>,
     ));
   }
 }
@@ -134,7 +135,7 @@ class _$_RouteStops with DiagnosticableTreeMixin implements _RouteStops {
       @JsonKey(name: 'MensajeEstado')
           required this.statusMessage,
       @JsonKey(name: 'paradas')
-          required final List<RouteStopData> stops})
+          required final Map<String, List<RouteStopData>> stops})
       : _stops = stops;
 
   factory _$_RouteStops.fromJson(Map<String, dynamic> json) =>
@@ -146,13 +147,13 @@ class _$_RouteStops with DiagnosticableTreeMixin implements _RouteStops {
   @override
   @JsonKey(name: 'MensajeEstado')
   final String statusMessage;
-  final List<RouteStopData> _stops;
+  final Map<String, List<RouteStopData>> _stops;
   @override
   @JsonKey(name: 'paradas')
-  List<RouteStopData> get stops {
-    if (_stops is EqualUnmodifiableListView) return _stops;
+  Map<String, List<RouteStopData>> get stops {
+    if (_stops is EqualUnmodifiableMapView) return _stops;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_stops);
+    return EqualUnmodifiableMapView(_stops);
   }
 
   @override
@@ -203,12 +204,13 @@ class _$_RouteStops with DiagnosticableTreeMixin implements _RouteStops {
 
 abstract class _RouteStops implements RouteStops {
   const factory _RouteStops(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required final String statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required final String statusMessage,
-      @JsonKey(name: 'paradas')
-          required final List<RouteStopData> stops}) = _$_RouteStops;
+          {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
+              required final String statusCode,
+          @JsonKey(name: 'MensajeEstado')
+              required final String statusMessage,
+          @JsonKey(name: 'paradas')
+              required final Map<String, List<RouteStopData>> stops}) =
+      _$_RouteStops;
 
   factory _RouteStops.fromJson(Map<String, dynamic> json) =
       _$_RouteStops.fromJson;
@@ -221,7 +223,7 @@ abstract class _RouteStops implements RouteStops {
   String get statusMessage;
   @override
   @JsonKey(name: 'paradas')
-  List<RouteStopData> get stops;
+  Map<String, List<RouteStopData>> get stops;
   @override
   @JsonKey(ignore: true)
   _$$_RouteStopsCopyWith<_$_RouteStops> get copyWith =>
@@ -244,9 +246,9 @@ mixin _$RouteStopData {
   String get stopAbbreviatedDirection => throw _privateConstructorUsedError;
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
   String get stopExtendedDirection => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Latitud')
+  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   num? get latitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Longitud')
+  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
   num? get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -272,9 +274,9 @@ abstract class $RouteStopDataCopyWith<$Res> {
           String stopAbbreviatedDirection,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
           String stopExtendedDirection,
-      @JsonKey(name: 'Latitud')
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           num? latitude,
-      @JsonKey(name: 'Longitud')
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
           num? longitude});
 }
 
@@ -351,9 +353,9 @@ abstract class _$$_RouteStopDataCopyWith<$Res>
           String stopAbbreviatedDirection,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
           String stopExtendedDirection,
-      @JsonKey(name: 'Latitud')
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           num? latitude,
-      @JsonKey(name: 'Longitud')
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
           num? longitude});
 }
 
@@ -423,9 +425,9 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
           required this.stopAbbreviatedDirection,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
           required this.stopExtendedDirection,
-      @JsonKey(name: 'Latitud')
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           this.latitude,
-      @JsonKey(name: 'Longitud')
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
           this.longitude});
 
   factory _$_RouteStopData.fromJson(Map<String, dynamic> json) =>
@@ -447,10 +449,10 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
   final String stopExtendedDirection;
   @override
-  @JsonKey(name: 'Latitud')
+  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   final num? latitude;
   @override
-  @JsonKey(name: 'Longitud')
+  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
   final num? longitude;
 
   @override
@@ -533,9 +535,9 @@ abstract class _RouteStopData implements RouteStopData {
           required final String stopAbbreviatedDirection,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
           required final String stopExtendedDirection,
-      @JsonKey(name: 'Latitud')
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           final num? latitude,
-      @JsonKey(name: 'Longitud')
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
           final num? longitude}) = _$_RouteStopData;
 
   factory _RouteStopData.fromJson(Map<String, dynamic> json) =
@@ -557,10 +559,10 @@ abstract class _RouteStopData implements RouteStopData {
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
   String get stopExtendedDirection;
   @override
-  @JsonKey(name: 'Latitud')
+  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   num? get latitude;
   @override
-  @JsonKey(name: 'Longitud')
+  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
   num? get longitude;
   @override
   @JsonKey(ignore: true)

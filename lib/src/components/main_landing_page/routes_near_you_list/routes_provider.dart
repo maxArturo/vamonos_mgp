@@ -13,10 +13,10 @@ final routeStopMapMarkersNearYouProvider =
     yield latestStops.map((markersList) {
       final Map<String, Set<StopMarker>> markersByRoute = {};
       for (final marker in markersList) {
-        if (!markersByRoute.containsKey(marker.landmark.route.name)) {
-          markersByRoute[marker.landmark.route.name] = <StopMarker>{};
+        if (!markersByRoute.containsKey(marker.routeStop.route.name)) {
+          markersByRoute[marker.routeStop.route.name] = <StopMarker>{};
         }
-        markersByRoute[marker.landmark.route.name]?.add(marker);
+        markersByRoute[marker.routeStop.route.name]?.add(marker);
       }
       return markersByRoute.values.map((set) => set.toList()).toList();
     });
