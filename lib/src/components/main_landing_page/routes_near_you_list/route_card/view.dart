@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:page_view_indicators/arrow_page_indicator.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
@@ -18,7 +19,12 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
       return Stack(
         children: [
-          pageView(context, ref, state.valueNotifier),
+          ArrowPageIndicator(
+              currentPageNotifier: state.valueNotifier,
+              itemCount: 2,
+              pageController: state.pageController,
+              isInside: true,
+              child: pageView(context, ref, state.valueNotifier)),
           Positioned(
             left: 0.0,
             right: 0.0,
@@ -61,6 +67,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                     ref
                         .read(mapControllerServiceProvider.future)
                         .then((mc) => mc.move(
+                            // FIXME stopMarkers can be empty!
                             LatLng.fromJson({
                               "latitude":
                                   stopMarkers.first.landmark.location.latitude,

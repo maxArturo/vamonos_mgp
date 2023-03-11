@@ -14,6 +14,7 @@ class RouteCard extends ConsumerStatefulWidget {
 
 class RouteCardController extends ConsumerState<RouteCard> {
   final ValueNotifier<int> valueNotifier = ValueNotifier(0);
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {

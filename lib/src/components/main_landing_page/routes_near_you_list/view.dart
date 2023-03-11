@@ -3,15 +3,8 @@
 import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/panel_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
-import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 class RoutesNearYouListView extends StatelessWidget {
