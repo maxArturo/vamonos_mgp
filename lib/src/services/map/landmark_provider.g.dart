@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$landMarkServiceHash() => r'2ef985c3d010ab210f2667f61c66079dbb951c41';
+String _$landMarkServiceHash() => r'72f98be8b49d9b8304dccdb36850311de25b5f1d';
 
 /// See also [landMarkService].
 final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
@@ -41,11 +41,11 @@ final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
 );
 typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
 String _$allLandMarksBySourceHash() =>
-    r'e8387b739b6d26d1f20a2d2034a4e3f1e387aa5f';
+    r'a61fac65f5a0f4de51c95499cf9303f310bef9ac';
 
 /// See also [allLandMarksBySource].
-class AllLandMarksBySourceProvider extends AutoDisposeFutureProvider<
-    Either<AppError, List<RouteStopLandMark>>> {
+class AllLandMarksBySourceProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
   AllLandMarksBySourceProvider({
     required this.provider,
   }) : super(
@@ -78,13 +78,13 @@ class AllLandMarksBySourceProvider extends AutoDisposeFutureProvider<
 }
 
 typedef AllLandMarksBySourceRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStopLandMark>>>;
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
 
 /// See also [allLandMarksBySource].
 final allLandMarksBySourceProvider = AllLandMarksBySourceFamily();
 
 class AllLandMarksBySourceFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteStopLandMark>>>> {
+    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
   AllLandMarksBySourceFamily();
 
   AllLandMarksBySourceProvider call({
@@ -96,7 +96,7 @@ class AllLandMarksBySourceFamily
   }
 
   @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteStopLandMark>>>
+  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
       getProviderOverride(
     covariant AllLandMarksBySourceProvider provider,
   ) {

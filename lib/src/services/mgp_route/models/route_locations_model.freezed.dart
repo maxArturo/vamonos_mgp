@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'route_stop_locations_model.dart';
+part of 'route_locations_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-RouteStopLocations _$RouteStopLocationsFromJson(Map<String, dynamic> json) {
-  return _RouteStopLocations.fromJson(json);
+RouteLocations _$RouteLocationsFromJson(Map<String, dynamic> json) {
+  return _RouteLocations.fromJson(json);
 }
 
 /// @nodoc
-mixin _$RouteStopLocations {
+mixin _$RouteLocations {
   @JsonKey(name: 'CodigoEstado', fromJson: _toString)
   String get statusCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'MensajeEstado')
@@ -29,15 +29,15 @@ mixin _$RouteStopLocations {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RouteStopLocationsCopyWith<RouteStopLocations> get copyWith =>
+  $RouteLocationsCopyWith<RouteLocations> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RouteStopLocationsCopyWith<$Res> {
-  factory $RouteStopLocationsCopyWith(
-          RouteStopLocations value, $Res Function(RouteStopLocations) then) =
-      _$RouteStopLocationsCopyWithImpl<$Res, RouteStopLocations>;
+abstract class $RouteLocationsCopyWith<$Res> {
+  factory $RouteLocationsCopyWith(
+          RouteLocations value, $Res Function(RouteLocations) then) =
+      _$RouteLocationsCopyWithImpl<$Res, RouteLocations>;
   @useResult
   $Res call(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString) String statusCode,
@@ -46,9 +46,9 @@ abstract class $RouteStopLocationsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RouteStopLocationsCopyWithImpl<$Res, $Val extends RouteStopLocations>
-    implements $RouteStopLocationsCopyWith<$Res> {
-  _$RouteStopLocationsCopyWithImpl(this._value, this._then);
+class _$RouteLocationsCopyWithImpl<$Res, $Val extends RouteLocations>
+    implements $RouteLocationsCopyWith<$Res> {
+  _$RouteLocationsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,11 +80,11 @@ class _$RouteStopLocationsCopyWithImpl<$Res, $Val extends RouteStopLocations>
 }
 
 /// @nodoc
-abstract class _$$_RouteStopLocationsCopyWith<$Res>
-    implements $RouteStopLocationsCopyWith<$Res> {
-  factory _$$_RouteStopLocationsCopyWith(_$_RouteStopLocations value,
-          $Res Function(_$_RouteStopLocations) then) =
-      __$$_RouteStopLocationsCopyWithImpl<$Res>;
+abstract class _$$_RouteLocationsCopyWith<$Res>
+    implements $RouteLocationsCopyWith<$Res> {
+  factory _$$_RouteLocationsCopyWith(
+          _$_RouteLocations value, $Res Function(_$_RouteLocations) then) =
+      __$$_RouteLocationsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -94,11 +94,11 @@ abstract class _$$_RouteStopLocationsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RouteStopLocationsCopyWithImpl<$Res>
-    extends _$RouteStopLocationsCopyWithImpl<$Res, _$_RouteStopLocations>
-    implements _$$_RouteStopLocationsCopyWith<$Res> {
-  __$$_RouteStopLocationsCopyWithImpl(
-      _$_RouteStopLocations _value, $Res Function(_$_RouteStopLocations) _then)
+class __$$_RouteLocationsCopyWithImpl<$Res>
+    extends _$RouteLocationsCopyWithImpl<$Res, _$_RouteLocations>
+    implements _$$_RouteLocationsCopyWith<$Res> {
+  __$$_RouteLocationsCopyWithImpl(
+      _$_RouteLocations _value, $Res Function(_$_RouteLocations) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$_RouteStopLocationsCopyWithImpl<$Res>
     Object? statusMessage = null,
     Object? routes = null,
   }) {
-    return _then(_$_RouteStopLocations(
+    return _then(_$_RouteLocations(
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
@@ -127,10 +127,10 @@ class __$$_RouteStopLocationsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RouteStopLocations
+class _$_RouteLocations
     with DiagnosticableTreeMixin
-    implements _RouteStopLocations {
-  const _$_RouteStopLocations(
+    implements _RouteLocations {
+  const _$_RouteLocations(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
           required this.statusCode,
       @JsonKey(name: 'MensajeEstado')
@@ -139,8 +139,8 @@ class _$_RouteStopLocations
           required final List<RouteGeoData> routes})
       : _routes = routes;
 
-  factory _$_RouteStopLocations.fromJson(Map<String, dynamic> json) =>
-      _$$_RouteStopLocationsFromJson(json);
+  factory _$_RouteLocations.fromJson(Map<String, dynamic> json) =>
+      _$$_RouteLocationsFromJson(json);
 
   @override
   @JsonKey(name: 'CodigoEstado', fromJson: _toString)
@@ -159,14 +159,14 @@ class _$_RouteStopLocations
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteStopLocations(statusCode: $statusCode, statusMessage: $statusMessage, routes: $routes)';
+    return 'RouteLocations(statusCode: $statusCode, statusMessage: $statusMessage, routes: $routes)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'RouteStopLocations'))
+      ..add(DiagnosticsProperty('type', 'RouteLocations'))
       ..add(DiagnosticsProperty('statusCode', statusCode))
       ..add(DiagnosticsProperty('statusMessage', statusMessage))
       ..add(DiagnosticsProperty('routes', routes));
@@ -176,7 +176,7 @@ class _$_RouteStopLocations
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RouteStopLocations &&
+            other is _$_RouteLocations &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
             (identical(other.statusMessage, statusMessage) ||
@@ -192,29 +192,28 @@ class _$_RouteStopLocations
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RouteStopLocationsCopyWith<_$_RouteStopLocations> get copyWith =>
-      __$$_RouteStopLocationsCopyWithImpl<_$_RouteStopLocations>(
-          this, _$identity);
+  _$$_RouteLocationsCopyWith<_$_RouteLocations> get copyWith =>
+      __$$_RouteLocationsCopyWithImpl<_$_RouteLocations>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RouteStopLocationsToJson(
+    return _$$_RouteLocationsToJson(
       this,
     );
   }
 }
 
-abstract class _RouteStopLocations implements RouteStopLocations {
-  const factory _RouteStopLocations(
+abstract class _RouteLocations implements RouteLocations {
+  const factory _RouteLocations(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
           required final String statusCode,
       @JsonKey(name: 'MensajeEstado')
           required final String statusMessage,
       @JsonKey(name: 'puntos')
-          required final List<RouteGeoData> routes}) = _$_RouteStopLocations;
+          required final List<RouteGeoData> routes}) = _$_RouteLocations;
 
-  factory _RouteStopLocations.fromJson(Map<String, dynamic> json) =
-      _$_RouteStopLocations.fromJson;
+  factory _RouteLocations.fromJson(Map<String, dynamic> json) =
+      _$_RouteLocations.fromJson;
 
   @override
   @JsonKey(name: 'CodigoEstado', fromJson: _toString)
@@ -227,7 +226,7 @@ abstract class _RouteStopLocations implements RouteStopLocations {
   List<RouteGeoData> get routes;
   @override
   @JsonKey(ignore: true)
-  _$$_RouteStopLocationsCopyWith<_$_RouteStopLocations> get copyWith =>
+  _$$_RouteLocationsCopyWith<_$_RouteLocations> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

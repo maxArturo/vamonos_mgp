@@ -1,14 +1,14 @@
 import 'package:concurrent_queue/concurrent_queue.dart';
 import 'package:dartz/dartz.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
-import 'package:vamonos_mgp/src/entities/route_stop_landmark.dart';
+import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 /// generate landmarks for map plotting by demand
 /// or all at once for a given set of routes
 class LandmarkService {
-  Future<Either<AppError, List<RouteStopLandMark>>> Function(Route route)
+  Future<Either<AppError, List<RouteLandMark>>> Function(Route route)
       routeStopLandMarksById;
   Future<Either<AppError, List<Route>>> Function() getAllAvailableRoutes;
 
@@ -19,7 +19,7 @@ class LandmarkService {
   final queue = ConcurrentQueue(concurrency: 2);
 
   /// Gets all landmarks available, depending on provider implementation
-  Future<Either<AppError, List<RouteStopLandMark>>> allLandMarksByProvider(
+  Future<Either<AppError, List<RouteLandMark>>> allLandMarksByProvider(
       TransportationProvider provider) async {
     switch (provider) {
       case TransportationProvider.municipioGeneralPurreydon:

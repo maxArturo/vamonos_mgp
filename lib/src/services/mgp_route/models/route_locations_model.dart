@@ -1,24 +1,24 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-part 'route_stop_locations_model.freezed.dart';
-part 'route_stop_locations_model.g.dart';
+part 'route_locations_model.freezed.dart';
+part 'route_locations_model.g.dart';
 
 String _toString(dynamic value) => value.toString();
 
 @freezed
-class RouteStopLocations with _$RouteStopLocations {
+class RouteLocations with _$RouteLocations {
   static String _toString(dynamic value) => value.toString();
-  const factory RouteStopLocations(
+  const factory RouteLocations(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
           required String statusCode,
       @JsonKey(name: 'MensajeEstado')
           required String statusMessage,
       @JsonKey(name: 'puntos')
-          required List<RouteGeoData> routes}) = _RouteStopLocations;
+          required List<RouteGeoData> routes}) = _RouteLocations;
 
-  factory RouteStopLocations.fromJson(Map<String, Object?> json) =>
-      _$RouteStopLocationsFromJson(json);
+  factory RouteLocations.fromJson(Map<String, Object?> json) =>
+      _$RouteLocationsFromJson(json);
 }
 
 @freezed

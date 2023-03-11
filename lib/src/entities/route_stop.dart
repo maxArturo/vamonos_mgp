@@ -1,6 +1,6 @@
-import 'package:vamonos_mgp/src/entities/route_stop_landmark.dart';
+import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 
-class RouteStop extends RouteStopLandMark {
+class RouteStop extends RouteLandMark {
   final String name;
   final int id;
 

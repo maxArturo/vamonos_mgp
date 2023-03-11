@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'route_stop_locations_model.dart';
+part of 'route_locations_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RouteStopLocations _$$_RouteStopLocationsFromJson(
-        Map<String, dynamic> json) =>
-    _$_RouteStopLocations(
+_$_RouteLocations _$$_RouteLocationsFromJson(Map<String, dynamic> json) =>
+    _$_RouteLocations(
       statusCode: _toString(json['CodigoEstado']),
       statusMessage: json['MensajeEstado'] as String,
       routes: (json['puntos'] as List<dynamic>)
@@ -16,8 +15,7 @@ _$_RouteStopLocations _$$_RouteStopLocationsFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$_RouteStopLocationsToJson(
-        _$_RouteStopLocations instance) =>
+Map<String, dynamic> _$$_RouteLocationsToJson(_$_RouteLocations instance) =>
     <String, dynamic>{
       'CodigoEstado': instance.statusCode,
       'MensajeEstado': instance.statusMessage,

@@ -5,19 +5,19 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
-import 'package:vamonos_mgp/src/entities/route_stop_landmark.dart';
+import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/config.dart';
-import 'package:vamonos_mgp/src/services/mgp_route/models/route_stop_locations_model.dart';
+import 'package:vamonos_mgp/src/services/mgp_route/models/route_locations_model.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
-class RouteStopLandMarks {
+class RouteLandMarks {
   final HttpAdapter _http;
 
-  RouteStopLandMarks(this._http);
+  RouteLandMarks(this._http);
 
   String routeApiUrl = dotenv.env['MGP_ROUTE_API_URL']!;
 
-  Future<Either<AppError, List<RouteStopLandMark>>> getAllStopLocations(
+  Future<Either<AppError, List<RouteLandMark>>> getAllRouteLandMarks(
       entity.Route route) async {
     return (await _http.post(
             url: routeApiUrl,
@@ -30,9 +30,9 @@ class RouteStopLandMarks {
         .flatMap((response) {
       try {
         final rawJson = jsonDecode(response);
-        final routeStopList = RouteStopLocations.fromJson(rawJson);
-        return Right(routeStopList.routes.map((r) {
-          final bigAns = RouteStopLandMark(
+        final routeLandmarkList = RouteLocations.fromJson(rawJson);
+        return Right(routeLandmarkList.routes.map((r) {
+          final bigAns = RouteLandMark(
               route: entity.DirectedRoute(
                   direction: r.routeDirection, route: route),
               isStoppingPoint: r.isCrossingPoint,

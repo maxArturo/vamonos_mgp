@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'route_stop_landmarks_provider.dart';
+part of 'route_landmarks_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,44 +29,43 @@ class _SystemHash {
   }
 }
 
-String _$routeStopLandmarksHash() =>
-    r'585e7df0938c66bef846ad0c2c6fe155af04b178';
+String _$routeLandmarksHash() => r'9faf2fe47cf12c1322101e92f26d24d0a017db16';
 
-/// See also [routeStopLandmarks].
-final routeStopLandmarksProvider = AutoDisposeProvider<RouteStopLandMarks>(
-  routeStopLandmarks,
-  name: r'routeStopLandmarksProvider',
+/// See also [routeLandmarks].
+final routeLandmarksProvider = AutoDisposeProvider<RouteLandMarks>(
+  routeLandmarks,
+  name: r'routeLandmarksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$routeStopLandmarksHash,
+      : _$routeLandmarksHash,
 );
-typedef RouteStopLandmarksRef = AutoDisposeProviderRef<RouteStopLandMarks>;
-String _$routeStopLandMarksByIdHash() =>
-    r'c5e2470b3f0a5618c0ca70092a6379ac42ee6c5c';
+typedef RouteLandmarksRef = AutoDisposeProviderRef<RouteLandMarks>;
+String _$routeLandMarksByIdHash() =>
+    r'09ab1737e062e226d0ce74130a92c30f2aea949f';
 
-/// See also [routeStopLandMarksById].
-class RouteStopLandMarksByIdProvider extends AutoDisposeFutureProvider<
-    Either<AppError, List<RouteStopLandMark>>> {
-  RouteStopLandMarksByIdProvider({
+/// See also [routeLandMarksById].
+class RouteLandMarksByIdProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
+  RouteLandMarksByIdProvider({
     required this.route,
   }) : super(
-          (ref) => routeStopLandMarksById(
+          (ref) => routeLandMarksById(
             ref,
             route: route,
           ),
-          from: routeStopLandMarksByIdProvider,
-          name: r'routeStopLandMarksByIdProvider',
+          from: routeLandMarksByIdProvider,
+          name: r'routeLandMarksByIdProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$routeStopLandMarksByIdHash,
+                  : _$routeLandMarksByIdHash,
         );
 
   final Route route;
 
   @override
   bool operator ==(Object other) {
-    return other is RouteStopLandMarksByIdProvider && other.route == route;
+    return other is RouteLandMarksByIdProvider && other.route == route;
   }
 
   @override
@@ -78,28 +77,28 @@ class RouteStopLandMarksByIdProvider extends AutoDisposeFutureProvider<
   }
 }
 
-typedef RouteStopLandMarksByIdRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStopLandMark>>>;
+typedef RouteLandMarksByIdRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
 
-/// See also [routeStopLandMarksById].
-final routeStopLandMarksByIdProvider = RouteStopLandMarksByIdFamily();
+/// See also [routeLandMarksById].
+final routeLandMarksByIdProvider = RouteLandMarksByIdFamily();
 
-class RouteStopLandMarksByIdFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteStopLandMark>>>> {
-  RouteStopLandMarksByIdFamily();
+class RouteLandMarksByIdFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
+  RouteLandMarksByIdFamily();
 
-  RouteStopLandMarksByIdProvider call({
+  RouteLandMarksByIdProvider call({
     required Route route,
   }) {
-    return RouteStopLandMarksByIdProvider(
+    return RouteLandMarksByIdProvider(
       route: route,
     );
   }
 
   @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteStopLandMark>>>
+  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
       getProviderOverride(
-    covariant RouteStopLandMarksByIdProvider provider,
+    covariant RouteLandMarksByIdProvider provider,
   ) {
     return call(
       route: provider.route,
@@ -113,5 +112,5 @@ class RouteStopLandMarksByIdFamily
   List<ProviderOrFamily>? get dependencies => null;
 
   @override
-  String? get name => r'routeStopLandMarksByIdProvider';
+  String? get name => r'routeLandMarksByIdProvider';
 }

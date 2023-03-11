@@ -30,11 +30,11 @@ class _SystemHash {
 }
 
 String _$stopsWithinMapBoundsHash() =>
-    r'09ee36dc3f4dcb177f51c995eb5e67b3869d0c9c';
+    r'e45bad0162babd1d740a1e941d2823429a7e7708';
 
 /// See also [stopsWithinMapBounds].
 final stopsWithinMapBoundsProvider =
-    AutoDisposeProvider<Stream<Either<AppError, List<RouteStopLandMark>>>>(
+    AutoDisposeProvider<Stream<Either<AppError, List<RouteLandMark>>>>(
   stopsWithinMapBounds,
   name: r'stopsWithinMapBoundsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -42,4 +42,4 @@ final stopsWithinMapBoundsProvider =
       : _$stopsWithinMapBoundsHash,
 );
 typedef StopsWithinMapBoundsRef
-    = AutoDisposeProviderRef<Stream<Either<AppError, List<RouteStopLandMark>>>>;
+    = AutoDisposeProviderRef<Stream<Either<AppError, List<RouteLandMark>>>>;

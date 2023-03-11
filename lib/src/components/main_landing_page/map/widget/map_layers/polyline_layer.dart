@@ -3,7 +3,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:quiver/iterables.dart';
-import 'package:vamonos_mgp/src/entities/route_stop_landmark.dart';
+import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
@@ -38,7 +38,7 @@ polylineWidget({required List<Polyline> polyLines}) =>
     PolylineLayer(polylineCulling: true, polylines: polyLines);
 
 List<Polyline> toPolyLines(
-    List<RouteStopLandMark> routeStops, LatLngBounds bounds) {
+    List<RouteLandMark> routeStops, LatLngBounds bounds) {
   final availableColors = cycle([
     Colors.blue,
     Colors.lightGreen,
@@ -47,11 +47,11 @@ List<Polyline> toPolyLines(
     Colors.purpleAccent
   ]).iterator;
 
-  final Map<String, Set<RouteStopLandMark>> stopsByRoute = {};
+  final Map<String, Set<RouteLandMark>> stopsByRoute = {};
 
   for (final stop in routeStops) {
     if (!stopsByRoute.containsKey(stop.route.direction)) {
-      stopsByRoute[stop.route.direction] = <RouteStopLandMark>{};
+      stopsByRoute[stop.route.direction] = <RouteLandMark>{};
     }
     stopsByRoute[stop.route.direction]?.add(stop);
   }
