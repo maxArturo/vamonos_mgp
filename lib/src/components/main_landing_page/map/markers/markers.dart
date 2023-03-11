@@ -18,7 +18,10 @@ class StopMarker extends Marker {
             builder: (ctx) {
               switch (landmark.route.mode) {
                 case TransportationMode.bus:
-                  return const Icon(Icons.directions_bus_filled_sharp);
+                  return const Icon(
+                    Icons.directions_bus_filled_sharp,
+                    size: 35,
+                  );
                 default:
                   return const Icon(Icons.directions_bus_filled_sharp);
               }

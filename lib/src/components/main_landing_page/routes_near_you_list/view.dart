@@ -1,5 +1,6 @@
 // generates a single SizedBox representing a transportation line
 // in the expanding drawer.
+import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
@@ -19,73 +20,62 @@ class RoutesNearYouListView extends StatelessWidget {
       return MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: ListView.builder(
-            controller: scrollController,
-            itemCount: routes.length + 1,
-            itemBuilder: (context, idx) {
-              if (routes.isEmpty) {
-                return Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: Builder(
+              key: ValueKey(routes.isEmpty),
+              builder: (BuildContext context) {
+                if (routes.isEmpty) {
+                  return Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height: 30),
+                            const Icon(
+                              Icons.block_sharp,
+                              size: 30,
+                              color: Color.fromARGB(255, 194, 63, 63),
+                            ),
+                            const SizedBox(height: 30),
+                            Text("No routes near you".toUpperCase(),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 30)),
+                          ],
+                        ),
+                        const SizedBox(width: 13),
+                      ],
+                    ),
+                  );
+                } else {
+                  return Column(
                     children: [
-                      Column(
-                        children: [
-                          const SizedBox(height: 30),
-                          const Icon(
-                            Icons.block_sharp,
-                            size: 30,
-                            color: Color.fromARGB(255, 194, 63, 63),
-                          ),
-                          const SizedBox(height: 30),
-                          Text("No routes near you".toUpperCase(),
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 30)),
-                        ],
-                      ),
-                      const SizedBox(width: 13),
-                    ],
-                  ),
-                );
-              }
-              if (idx == 0) {
-                return Column(children: [
-                  const SizedBox(
-                    height: 12.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 30,
-                        height: 5,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12.0))),
+                      ...header(),
+                      Flexible(
+                        child: AutomaticAnimatedList(
+                          items: routes,
+                          controller: scrollController,
+                          keyingFunction: (DirectedRoute item) => Key(item.id),
+                          itemBuilder: (BuildContext context,
+                              DirectedRoute item, Animation<double> animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: SizeTransition(
+                                sizeFactor: CurvedAnimation(
+                                    parent: animation, curve: Curves.easeInOut),
+                                child: _lineGenerator(item),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("routes near you".toUpperCase(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  )
-                ]);
-              } else {
-                return _lineGenerator(routes[idx - 1]);
-              }
-            }),
+                  );
+                }
+              }),
+        ),
       );
     });
   }
@@ -125,3 +115,36 @@ SizedBox _lineGenerator(DirectedRoute route) {
     ),
   );
 }
+
+header() => [
+      const SizedBox(
+        height: 12.0,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: 30,
+            height: 5,
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadius.all(Radius.circular(12.0))),
+          ),
+        ],
+      ),
+      const SizedBox(
+        height: 15,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("routes near you".toUpperCase(),
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+              )),
+        ],
+      ),
+      const SizedBox(
+        height: 15,
+      ),
+    ];

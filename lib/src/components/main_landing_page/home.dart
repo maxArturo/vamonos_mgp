@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -55,7 +56,8 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
 
   @override
   Widget build(BuildContext context) {
-    state.panelHeightOpen = MediaQuery.of(context).size.height;
+    state.panelHeightOpen =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
 
     return Scaffold(
       drawer: const HomeDrawer(),

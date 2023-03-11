@@ -35,9 +35,10 @@ stopMarkerLayer() {
                                 color: Colors.white,
                                 child: GestureDetector(
                                   child: Text(
-                                    "Route Name: ${stopMarker.landmark.route.name}\n"
-                                    "Stop Name: ${stopMarker.stopName}",
-                                  ),
+                                      "Route Name: ${stopMarker.landmark.route.name}\n"
+                                      "Route Direction: ${stopMarker.landmark.route.direction}\n"
+                                      "Route ID: ${stopMarker.landmark.route.id}\n"
+                                      "Stop Name: ${stopMarker.stopName}"),
                                 ),
                               );
                             }),

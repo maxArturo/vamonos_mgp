@@ -7,20 +7,6 @@ class RoutesNearYouList extends ConsumerStatefulWidget {
   final ScrollController scrollController;
   const RoutesNearYouList(this.scrollController, {super.key});
 
-  // @override
-  // Widget build(BuildContext context, WidgetRef ref) {
-  //   return ref.watch(routesNearYouProvider).maybeWhen(
-  //       data: (data) =>
-  //           RoutesNearYouListView(scrollController, routeData: data),
-  //       loading: () => const Center(
-  //             child: CircularProgressIndicator(),
-  //           ),
-  //       orElse: () => const Text(
-  //             "An unexpected error occurred",
-  //             style: TextStyle(color: Colors.red),
-  //           ));
-  // }
-
   @override
   ConsumerState<RoutesNearYouList> createState() =>
       RoutesNearYouListController();
@@ -31,15 +17,23 @@ class RoutesNearYouListController extends ConsumerState<RoutesNearYouList> {
 
   @override
   Widget build(BuildContext context) {
-    return ref.watch(routesNearYouProvider).maybeWhen(
-        data: (data) =>
-            RoutesNearYouListView(widget.scrollController, routeData: data),
-        loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-        orElse: () => const Text(
-              "An unexpected error occurred",
-              style: TextStyle(color: Colors.red),
-            ));
+    final provider = ref.watch(routesNearYouProvider);
+    return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: provider.maybeWhen(
+            data: (data) => RoutesNearYouListView(
+                  widget.scrollController,
+                  routeData: data,
+                  key: const Key('dataLoaded'),
+                ),
+            loading: () => const Center(
+                  key: Key('loading'),
+                  child: CircularProgressIndicator(),
+                ),
+            orElse: () => const Text(
+                  "An unexpected error occurred",
+                  key: Key('error'),
+                  style: TextStyle(color: Colors.red),
+                )));
   }
 }
