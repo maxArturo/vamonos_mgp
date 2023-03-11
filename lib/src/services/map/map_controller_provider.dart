@@ -34,6 +34,12 @@ class MapEventWithBounds extends MapEvent {
       : super(source: event.source, center: event.center, zoom: event.zoom);
 }
 
+class MapEventInitialized extends MapEvent {
+  MapEventInitialized({required LatLng center, required double zoom})
+      : super(
+            source: MapEventSource.initialization, zoom: zoom, center: center);
+}
+
 final mapEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
   final mc = await ref.watch(mapControllerServiceProvider.future);

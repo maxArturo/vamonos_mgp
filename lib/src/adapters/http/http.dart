@@ -25,7 +25,7 @@ class HttpAdapter {
     _dio.interceptors.addAll([
       RetryInterceptor(
         dio: _dio,
-        logPrint: debugPrint,
+        logPrint: debugPrintThrottled,
         retries: 3,
         retryDelays: const [
           Duration(seconds: 1),

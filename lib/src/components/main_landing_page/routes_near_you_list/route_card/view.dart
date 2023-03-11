@@ -90,11 +90,11 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
               children: [
                 Column(
                   children: [
-                    Text("route ${marker.stopName}".toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
                     Text(
-                        "${marker.landmark.route.name} - ${marker.landmark.route.direction}"
+                        "route:${marker.landmark.route.name} - direction: ${marker.landmark.route.direction}"
                             .toUpperCase(),
+                        style: const TextStyle(color: Colors.white)),
+                    Text("route id: ${marker.landmark.route.id}".toUpperCase(),
                         style: const TextStyle(color: Colors.white)),
                   ],
                 ),

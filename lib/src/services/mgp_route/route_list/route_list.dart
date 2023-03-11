@@ -23,7 +23,7 @@ class RouteListService {
             extraHeaders: {
               ...baseApiHeaders,
             },
-            maxDuration: const Duration(days: 1)))
+            maxDuration: const Duration(days: 3)))
         .map((res) {
       final rawJson = jsonDecode(res);
       final apiRouteList = RoutesByArrival.fromJson(rawJson);
