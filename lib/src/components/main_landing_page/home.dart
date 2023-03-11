@@ -119,9 +119,11 @@ class RecenterMapButton extends StatelessWidget {
         top: _panelHeightOpen - _fabHeight - _panelHeightClosed - 20,
         child: Consumer(
           builder: (context, ref, child) => FloatingActionButton(
-            onPressed: () => ref
-                .read(mapControllerServiceProvider.notifier)
-                .recenterMapLocation(),
+            onPressed: () {
+              ref
+                  .read(mapControllerServiceProvider.notifier)
+                  .recenterMapLocation();
+            },
             backgroundColor: Colors.white,
             child: Icon(
               Icons.near_me_sharp,

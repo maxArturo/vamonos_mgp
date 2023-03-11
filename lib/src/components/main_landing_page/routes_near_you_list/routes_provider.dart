@@ -1,29 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/entities/route.dart';
-import 'package:vamonos_mgp/src/entities/route_stop_landmark.dart';
-import 'package:vamonos_mgp/src/services/map/stops_within_bounds_provider.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
-final routesNearYouProvider =
-    StreamProvider.autoDispose<Either<AppError, List<DirectedRoute>>>(
-        (AutoDisposeRef ref) async* {
-  final stopsWithinBoundsStream = ref.watch(stopsWithinMapBoundsProvider);
+final routeStopMapMarkersNearYouProvider =
+    StreamProvider.autoDispose<Either<AppError, List<List<StopMarker>>>>(
+        (AutoDisposeStreamProviderRef ref) async* {
+  final stopsWithinBoundsStream =
+      ref.watch(markersWithinMapBoundsProvider.stream);
   await for (final latestStops in stopsWithinBoundsStream) {
-    yield latestStops.flatMap((stopsList) {
-      final Map<String, Set<RouteStopLandMark>> stopsByRoute = {};
-      for (final stop in stopsList) {
-        if (!stopsByRoute.containsKey(stop.route.direction)) {
-          stopsByRoute[stop.route.direction] = <RouteStopLandMark>{};
+    yield latestStops.map((markersList) {
+      final Map<String, Set<StopMarker>> markersByRoute = {};
+      for (final marker in markersList) {
+        if (!markersByRoute.containsKey(marker.landmark.route.id)) {
+          markersByRoute[marker.landmark.route.name] = <StopMarker>{};
         }
-        stopsByRoute[stop.route.direction]?.add(stop);
+        markersByRoute[marker.landmark.route.name]?.add(marker);
       }
-
-      return latestStops.map((stops) {
-        return stopsByRoute.keys
-            .map((key) => stopsByRoute[key]!.first.route)
-            .toList();
-      });
+      return markersByRoute.values.map((set) => set.toList()).toList();
     });
   }
 });

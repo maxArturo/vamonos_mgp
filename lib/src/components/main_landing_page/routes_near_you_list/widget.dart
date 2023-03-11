@@ -17,7 +17,7 @@ class RoutesNearYouListController extends ConsumerState<RoutesNearYouList> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(routesNearYouProvider);
+    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: provider.maybeWhen(

@@ -39,9 +39,9 @@ Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
       orElse: () => Left(UntypedError()));
 }
 
-final markersWithinMapBoundsProvider = StreamProvider.autoDispose
-    .family<Either<AppError, List<StopMarker>>, DirectedRoute>(
-        (AutoDisposeRef ref, DirectedRoute route) async* {
+final markersWithinMapBoundsProvider =
+    StreamProvider.autoDispose<Either<AppError, List<StopMarker>>>(
+        (AutoDisposeRef ref) async* {
   final allMarkers = await ref.watch(allMarkersProvider.future);
 
   final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
@@ -52,9 +52,6 @@ final markersWithinMapBoundsProvider = StreamProvider.autoDispose
           .where((marker) => event.bounds!.contains(LatLng(
               marker.landmark.location.latitude!,
               marker.landmark.location.longitude!)))
-          .where((marker) =>
-              marker.landmark.route.id == route.id &&
-              marker.landmark.route.direction == route.direction)
           .toList()).leftMap((_) => ParsingError());
     });
   }

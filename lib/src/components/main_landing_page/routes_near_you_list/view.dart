@@ -3,12 +3,12 @@
 import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
-import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 class RoutesNearYouListView extends StatelessWidget {
-  final Either<AppError, List<DirectedRoute>> routeData;
+  final Either<AppError, List<List<StopMarker>>> routeData;
   final ScrollController scrollController;
 
   const RoutesNearYouListView(this.scrollController,
@@ -59,15 +59,18 @@ class RoutesNearYouListView extends StatelessWidget {
                         child: AutomaticAnimatedList(
                           items: routes,
                           controller: scrollController,
-                          keyingFunction: (DirectedRoute item) => Key(item.id),
-                          itemBuilder: (BuildContext context,
-                              DirectedRoute item, Animation<double> animation) {
+                          keyingFunction: (markerList) =>
+                              Key(markerList.first.landmark.route.id),
+                          itemBuilder: (BuildContext context, markerList,
+                              Animation<double> animation) {
                             return FadeTransition(
                               opacity: animation,
                               child: SizeTransition(
                                 sizeFactor: CurvedAnimation(
                                     parent: animation, curve: Curves.easeInOut),
-                                child: _lineGenerator(item),
+                                child: RouteCard(
+                                  markerList: markerList,
+                                ),
                               ),
                             );
                           },
@@ -81,10 +84,6 @@ class RoutesNearYouListView extends StatelessWidget {
       );
     });
   }
-}
-
-RouteCard _lineGenerator(DirectedRoute route) {
-  return RouteCard(route: route);
 }
 
 header() => [
