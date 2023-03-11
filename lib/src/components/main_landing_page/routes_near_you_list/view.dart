@@ -5,9 +5,11 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/panel_controller_provider.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
@@ -57,6 +59,7 @@ class RoutesNearYouListView extends StatelessWidget {
                   );
                 } else {
                   return Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       ...header(),
                       Flexible(
@@ -87,66 +90,8 @@ class RoutesNearYouListView extends StatelessWidget {
   }
 }
 
-Consumer _lineGenerator(DirectedRoute route) {
-  final color = Colors.primaries[route.hashCode % Colors.primaries.length];
-  // TODO use https://api.flutter.dev/flutter/widgets/PageView-class.html
-  // to show several stops per route
-
-  return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-    final relevantRouteStops = ref.watch(markersWithinMapBoundsProvider(route));
-    return SizedBox(
-      width: double.infinity,
-      child: MaterialButton(
-        onPressed: () {
-          debugPrint("route list card got pressed");
-          ref.read(popupControllerProvider).hideAllPopups();
-          ref.read(panelControllerProvider).animatePanelToPosition(0.2,
-              duration: const Duration(milliseconds: 300));
-
-          relevantRouteStops.whenData((res) => res.map((stopMarkers) {
-                ref
-                    .read(popupControllerProvider)
-                    .showPopupsOnlyFor(stopMarkers);
-                ref
-                    .read(mapControllerServiceProvider.future)
-                    .then((mc) => mc.move(
-                        LatLng.fromJson({
-                          "latitude":
-                              stopMarkers.first.landmark.location.latitude,
-                          "longitude":
-                              stopMarkers.first.landmark.location.longitude
-                        }),
-                        16));
-              }));
-        },
-        color: color,
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text("route ${route.name}".toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
-                    Text(route.direction.toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
-                  ],
-                ),
-                const SizedBox(width: 13),
-                const Icon(Icons.directions_bus_filled_sharp,
-                    color: Colors.white),
-              ],
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  });
+RouteCard _lineGenerator(DirectedRoute route) {
+  return RouteCard(route: route);
 }
 
 header() => [
