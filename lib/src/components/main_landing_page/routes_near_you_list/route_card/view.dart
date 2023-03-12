@@ -91,7 +91,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                 Column(
                   children: [
                     Text(
-                        "route:${marker.routeStop.route.name} - direction: ${marker.routeStop.route.direction}"
+                        "route:${marker.routeStop.route.name} - direction: ${marker.routeStop.route.destination} via ${marker.routeStop.route.pathName}"
                             .toUpperCase(),
                         style: const TextStyle(color: Colors.white)),
                     Text("route id: ${marker.routeStop.route.id}".toUpperCase(),

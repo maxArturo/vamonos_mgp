@@ -115,7 +115,7 @@ class RecenterMapButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
         right: 20,
-        top: _panelHeightOpen - _fabHeight - _panelHeightClosed - 20,
+        top: _panelHeightOpen - _fabHeight - _panelHeightClosed,
         child: Consumer(
           builder: (context, ref, child) => FloatingActionButton(
             onPressed: () {

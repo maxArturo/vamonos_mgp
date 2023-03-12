@@ -397,7 +397,7 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
+class _$_RouteGeoData extends _RouteGeoData with DiagnosticableTreeMixin {
   const _$_RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
           required this.routeDirection,
@@ -410,7 +410,8 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
       @JsonKey(name: 'Latitud')
           this.latitude,
       @JsonKey(name: 'Longitud')
-          this.longitude});
+          this.longitude})
+      : super._();
 
   factory _$_RouteGeoData.fromJson(Map<String, dynamic> json) =>
       _$$_RouteGeoDataFromJson(json);
@@ -490,7 +491,7 @@ class _$_RouteGeoData with DiagnosticableTreeMixin implements _RouteGeoData {
   }
 }
 
-abstract class _RouteGeoData implements RouteGeoData {
+abstract class _RouteGeoData extends RouteGeoData {
   const factory _RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
           required final String routeDirection,
@@ -504,6 +505,7 @@ abstract class _RouteGeoData implements RouteGeoData {
           final num? latitude,
       @JsonKey(name: 'Longitud')
           final num? longitude}) = _$_RouteGeoData;
+  const _RouteGeoData._() : super._();
 
   factory _RouteGeoData.fromJson(Map<String, dynamic> json) =
       _$_RouteGeoData.fromJson;

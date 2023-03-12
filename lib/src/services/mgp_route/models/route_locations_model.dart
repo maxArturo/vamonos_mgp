@@ -23,6 +23,15 @@ class RouteLocations with _$RouteLocations {
 
 @freezed
 class RouteGeoData with _$RouteGeoData {
+  static extractDestination(String input) => input.split(';')[2];
+  static extractPathName(String input) => input.split(';')[1];
+
+  // ignore: unused_element
+  const RouteGeoData._();
+
+  get destination => extractDestination(description);
+  get pathName => extractPathName(description);
+
   const factory RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
           required String routeDirection,

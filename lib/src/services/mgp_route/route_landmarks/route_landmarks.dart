@@ -31,15 +31,16 @@ class RouteLandMarks {
       try {
         final rawJson = jsonDecode(response);
         final routeLandmarkList = RouteLocations.fromJson(rawJson);
-        return Right(routeLandmarkList.routes.map((r) {
-          final bigAns = RouteLandMark(
-              route: entity.DirectedRoute(
-                  direction: r.routeDirection, route: route),
-              isStoppingPoint: r.isCrossingPoint,
-              location: LocationData.fromMap(
-                  {'latitude': r.latitude, 'longitude': r.longitude}));
-          return bigAns;
-        }).toList());
+        return Right(routeLandmarkList.routes
+            .map((r) => RouteLandMark(
+                route: entity.DirectedRoute(
+                    destination: r.destination,
+                    pathName: r.pathName,
+                    route: route),
+                isStoppingPoint: r.isCrossingPoint,
+                location: LocationData.fromMap(
+                    {'latitude': r.latitude, 'longitude': r.longitude})))
+            .toList());
       } catch (e) {
         return Left(ParsingError(description: e.toString()));
       }

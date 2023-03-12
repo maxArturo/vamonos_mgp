@@ -41,7 +41,8 @@ stopMarkerLayer() {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                         "Route Name: ${stopMarker.routeStop.route.name}\n"
-                                        "Route Direction: ${stopMarker.routeStop.abbrevDirection}\n"
+                                        "Route Destination: ${stopMarker.routeStop.route.destination}\n"
+                                        "Route Path: ${stopMarker.routeStop.route.pathName}\n"
                                         "Route ID: ${stopMarker.routeStop.route.id}\n"
                                         "Stop Name: ${stopMarker.routeStop.description}"),
                                   ),

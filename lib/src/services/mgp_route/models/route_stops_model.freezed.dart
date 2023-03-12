@@ -243,9 +243,9 @@ mixin _$RouteStopData {
   @JsonKey(name: 'Descripcion', fromJson: _toString)
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-  String get stopAbbreviatedDirection => throw _privateConstructorUsedError;
+  String get pathName => throw _privateConstructorUsedError;
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-  String get stopExtendedDirection => throw _privateConstructorUsedError;
+  String get destination => throw _privateConstructorUsedError;
   @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   num? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
@@ -271,9 +271,9 @@ abstract class $RouteStopDataCopyWith<$Res> {
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           String description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          String stopAbbreviatedDirection,
+          String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          String stopExtendedDirection,
+          String destination,
       @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           num? latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
@@ -296,8 +296,8 @@ class _$RouteStopDataCopyWithImpl<$Res, $Val extends RouteStopData>
     Object? stopCode = null,
     Object? stopIdentifier = null,
     Object? description = null,
-    Object? stopAbbreviatedDirection = null,
-    Object? stopExtendedDirection = null,
+    Object? pathName = null,
+    Object? destination = null,
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
@@ -314,13 +314,13 @@ class _$RouteStopDataCopyWithImpl<$Res, $Val extends RouteStopData>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      stopAbbreviatedDirection: null == stopAbbreviatedDirection
-          ? _value.stopAbbreviatedDirection
-          : stopAbbreviatedDirection // ignore: cast_nullable_to_non_nullable
+      pathName: null == pathName
+          ? _value.pathName
+          : pathName // ignore: cast_nullable_to_non_nullable
               as String,
-      stopExtendedDirection: null == stopExtendedDirection
-          ? _value.stopExtendedDirection
-          : stopExtendedDirection // ignore: cast_nullable_to_non_nullable
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
               as String,
       latitude: freezed == latitude
           ? _value.latitude
@@ -350,9 +350,9 @@ abstract class _$$_RouteStopDataCopyWith<$Res>
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           String description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          String stopAbbreviatedDirection,
+          String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          String stopExtendedDirection,
+          String destination,
       @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           num? latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
@@ -373,8 +373,8 @@ class __$$_RouteStopDataCopyWithImpl<$Res>
     Object? stopCode = null,
     Object? stopIdentifier = null,
     Object? description = null,
-    Object? stopAbbreviatedDirection = null,
-    Object? stopExtendedDirection = null,
+    Object? pathName = null,
+    Object? destination = null,
     Object? latitude = freezed,
     Object? longitude = freezed,
   }) {
@@ -391,13 +391,13 @@ class __$$_RouteStopDataCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      stopAbbreviatedDirection: null == stopAbbreviatedDirection
-          ? _value.stopAbbreviatedDirection
-          : stopAbbreviatedDirection // ignore: cast_nullable_to_non_nullable
+      pathName: null == pathName
+          ? _value.pathName
+          : pathName // ignore: cast_nullable_to_non_nullable
               as String,
-      stopExtendedDirection: null == stopExtendedDirection
-          ? _value.stopExtendedDirection
-          : stopExtendedDirection // ignore: cast_nullable_to_non_nullable
+      destination: null == destination
+          ? _value.destination
+          : destination // ignore: cast_nullable_to_non_nullable
               as String,
       latitude: freezed == latitude
           ? _value.latitude
@@ -422,9 +422,9 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required this.description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          required this.stopAbbreviatedDirection,
+          required this.pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          required this.stopExtendedDirection,
+          required this.destination,
       @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           this.latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
@@ -444,10 +444,10 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
   final String description;
   @override
   @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-  final String stopAbbreviatedDirection;
+  final String pathName;
   @override
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-  final String stopExtendedDirection;
+  final String destination;
   @override
   @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   final num? latitude;
@@ -457,7 +457,7 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RouteStopData(stopCode: $stopCode, stopIdentifier: $stopIdentifier, description: $description, stopAbbreviatedDirection: $stopAbbreviatedDirection, stopExtendedDirection: $stopExtendedDirection, latitude: $latitude, longitude: $longitude)';
+    return 'RouteStopData(stopCode: $stopCode, stopIdentifier: $stopIdentifier, description: $description, pathName: $pathName, destination: $destination, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -468,9 +468,8 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
       ..add(DiagnosticsProperty('stopCode', stopCode))
       ..add(DiagnosticsProperty('stopIdentifier', stopIdentifier))
       ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty(
-          'stopAbbreviatedDirection', stopAbbreviatedDirection))
-      ..add(DiagnosticsProperty('stopExtendedDirection', stopExtendedDirection))
+      ..add(DiagnosticsProperty('pathName', pathName))
+      ..add(DiagnosticsProperty('destination', destination))
       ..add(DiagnosticsProperty('latitude', latitude))
       ..add(DiagnosticsProperty('longitude', longitude));
   }
@@ -486,11 +485,10 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
                 other.stopIdentifier == stopIdentifier) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(
-                    other.stopAbbreviatedDirection, stopAbbreviatedDirection) ||
-                other.stopAbbreviatedDirection == stopAbbreviatedDirection) &&
-            (identical(other.stopExtendedDirection, stopExtendedDirection) ||
-                other.stopExtendedDirection == stopExtendedDirection) &&
+            (identical(other.pathName, pathName) ||
+                other.pathName == pathName) &&
+            (identical(other.destination, destination) ||
+                other.destination == destination) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -499,15 +497,8 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      stopCode,
-      stopIdentifier,
-      description,
-      stopAbbreviatedDirection,
-      stopExtendedDirection,
-      latitude,
-      longitude);
+  int get hashCode => Object.hash(runtimeType, stopCode, stopIdentifier,
+      description, pathName, destination, latitude, longitude);
 
   @JsonKey(ignore: true)
   @override
@@ -532,9 +523,9 @@ abstract class _RouteStopData implements RouteStopData {
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required final String description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          required final String stopAbbreviatedDirection,
+          required final String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          required final String stopExtendedDirection,
+          required final String destination,
       @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           final num? latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
@@ -554,10 +545,10 @@ abstract class _RouteStopData implements RouteStopData {
   String get description;
   @override
   @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-  String get stopAbbreviatedDirection;
+  String get pathName;
   @override
   @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-  String get stopExtendedDirection;
+  String get destination;
   @override
   @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
   num? get latitude;

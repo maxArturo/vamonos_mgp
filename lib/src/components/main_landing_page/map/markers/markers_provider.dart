@@ -10,6 +10,8 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'markers_provider.g.dart';
 
+/// TODO rename to allStopMarkers since it only returns route stops, not
+/// landmarks on a route
 @riverpod
 Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
   final data = await ref.watch(allStopsBySourceProvider(
@@ -22,7 +24,7 @@ Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
           .where((el) =>
               el.location.latitude != null &&
               el.location.longitude != null &&
-              !el.isStoppingPoint)
+              el.isStoppingPoint)
           .map((routeStop) =>
               StopMarker(stopName: routeStop.description, routeStop: routeStop))
           .toList();

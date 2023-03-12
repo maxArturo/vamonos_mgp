@@ -29,9 +29,12 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersHash() => r'c2f00bed081518cce151559d1b05961a8142b38b';
+String _$allMarkersHash() => r'8b9bf8af82f7ba2e0d41fed1171c6f7e6a95da99';
 
-/// See also [allMarkers].
+/// TODO rename to allStopMarkers since it only returns route stops, not
+/// landmarks on a route
+///
+/// Copied from [allMarkers].
 final allMarkersProvider =
     AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>(
   allMarkers,

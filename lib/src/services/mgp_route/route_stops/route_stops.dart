@@ -36,15 +36,14 @@ class RouteStopService {
               final routeStops = stops
                   .map((stop) => RouteStop(
                       route: entity.DirectedRoute(
-                          direction: stop.stopAbbreviatedDirection,
+                          destination: stop.destination,
+                          pathName: stop.pathName,
                           route: route),
                       location: LocationData.fromMap({
                         'latitude': stop.latitude,
                         'longitude': stop.longitude
                       }),
-                      abbrevDirection: stop.stopAbbreviatedDirection,
                       description: stop.description,
-                      extendedDirection: stop.stopExtendedDirection,
                       id: stop.stopCode,
                       name: stop.stopIdentifier))
                   .toList();

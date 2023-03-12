@@ -50,10 +50,10 @@ List<Polyline> toPolyLines(
   final Map<String, Set<RouteLandMark>> stopsByRoute = {};
 
   for (final stop in routeStops) {
-    if (!stopsByRoute.containsKey(stop.route.direction)) {
-      stopsByRoute[stop.route.direction] = <RouteLandMark>{};
+    if (!stopsByRoute.containsKey(stop.route.canonicalIdentifier)) {
+      stopsByRoute[stop.route.canonicalIdentifier] = <RouteLandMark>{};
     }
-    stopsByRoute[stop.route.direction]?.add(stop);
+    stopsByRoute[stop.route.canonicalIdentifier]?.add(stop);
   }
 
   final List<Polyline> lines = stopsByRoute.keys.map((route) {

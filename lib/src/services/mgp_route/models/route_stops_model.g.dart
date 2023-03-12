@@ -31,8 +31,8 @@ _$_RouteStopData _$$_RouteStopDataFromJson(Map<String, dynamic> json) =>
       stopCode: _toString(json['Codigo']),
       stopIdentifier: _toString(json['Identificador']),
       description: _toString(json['Descripcion']),
-      stopAbbreviatedDirection: _toString(json['AbreviaturaBandera']),
-      stopExtendedDirection: _toString(json['AbreviaturaAmpliadaBandera']),
+      pathName: _toString(json['AbreviaturaBandera']),
+      destination: _toString(json['AbreviaturaAmpliadaBandera']),
       latitude: _toDouble(json['LatitudParada']),
       longitude: _toDouble(json['LongitudParada']),
     );
@@ -42,8 +42,8 @@ Map<String, dynamic> _$$_RouteStopDataToJson(_$_RouteStopData instance) =>
       'Codigo': instance.stopCode,
       'Identificador': instance.stopIdentifier,
       'Descripcion': instance.description,
-      'AbreviaturaBandera': instance.stopAbbreviatedDirection,
-      'AbreviaturaAmpliadaBandera': instance.stopExtendedDirection,
+      'AbreviaturaBandera': instance.pathName,
+      'AbreviaturaAmpliadaBandera': instance.destination,
       'LatitudParada': instance.latitude,
       'LongitudParada': instance.longitude,
     };

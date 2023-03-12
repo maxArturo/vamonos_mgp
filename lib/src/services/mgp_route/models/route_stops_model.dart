@@ -32,9 +32,9 @@ class RouteStopData with _$RouteStopData {
       @JsonKey(name: 'Descripcion', fromJson: _toString)
           required String description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          required String stopAbbreviatedDirection,
+          required String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          required String stopExtendedDirection,
+          required String destination,
       @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
           num? latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
