@@ -33,20 +33,20 @@ class RouteStopService {
         final routeStopList = RouteStops.fromJson(rawJson);
         return Right(routeStopList.stops.values
             .map((stops) {
-              final routeStops = stops
-                  .map((stop) => RouteStop(
-                      route: entity.DirectedRoute(
-                          destination: stop.destination,
-                          pathName: stop.pathName,
-                          route: route),
-                      location: LocationData.fromMap({
-                        'latitude': stop.latitude,
-                        'longitude': stop.longitude
-                      }),
-                      description: stop.description,
-                      id: stop.stopCode,
-                      name: stop.stopIdentifier))
-                  .toList();
+              final routeStops = stops.map((stop) {
+                return RouteStop(
+                    route: entity.DirectedRoute(
+                        destination: stop.destination,
+                        pathName: stop.pathName,
+                        route: route),
+                    location: LocationData.fromMap({
+                      'latitude': stop.latitude,
+                      'longitude': stop.longitude
+                    }),
+                    description: stop.description,
+                    id: stop.stopCode,
+                    name: stop.stopIdentifier);
+              }).toList();
               return routeStops;
             })
             .reduce((value, element) => [...value, ...element])

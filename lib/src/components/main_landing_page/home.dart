@@ -97,7 +97,7 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
   }
 }
 
-class RecenterMapButton extends StatelessWidget {
+class RecenterMapButton extends ConsumerWidget {
   const RecenterMapButton(
       {super.key,
       required double panelHeightOpen,
@@ -112,7 +112,7 @@ class RecenterMapButton extends StatelessWidget {
   final double _panelHeightClosed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
         right: 20,
         top: _panelHeightOpen - _fabHeight - _panelHeightClosed,
@@ -122,6 +122,9 @@ class RecenterMapButton extends StatelessWidget {
               ref
                   .read(mapControllerServiceProvider.notifier)
                   .recenterMapLocation();
+              ref.read(mapControllerServiceProvider.future).then((mc) => mc
+                  .mapEventSink
+                  .add(MapEventInitialized(center: mc.center, zoom: mc.zoom)));
             },
             backgroundColor: Colors.white,
             child: Icon(

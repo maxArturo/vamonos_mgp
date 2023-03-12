@@ -9,7 +9,7 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_p
 stopMarkerLayer() {
   return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-          ref.watch(allMarkersProvider).maybeWhen(
+          ref.watch(markersWithinMapBoundsProvider).maybeWhen(
               orElse: () => const Text("An unhandled error occurred"),
               data: (data) => data.fold(
                     (err) => Text("An error of type $err occurred"),

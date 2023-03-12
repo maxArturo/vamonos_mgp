@@ -59,9 +59,7 @@ List<Polyline> toPolyLines(
   final List<Polyline> lines = stopsByRoute.keys.map((route) {
     availableColors.moveNext();
     final color = availableColors.current;
-    final initListOfStops = stopsByRoute[route]!
-        // .where((element) => element.isStoppingPoint)
-        .toList();
+    final initListOfStops = stopsByRoute[route]!.toList();
 
     return Polyline(
         color: color,
