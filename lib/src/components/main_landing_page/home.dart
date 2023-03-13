@@ -6,6 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/panel_controller_provider.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/scroll_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
@@ -76,7 +77,12 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
                   panelSnapping: false,
                   isDraggable: true,
                   body: const NavigationMap(),
-                  panelBuilder: (sc) => SlidingUpDrawer(sc),
+                  panelBuilder: (sc) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) => ref
+                        .read(panelScrollControllerProvider.notifier)
+                        .setScrollController(sc));
+                    return SlidingUpDrawer(sc);
+                  },
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24)),

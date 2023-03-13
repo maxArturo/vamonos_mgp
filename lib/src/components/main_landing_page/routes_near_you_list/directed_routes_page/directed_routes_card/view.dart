@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/widget.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/directed_routes_card/widget.dart';
 
-class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
-  const RouteCardView(super.state, {super.key});
+class DirectedRouteCardView
+    extends WidgetView<DirectedRouteCard, DirectedRouteCardController> {
+  const DirectedRouteCardView(super.state, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +12,19 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
         height: 80,
         width: double.infinity,
         child: MaterialButton(
-          color: getCardColor(widget.routeName),
+          color: getCardColor(widget.directedRoute.canonicalIdentifier),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Scaffold(
-                      appBar: AppBar(
-                        title: Text(
-                            '${widget.routeName} - directed routes'
-                                .toUpperCase(),
-                            style: const TextStyle(color: Colors.white)),
-                        backgroundColor: Theme.of(context).primaryColorDark,
-                      ),
-                      body: DirectedRoutesPage(
-                          directedRouteStops:
-                              widget.data.directedRouteData.values.toList()),
-                    )));
+                    appBar: AppBar(
+                      title: Text(
+                          '${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}'
+                              .toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                    ),
+                    body: Text("hello from ${widget.stops.length}  stops"))));
+            // body: DirectedRoutesPage(directedRouteStops: [],))));
           },
           child: Column(
             children: [
@@ -37,10 +35,12 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                 children: [
                   Column(
                     children: [
-                      Text("route:${widget.routeName}".toUpperCase(),
+                      Text(
+                          "${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}"
+                              .toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                       Text(
-                          "${widget.data.directedRouteData.keys.length} available directions"
+                          "${widget.stops.length} available stops"
                               .toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ],
