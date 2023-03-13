@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/widget.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/list_card.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
 
 class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
@@ -8,51 +9,26 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 80,
-        width: double.infinity,
-        child: MaterialButton(
-          color: getCardColor(widget.routeName),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Scaffold(
-                      appBar: AppBar(
-                        title: Text(
-                            '${widget.routeName} - directed routes'
-                                .toUpperCase(),
-                            style: const TextStyle(color: Colors.white)),
-                        backgroundColor: Theme.of(context).primaryColorDark,
-                      ),
-                      body: DirectedRoutesPage(
-                          directedRouteStops:
-                              widget.data.directedRouteData.values.toList()),
-                    )));
-          },
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Text("route:${widget.routeName}".toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
-                      Text(
-                          "${widget.data.directedRouteData.keys.length} available directions"
-                              .toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
-                    ],
+    return PanelListCard(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                        '${widget.routeName} - directed routes'.toUpperCase(),
+                        style: const TextStyle(color: Colors.white)),
+                    backgroundColor: Theme.of(context).primaryColorDark,
                   ),
-                  const Icon(Icons.directions_bus_filled_sharp,
-                      size: 24, color: Colors.white),
-                ],
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ));
+                  body: DirectedRoutesPage(
+                      directedRouteStops:
+                          widget.data.directedRouteData.values.toList()),
+                )));
+      },
+      bottomRowText:
+          "${widget.data.directedRouteData.keys.length} available directions",
+      topRowText: "route:${widget.routeName}",
+      color: getCardColor(widget.routeName),
+    );
   }
 
   getCardColor(String routeName) =>

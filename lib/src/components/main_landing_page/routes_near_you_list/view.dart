@@ -85,10 +85,6 @@ class RoutesNearYouListView
                                 ),
                               );
                             } else {
-                              debugPrint(
-                                  "[Widget]: RoutesNearYouListView list size: ${r.length}");
-                              debugPrint(
-                                  "[Widget]: RoutesNearYouListView list composition: ${r.last.directedRouteData.values.length}");
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -142,12 +138,10 @@ class RoutesNearYouListView
           switch (settings.name) {
             case '/':
               builder = (context) => Scaffold(
-                    backgroundColor: Colors.grey,
                     appBar: AppBar(
                       automaticallyImplyLeading: false,
                       title: Text('routes near you'.toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
-                      backgroundColor: Theme.of(context).primaryColorDark,
                     ),
                     body: routesSection(),
                   );
@@ -155,7 +149,7 @@ class RoutesNearYouListView
             default:
               throw UnimplementedError();
           }
-          return MaterialPageRoute(builder: builder, maintainState: false);
+          return MaterialPageRoute(builder: builder);
         },
       ),
     );
