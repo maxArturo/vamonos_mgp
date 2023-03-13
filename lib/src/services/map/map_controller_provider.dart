@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -43,7 +44,11 @@ class MapEventInitialized extends MapEvent {
 final mapEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
   final mc = await ref.watch(mapControllerServiceProvider.future);
-  yield* mc.mapEventStream.map((event) => MapEventWithBounds(mc.bounds, event));
+  yield* mc.mapEventStream.map((event) {
+    debugPrint(
+        "[mapEventStreamProvider] map event yielded of type: ${event.source}");
+    return MapEventWithBounds(mc.bounds, event);
+  });
 });
 
 final onEndMapEvents = MapEventSource.values.where((element) =>

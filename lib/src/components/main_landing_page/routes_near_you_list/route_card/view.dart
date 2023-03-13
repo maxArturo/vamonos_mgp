@@ -8,38 +8,49 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 80, width: double.infinity, child: singleStopCard());
+        height: 80,
+        width: double.infinity,
+        child: MaterialButton(
+          color: getCardColor(widget.routeName),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Scaffold(
+                      appBar: AppBar(
+                        title: Text('directed routes near you'.toUpperCase(),
+                            style: const TextStyle(color: Colors.white)),
+                        backgroundColor: Theme.of(context).primaryColorDark,
+                      ),
+                      body: Center(
+                          child: Text("kaboom from ${widget.routeName}")),
+                    )));
+          },
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text("route:${widget.routeName}".toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
+                      Text(
+                          "${widget.data.directedRouteData.keys.length} available directions"
+                              .toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                  const Icon(Icons.directions_bus_filled_sharp,
+                      size: 24, color: Colors.white),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ));
   }
 
   getCardColor(String routeName) =>
       Colors.primaries[routeName.hashCode % Colors.primaries.length];
-
-  singleStopCard() => MaterialButton(
-        color: getCardColor(widget.routeName),
-        onPressed: () {},
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text("route:${widget.routeName}".toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
-                    Text(
-                        "${widget.directedRoutes.keys.length} available directions"
-                            .toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
-                  ],
-                ),
-                const Icon(Icons.directions_bus_filled_sharp,
-                    size: 24, color: Colors.white),
-              ],
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      );
 }

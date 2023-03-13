@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +15,8 @@ part 'markers_provider.g.dart';
 /// landmarks on a route
 @riverpod
 Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
+  debugPrint("[Provider] init: allMarkers");
+  ref.onDispose(() => debugPrint("[Provider] dispose: allMarkers"));
   final data = await ref.watch(allStopsBySourceProvider(
           provider: TransportationProvider.municipioGeneralPurreydon)
       .future);
@@ -39,17 +42,26 @@ Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
 final markersWithinMapBoundsProvider =
     StreamProvider.autoDispose<Either<AppError, List<StopMarker>>>(
         (AutoDisposeRef ref) async* {
+  debugPrint("[Provider] init: markersWithinMapBoundsProvider");
+  ref.onDispose(
+      () => debugPrint("[Provider] dispose: markersWithinMapBoundsProvider"));
   final allMarkers = await ref.watch(allMarkersProvider.future);
 
   final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
     yield allMarkers.flatMap((markerList) {
-      return catching(() => markerList
-          .where((marker) => event.bounds!.contains(LatLng(
-              marker.routeStop.location.latitude!,
-              marker.routeStop.location.longitude!)))
-          .toList()).leftMap((e) => ParsingError(description: e.toString()));
+      return catching(() {
+        final result = markerList
+            .where((marker) => event.bounds!.contains(LatLng(
+                marker.routeStop.location.latitude!,
+                marker.routeStop.location.longitude!)))
+            .toList();
+
+        debugPrint(
+            "[Provider] yielding: markersWithinMapBoundsProvider with ${result.length} marks in bound");
+        return result;
+      }).leftMap((e) => ParsingError(description: e.toString()));
     });
   }
 });

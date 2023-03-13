@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/models.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/view.dart';
-import 'package:vamonos_mgp/src/entities/route.dart';
 
 class RouteCard extends ConsumerStatefulWidget {
-  final Map<DirectedRoute, List<StopMarker>> directedRoutes;
+  final RouteCardData data;
   final String routeName;
 
-  const RouteCard(
-      {required this.routeName, required this.directedRoutes, super.key});
+  const RouteCard({required this.routeName, required this.data, super.key});
 
   @override
   ConsumerState<RouteCard> createState() => RouteCardController();

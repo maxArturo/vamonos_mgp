@@ -1,43 +1,17 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/models.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/view.dart';
 
-class RoutesNearYouList extends ConsumerStatefulWidget {
+class RoutesNearYouList extends StatefulWidget {
   final ScrollController scrollController;
   const RoutesNearYouList(this.scrollController, {super.key});
 
   @override
-  ConsumerState<RoutesNearYouList> createState() =>
-      RoutesNearYouListController();
+  State<RoutesNearYouList> createState() => RoutesNearYouListController();
 }
 
-class RoutesNearYouListController extends ConsumerState<RoutesNearYouList> {
+class RoutesNearYouListController extends State<RoutesNearYouList> {
   final animatedListKey = GlobalKey<AnimatedListState>();
 
   @override
-  Widget build(BuildContext context) {
-    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-    return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: provider.maybeWhen(
-            data: (data) => RoutesNearYouListView(
-                  widget.scrollController,
-                  routeData: data,
-                  key: const Key('dataLoaded'),
-                ),
-            loading: () => const Center(
-                  key: Key('loading'),
-                  child: CircularProgressIndicator(),
-                ),
-            orElse: () => const Text(
-                  "An unexpected error occurred",
-                  key: Key('error'),
-                  style: TextStyle(color: Colors.red),
-                )));
-  }
+  Widget build(BuildContext context) => RoutesNearYouListView(this);
 }
