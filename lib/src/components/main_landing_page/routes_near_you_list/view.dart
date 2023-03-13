@@ -142,6 +142,7 @@ class RoutesNearYouListView
                       automaticallyImplyLeading: false,
                       title: Text('routes near you'.toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
+                      backgroundColor: Theme.of(context).primaryColorDark,
                     ),
                     body: routesSection(),
                   );
@@ -149,7 +150,7 @@ class RoutesNearYouListView
             default:
               throw UnimplementedError();
           }
-          return MaterialPageRoute(builder: builder);
+          return MaterialPageRoute(maintainState: false, builder: builder);
         },
       ),
     );

@@ -78,9 +78,14 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
                   isDraggable: true,
                   body: const NavigationMap(),
                   panelBuilder: (sc) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) => ref
-                        .read(panelScrollControllerProvider.notifier)
-                        .setScrollController(sc));
+                    final optionController =
+                        ref.watch(panelScrollControllerProvider);
+                    if (optionController.isNone()) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) => ref
+                          .read(panelScrollControllerProvider.notifier)
+                          .setScrollController(sc));
+                    }
+
                     return SlidingUpDrawer(sc);
                   },
                   borderRadius: const BorderRadius.only(

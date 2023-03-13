@@ -8,7 +8,9 @@ import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
 class RouteStopsPageView
     extends WidgetView<RouteStopsPage, RouteStopsPageController> {
-  const RouteStopsPageView(super.state, {super.key});
+  final ScrollController scrollController;
+  const RouteStopsPageView(super.state,
+      {super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,8 @@ class RouteStopsPageView
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(
-            // TODO check if I really need a scrollcontroller here
-            // otherwise delte lib/src/components/main_landing_page/panel_controller/scroll_controller_provider.dart
             child: ListView.builder(
+          controller: scrollController,
           itemCount: widget.stops.length,
           itemBuilder: (BuildContext context, int index) {
             if (widget.stops.isEmpty) {

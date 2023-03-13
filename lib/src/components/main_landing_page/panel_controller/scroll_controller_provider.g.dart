@@ -30,20 +30,22 @@ class _SystemHash {
 }
 
 String _$PanelScrollControllerHash() =>
-    r'47654f4aa2326cf7c5a3e4e53012777198cb4907';
+    r'd871c9b4f17d61a80326f302b787a9be00950988';
 
 /// See also [PanelScrollController].
 final panelScrollControllerProvider =
-    NotifierProvider<PanelScrollController, ScrollController>(
+    NotifierProvider<PanelScrollController, Option<ScrollController>>(
   PanelScrollController.new,
   name: r'panelScrollControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$PanelScrollControllerHash,
 );
-typedef PanelScrollControllerRef = NotifierProviderRef<ScrollController>;
+typedef PanelScrollControllerRef
+    = NotifierProviderRef<Option<ScrollController>>;
 
-abstract class _$PanelScrollController extends Notifier<ScrollController> {
+abstract class _$PanelScrollController
+    extends Notifier<Option<ScrollController>> {
   @override
-  ScrollController build();
+  Option<ScrollController> build();
 }

@@ -5,7 +5,9 @@ import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_lis
 
 class DirectedRoutesPageView
     extends WidgetView<DirectedRoutesPage, DirectedRoutesPageController> {
-  const DirectedRoutesPageView(super.state, {super.key});
+  final ScrollController scrollController;
+  const DirectedRoutesPageView(super.state,
+      {super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,8 @@ class DirectedRoutesPageView
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(
-            // TODO check if I really need a scrollcontroller here
-            // otherwise delte lib/src/components/main_landing_page/panel_controller/scroll_controller_provider.dart
             child: ListView.builder(
+          controller: scrollController,
           itemCount: widget.directedRouteStops.length,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
