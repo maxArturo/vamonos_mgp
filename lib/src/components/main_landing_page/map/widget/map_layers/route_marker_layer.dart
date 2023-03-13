@@ -4,6 +4,7 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/stop_marker_popup.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 
 stopMarkerLayer() {
@@ -37,14 +38,8 @@ stopMarkerLayer() {
                                 width: 200,
                                 height: 100,
                                 child: GestureDetector(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "Route Name: ${stopMarker.routeStop.route.name}\n"
-                                        "Route Destination: ${stopMarker.routeStop.route.destination}\n"
-                                        "Route Path: ${stopMarker.routeStop.route.pathName}\n"
-                                        "Route ID: ${stopMarker.routeStop.route.id}\n"
-                                        "Stop Name: ${stopMarker.routeStop.description}"),
+                                  child: StopMarkerPopup(
+                                    stop: stopMarker,
                                   ),
                                 ),
                               );
