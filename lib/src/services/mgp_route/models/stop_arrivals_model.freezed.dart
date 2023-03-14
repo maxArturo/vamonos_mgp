@@ -20,8 +20,8 @@ StopArrivals _$StopArrivalsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$StopArrivals {
-  @JsonKey(name: 'CodigoEstado', fromJson: _toString)
-  String get statusCode => throw _privateConstructorUsedError;
+  @JsonKey(name: 'CodigoEstado')
+  num get statusCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'MensajeEstado')
   String get statusMessage => throw _privateConstructorUsedError;
   @JsonKey(name: 'arribos')
@@ -40,7 +40,7 @@ abstract class $StopArrivalsCopyWith<$Res> {
       _$StopArrivalsCopyWithImpl<$Res, StopArrivals>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString) String statusCode,
+      {@JsonKey(name: 'CodigoEstado') num statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
       @JsonKey(name: 'arribos') List<Arrival> stops});
 }
@@ -66,7 +66,7 @@ class _$StopArrivalsCopyWithImpl<$Res, $Val extends StopArrivals>
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as num,
       statusMessage: null == statusMessage
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
@@ -88,7 +88,7 @@ abstract class _$$_StopArrivalsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString) String statusCode,
+      {@JsonKey(name: 'CodigoEstado') num statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
       @JsonKey(name: 'arribos') List<Arrival> stops});
 }
@@ -112,7 +112,7 @@ class __$$_StopArrivalsCopyWithImpl<$Res>
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
-              as String,
+              as num,
       statusMessage: null == statusMessage
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
@@ -129,20 +129,17 @@ class __$$_StopArrivalsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_StopArrivals with DiagnosticableTreeMixin implements _StopArrivals {
   const _$_StopArrivals(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required this.statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required this.statusMessage,
-      @JsonKey(name: 'arribos')
-          required final List<Arrival> stops})
+      {@JsonKey(name: 'CodigoEstado') required this.statusCode,
+      @JsonKey(name: 'MensajeEstado') required this.statusMessage,
+      @JsonKey(name: 'arribos') required final List<Arrival> stops})
       : _stops = stops;
 
   factory _$_StopArrivals.fromJson(Map<String, dynamic> json) =>
       _$$_StopArrivalsFromJson(json);
 
   @override
-  @JsonKey(name: 'CodigoEstado', fromJson: _toString)
-  final String statusCode;
+  @JsonKey(name: 'CodigoEstado')
+  final num statusCode;
   @override
   @JsonKey(name: 'MensajeEstado')
   final String statusMessage;
@@ -203,19 +200,17 @@ class _$_StopArrivals with DiagnosticableTreeMixin implements _StopArrivals {
 
 abstract class _StopArrivals implements StopArrivals {
   const factory _StopArrivals(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required final String statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required final String statusMessage,
-      @JsonKey(name: 'arribos')
-          required final List<Arrival> stops}) = _$_StopArrivals;
+          {@JsonKey(name: 'CodigoEstado') required final num statusCode,
+          @JsonKey(name: 'MensajeEstado') required final String statusMessage,
+          @JsonKey(name: 'arribos') required final List<Arrival> stops}) =
+      _$_StopArrivals;
 
   factory _StopArrivals.fromJson(Map<String, dynamic> json) =
       _$_StopArrivals.fromJson;
 
   @override
-  @JsonKey(name: 'CodigoEstado', fromJson: _toString)
-  String get statusCode;
+  @JsonKey(name: 'CodigoEstado')
+  num get statusCode;
   @override
   @JsonKey(name: 'MensajeEstado')
   String get statusMessage;
@@ -240,13 +235,13 @@ mixin _$Arrival {
   String get destinationDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'Arribo', fromJson: _toString)
   String get arrival => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Latitud', fromJson: _toDouble)
+  @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
   num? get busLatitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Longitud', fromJson: _toDouble)
+  @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
   num? get busLongitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
   num? get stopLatitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
   num? get stopLongitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
   String get shortDestinationDescription => throw _privateConstructorUsedError;
@@ -280,13 +275,13 @@ abstract class $ArrivalCopyWith<$Res> {
           String destinationDescription,
       @JsonKey(name: 'Arribo', fromJson: _toString)
           String arrival,
-      @JsonKey(name: 'Latitud', fromJson: _toDouble)
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
           num? busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _toDouble)
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
           num? busLongitude,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
           num? stopLatitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
           num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
           String shortDestinationDescription,
@@ -407,13 +402,13 @@ abstract class _$$_ArrivalCopyWith<$Res> implements $ArrivalCopyWith<$Res> {
           String destinationDescription,
       @JsonKey(name: 'Arribo', fromJson: _toString)
           String arrival,
-      @JsonKey(name: 'Latitud', fromJson: _toDouble)
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
           num? busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _toDouble)
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
           num? busLongitude,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
           num? stopLatitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
           num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
           String shortDestinationDescription,
@@ -527,13 +522,13 @@ class _$_Arrival with DiagnosticableTreeMixin implements _Arrival {
           required this.destinationDescription,
       @JsonKey(name: 'Arribo', fromJson: _toString)
           required this.arrival,
-      @JsonKey(name: 'Latitud', fromJson: _toDouble)
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
           this.busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _toDouble)
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
           this.busLongitude,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
           this.stopLatitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
           this.stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
           required this.shortDestinationDescription,
@@ -563,16 +558,16 @@ class _$_Arrival with DiagnosticableTreeMixin implements _Arrival {
   @JsonKey(name: 'Arribo', fromJson: _toString)
   final String arrival;
   @override
-  @JsonKey(name: 'Latitud', fromJson: _toDouble)
+  @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
   final num? busLatitude;
   @override
-  @JsonKey(name: 'Longitud', fromJson: _toDouble)
+  @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
   final num? busLongitude;
   @override
-  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
   final num? stopLatitude;
   @override
-  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
   final num? stopLongitude;
   @override
   @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
@@ -700,13 +695,13 @@ abstract class _Arrival implements Arrival {
           required final String destinationDescription,
       @JsonKey(name: 'Arribo', fromJson: _toString)
           required final String arrival,
-      @JsonKey(name: 'Latitud', fromJson: _toDouble)
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
           final num? busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _toDouble)
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
           final num? busLongitude,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
           final num? stopLatitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+      @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
           final num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
           required final String shortDestinationDescription,
@@ -735,16 +730,16 @@ abstract class _Arrival implements Arrival {
   @JsonKey(name: 'Arribo', fromJson: _toString)
   String get arrival;
   @override
-  @JsonKey(name: 'Latitud', fromJson: _toDouble)
+  @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
   num? get busLatitude;
   @override
-  @JsonKey(name: 'Longitud', fromJson: _toDouble)
+  @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
   num? get busLongitude;
   @override
-  @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
   num? get stopLatitude;
   @override
-  @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
+  @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
   num? get stopLongitude;
   @override
   @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)

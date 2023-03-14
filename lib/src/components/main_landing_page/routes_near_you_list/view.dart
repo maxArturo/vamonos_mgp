@@ -127,7 +127,6 @@ class RoutesNearYouListView
   }
 
   Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {
-    debugPrint("[Widget] building: RoutesNearYouListView");
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,

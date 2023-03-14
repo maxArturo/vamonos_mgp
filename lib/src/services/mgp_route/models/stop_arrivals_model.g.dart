@@ -8,7 +8,7 @@ part of 'stop_arrivals_model.dart';
 
 _$_StopArrivals _$$_StopArrivalsFromJson(Map<String, dynamic> json) =>
     _$_StopArrivals(
-      statusCode: _toString(json['CodigoEstado']),
+      statusCode: json['CodigoEstado'] as num,
       statusMessage: json['MensajeEstado'] as String,
       stops: (json['arribos'] as List<dynamic>)
           .map((e) => Arrival.fromJson(e as Map<String, dynamic>))
@@ -26,10 +26,10 @@ _$_Arrival _$$_ArrivalFromJson(Map<String, dynamic> json) => _$_Arrival(
       lineDescription: _toString(json['DescripcionLinea']),
       destinationDescription: _toString(json['DescripcionBandera']),
       arrival: _toString(json['Arribo']),
-      busLatitude: _toDouble(json['Latitud']),
-      busLongitude: _toDouble(json['Longitud']),
-      stopLatitude: _toDouble(json['LatitudParada']),
-      stopLongitude: _toDouble(json['LongitudParada']),
+      busLatitude: _maybeToDobule(json['Latitud']),
+      busLongitude: _maybeToDobule(json['Longitud']),
+      stopLatitude: _maybeToDobule(json['LatitudParada']),
+      stopLongitude: _maybeToDobule(json['LongitudParada']),
       shortDestinationDescription: _toString(json['DescripcionCortaBandera']),
       busLabelDescription: _toString(json['DescripcionCartelBandera']),
       busId: _toString(json['IdentificadorCoche']),

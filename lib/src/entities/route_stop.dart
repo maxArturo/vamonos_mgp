@@ -5,6 +5,13 @@ class RouteStop extends RouteLandMark {
   final String name;
   final String description;
 
+  @override
+  toString() => "id: $id\n"
+      "name: $name\n"
+      "description: $description\n"
+      "description: $description\n"
+      "direction: ${route.canonicalIdentifier}";
+
   RouteStop(
       {required super.route,
       required super.location,

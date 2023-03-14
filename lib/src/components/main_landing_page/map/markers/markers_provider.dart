@@ -56,6 +56,7 @@ final markersWithinMapBoundsProvider =
             .where((marker) => event.bounds!.contains(LatLng(
                 marker.routeStop.location.latitude!,
                 marker.routeStop.location.longitude!)))
+            .where((marker) => marker.routeStop.isStoppingPoint)
             .toList();
 
         debugPrint(

@@ -31,6 +31,7 @@ dependencies:
   quiver: ^3.2.1
   concurrent_queue: ^1.4.0
   stream_transform: ^2.1.0
+  intl: ^0.18.0
 
   # map dependencies
   latlong2: ^0.8.1

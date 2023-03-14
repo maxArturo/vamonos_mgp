@@ -4,7 +4,8 @@ enum ErrorType {
   initializationError,
   permissionError,
   serviceUnavailableError,
-  parsingError
+  parsingError,
+  dataNotFoundError
 }
 
 abstract class AppError {
@@ -29,7 +30,12 @@ class PermissionError extends AppError {
 }
 
 class ServiceUnavailableError extends AppError {
-  ServiceUnavailableError() : super(ErrorType.serviceUnavailableError);
+  ServiceUnavailableError({super.description})
+      : super(ErrorType.serviceUnavailableError);
+}
+
+class DataNotFoundError extends AppError {
+  DataNotFoundError({super.description}) : super(ErrorType.dataNotFoundError);
 }
 
 class ParsingError extends AppError {
