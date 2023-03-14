@@ -135,7 +135,7 @@ class RecenterMapButton extends ConsumerWidget {
                   .recenterMapLocation();
               ref.read(mapControllerServiceProvider.future).then((mc) => mc
                   .mapEventSink
-                  .add(MapEventInitialized(center: mc.center, zoom: mc.zoom)));
+                  .add(MapEventRecentered(center: mc.center, zoom: mc.zoom)));
             },
             backgroundColor: Colors.white,
             child: Icon(

@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersHash() => r'91603514251656a6d6d3c93efa0bec526ab2c09c';
+String _$allMarkersHash() => r'8b9bf8af82f7ba2e0d41fed1171c6f7e6a95da99';
 
 /// TODO rename to allStopMarkers since it only returns route stops, not
 /// landmarks on a route

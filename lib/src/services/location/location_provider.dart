@@ -1,15 +1,17 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamonos_mgp/src/adapters/location/location_provider.dart';
 
-import '../../adapters/location/location_provider.dart';
+final locationServiceProvider =
+    FutureProvider.autoDispose<LocationData>((AutoDisposeRef ref) async {
+  return await ref.watch(locationAdapterProvider).getLocationData();
+});
 
-part 'location_provider.g.dart';
+final updatedLocationServiceProvider =
+    StreamProvider.autoDispose<LocationData>((AutoDisposeRef ref) async* {
+  final updatedLocationStream = ref.watch(updatedLocationProvider.stream);
 
-@riverpod
-class LocationService extends _$LocationService {
-  @override
-  Future<LocationData> build() async {
-    final res = ref.watch(locationAdapterProvider).getLocationData();
-    return res;
+  await for (final newLocation in updatedLocationStream) {
+    yield newLocation;
   }
-}
+});

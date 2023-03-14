@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/models.dart';
@@ -33,8 +32,6 @@ final routeStopMapMarkersNearYouProvider =
         routeCardData.directedRouteData[marker.routeStop.route]!.add(marker);
       }
 
-      debugPrint(
-          "[Provider] yielding data: routeStopMapMarkersNearYouProvider with final ${markersByRoute.values.length} entries");
       return markersByRoute.values.toList();
     });
   }

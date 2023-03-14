@@ -7,7 +7,7 @@ import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 centerMarkerLayer() {
   return Consumer(
     builder: (context, ref, child) {
-      return ref.watch(locationServiceProvider).maybeWhen(
+      return ref.watch(updatedLocationServiceProvider).maybeWhen(
           data: (loc) => MarkerLayer(
                 markers: [
                   Marker(

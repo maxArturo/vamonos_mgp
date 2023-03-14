@@ -6,5 +6,5 @@ final locationAdapterProvider =
     Provider<LocationAdapter>((ref) => LocationAdapter());
 
 final updatedLocationProvider = StreamProvider.autoDispose<LocationData>((ref) {
-  return ref.watch(locationAdapterProvider).updateStream();
+  return ref.watch(locationAdapterProvider).updateStream;
 });

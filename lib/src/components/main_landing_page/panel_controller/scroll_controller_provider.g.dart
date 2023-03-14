@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 String _$PanelScrollControllerHash() =>
-    r'd871c9b4f17d61a80326f302b787a9be00950988';
+    r'060e1f062a6f2008798d2d87fdd7b02d954fa63a';
 
 /// See also [PanelScrollController].
 final panelScrollControllerProvider =

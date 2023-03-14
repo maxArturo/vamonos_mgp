@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:rxdart/transformers.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:async/async.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 part 'map_controller_provider.g.dart';
 
@@ -19,7 +20,7 @@ class MapControllerService extends _$MapControllerService {
   }
 
   recenterMapLocation() => ref
-      .watch(locationServiceProvider)
+      .read(locationServiceProvider)
       .whenData((value) => updateMapLocation(value));
 
   updateMapLocation(LocationData location) {
@@ -41,6 +42,11 @@ class MapEventInitialized extends MapEvent {
             source: MapEventSource.initialization, zoom: zoom, center: center);
 }
 
+class MapEventRecentered extends MapEvent {
+  MapEventRecentered({required LatLng center, required double zoom})
+      : super(source: MapEventSource.custom, zoom: zoom, center: center);
+}
+
 final mapEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
   final mc = await ref.watch(mapControllerServiceProvider.future);
@@ -53,11 +59,20 @@ final mapEventStreamProvider =
 
 final onEndMapEvents = MapEventSource.values.where((element) =>
     element == MapEventSource.initialization ||
+    element == MapEventSource.custom ||
     element.toString().contains(RegExp(r'(end|End)')));
 
 final mapOnEndEventStreamProvider =
-    StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
-  yield* ref
-      .watch(mapEventStreamProvider.stream)
-      .asyncWhere((mapEvent) => onEndMapEvents.contains(mapEvent.source));
+    StreamProvider.autoDispose<MapEventWithBounds>((ref) {
+  final res = ref.watch(mapEventStreamProvider.stream);
+  final splits = StreamSplitter.splitFrom(res, 2);
+
+  final debouncedStream =
+      splits[0].debounceTime(const Duration(milliseconds: 300));
+  final customEventsStream = splits[1].where((event) => [
+        MapEventSource.initialization,
+        MapEventSource.custom
+      ].contains(event.source));
+
+  return StreamGroup.merge([debouncedStream, customEventsStream]);
 });

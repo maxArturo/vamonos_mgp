@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 String _$MapControllerServiceHash() =>
-    r'979befbd9a43afd720985a9c2f82fcdee46766c9';
+    r'1d4f123bdf799b02112c6a7e05350ea4916e8f38';
 
 /// See also [MapControllerService].
 final mapControllerServiceProvider =

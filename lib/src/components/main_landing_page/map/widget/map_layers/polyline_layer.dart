@@ -11,9 +11,8 @@ import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 polylineLayer() {
   return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-    return ref.watch(mapEventStreamProvider).maybeWhen(
+    return ref.watch(mapOnEndEventStreamProvider).maybeWhen(
           data: (mapEventWithBounds) {
-            debugPrint("map event emitted: ${mapEventWithBounds.source}");
             return ref
                 .watch(AllLandMarksBySourceProvider(
                     provider: TransportationProvider.municipioGeneralPurreydon))

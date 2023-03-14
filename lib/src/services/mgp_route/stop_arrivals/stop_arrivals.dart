@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
@@ -19,7 +18,6 @@ class StopArrivalService {
 
   Future<Either<AppError, List<StopArrival>>> getAllStopArrivals(
       RouteStop stop) async {
-    debugPrint(stop.toString());
     return (await _http.post(
             url: routeApiUrl,
             body:

@@ -32,6 +32,7 @@ dependencies:
   concurrent_queue: ^1.4.0
   stream_transform: ^2.1.0
   intl: ^0.18.0
+  rxdart: ^0.27.7
 
   # map dependencies
   latlong2: ^0.8.1

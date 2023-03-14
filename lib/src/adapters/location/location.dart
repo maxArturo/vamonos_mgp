@@ -8,7 +8,7 @@ class LocationAdapter {
 
   LocationAdapter() : _systemLocation = Location();
 
-  Stream<LocationData> updateStream() => _systemLocation.onLocationChanged;
+  get updateStream => _systemLocation.onLocationChanged;
 
   Future<LocationData> getLocationData() async {
     _serviceEnabled = await _systemLocation.serviceEnabled();
