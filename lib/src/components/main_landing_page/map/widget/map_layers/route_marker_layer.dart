@@ -35,8 +35,8 @@ stopMarkerLayer() {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                width: 200,
-                                height: 100,
+                                width: MediaQuery.of(context).size.width * .5,
+                                height: 150,
                                 child: GestureDetector(
                                   child: StopMarkerPopup(
                                     stop: stopMarker,
