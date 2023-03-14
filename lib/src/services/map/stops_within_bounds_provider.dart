@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
@@ -13,9 +12,6 @@ part 'stops_within_bounds_provider.g.dart';
 @riverpod
 Stream<Either<AppError, List<RouteLandMark>>> stopsWithinMapBounds(
     StopsWithinMapBoundsRef ref) async* {
-  debugPrint("[Provider] init: stopsWithinMapBounds");
-  ref.onDispose(() => debugPrint("[Provider] dispose: stopsWithinMapBounds"));
-
   final allStops = await ref.watch(AllLandMarksBySourceProvider(
           provider: TransportationProvider.municipioGeneralPurreydon)
       .future);
@@ -23,7 +19,6 @@ Stream<Either<AppError, List<RouteLandMark>>> stopsWithinMapBounds(
   final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
-    debugPrint("[Provider] yielding: stopsWithinMapBounds");
     yield allStops.flatMap((stopList) {
       return catching(() => stopList
           .where((stop) => event.bounds!.contains(

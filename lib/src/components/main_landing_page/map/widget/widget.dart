@@ -27,8 +27,12 @@ class NavigationMapView extends StatelessWidget {
           FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-            onMapReady: () => _mapController.mapEventSink
-                .add(MapEventInitialized(center: mapCenter, zoom: defaultZoom)),
+            onMapReady: () {
+              debugPrint(
+                  "[NavigationMapViewWidget]: map ready, emitting init event");
+              _mapController.mapEventSink.add(
+                  MapEventInitialized(center: mapCenter, zoom: defaultZoom));
+            },
             center: mapCenter,
             zoom: defaultZoom,
             maxZoom: 18,

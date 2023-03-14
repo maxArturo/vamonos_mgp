@@ -10,15 +10,10 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 final routeStopMapMarkersNearYouProvider =
     StreamProvider.autoDispose<Either<AppError, List<RouteCardData>>>(
         (AutoDisposeStreamProviderRef ref) async* {
-  debugPrint("[Provider] init: routeStopMapMarkersNearYouProvider");
-  ref.onDispose(() =>
-      debugPrint("[Provider] dispose: routeStopMapMarkersNearYouProvider"));
   final stopsWithinBoundsStream =
       ref.watch(markersWithinMapBoundsProvider.stream);
   await for (final latestStops in stopsWithinBoundsStream) {
     yield latestStops.map((markersList) {
-      debugPrint(
-          "[Provider] yielding data: routeStopMapMarkersNearYouProvider with initial ${markersList.length} markers");
       final SplayTreeMap<String, RouteCardData> markersByRoute = SplayTreeMap();
 
       for (final marker in markersList) {

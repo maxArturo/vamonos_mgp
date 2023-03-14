@@ -517,7 +517,7 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = RV6DF733Z8;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Ru\U0010nner/Info-Release.plist";
+				INFOPLIST_FILE = "Runner/Info-Release.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Vamonos - MGP";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,12 +8,10 @@ part 'scroll_controller_provider.g.dart';
 class PanelScrollController extends _$PanelScrollController {
   @override
   Option<ScrollController> build() {
-    debugPrint("[Provider] init: PanelScrollController");
     return const None();
   }
 
   setScrollController(ScrollController sc) {
-    debugPrint("[Provider] setting sc: PanelScrollController");
     state = Some(sc);
   }
 }
