@@ -22,7 +22,7 @@ class MapControllerService extends _$MapControllerService {
   }
 
   recenterMapLocation() => ref
-      .read(locationServiceProvider)
+      .read(updatedLocationServiceProvider)
       .whenData((value) => updateMapLocation(value));
 
   updateMapLocation(LocationData location) {
