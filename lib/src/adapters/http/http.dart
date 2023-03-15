@@ -6,11 +6,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
-import '../cache/cache.dart';
+import 'package:vamonos_mgp/src/adapters/cache/cache.dart';
 
 typedef HttpAdapterResponse<T> = Future<Either<AppError, T>>;
 
 String? cacheDisabled = dotenv.env['CACHE_DISABLED'];
+int? debugDelayEnabled =
+    int.tryParse(dotenv.env['DEBUG_ADD_HTTP_CACHE_DELAY'] ?? "");
 
 class HttpAdapter {
   final Dio _dio;
@@ -77,6 +79,13 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final key = "${options.uri}_${options.data}";
     final cacheResponse = (await _cacheAdapter.getFile(key));
+
+    if (debugDelayEnabled != null) {
+      debugPrint(
+          "[$runtimeType] debug delay enabled for $debugDelayEnabled seconds");
+      await Future.delayed(Duration(seconds: debugDelayEnabled!));
+    }
+
     return cacheResponse.fold(() {
       debugPrint("cache missed for $key");
       return super.onRequest(options, handler);

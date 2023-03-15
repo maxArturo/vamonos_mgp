@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'components/main_landing_page/home.dart';
 
@@ -9,6 +10,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Vamonos - MGP',
+        builder: FToastBuilder(),
         theme: ThemeData(
           useMaterial3: true,
           colorScheme:
