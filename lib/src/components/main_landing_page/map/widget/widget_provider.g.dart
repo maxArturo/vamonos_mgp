@@ -49,18 +49,6 @@ abstract class _$MapBrowserState
   MapBrowserStateEnum build();
 }
 
-String _$navigationMapViewWidgetHash() =>
-    r'd9d06b8c456593c31bc970efc425e3f612f8dcf2';
-
-/// See also [navigationMapViewWidget].
-final navigationMapViewWidgetProvider = AutoDisposeProvider<Widget>(
-  navigationMapViewWidget,
-  name: r'navigationMapViewWidgetProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$navigationMapViewWidgetHash,
-);
-typedef NavigationMapViewWidgetRef = AutoDisposeProviderRef<Widget>;
 String _$popupControllerHash() => r'1c6a3254b4e0ae38bf31122e1c3102483f1a2de3';
 
 /// See also [popupController].
@@ -72,3 +60,13 @@ final popupControllerProvider = AutoDisposeProvider<PopupController>(
       : _$popupControllerHash,
 );
 typedef PopupControllerRef = AutoDisposeProviderRef<PopupController>;
+String _$popupStateHash() => r'723108dde4c8421ed7953617d3ec8c1666d64a8b';
+
+/// See also [popupState].
+final popupStateProvider = AutoDisposeProvider<PopupState>(
+  popupState,
+  name: r'popupStateProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$popupStateHash,
+);
+typedef PopupStateRef = AutoDisposeProviderRef<PopupState>;

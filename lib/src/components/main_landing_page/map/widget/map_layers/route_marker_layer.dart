@@ -25,7 +25,7 @@ stopMarkerLayer() {
                         ),
                         markers: markers,
                         popupOptions: PopupOptions(
-                            popupState: PopupState(),
+                            popupState: ref.watch(popupStateProvider),
                             popupSnap: PopupSnap.markerTop,
                             popupController: ref.watch(popupControllerProvider),
                             popupBuilder: (_, marker) {

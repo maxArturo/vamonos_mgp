@@ -67,6 +67,7 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
 
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        // TODO review best way to display this toastbar
         ref.listen(allMarkersProvider, (prev, curr) {
           curr.maybeWhen(
               data: (data) => state.fToast.showToast(

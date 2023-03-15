@@ -38,15 +38,15 @@ class NavigationMapView extends StatelessWidget {
             maxZoom: 18,
             minZoom: ref.watch(mapBrowserStateProvider.notifier).isRouteView
                 ? 15
-                : 17,
+                : 16.5,
             onTap: (tapPosition, point) =>
-                ref.watch(popupControllerProvider).hideAllPopups()),
+                ref.read(popupControllerProvider).hideAllPopups()),
         nonRotatedChildren: nonRotatedChildren(),
         children: [
           tileLayer(),
           centerMarkerLayer(),
-          stopMarkerLayer(),
           // polylineLayer(),
+          stopMarkerLayer(),
         ],
       ),
     );

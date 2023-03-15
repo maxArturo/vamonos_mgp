@@ -53,8 +53,6 @@ final mapEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
   final mc = await ref.watch(mapControllerServiceProvider.future);
   yield* mc.mapEventStream.map((event) {
-    debugPrint(
-        "[mapEventStreamProvider] map event yielded of type: ${event.source}");
     return MapEventWithBounds(mc.bounds, event);
   });
 });
