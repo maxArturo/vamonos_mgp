@@ -52,6 +52,10 @@ class MapEventRecentered extends MapEvent {
 final mapEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
   final mc = await ref.watch(mapControllerServiceProvider.future);
+
+  // seed initial event
+  yield MapEventWithBounds(
+      mc.bounds, MapEventInitialized(center: mc.center, zoom: mc.zoom));
   yield* mc.mapEventStream.map((event) {
     return MapEventWithBounds(mc.bounds, event);
   });
