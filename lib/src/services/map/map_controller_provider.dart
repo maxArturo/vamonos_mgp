@@ -24,15 +24,18 @@ class MapControllerService extends _$MapControllerService {
   }
 
   initialize(MapController mc) {
+    state = const AsyncLoading();
     debugPrint(
         "[MapControllerService]: map initializer completed? ${_mapInitializer.isCompleted}");
     if (!_mapInitializer.isCompleted) {
       _mapInitializer.complete(mc);
-      mc.mapEventStream.listen((event) {
-        debugPrint(
-            "[MapControllerService]: RAW LISTENER FIRED with event type ${event.runtimeType} and source ${event.source}");
-      });
+    } else {
+      state = AsyncData(mc);
     }
+    mc.mapEventStream.listen((event) {
+      debugPrint(
+          "[MapControllerService]: RAW LISTENER FIRED with event type ${event.runtimeType} and source ${event.source}");
+    });
 
     debugPrint(
         "[MapControllerService]: adding initialization event from scratch");

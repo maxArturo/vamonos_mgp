@@ -23,7 +23,7 @@ polylineLayer() {
                             (l) => Text("An error of type ${l.error} occurred"),
                             (routeStops) {
                           final polyLines = toPolyLines(
-                              routeStops, mapEventWithBounds.bounds!);
+                              routeStops, mapEventWithBounds.bounds);
                           return polylineWidget(polyLines: polyLines);
                         }));
           },

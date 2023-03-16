@@ -21,7 +21,7 @@ Stream<Either<AppError, List<RouteLandMark>>> stopsWithinMapBounds(
   await for (final event in mapEventStream) {
     yield allStops.flatMap((stopList) {
       return catching(() => stopList
-          .where((stop) => event.bounds!.contains(
+          .where((stop) => event.bounds.contains(
               LatLng(stop.location.latitude!, stop.location.longitude!)))
           .toList()).leftMap((e) => ParsingError(description: e.toString()));
     });

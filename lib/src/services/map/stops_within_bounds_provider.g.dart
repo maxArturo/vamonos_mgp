@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 String _$stopsWithinMapBoundsHash() =>
-    r'c917da65527ffb4dc0b6e467c7f14e6980aa1656';
+    r'0bb1d9af8a91b3d8ec0a1f3999eaa2a93967ab7d';
 
 /// See also [stopsWithinMapBounds].
 final stopsWithinMapBoundsProvider =
