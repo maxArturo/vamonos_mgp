@@ -152,12 +152,12 @@ class RecenterMapButton extends ConsumerWidget {
         child: Consumer(
           builder: (context, ref, child) => FloatingActionButton(
             onPressed: () {
+              ref.read(mapControllerServiceProvider.future).then((mc) =>
+                  mc.mapEventSink.add(MapEventInitialized(
+                      bounds: mc.bounds!, zoom: mc.zoom, center: mc.center)));
               ref
                   .read(mapControllerServiceProvider.notifier)
                   .recenterMapLocation();
-              ref.read(mapControllerServiceProvider.future).then((mc) => mc
-                  .mapEventSink
-                  .add(MapEventRecentered(center: mc.center, zoom: mc.zoom)));
             },
             backgroundColor: Colors.white,
             child: Icon(

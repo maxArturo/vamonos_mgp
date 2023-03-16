@@ -30,22 +30,20 @@ class _SystemHash {
 }
 
 String _$MapControllerServiceHash() =>
-    r'd80570965b01d39e6a17ec01a7b43142557d5b4b';
+    r'fc71bffda84ba675383f7976481d0a82ed6f8728';
 
 /// See also [MapControllerService].
 final mapControllerServiceProvider =
-    AutoDisposeAsyncNotifierProvider<MapControllerService, MapController>(
+    AsyncNotifierProvider<MapControllerService, MapController>(
   MapControllerService.new,
   name: r'mapControllerServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$MapControllerServiceHash,
 );
-typedef MapControllerServiceRef
-    = AutoDisposeAsyncNotifierProviderRef<MapController>;
+typedef MapControllerServiceRef = AsyncNotifierProviderRef<MapController>;
 
-abstract class _$MapControllerService
-    extends AutoDisposeAsyncNotifier<MapController> {
+abstract class _$MapControllerService extends AsyncNotifier<MapController> {
   @override
   FutureOr<MapController> build();
 }

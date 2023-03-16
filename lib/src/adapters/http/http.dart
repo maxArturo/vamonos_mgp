@@ -4,9 +4,8 @@ import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:vamonos_mgp/src/util/errors.dart';
-
 import 'package:vamonos_mgp/src/adapters/cache/cache.dart';
+import 'package:vamonos_mgp/src/util/errors.dart';
 
 typedef HttpAdapterResponse<T> = Future<Either<AppError, T>>;
 
@@ -87,10 +86,8 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
     }
 
     return cacheResponse.fold(() {
-      debugPrint("cache missed for $key");
       return super.onRequest(options, handler);
     }, (file) async {
-      debugPrint("cache found for $file");
       return handler.resolve(Response(
         requestOptions: options,
         statusCode: 304,

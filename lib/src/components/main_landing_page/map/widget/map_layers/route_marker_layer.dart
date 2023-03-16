@@ -16,6 +16,9 @@ stopMarkerLayer() {
                     (err) => Text("An error of type $err occurred"),
                     (markers) => MarkerClusterLayerWidget(
                       options: MarkerClusterLayerOptions(
+                        animationsOptions: const AnimationsOptions(
+                            spiderfy: Duration(milliseconds: 500),
+                            zoom: Duration(milliseconds: 500)),
                         maxClusterRadius: 50,
                         size: const Size(40, 40),
                         anchor: AnchorPos.align(AnchorAlign.center),
@@ -25,6 +28,7 @@ stopMarkerLayer() {
                         ),
                         markers: markers,
                         popupOptions: PopupOptions(
+                            popupAnimation: const PopupAnimation.fade(),
                             popupState: ref.watch(popupStateProvider),
                             popupSnap: PopupSnap.markerTop,
                             popupController: ref.watch(popupControllerProvider),

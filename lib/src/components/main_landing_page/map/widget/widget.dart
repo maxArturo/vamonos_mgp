@@ -3,6 +3,8 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+import 'package:vamonos_mgp/src/components/common/widget_view.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/center_pin_layer.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/current_location_layer.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/route_marker_layer.dart';
@@ -10,28 +12,27 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_laye
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
-class NavigationMapView extends StatelessWidget {
-  final LocationData _initialLocation;
-  final MapController _mapController;
+class NavigationMapView
+    extends WidgetView<NavigationMap, NavigationMapController> {
+  final LocationData initialLocation;
 
-  const NavigationMapView(this._initialLocation, this._mapController,
-      {super.key});
+  const NavigationMapView(super.state,
+      {super.key, required this.initialLocation});
 
   @override
   Widget build(BuildContext context) {
     final mapCenter = LatLng(
-        _initialLocation.latitude ?? 0.0, _initialLocation.longitude ?? 0.0);
+        initialLocation.latitude ?? 0.0, initialLocation.longitude ?? 0.0);
     const defaultZoom = 17.0;
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) =>
           FlutterMap(
-        mapController: _mapController,
+        mapController: state.mc,
         options: MapOptions(
             onMapReady: () {
-              debugPrint(
-                  "[NavigationMapViewWidget]: map ready, emitting init event");
-              _mapController.mapEventSink.add(
-                  MapEventInitialized(center: mapCenter, zoom: defaultZoom));
+              ref
+                  .read(mapControllerServiceProvider.notifier)
+                  .initialize(state.mc);
             },
             center: mapCenter,
             zoom: defaultZoom,

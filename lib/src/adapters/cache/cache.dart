@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class CacheAdapter {
@@ -14,7 +13,6 @@ class CacheAdapter {
     final response = await _cacheManager.getFileFromCache(key);
     final validTill = response?.validTill;
 
-    debugPrint("cache file hit valid till $validTill");
     if (validTill != null && DateTime.now().compareTo(validTill) >= 0) {
       return none();
     }

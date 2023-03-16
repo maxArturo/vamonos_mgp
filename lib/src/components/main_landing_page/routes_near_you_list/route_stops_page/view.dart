@@ -49,11 +49,9 @@ class RouteStopsPageView
               return PanelListCard(
                   onPressed: () {
                     ref
-                        .watch(mapControllerServiceProvider.notifier)
+                        .read(mapControllerServiceProvider.notifier)
                         .updateMapLocation(stop.routeStop.location);
-                    ref
-                        .watch(popupControllerProvider)
-                        .showPopupsOnlyFor([stop]);
+                    ref.read(popupControllerProvider).showPopupsOnlyFor([stop]);
                   },
                   bottomRowText: "Name: ${stop.stopName}",
                   topRowText: "ID: ${stop.routeStop.id}",

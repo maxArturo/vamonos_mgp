@@ -1,24 +1,45 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rxdart/transformers.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:async/async.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:rxdart/transformers.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 
 part 'map_controller_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MapControllerService extends _$MapControllerService {
+  final _mapInitializer = Completer<MapController>();
+
   @override
   Future<MapController> build() {
-    return ref
-        .watch(locationServiceProvider.future)
-        .then((value) => MapController());
+    return _mapInitializer.future;
+  }
+
+  initialize(MapController mc) {
+    debugPrint(
+        "[MapControllerService]: map initializer completed? ${_mapInitializer.isCompleted}");
+    if (!_mapInitializer.isCompleted) {
+      _mapInitializer.complete(mc);
+      mc.mapEventStream.listen((event) {
+        debugPrint(
+            "[MapControllerService]: RAW LISTENER FIRED with event type ${event.runtimeType} and source ${event.source}");
+      });
+    }
+
+    debugPrint(
+        "[MapControllerService]: adding initialization event from scratch");
+    mc.mapEventSink.add(MapEventInitialized(
+        bounds: mc.bounds!, zoom: mc.zoom, center: mc.center));
+
+    return mc;
   }
 
   recenterMapLocation() => ref
@@ -31,52 +52,98 @@ class MapControllerService extends _$MapControllerService {
   }
 }
 
-class MapEventWithBounds extends MapEvent {
-  final LatLngBounds? bounds;
+enum AppMapEventSource { initialized, recentered, external }
 
-  MapEventWithBounds(this.bounds, MapEvent event)
-      : super(source: event.source, center: event.center, zoom: event.zoom);
+class MapEventWithBounds implements MapEvent {
+  @override
+  final LatLng center;
+  @override
+  final double zoom;
+
+  final LatLngBounds bounds;
+  final MapEvent? originalEvent;
+  final AppMapEventSource eventSource;
+
+  MapEventWithBounds(
+      {required this.bounds,
+      required this.center,
+      required this.zoom,
+      required this.eventSource,
+      this.originalEvent});
+
+  @override
+  MapEventSource get source => originalEvent?.source ?? MapEventSource.custom;
 }
 
-class MapEventInitialized extends MapEvent {
-  MapEventInitialized({required LatLng center, required double zoom})
+class MapEventInitialized extends MapEventWithBounds {
+  MapEventInitialized(
+      {required super.bounds, required super.zoom, required super.center})
+      : super(eventSource: AppMapEventSource.initialized);
+}
+
+class MapEventRecentered extends MapEventWithBounds {
+  MapEventRecentered(
+      {required super.bounds, required super.zoom, required super.center})
+      : super(eventSource: AppMapEventSource.recentered);
+}
+
+class MapEventWrapped extends MapEventWithBounds {
+  MapEventWrapped({required MapEvent originalEvent, required super.bounds})
       : super(
-            source: MapEventSource.initialization, zoom: zoom, center: center);
-}
-
-class MapEventRecentered extends MapEvent {
-  MapEventRecentered({required LatLng center, required double zoom})
-      : super(source: MapEventSource.custom, zoom: zoom, center: center);
+            center: originalEvent.center,
+            originalEvent: originalEvent,
+            zoom: originalEvent.zoom,
+            eventSource: AppMapEventSource.external);
 }
 
 final mapEventStreamProvider =
-    StreamProvider.autoDispose<MapEventWithBounds>((ref) async* {
+    StreamProvider<MapEventWithBounds>((StreamProviderRef ref) async* {
+  debugPrint("[mapEventStreamProvider] INITALIZED");
   final mc = await ref.watch(mapControllerServiceProvider.future);
 
+  ref.onDispose(() {
+    debugPrint("[mapEventStreamProvider] DISPOSED ");
+  });
+
   // seed initial event
-  yield MapEventWithBounds(
-      mc.bounds, MapEventInitialized(center: mc.center, zoom: mc.zoom));
+  yield MapEventInitialized(
+      bounds: mc.bounds!, zoom: mc.zoom, center: mc.center);
+
   yield* mc.mapEventStream.map((event) {
-    return MapEventWithBounds(mc.bounds, event);
+    debugPrint(
+        "[mapEventStreamProvider] yielding raw original map event: ${event.runtimeType} and source: ${event.source}");
+    return MapEventWrapped(bounds: mc.bounds!, originalEvent: event);
   });
 });
 
-final onEndMapEvents = MapEventSource.values.where((element) =>
-    element == MapEventSource.initialization ||
-    element == MapEventSource.custom ||
-    element.toString().contains(RegExp(r'(end|End)')));
+final onEndMapEvents = MapEventSource.values
+    .where((element) => element.toString().contains(RegExp(r'(end|End)')));
 
 final mapOnEndEventStreamProvider =
     StreamProvider.autoDispose<MapEventWithBounds>((ref) {
-  final res = ref.watch(mapEventStreamProvider.stream);
-  final splits = StreamSplitter.splitFrom(res, 2);
+  final originalStream = ref.watch(mapEventStreamProvider.stream);
 
-  final debouncedStream =
-      splits[0].debounceTime(const Duration(milliseconds: 300));
-  final customEventsStream = splits[1].where((event) => [
-        MapEventSource.initialization,
-        MapEventSource.custom
-      ].contains(event.source));
+  final streamSplitter = StreamSplitter.splitFrom(originalStream, 2);
 
-  return StreamGroup.merge([debouncedStream, customEventsStream]);
+  final debouncedStream = streamSplitter[0]
+      .where((event) =>
+          event.eventSource == AppMapEventSource.external &&
+          event.originalEvent!.source != MapEventSource.custom)
+      .debounceTime(const Duration(milliseconds: 300))
+      .map((event) {
+    debugPrint(
+        "[debouncedStream] yielding on event source: ${event.eventSource} and type: ${event.source}");
+    return event;
+  });
+  final appEventsStream = streamSplitter[1]
+      .where((event) => event.eventSource != AppMapEventSource.external)
+      .map(
+    (event) {
+      debugPrint(
+          "[appEventsStream] yielding on event source: ${event.eventSource} and type: ${event.source}");
+      return event;
+    },
+  );
+
+  return StreamGroup.merge([debouncedStream, appEventsStream]);
 });
