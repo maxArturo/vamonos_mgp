@@ -88,9 +88,17 @@ class MainRoutesListView
                                           color:
                                               Color.fromARGB(255, 194, 63, 63),
                                         ),
-                                        Text("No routes near you".toUpperCase(),
-                                            style: const TextStyle(
-                                                color: Colors.white)),
+                                        Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(
+                                                "No routes near you"
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     const SizedBox(width: 13),

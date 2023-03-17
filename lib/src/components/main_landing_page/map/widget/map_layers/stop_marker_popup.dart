@@ -14,14 +14,13 @@ class StopMarkerPopup extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final arrivals =
         ref.watch(stopArrivalsByStopProvider(stop: stop.routeStop));
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Flexible(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Route Name: ${stop.routeStop.route.name}\n"
-              "Stop Name: ${stop.routeStop.description}"),
+          Flexible(child: Text("Route Name: ${stop.routeStop.route.name}\n")),
           arrivals.maybeWhen(
               data: (arrivalData) => arrivalData.fold((l) {
                     String errorMessage;
@@ -38,46 +37,52 @@ class StopMarkerPopup extends ConsumerWidget {
                       key: const Key('error'),
                       style: const TextStyle(color: Colors.red),
                     );
-                  }, (r) => Text(r[0].arrival)),
-              loading: () => Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Text("loading arrival times"),
-                      SizedBox(width: 20),
-                      SpinKitWave(
-                        color: Colors.blue,
-                        size: 20,
-                      )
-                    ],
+                  }, (r) => Flexible(child: Text(r[0].arrival))),
+              loading: () => Flexible(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        SpinKitWave(
+                          color: Colors.blue,
+                          size: 20,
+                        )
+                      ],
+                    ),
                   ),
               orElse: () => const Text(
                     "An unexpected error occurred",
                     key: Key('error'),
                     style: TextStyle(color: Colors.red),
                   )),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      maintainState: false,
-                      builder: (context) => Scaffold(
-                          appBar: AppBar(
-                            title: FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(
-                                  '${stop.routeStop.route.destination} via ${stop.routeStop.route.pathName}'
-                                      .toUpperCase(),
-                                  style: const TextStyle(color: Colors.white)),
+          Flexible(
+            child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        maintainState: false,
+                        builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                    '${stop.routeStop.route.destination} via ${stop.routeStop.route.pathName}'
+                                        .toUpperCase(),
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                              ),
+                              backgroundColor:
+                                  Theme.of(context).primaryColorDark,
                             ),
-                            backgroundColor: Theme.of(context).primaryColorDark,
-                          ),
-                          body: NavigationMap(
-                            view: MapBrowserView.routeView,
-                            directedRoute: stop.routeStop.route,
-                          ))),
-                );
-              },
-              child: const Text("Click to see route \non map"))
+                            body: NavigationMap(
+                              view: MapBrowserView.routeView,
+                              directedRoute: stop.routeStop.route,
+                              initialLocation: stop.routeStop.location,
+                              stopMarkers: [stop],
+                            ))),
+                  );
+                },
+                child: const Text("see route")),
+          )
         ],
       ),
     );

@@ -27,15 +27,22 @@ class PanelListCard extends StatelessWidget {
               const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      Text(topRowText.toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
-                      Text(bottomRowText.toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
-                    ],
+                  Flexible(
+                    child: Column(
+                      children: [
+                        FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(topRowText.toUpperCase(),
+                                style: const TextStyle(color: Colors.white))),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(bottomRowText.toUpperCase(),
+                              style: const TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
                   ),
                   const Icon(Icons.directions_bus_filled_sharp,
                       size: 24, color: Colors.white),

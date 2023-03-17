@@ -62,8 +62,8 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
 
   @override
   Widget build(BuildContext context) {
-    state.panelHeightOpen =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    state.panelHeightOpen = MediaQuery.of(context).size.height * 0.6 -
+        MediaQuery.of(context).padding.top;
 
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {

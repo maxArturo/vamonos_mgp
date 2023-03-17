@@ -7,61 +7,79 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/stop_marker_popup.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 
-stopMarkerLayer() {
+stopMarkerLayer({List<StopMarker>? routeStopMarkers}) {
+  if (routeStopMarkers != null) {
+    return Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      return markerClusterWidget(context,
+          markers: routeStopMarkers,
+          popupState: ref.watch(popupStateProvider),
+          popupController: ref.watch(popupControllerProvider));
+    });
+  }
   return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) =>
           ref.watch(markersWithinMapBoundsProvider).maybeWhen(
               orElse: () => const Text("An unhandled error occurred"),
               data: (data) => data.fold(
                     (err) => Text("An error of type $err occurred"),
-                    (markers) => MarkerClusterLayerWidget(
-                      options: MarkerClusterLayerOptions(
-                        animationsOptions: const AnimationsOptions(
-                            spiderfy: Duration(milliseconds: 500),
-                            zoom: Duration(milliseconds: 500)),
-                        maxClusterRadius: 50,
-                        size: const Size(40, 40),
-                        anchor: AnchorPos.align(AnchorAlign.center),
-                        fitBoundsOptions: const FitBoundsOptions(
-                          padding: EdgeInsets.all(50),
-                          maxZoom: 15,
-                        ),
+                    (markers) => markerClusterWidget(context,
                         markers: markers,
-                        popupOptions: PopupOptions(
-                            popupAnimation: const PopupAnimation.fade(),
-                            popupState: ref.watch(popupStateProvider),
-                            popupSnap: PopupSnap.markerTop,
-                            popupController: ref.watch(popupControllerProvider),
-                            popupBuilder: (_, marker) {
-                              final stopMarker = marker as StopMarker;
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                width: MediaQuery.of(context).size.width * .5,
-                                height: 150,
-                                child: GestureDetector(
-                                  child: StopMarkerPopup(
-                                    stop: stopMarker,
-                                  ),
-                                ),
-                              );
-                            }),
-                        builder: (context, markers) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue),
-                            child: Center(
-                              child: Text(
-                                markers.length.toString(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                        popupState: ref.watch(popupStateProvider),
+                        popupController: ref.watch(popupControllerProvider)),
                   )));
+}
+
+markerClusterWidget(BuildContext context,
+    {required List<StopMarker> markers,
+    required PopupState popupState,
+    required PopupController popupController}) {
+  return MarkerClusterLayerWidget(
+    options: MarkerClusterLayerOptions(
+      animationsOptions: const AnimationsOptions(
+          spiderfy: Duration(milliseconds: 500),
+          zoom: Duration(milliseconds: 500)),
+      maxClusterRadius: 50,
+      size: const Size(40, 40),
+      anchor: AnchorPos.align(AnchorAlign.center),
+      fitBoundsOptions: const FitBoundsOptions(
+        padding: EdgeInsets.all(50),
+        maxZoom: 15,
+      ),
+      markers: markers,
+      popupOptions: PopupOptions(
+          popupAnimation: const PopupAnimation.fade(),
+          popupState: popupState,
+          popupSnap: PopupSnap.markerTop,
+          popupController: popupController,
+          popupBuilder: (_, marker) {
+            final stopMarker = marker as StopMarker;
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              width: MediaQuery.of(context).size.width * .5,
+              height: 100,
+              child: GestureDetector(
+                child: StopMarkerPopup(
+                  stop: stopMarker,
+                ),
+              ),
+            );
+          }),
+      builder: (context, markers) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: Colors.blue),
+          child: Center(
+            child: Text(
+              markers.length.toString(),
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    ),
+  );
 }

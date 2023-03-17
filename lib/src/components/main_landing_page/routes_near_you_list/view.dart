@@ -76,8 +76,8 @@ class RoutesNearYouListView
                                         const SizedBox(height: 30),
                                         Text("No routes near you".toUpperCase(),
                                             style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 30)),
+                                              color: Colors.black,
+                                            )),
                                       ],
                                     ),
                                     const SizedBox(width: 13),
@@ -139,8 +139,11 @@ class RoutesNearYouListView
               builder = (context) => Scaffold(
                     appBar: AppBar(
                       automaticallyImplyLeading: false,
-                      title: Text('routes near you'.toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
+                      title: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text('routes near you'.toUpperCase(),
+                            style: const TextStyle(color: Colors.white)),
+                      ),
                       backgroundColor: Theme.of(context).primaryColorDark,
                     ),
                     body: routesSection(),

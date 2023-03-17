@@ -14,9 +14,12 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Scaffold(
                   appBar: AppBar(
-                    title: Text(
-                        '${widget.routeName} - directed routes'.toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
+                    title: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                          '${widget.routeName} - directed routes'.toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
+                    ),
                     backgroundColor: Theme.of(context).primaryColorDark,
                   ),
                   body: DirectedRoutesPage(

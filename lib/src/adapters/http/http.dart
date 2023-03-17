@@ -11,7 +11,7 @@ typedef HttpAdapterResponse<T> = Future<Either<AppError, T>>;
 
 String? cacheDisabled = dotenv.env['CACHE_DISABLED'];
 int? debugDelayEnabled =
-    int.tryParse(dotenv.env['DEBUG_ADD_HTTP_CACHE_DELAY'] ?? "");
+    int.tryParse(dotenv.env['DEBUG_ADD_HTTP_CACHE_DELAY_MS'] ?? "");
 
 class HttpAdapter {
   final Dio _dio;
@@ -21,6 +21,8 @@ class HttpAdapter {
 
   HttpAdapter(this._dio, this._requestCacheInterceptor,
       this._responseCacheInterceptor, this._defaultHeaders) {
+    _dio.interceptors.add(PrettyDioLogger(requestBody: true));
+
     cacheDisabled ?? _dio.interceptors.add(_requestCacheInterceptor);
 
     _dio.interceptors.addAll([
@@ -34,7 +36,6 @@ class HttpAdapter {
           Duration(seconds: 3),
         ],
       ),
-      PrettyDioLogger(),
     ]);
     _dio.interceptors.removeImplyContentTypeInterceptor();
 
@@ -82,7 +83,7 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
     if (debugDelayEnabled != null) {
       debugPrint(
           "[$runtimeType] debug delay enabled for $debugDelayEnabled seconds");
-      await Future.delayed(Duration(seconds: debugDelayEnabled!));
+      await Future.delayed(Duration(milliseconds: debugDelayEnabled!));
     }
 
     return cacheResponse.fold(() {
