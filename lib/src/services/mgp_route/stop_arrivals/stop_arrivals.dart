@@ -41,8 +41,12 @@ class StopArrivalService {
           return Left(
               ServiceUnavailableError(description: stopArrivals.statusMessage));
         }
+        if (stopArrivals.stops == null) {
+          return Left(DataNotFoundError(
+              description: "non-error code, but no stops returned from API"));
+        }
 
-        return Right(stopArrivals.stops.map((arrival) {
+        return Right(stopArrivals.stops!.map((arrival) {
           return StopArrival(stop: stop, arrival: arrival.arrival);
         }).toList());
       } catch (e) {

@@ -9,39 +9,41 @@ enum ErrorType {
 }
 
 abstract class AppError {
-  ErrorType error;
-  get errorType => ErrorType;
+  final ErrorType _errorType;
+  get errorType => _errorType;
 
   String? description;
 
-  AppError(this.error, {this.description});
+  AppError({required ErrorType errorType, this.description})
+      : _errorType = errorType;
 }
 
 class HttpError extends AppError {
-  HttpError() : super(ErrorType.httpError);
+  HttpError() : super(errorType: ErrorType.httpError);
 }
 
 class InitializationError extends AppError {
-  InitializationError() : super(ErrorType.initializationError);
+  InitializationError() : super(errorType: ErrorType.initializationError);
 }
 
 class PermissionError extends AppError {
-  PermissionError() : super(ErrorType.permissionError);
+  PermissionError() : super(errorType: ErrorType.permissionError);
 }
 
 class ServiceUnavailableError extends AppError {
   ServiceUnavailableError({super.description})
-      : super(ErrorType.serviceUnavailableError);
+      : super(errorType: ErrorType.serviceUnavailableError);
 }
 
 class DataNotFoundError extends AppError {
-  DataNotFoundError({super.description}) : super(ErrorType.dataNotFoundError);
+  DataNotFoundError({super.description})
+      : super(errorType: ErrorType.dataNotFoundError);
 }
 
 class ParsingError extends AppError {
-  ParsingError({super.description}) : super(ErrorType.parsingError);
+  ParsingError({super.description}) : super(errorType: ErrorType.parsingError);
 }
 
 class UntypedError extends AppError {
-  UntypedError() : super(ErrorType.parsingError);
+  UntypedError() : super(errorType: ErrorType.parsingError);
 }

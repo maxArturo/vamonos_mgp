@@ -60,7 +60,7 @@ class MainRoutesListView
       Expanded(child: Consumer(builder: (context, ref, child) {
         return ref.watch(latestRouteListProvider).maybeWhen(
               data: (data) => data.fold((err) {
-                final errType = err.error;
+                final errType = err.errorType;
                 return Text(
                   "An error of type $errType occurred",
                   style: const TextStyle(color: Colors.red),

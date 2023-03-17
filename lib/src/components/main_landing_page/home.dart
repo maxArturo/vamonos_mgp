@@ -94,7 +94,9 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
                       parallaxOffset: .7,
                       panelSnapping: false,
                       isDraggable: true,
-                      body: const NavigationMap(),
+                      body: NavigationMap(
+                        view: MapBrowserView.stopView,
+                      ),
                       panelBuilder: (sc) {
                         final optionController =
                             ref.watch(panelScrollControllerProvider);
@@ -118,6 +120,9 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
                     panelHeightClosed: state.panelHeightClosed,
                     panelHeightOpen: state.panelHeightOpen,
                     fabHeight: state.fabHeight,
+                    recenterLocation: ref
+                        .watch(stopViewMapControllerProvider.notifier)
+                        .recenterMapLocation,
                   ),
                   const FloatingBlurredBar(),
                 ],
@@ -133,39 +138,30 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
 class RecenterMapButton extends ConsumerWidget {
   const RecenterMapButton(
       {super.key,
-      required double panelHeightOpen,
-      required double fabHeight,
-      required double panelHeightClosed})
-      : _panelHeightOpen = panelHeightOpen,
-        _panelHeightClosed = panelHeightClosed,
-        _fabHeight = fabHeight;
+      required this.panelHeightOpen,
+      required this.fabHeight,
+      required this.panelHeightClosed,
+      required this.recenterLocation});
 
-  final double _panelHeightOpen;
-  final double _fabHeight;
-  final double _panelHeightClosed;
+  final double panelHeightOpen;
+  final double fabHeight;
+  final double panelHeightClosed;
+  final void Function() recenterLocation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
-        right: 20,
-        top: _panelHeightOpen - _fabHeight - _panelHeightClosed,
-        child: Consumer(
-          builder: (context, ref, child) => FloatingActionButton(
-            onPressed: () {
-              ref.read(mapControllerServiceProvider.future).then((mc) =>
-                  mc.mapEventSink.add(MapEventInitialized(
-                      bounds: mc.bounds!, zoom: mc.zoom, center: mc.center)));
-              ref
-                  .read(mapControllerServiceProvider.notifier)
-                  .recenterMapLocation();
-            },
-            backgroundColor: Colors.white,
-            child: Icon(
-              Icons.near_me_sharp,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-        ));
+      right: 20,
+      top: panelHeightOpen - fabHeight - panelHeightClosed,
+      child: FloatingActionButton(
+        onPressed: () => recenterLocation(),
+        backgroundColor: Colors.white,
+        child: Icon(
+          Icons.near_me_sharp,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
+    );
   }
 }
 

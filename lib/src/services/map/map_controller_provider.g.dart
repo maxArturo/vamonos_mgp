@@ -29,21 +29,40 @@ class _SystemHash {
   }
 }
 
-String _$MapControllerServiceHash() =>
-    r'702838d7393a80b11dd2bc3dabc63847ddaee0e9';
+String _$StopViewMapControllerHash() =>
+    r'dc02105c4d9820a4260b2b0af5493cab0dd7e7ee';
 
-/// See also [MapControllerService].
-final mapControllerServiceProvider =
-    AsyncNotifierProvider<MapControllerService, MapController>(
-  MapControllerService.new,
-  name: r'mapControllerServiceProvider',
+/// See also [StopViewMapController].
+final stopViewMapControllerProvider =
+    AsyncNotifierProvider<StopViewMapController, MapController>(
+  StopViewMapController.new,
+  name: r'stopViewMapControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$MapControllerServiceHash,
+      : _$StopViewMapControllerHash,
 );
-typedef MapControllerServiceRef = AsyncNotifierProviderRef<MapController>;
+typedef StopViewMapControllerRef = AsyncNotifierProviderRef<MapController>;
 
-abstract class _$MapControllerService extends AsyncNotifier<MapController> {
+abstract class _$StopViewMapController extends AsyncNotifier<MapController> {
+  @override
+  FutureOr<MapController> build();
+}
+
+String _$RouteViewMapControllerHash() =>
+    r'329a3855556e400e8c49565a84b067f4ed075558';
+
+/// See also [RouteViewMapController].
+final routeViewMapControllerProvider =
+    AsyncNotifierProvider<RouteViewMapController, MapController>(
+  RouteViewMapController.new,
+  name: r'routeViewMapControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$RouteViewMapControllerHash,
+);
+typedef RouteViewMapControllerRef = AsyncNotifierProviderRef<MapController>;
+
+abstract class _$RouteViewMapController extends AsyncNotifier<MapController> {
   @override
   FutureOr<MapController> build();
 }

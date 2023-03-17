@@ -25,7 +25,7 @@ mixin _$StopArrivals {
   @JsonKey(name: 'MensajeEstado')
   String get statusMessage => throw _privateConstructorUsedError;
   @JsonKey(name: 'arribos')
-  List<Arrival> get stops => throw _privateConstructorUsedError;
+  List<Arrival>? get stops => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +42,7 @@ abstract class $StopArrivalsCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'CodigoEstado') num statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
-      @JsonKey(name: 'arribos') List<Arrival> stops});
+      @JsonKey(name: 'arribos') List<Arrival>? stops});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$StopArrivalsCopyWithImpl<$Res, $Val extends StopArrivals>
   $Res call({
     Object? statusCode = null,
     Object? statusMessage = null,
-    Object? stops = null,
+    Object? stops = freezed,
   }) {
     return _then(_value.copyWith(
       statusCode: null == statusCode
@@ -71,10 +71,10 @@ class _$StopArrivalsCopyWithImpl<$Res, $Val extends StopArrivals>
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      stops: null == stops
+      stops: freezed == stops
           ? _value.stops
           : stops // ignore: cast_nullable_to_non_nullable
-              as List<Arrival>,
+              as List<Arrival>?,
     ) as $Val);
   }
 }
@@ -90,7 +90,7 @@ abstract class _$$_StopArrivalsCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'CodigoEstado') num statusCode,
       @JsonKey(name: 'MensajeEstado') String statusMessage,
-      @JsonKey(name: 'arribos') List<Arrival> stops});
+      @JsonKey(name: 'arribos') List<Arrival>? stops});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class __$$_StopArrivalsCopyWithImpl<$Res>
   $Res call({
     Object? statusCode = null,
     Object? statusMessage = null,
-    Object? stops = null,
+    Object? stops = freezed,
   }) {
     return _then(_$_StopArrivals(
       statusCode: null == statusCode
@@ -117,10 +117,10 @@ class __$$_StopArrivalsCopyWithImpl<$Res>
           ? _value.statusMessage
           : statusMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      stops: null == stops
+      stops: freezed == stops
           ? _value._stops
           : stops // ignore: cast_nullable_to_non_nullable
-              as List<Arrival>,
+              as List<Arrival>?,
     ));
   }
 }
@@ -131,7 +131,7 @@ class _$_StopArrivals with DiagnosticableTreeMixin implements _StopArrivals {
   const _$_StopArrivals(
       {@JsonKey(name: 'CodigoEstado') required this.statusCode,
       @JsonKey(name: 'MensajeEstado') required this.statusMessage,
-      @JsonKey(name: 'arribos') required final List<Arrival> stops})
+      @JsonKey(name: 'arribos') required final List<Arrival>? stops})
       : _stops = stops;
 
   factory _$_StopArrivals.fromJson(Map<String, dynamic> json) =>
@@ -143,13 +143,15 @@ class _$_StopArrivals with DiagnosticableTreeMixin implements _StopArrivals {
   @override
   @JsonKey(name: 'MensajeEstado')
   final String statusMessage;
-  final List<Arrival> _stops;
+  final List<Arrival>? _stops;
   @override
   @JsonKey(name: 'arribos')
-  List<Arrival> get stops {
+  List<Arrival>? get stops {
+    final value = _stops;
+    if (value == null) return null;
     if (_stops is EqualUnmodifiableListView) return _stops;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_stops);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -202,7 +204,7 @@ abstract class _StopArrivals implements StopArrivals {
   const factory _StopArrivals(
           {@JsonKey(name: 'CodigoEstado') required final num statusCode,
           @JsonKey(name: 'MensajeEstado') required final String statusMessage,
-          @JsonKey(name: 'arribos') required final List<Arrival> stops}) =
+          @JsonKey(name: 'arribos') required final List<Arrival>? stops}) =
       _$_StopArrivals;
 
   factory _StopArrivals.fromJson(Map<String, dynamic> json) =
@@ -216,7 +218,7 @@ abstract class _StopArrivals implements StopArrivals {
   String get statusMessage;
   @override
   @JsonKey(name: 'arribos')
-  List<Arrival> get stops;
+  List<Arrival>? get stops;
   @override
   @JsonKey(ignore: true)
   _$$_StopArrivalsCopyWith<_$_StopArrivals> get copyWith =>

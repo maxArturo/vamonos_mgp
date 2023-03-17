@@ -49,7 +49,7 @@ class RouteStopsPageView
               return PanelListCard(
                   onPressed: () {
                     ref
-                        .read(mapControllerServiceProvider.notifier)
+                        .read(stopViewMapControllerProvider.notifier)
                         .updateMapLocation(stop.routeStop.location);
                     ref.read(popupControllerProvider).showPopupsOnlyFor([stop]);
                   },

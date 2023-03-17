@@ -14,10 +14,10 @@ import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 
 part 'map_controller_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-class MapControllerService extends _$MapControllerService {
-  final _mapInitializer = Completer<MapController>();
+abstract class BaseMapController extends AsyncNotifier<MapController> {}
 
+mixin MapFunctionality on AsyncNotifier<MapController> {
+  final _mapInitializer = Completer<MapController>();
   @override
   Future<MapController> build() {
     return _mapInitializer.future;
@@ -32,26 +32,48 @@ class MapControllerService extends _$MapControllerService {
     } else {
       state = AsyncData(mc);
     }
-    mc.mapEventStream.listen((event) {
-      debugPrint(
-          "[MapControllerService]: RAW LISTENER FIRED with event type ${event.runtimeType} and source ${event.source}");
-    });
 
-    debugPrint(
-        "[MapControllerService]: adding initialization event from scratch");
     mc.mapEventSink.add(MapEventInitialized(
         bounds: mc.bounds!, zoom: mc.zoom, center: mc.center));
 
     return mc;
   }
 
+  get initialized => _mapInitializer.isCompleted;
+
   recenterMapLocation() => ref
       .read(updatedLocationServiceProvider)
       .whenData((value) => updateMapLocation(value));
 
   updateMapLocation(LocationData location) {
-    state.whenData((value) => value.moveAndRotate(
-        LatLng(location.latitude!, location.longitude!), 17, 0));
+    state.whenData((controller) {
+      controller.moveAndRotate(
+          LatLng(location.latitude!, location.longitude!), 17, 0);
+      controller.mapEventSink.add(MapEventInitialized(
+          bounds: controller.bounds!,
+          zoom: controller.zoom,
+          center: controller.center));
+    });
+  }
+}
+
+@Riverpod(keepAlive: true)
+class StopViewMapController extends _$StopViewMapController
+    with MapFunctionality {
+  /// override is needed because of riverpod generator
+  @override
+  Future<MapController> build() {
+    return _mapInitializer.future;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class RouteViewMapController extends _$RouteViewMapController
+    with MapFunctionality {
+  /// override is needed because of riverpod generator
+  @override
+  Future<MapController> build() {
+    return _mapInitializer.future;
   }
 }
 
@@ -99,22 +121,15 @@ class MapEventWrapped extends MapEventWithBounds {
             eventSource: AppMapEventSource.external);
 }
 
-final mapEventStreamProvider =
-    StreamProvider<MapEventWithBounds>((StreamProviderRef ref) async* {
-  debugPrint("[mapEventStreamProvider] INITALIZED");
-  final mc = await ref.watch(mapControllerServiceProvider.future);
-
-  ref.onDispose(() {
-    debugPrint("[mapEventStreamProvider] DISPOSED ");
-  });
+final mapEventStreamProvider = StreamProvider.autoDispose<MapEventWithBounds>(
+    (AutoDisposeStreamProviderRef ref) async* {
+  final mc = await ref.watch(stopViewMapControllerProvider.future);
 
   // seed initial event
   yield MapEventInitialized(
       bounds: mc.bounds!, zoom: mc.zoom, center: mc.center);
 
   yield* mc.mapEventStream.map((event) {
-    debugPrint(
-        "[mapEventStreamProvider] yielding raw original map event: ${event.runtimeType} and source: ${event.source}");
     return MapEventWrapped(bounds: mc.bounds!, originalEvent: event);
   });
 });

@@ -18,7 +18,7 @@ class StopArrivals with _$StopArrivals {
   const factory StopArrivals(
       {@JsonKey(name: 'CodigoEstado') required num statusCode,
       @JsonKey(name: 'MensajeEstado') required String statusMessage,
-      @JsonKey(name: 'arribos') required List<Arrival> stops}) = _StopArrivals;
+      @JsonKey(name: 'arribos') required List<Arrival>? stops}) = _StopArrivals;
 
   factory StopArrivals.fromJson(Map<String, Object?> json) =>
       _$StopArrivalsFromJson(json);

@@ -10,8 +10,8 @@ _$_StopArrivals _$$_StopArrivalsFromJson(Map<String, dynamic> json) =>
     _$_StopArrivals(
       statusCode: json['CodigoEstado'] as num,
       statusMessage: json['MensajeEstado'] as String,
-      stops: (json['arribos'] as List<dynamic>)
-          .map((e) => Arrival.fromJson(e as Map<String, dynamic>))
+      stops: (json['arribos'] as List<dynamic>?)
+          ?.map((e) => Arrival.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

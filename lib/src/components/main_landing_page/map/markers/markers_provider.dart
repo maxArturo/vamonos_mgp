@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -45,8 +44,6 @@ final markersWithinMapBoundsProvider =
   final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
-    debugPrint(
-        "[markersWithinMapBoundsProvider] yielding on event runtime: ${event.originalEvent.runtimeType} and type: ${event.source}");
     yield allMarkers.flatMap((markerList) {
       return catching(() {
         final result = markerList
@@ -56,8 +53,6 @@ final markersWithinMapBoundsProvider =
             .where((marker) => marker.routeStop.isStoppingPoint)
             .toList();
 
-        debugPrint(
-            "[markersWithinMapBoundsProvider] returning ${result.length} markers");
         return result;
       }).leftMap((e) => ParsingError(description: e.toString()));
     });

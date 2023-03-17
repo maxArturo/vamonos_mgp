@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/stop_arrivals/stop_arrivals_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
@@ -55,7 +56,27 @@ class StopMarkerPopup extends ConsumerWidget {
                     style: TextStyle(color: Colors.red),
                   )),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      maintainState: false,
+                      builder: (context) => Scaffold(
+                          appBar: AppBar(
+                            title: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                  '${stop.routeStop.route.destination} via ${stop.routeStop.route.pathName}'
+                                      .toUpperCase(),
+                                  style: const TextStyle(color: Colors.white)),
+                            ),
+                            backgroundColor: Theme.of(context).primaryColorDark,
+                          ),
+                          body: NavigationMap(
+                            view: MapBrowserView.routeView,
+                            directedRoute: stop.routeStop.route,
+                          ))),
+                );
+              },
               child: const Text("Click to see route \non map"))
         ],
       ),
