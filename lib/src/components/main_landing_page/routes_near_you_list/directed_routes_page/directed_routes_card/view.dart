@@ -18,7 +18,7 @@ class DirectedRouteCardView
     return Consumer(builder: (context, ref, child) {
       final arrivals =
           ref.watch(stopArrivalsByStopProvider(stop: widget.stop.routeStop));
-      return PanelListCard(
+      return ListCard(
           onPressed: () {
             ref
                 .read(stopViewMapControllerProvider.notifier)

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/list_card.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
-import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as route_entity;
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
@@ -108,7 +107,7 @@ class MainRoutesListView
                                   }
 
                                   final routeName = data[idx].name;
-                                  return PanelListCard(
+                                  return ListCard(
                                     color: Colors.green,
                                     topRowText: routeName,
                                   );

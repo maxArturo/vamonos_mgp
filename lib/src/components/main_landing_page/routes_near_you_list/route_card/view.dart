@@ -9,7 +9,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
 
   @override
   Widget build(BuildContext context) {
-    return PanelListCard(
+    return ListCard(
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Scaffold(

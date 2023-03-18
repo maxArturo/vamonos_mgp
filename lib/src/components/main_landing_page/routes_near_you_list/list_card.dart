@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class PanelListCard extends StatelessWidget {
+class ListCard extends StatelessWidget {
   final Color color;
   final void Function()? onPressed;
   final String topRowText;
   final Widget? bottomWidget;
 
-  const PanelListCard({
+  const ListCard({
     this.bottomWidget,
     required this.topRowText,
     super.key,
