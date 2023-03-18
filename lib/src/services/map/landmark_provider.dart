@@ -30,7 +30,7 @@ LandmarkService landMarkService(LandMarkServiceRef ref) {
   );
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Future<Either<AppError, List<RouteLandMark>>> allLandMarksBySource(
     AllLandMarksBySourceRef ref,
     {required TransportationProvider provider}) {

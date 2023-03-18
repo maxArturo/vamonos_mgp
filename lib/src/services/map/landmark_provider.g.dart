@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$landMarkServiceHash() => r'4eb872352a6c604f8ade9ac0c5f0258687043c06';
+String _$landMarkServiceHash() => r'7ded69631156da09f04d4ec36caebc2945551547';
 
 /// See also [landMarkService].
 final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
@@ -41,7 +41,7 @@ final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
 );
 typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
 String _$allLandMarksBySourceHash() =>
-    r'a61fac65f5a0f4de51c95499cf9303f310bef9ac';
+    r'619d376f12823d37439d6f8137dfe83bd9b17fb0';
 
 /// See also [allLandMarksBySource].
 class AllLandMarksBySourceProvider

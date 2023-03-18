@@ -42,12 +42,6 @@ class DirectedRoutesPageView
             }
             final stopMarker = widget.directedRouteStops[index];
             return DirectedRouteCard(stop: stopMarker);
-
-            // final directedRoute =
-            //     widget.directedRouteStops[index][0].routeStop.route;
-            // return DirectedRouteCard(
-            //     directedRoute: directedRoute,
-            //     stops: widget.directedRouteStops[index]);
           },
         )),
       ],

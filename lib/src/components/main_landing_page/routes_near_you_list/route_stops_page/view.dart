@@ -51,7 +51,9 @@ class RouteStopsPageView
                     ref
                         .read(stopViewMapControllerProvider.notifier)
                         .updateMapLocation(stop.routeStop.location);
-                    ref.read(popupControllerProvider).showPopupsOnlyFor([stop]);
+                    ref
+                        .read(stopViewPopupControllerProvider)
+                        .showPopupsOnlyFor([stop]);
                   },
                   // bottomWidget: "Name: ${stop.stopName}",
                   topRowText: "ID: ${stop.routeStop.id}",

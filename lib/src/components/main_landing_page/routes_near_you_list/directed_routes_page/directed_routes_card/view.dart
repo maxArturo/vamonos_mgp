@@ -23,23 +23,10 @@ class DirectedRouteCardView
             ref
                 .read(stopViewMapControllerProvider.notifier)
                 .updateMapLocation(widget.stop.routeStop.location);
-            ref.read(popupControllerProvider).showPopupsOnlyFor([widget.stop]);
-            // Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) => Scaffold(
-            //         appBar: AppBar(
-            //           title: FittedBox(
-            //             fit: BoxFit.fitWidth,
-            //             child: Text(
-            //                 '${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}'
-            //                     .toUpperCase(),
-            //                 style: const TextStyle(color: Colors.white)),
-            //           ),
-            //           backgroundColor: Theme.of(context).primaryColorDark,
-            //         ),
-            //         body: RouteStopsPage(stops: widget.stops))));
+            ref
+                .watch(stopViewPopupControllerProvider)
+                .showPopupsOnlyFor([widget.stop]);
           },
-
-          // const Text("placeholder arrival text"),
           bottomWidget: arrivals.maybeWhen(
               data: (arrivalData) => arrivalData.fold((l) {
                     String errorMessage;

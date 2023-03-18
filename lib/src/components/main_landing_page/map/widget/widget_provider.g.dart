@@ -29,24 +29,51 @@ class _SystemHash {
   }
 }
 
-String _$popupControllerHash() => r'1c6a3254b4e0ae38bf31122e1c3102483f1a2de3';
+String _$stopViewPopupControllerHash() =>
+    r'ef54cbd492f7dcec3501f58744ecc39a39c5df1b';
 
-/// See also [popupController].
-final popupControllerProvider = AutoDisposeProvider<PopupController>(
-  popupController,
-  name: r'popupControllerProvider',
+/// See also [stopViewPopupController].
+final stopViewPopupControllerProvider = Provider<PopupController>(
+  stopViewPopupController,
+  name: r'stopViewPopupControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$popupControllerHash,
+      : _$stopViewPopupControllerHash,
 );
-typedef PopupControllerRef = AutoDisposeProviderRef<PopupController>;
-String _$popupStateHash() => r'723108dde4c8421ed7953617d3ec8c1666d64a8b';
+typedef StopViewPopupControllerRef = ProviderRef<PopupController>;
+String _$stopViewPopupStateHash() =>
+    r'42db9e071f6fe81a0f44f09224c07ec2768bd46c';
 
-/// See also [popupState].
-final popupStateProvider = AutoDisposeProvider<PopupState>(
-  popupState,
-  name: r'popupStateProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$popupStateHash,
+/// See also [stopViewPopupState].
+final stopViewPopupStateProvider = Provider<PopupState>(
+  stopViewPopupState,
+  name: r'stopViewPopupStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$stopViewPopupStateHash,
 );
-typedef PopupStateRef = AutoDisposeProviderRef<PopupState>;
+typedef StopViewPopupStateRef = ProviderRef<PopupState>;
+String _$routeViewPopupControllerHash() =>
+    r'1eb2197939889a5fb8e99ae4f8fb5c8065a37a46';
+
+/// See also [routeViewPopupController].
+final routeViewPopupControllerProvider = Provider<PopupController>(
+  routeViewPopupController,
+  name: r'routeViewPopupControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$routeViewPopupControllerHash,
+);
+typedef RouteViewPopupControllerRef = ProviderRef<PopupController>;
+String _$routeViewPopupStateHash() =>
+    r'62d2add51b41632b3a909591dd592a174ce796a3';
+
+/// See also [routeViewPopupState].
+final routeViewPopupStateProvider = Provider<PopupState>(
+  routeViewPopupState,
+  name: r'routeViewPopupStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$routeViewPopupStateHash,
+);
+typedef RouteViewPopupStateRef = ProviderRef<PopupState>;

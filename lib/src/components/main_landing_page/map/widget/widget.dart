@@ -10,7 +10,7 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/current_location_layer.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/polyline_layer.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/route_marker_layer.dart';
+import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/marker_layer.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/tile_layer.dart';
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
@@ -50,8 +50,11 @@ class NavigationMapView
             zoom: defaultZoom,
             maxZoom: 18,
             minZoom: widget.view == MapBrowserView.routeView ? 14 : 16.5,
-            onTap: (tapPosition, point) =>
-                ref.read(popupControllerProvider).hideAllPopups()),
+            onTap: (tapPosition, point) => ref
+                .read(widget.view == MapBrowserView.stopView
+                    ? stopViewPopupControllerProvider
+                    : routeViewPopupControllerProvider)
+                .hideAllPopups()),
         nonRotatedChildren: nonRotatedChildren(),
         children: [
           tileLayer(),
@@ -59,7 +62,9 @@ class NavigationMapView
           ...(widget.view == MapBrowserView.routeView
               ? [polylineLayer(directedRoute: widget.directedRoute!)]
               : []),
-          stopMarkerLayer(routeStopMarkers: widget.stopMarkers),
+          markerLayer(
+              routeStopMarkers: widget.stopMarkers,
+              mapBrowserView: widget.view),
         ],
       ),
     );
