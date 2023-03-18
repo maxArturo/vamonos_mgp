@@ -85,6 +85,8 @@ class RoutesNearYouListView
                                 ),
                               );
                             } else {
+                              r.sort(
+                                  (a, b) => a.routeName.compareTo(b.routeName));
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -92,8 +94,8 @@ class RoutesNearYouListView
                                     child: AutomaticAnimatedList(
                                       items: r,
                                       controller: widget.scrollController,
-                                      keyingFunction: (route) => Key(
-                                          "${route.routeName}_${route.directedRouteData.keys.length}"),
+                                      keyingFunction: (route) =>
+                                          Key(route.routeName),
                                       itemBuilder: (BuildContext context,
                                           routeCardData,
                                           Animation<double> animation) {
@@ -137,6 +139,7 @@ class RoutesNearYouListView
           switch (settings.name) {
             case '/':
               builder = (context) => Scaffold(
+                    backgroundColor: Colors.blueGrey,
                     appBar: AppBar(
                       automaticallyImplyLeading: false,
                       title: FittedBox(

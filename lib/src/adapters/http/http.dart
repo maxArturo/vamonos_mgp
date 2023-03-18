@@ -21,11 +21,10 @@ class HttpAdapter {
 
   HttpAdapter(this._dio, this._requestCacheInterceptor,
       this._responseCacheInterceptor, this._defaultHeaders) {
-    _dio.interceptors.add(PrettyDioLogger(requestBody: true));
-
     cacheDisabled ?? _dio.interceptors.add(_requestCacheInterceptor);
 
     _dio.interceptors.addAll([
+      PrettyDioLogger(requestBody: true),
       RetryInterceptor(
         dio: _dio,
         logPrint: debugPrint,
@@ -70,7 +69,7 @@ class HttpAdapter {
   }
 }
 
-class RequestCacheInterceptor extends InterceptorsWrapper {
+class RequestCacheInterceptor extends QueuedInterceptorsWrapper {
   final CacheAdapter _cacheAdapter;
   RequestCacheInterceptor(this._cacheAdapter);
 
@@ -87,8 +86,10 @@ class RequestCacheInterceptor extends InterceptorsWrapper {
     }
 
     return cacheResponse.fold(() {
+      debugPrint("cache missed for $key");
       return super.onRequest(options, handler);
     }, (file) async {
+      debugPrint("cache found for $file");
       return handler.resolve(Response(
         requestOptions: options,
         statusCode: 304,

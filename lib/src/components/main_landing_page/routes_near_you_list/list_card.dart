@@ -4,10 +4,10 @@ class PanelListCard extends StatelessWidget {
   final Color color;
   final void Function()? onPressed;
   final String topRowText;
-  final String bottomRowText;
+  final Widget? bottomWidget;
 
   const PanelListCard({
-    required this.bottomRowText,
+    this.bottomWidget,
     required this.topRowText,
     super.key,
     required this.color,
@@ -23,32 +23,22 @@ class PanelListCard extends StatelessWidget {
           fillColor: color,
           onPressed: onPressed,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Column(
-                      children: [
-                        FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(topRowText.toUpperCase(),
-                                style: const TextStyle(color: Colors.white))),
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(bottomRowText.toUpperCase(),
-                              style: const TextStyle(color: Colors.white)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(Icons.directions_bus_filled_sharp,
-                      size: 24, color: Colors.white),
-                ],
-              ),
-              const SizedBox(height: 20),
+              FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(topRowText.toUpperCase(),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 40))),
+              ...(bottomWidget != null
+                  ? [
+                      FittedBox(
+                        fit: BoxFit.contain,
+                        child: bottomWidget,
+                      )
+                    ]
+                  : []),
             ],
           ),
         ));

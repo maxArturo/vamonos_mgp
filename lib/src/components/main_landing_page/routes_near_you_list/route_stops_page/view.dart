@@ -53,7 +53,7 @@ class RouteStopsPageView
                         .updateMapLocation(stop.routeStop.location);
                     ref.read(popupControllerProvider).showPopupsOnlyFor([stop]);
                   },
-                  bottomRowText: "Name: ${stop.stopName}",
+                  // bottomWidget: "Name: ${stop.stopName}",
                   topRowText: "ID: ${stop.routeStop.id}",
                   color: getCardColor(stop.routeStop.id));
             });

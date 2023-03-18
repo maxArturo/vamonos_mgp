@@ -5,7 +5,7 @@ import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/sc
 import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/view.dart';
 
 class DirectedRoutesPage extends ConsumerStatefulWidget {
-  final List<List<StopMarker>> directedRouteStops;
+  final List<StopMarker> directedRouteStops;
 
   const DirectedRoutesPage({required this.directedRouteStops, super.key});
 

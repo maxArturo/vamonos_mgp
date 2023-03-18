@@ -16,20 +16,18 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                   appBar: AppBar(
                     title: FittedBox(
                       fit: BoxFit.fitWidth,
-                      child: Text(
-                          '${widget.routeName} - directed routes'.toUpperCase(),
+                      child: Text(widget.routeName.toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ),
                     backgroundColor: Theme.of(context).primaryColorDark,
                   ),
+                  backgroundColor: Colors.blueGrey,
                   body: DirectedRoutesPage(
                       directedRouteStops:
-                          widget.data.directedRouteData.values.toList()),
+                          widget.data.closestStopsByUniqueDirection),
                 )));
       },
-      bottomRowText:
-          "${widget.data.directedRouteData.keys.length} available directions",
-      topRowText: "route:${widget.routeName}",
+      topRowText: widget.routeName,
       color: getCardColor(widget.routeName),
     );
   }
