@@ -28,7 +28,7 @@ class HomePageController extends State<HomePage> {
   final double initFabHeight = 60;
   double fabHeight = 0;
   double panelHeightOpen = 300;
-  final double panelHeightClosed = 100.0;
+  double panelHeightClosed = 100.0;
   bool searchBarFocused = false;
 
   @override
@@ -63,6 +63,7 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
   @override
   Widget build(BuildContext context) {
     state.panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
+    state.panelHeightClosed = MediaQuery.of(context).size.height * 0.2;
 
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
