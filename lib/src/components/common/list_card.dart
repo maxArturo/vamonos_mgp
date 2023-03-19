@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 final validColors =
     Colors.primaries.where((color) => color != Colors.yellow).toList();
 
+/// provides an easy way to show raw material buttons inside lists with a
+/// sane set of default colors.
 class ListCard extends StatelessWidget {
   final Color? color;
   final void Function()? onPressed;

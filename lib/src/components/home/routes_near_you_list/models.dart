@@ -1,4 +1,4 @@
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
 
 class RouteCardData {
   final String routeName;

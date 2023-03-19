@@ -2,10 +2,10 @@ import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/models.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/routes_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/widget.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/widget.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
 
 class RoutesNearYouListView
     extends WidgetView<RoutesNearYouList, RoutesNearYouListController> {

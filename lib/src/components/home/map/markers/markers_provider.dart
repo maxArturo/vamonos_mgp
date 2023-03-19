@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';

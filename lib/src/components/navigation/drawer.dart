@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/home.dart';
+import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/routes_list.dart';
 
 class HomeDrawer extends StatelessWidget {

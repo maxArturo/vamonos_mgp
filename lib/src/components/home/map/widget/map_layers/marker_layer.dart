@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/stop_marker_popup.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
+import 'package:vamonos_mgp/src/components/home/map/map.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers_provider.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/map_layers/stop_marker_popup.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/widget_provider.dart';
 
 markerLayer(
     {required List<StopMarker> routeStopMarkers,

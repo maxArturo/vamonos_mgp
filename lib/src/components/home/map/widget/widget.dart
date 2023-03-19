@@ -6,13 +6,13 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/current_location_layer.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/polyline_layer.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/marker_layer.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_layers/tile_layer.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
+import 'package:vamonos_mgp/src/components/home/map/map.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers_provider.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/map_layers/current_location_layer.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/map_layers/polyline_layer.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/map_layers/marker_layer.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/map_layers/tile_layer.dart';
+import 'package:vamonos_mgp/src/components/home/map/widget/widget_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
 class NavigationMapView

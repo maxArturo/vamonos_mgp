@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/directed_routes_card/view.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/directed_routes_card/view.dart';
 
 class DirectedRouteCard extends ConsumerStatefulWidget {
   final StopMarker stop;

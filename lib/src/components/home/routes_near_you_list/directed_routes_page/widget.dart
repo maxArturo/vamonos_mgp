@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/scroll_controller_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/view.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/panel_controller/scroll_controller_provider.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/view.dart';
 
 class DirectedRoutesPage extends ConsumerStatefulWidget {
   final List<StopMarker> directedRouteStops;

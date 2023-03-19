@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/view.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/view.dart';
 
 class RoutesNearYouList extends StatefulWidget {
   final ScrollController scrollController;

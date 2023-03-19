@@ -3,9 +3,9 @@ import 'dart:collection';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/models.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers_provider.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 

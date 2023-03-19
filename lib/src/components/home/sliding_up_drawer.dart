@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/widget.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
 
 class SlidingUpDrawer extends StatefulWidget {
   final ScrollController sc;

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-configureApp() {
+configureLogs() {
   if (kReleaseMode) {
     debugPrint = (String? message, {int? wrapWidth}) {};
   }

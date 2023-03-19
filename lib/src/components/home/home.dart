@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,10 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/map.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/panel_controller_provider.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/panel_controller/scroll_controller_provider.dart';
+import 'package:vamonos_mgp/src/components/home/map/map.dart';
+import 'package:vamonos_mgp/src/components/home/map/markers/markers_provider.dart';
+import 'package:vamonos_mgp/src/components/home/panel_controller/panel_controller_provider.dart';
+import 'package:vamonos_mgp/src/components/home/panel_controller/scroll_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';

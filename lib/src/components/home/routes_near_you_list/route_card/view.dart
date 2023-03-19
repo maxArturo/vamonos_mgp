@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/directed_routes_page/widget.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/list_card.dart';
-import 'package:vamonos_mgp/src/components/main_landing_page/routes_near_you_list/route_card/widget.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/widget.dart';
+import 'package:vamonos_mgp/src/components/common/list_card.dart';
+import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/widget.dart';
 
 class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
   const RouteCardView(super.state, {super.key});
