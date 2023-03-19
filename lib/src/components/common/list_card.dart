@@ -21,30 +21,26 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 80,
-        width: double.infinity,
+    return ConstrainedBox(
+        constraints: BoxConstraints.loose(const Size(double.maxFinite, 100)),
         child: RawMaterialButton(
           fillColor:
               color ?? validColors[topRowText.hashCode % validColors.length],
           onPressed: onPressed,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(topRowText.toUpperCase(),
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 40))),
-              ...(bottomWidget != null
-                  ? [
-                      FittedBox(
-                        fit: BoxFit.contain,
-                        child: bottomWidget,
-                      )
-                    ]
-                  : []),
+                fit: BoxFit.scaleDown,
+                child: Text(topRowText.toUpperCase(),
+                    style: const TextStyle(color: Colors.white, fontSize: 40)),
+              ),
+              if (bottomWidget != null)
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: bottomWidget,
+                ),
             ],
           ),
         ));

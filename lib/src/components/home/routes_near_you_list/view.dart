@@ -7,42 +7,12 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
 
-class RoutesNearYouListView
-    extends WidgetView<RoutesNearYouList, RoutesNearYouListController> {
-  const RoutesNearYouListView(super.state, {super.key});
+class RoutesSection extends ConsumerWidget {
+  final ScrollController sc;
+  const RoutesSection({super.key, required this.sc});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO revisit nested consumer if performance is impacted
-    return Consumer(builder: (context, ref, child) {
-      final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-      return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: provider.maybeWhen(
-              data: (data) {
-                return data.fold(
-                    (l) => const Text(
-                          "An unexpected error occurred",
-                          key: Key('error'),
-                          style: TextStyle(color: Colors.red),
-                        ),
-                    (r) => Center(
-                        key: const Key('data'),
-                        child: mainRoutePage(context, r)));
-              },
-              loading: () => const Center(
-                    key: Key('loading'),
-                    child: CircularProgressIndicator(),
-                  ),
-              orElse: () => const Text(
-                    "An unexpected error occurred",
-                    key: Key('error'),
-                    style: TextStyle(color: Colors.red),
-                  )));
-    });
-  }
-
-  Widget routesSection() {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(builder: (context, ref, child) {
       final provider = ref.watch(routeStopMapMarkersNearYouProvider);
       return provider.maybeWhen(
@@ -93,7 +63,7 @@ class RoutesNearYouListView
                                   Flexible(
                                     child: AutomaticAnimatedList(
                                       items: r,
-                                      controller: widget.scrollController,
+                                      controller: sc,
                                       keyingFunction: (route) =>
                                           Key(route.routeName),
                                       itemBuilder: (BuildContext context,
@@ -127,6 +97,42 @@ class RoutesNearYouListView
               ));
     });
   }
+}
+
+class RoutesNearYouListView
+    extends WidgetView<RoutesNearYouList, RoutesNearYouListController> {
+  const RoutesNearYouListView(super.state, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO revisit nested consumer if performance is impacted
+    return Consumer(builder: (context, ref, child) {
+      final provider = ref.watch(routeStopMapMarkersNearYouProvider);
+      return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: provider.maybeWhen(
+              data: (data) {
+                return data.fold(
+                    (l) => const Text(
+                          "An unexpected error occurred",
+                          key: Key('error'),
+                          style: TextStyle(color: Colors.red),
+                        ),
+                    (r) => Center(
+                        key: const Key('data'),
+                        child: mainRoutePage(context, r)));
+              },
+              loading: () => const Center(
+                    key: Key('loading'),
+                    child: CircularProgressIndicator(),
+                  ),
+              orElse: () => const Text(
+                    "An unexpected error occurred",
+                    key: Key('error'),
+                    style: TextStyle(color: Colors.red),
+                  )));
+    });
+  }
 
   Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {
     return MediaQuery.removePadding(
@@ -149,7 +155,7 @@ class RoutesNearYouListView
                       ),
                       backgroundColor: Theme.of(context).primaryColorDark,
                     ),
-                    body: routesSection(),
+                    body: RoutesSection(sc: widget.scrollController),
                   );
               break;
             default:
