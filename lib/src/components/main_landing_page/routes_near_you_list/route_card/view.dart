@@ -28,10 +28,6 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                 )));
       },
       topRowText: widget.routeName,
-      color: getCardColor(widget.routeName),
     );
   }
-
-  getCardColor(String routeName) =>
-      Colors.primaries[routeName.hashCode % Colors.primaries.length];
 }

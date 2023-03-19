@@ -47,9 +47,9 @@ class NavigationMapView
                   .initialize(state.mc);
             },
             center: mapCenter,
-            zoom: defaultZoom,
+            zoom: widget.view == MapBrowserView.routeView ? 12 : defaultZoom,
             maxZoom: 18,
-            minZoom: widget.view == MapBrowserView.routeView ? 14 : 16.5,
+            minZoom: widget.view == MapBrowserView.routeView ? 12 : 16.5,
             onTap: (tapPosition, point) => ref
                 .read(widget.view == MapBrowserView.stopView
                     ? stopViewPopupControllerProvider
@@ -63,7 +63,7 @@ class NavigationMapView
               ? [polylineLayer(directedRoute: widget.directedRoute!)]
               : []),
           markerLayer(
-              routeStopMarkers: widget.stopMarkers,
+              routeStopMarkers: widget.stopMarkers ?? [],
               mapBrowserView: widget.view),
         ],
       ),

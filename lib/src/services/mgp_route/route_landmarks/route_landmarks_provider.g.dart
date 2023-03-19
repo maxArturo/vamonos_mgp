@@ -29,23 +29,23 @@ class _SystemHash {
   }
 }
 
-String _$routeLandmarksHash() => r'9faf2fe47cf12c1322101e92f26d24d0a017db16';
+String _$routeLandmarksHash() => r'3d16eb66aee46d4802820b079d50a787b8737dc9';
 
 /// See also [routeLandmarks].
-final routeLandmarksProvider = AutoDisposeProvider<RouteLandMarks>(
+final routeLandmarksProvider = Provider<RouteLandMarks>(
   routeLandmarks,
   name: r'routeLandmarksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$routeLandmarksHash,
 );
-typedef RouteLandmarksRef = AutoDisposeProviderRef<RouteLandMarks>;
+typedef RouteLandmarksRef = ProviderRef<RouteLandMarks>;
 String _$routeLandMarksByIdHash() =>
-    r'09ab1737e062e226d0ce74130a92c30f2aea949f';
+    r'396de8471f400d21d65cd92377a1f7d0901ec375';
 
 /// See also [routeLandMarksById].
 class RouteLandMarksByIdProvider
-    extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
+    extends FutureProvider<Either<AppError, List<RouteLandMark>>> {
   RouteLandMarksByIdProvider({
     required this.route,
   }) : super(
@@ -78,7 +78,7 @@ class RouteLandMarksByIdProvider
 }
 
 typedef RouteLandMarksByIdRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
+    = FutureProviderRef<Either<AppError, List<RouteLandMark>>>;
 
 /// See also [routeLandMarksById].
 final routeLandMarksByIdProvider = RouteLandMarksByIdFamily();
@@ -96,8 +96,7 @@ class RouteLandMarksByIdFamily
   }
 
   @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
-      getProviderOverride(
+  FutureProvider<Either<AppError, List<RouteLandMark>>> getProviderOverride(
     covariant RouteLandMarksByIdProvider provider,
   ) {
     return call(

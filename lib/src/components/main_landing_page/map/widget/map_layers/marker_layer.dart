@@ -9,9 +9,9 @@ import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/map_laye
 import 'package:vamonos_mgp/src/components/main_landing_page/map/widget/widget_provider.dart';
 
 markerLayer(
-    {List<StopMarker>? routeStopMarkers,
+    {required List<StopMarker> routeStopMarkers,
     required MapBrowserView mapBrowserView}) {
-  if (routeStopMarkers != null) {
+  if (mapBrowserView == MapBrowserView.routeView) {
     return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
       return markerClusterWidget(context,
@@ -24,6 +24,7 @@ markerLayer(
               : stopViewPopupControllerProvider));
     });
   }
+
   return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) =>
           ref.watch(markersWithinMapBoundsProvider).maybeWhen(

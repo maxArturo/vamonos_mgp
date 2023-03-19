@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -152,8 +153,12 @@ class RecenterMapButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
       right: 20,
-      // top: panelHeightOpen - fabHeight - panelHeightClosed,
-      top: MediaQuery.of(context).size.height - fabHeight - 120,
+      // top: max(panelHeightOpen - panelHeightClosed,
+      //         MediaQuery.of(context).size.height - 120) -
+      //     fabHeight,
+      top: panelHeightOpen +
+          MediaQuery.of(context).size.height * 0.1 -
+          fabHeight,
       child: FloatingActionButton(
         onPressed: () => recenterLocation(),
         backgroundColor: Colors.white,

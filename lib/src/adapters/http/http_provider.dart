@@ -14,19 +14,19 @@ Dio dio(DioRef ref) => Dio();
 Map<String, String> defaultHeaders(DefaultHeadersRef ref) =>
     config.defaultHeaders;
 
-@riverpod
+@Riverpod(keepAlive: true)
 HttpAdapter httpAdapter(HttpAdapterRef ref) => HttpAdapter(
     ref.watch(dioProvider),
     ref.watch(requestCacheInterceptorProvider),
     ref.watch(responseCacheInterceptorProvider),
     ref.watch(defaultHeadersProvider));
 
-@riverpod
+@Riverpod(keepAlive: true)
 RequestCacheInterceptor requestCacheInterceptor(
         RequestCacheInterceptorRef ref) =>
     RequestCacheInterceptor(ref.watch(cacheAdapterProvider));
 
-@riverpod
+@Riverpod(keepAlive: true)
 ResponseCacheInterceptor responseCacheInterceptor(
         ResponseCacheInterceptorRef ref) =>
     ResponseCacheInterceptor(ref.watch(cacheAdapterProvider));

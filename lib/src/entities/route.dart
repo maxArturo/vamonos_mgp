@@ -8,7 +8,7 @@ class Route {
   Route({required this.mode, required this.id, required this.name});
 }
 
-class DirectedRoute extends Route implements Comparable {
+class DirectedRoute extends Route implements Comparable<DirectedRoute> {
   final String destination;
   final String pathName;
 
@@ -17,11 +17,25 @@ class DirectedRoute extends Route implements Comparable {
       : super(id: route.id, name: route.name, mode: route.mode);
 
   @override
-  int compareTo(other) {
+  int compareTo(DirectedRoute other) {
     return destination.compareTo(other.destination) +
         pathName.compareTo(other.pathName) +
         id.compareTo(other.id);
   }
 
+  @override
+  bool operator ==(other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is DirectedRoute && compareTo(other) == 0;
+  }
+
   get canonicalIdentifier => '${destination}_$pathName';
+
+  @override
+  int get hashCode => canonicalIdentifier.hashCode;
 }

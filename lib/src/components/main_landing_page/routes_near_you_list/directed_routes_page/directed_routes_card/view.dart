@@ -19,54 +19,51 @@ class DirectedRouteCardView
       final arrivals =
           ref.watch(stopArrivalsByStopProvider(stop: widget.stop.routeStop));
       return ListCard(
-          onPressed: () {
-            ref
-                .read(stopViewMapControllerProvider.notifier)
-                .updateMapLocation(widget.stop.routeStop.location);
-            ref
-                .watch(stopViewPopupControllerProvider)
-                .showPopupsOnlyFor([widget.stop]);
-          },
-          bottomWidget: arrivals.maybeWhen(
-              data: (arrivalData) => arrivalData.fold((l) {
-                    String errorMessage;
-                    switch (l.errorType) {
-                      case ErrorType.dataNotFoundError:
-                        errorMessage = "data not found for this stop";
-                        break;
+        onPressed: () {
+          ref
+              .read(stopViewMapControllerProvider.notifier)
+              .updateMapLocation(widget.stop.routeStop.location);
+          ref
+              .watch(stopViewPopupControllerProvider)
+              .showPopupsOnlyFor([widget.stop]);
+        },
+        bottomWidget: arrivals.maybeWhen(
+            data: (arrivalData) => arrivalData.fold((l) {
+                  String errorMessage;
+                  switch (l.errorType) {
+                    case ErrorType.dataNotFoundError:
+                      errorMessage = "data not found for this stop";
+                      break;
 
-                      default:
-                        errorMessage = "An unexpected error occurred";
-                    }
-                    return Text(
-                      errorMessage,
-                      key: const Key('error'),
-                      style: const TextStyle(color: Colors.red),
-                    );
-                  },
-                      (r) => Text(r[0].arrival,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 20))),
-              loading: () => Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      SpinKitWave(
-                        color: Colors.blue,
-                        size: 20,
-                      )
-                    ],
-                  ),
-              orElse: () => const Text(
-                    "An unexpected error occurred",
-                    key: Key('error'),
-                    style: TextStyle(color: Colors.red),
-                  )),
-          topRowText:
-              "${widget.stop.routeStop.route.destination} Via ${widget.stop.routeStop.route.pathName}",
-          color: getCardColor(widget.stop.routeStop.route.canonicalIdentifier));
+                    default:
+                      errorMessage = "An unexpected error occurred";
+                  }
+                  return Text(
+                    errorMessage,
+                    key: const Key('error'),
+                    style: const TextStyle(color: Colors.red),
+                  );
+                },
+                    (r) => Text(r[0].arrival,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 20))),
+            loading: () => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    SpinKitWave(
+                      color: Colors.blue,
+                      size: 20,
+                    )
+                  ],
+                ),
+            orElse: () => const Text(
+                  "An unexpected error occurred",
+                  key: Key('error'),
+                  style: TextStyle(color: Colors.red),
+                )),
+        topRowText:
+            "${widget.stop.routeStop.route.destination} Via ${widget.stop.routeStop.route.pathName}",
+      );
     });
   }
-
-  getCardColor(String routeName) =>
-      Colors.primaries[routeName.hashCode % Colors.primaries.length];
 }

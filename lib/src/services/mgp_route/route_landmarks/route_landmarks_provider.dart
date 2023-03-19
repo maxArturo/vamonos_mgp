@@ -8,12 +8,12 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'route_landmarks_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RouteLandMarks routeLandmarks(RouteLandmarksRef ref) {
   return RouteLandMarks(ref.watch(httpAdapterProvider));
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<Either<AppError, List<RouteLandMark>>> routeLandMarksById(
         RouteLandMarksByIdRef ref,
         {required Route route}) =>
