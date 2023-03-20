@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/home/map/map.dart';
-import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/stop_arrivals/stop_arrivals_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
@@ -70,11 +70,10 @@ class StopMarkerPopup extends ConsumerWidget {
                             ),
                             backgroundColor: Theme.of(context).primaryColorDark,
                           ),
-                          body: NavigationMap(
-                            view: MapBrowserView.routeView,
+                          body: RouteMap(
                             directedRoute: stop.routeStop.route,
                             initialLocation: stop.routeStop.location,
-                            stopMarkers: [stop],
+                            stops: [stop],
                           ))),
                 );
               },

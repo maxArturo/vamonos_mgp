@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/home/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/home/panel_controller/scroll_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/view.dart';
 
@@ -19,12 +19,11 @@ class DirectedRoutesPageController extends ConsumerState<DirectedRoutesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final sc = ref.watch(panelScrollControllerProvider);
-    return sc.fold(
-        () => const Text("no panel controller yet"),
-        (sc) => DirectedRoutesPageView(
+    return ref.watch(panelScrollControllerProvider).maybeWhen(
+        data: (sc) => DirectedRoutesPageView(
               this,
               scrollController: sc,
-            ));
+            ),
+        orElse: () => const Text("no panel controller yet"));
   }
 }

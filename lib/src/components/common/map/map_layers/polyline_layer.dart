@@ -8,9 +8,12 @@ import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
 
-polylineLayer({required DirectedRoute directedRoute}) {
-  return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+class PolylineLayerWidget extends ConsumerWidget {
+  final DirectedRoute directedRoute;
+  const PolylineLayerWidget({super.key, required this.directedRoute});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return ref
         .watch(AllLandMarksBySourceProvider(
             provider: TransportationProvider.municipioGeneralPurreydon))
@@ -47,28 +50,27 @@ polylineLayer({required DirectedRoute directedRoute}) {
             data: (data) => data.fold(
                     (l) => Text("An error of type ${l.errorType} occurred"),
                     (routeStops) {
-                  final polyLine = toPolyLine(routeStops, directedRoute);
-                  return polylineWidget(polyLines: [polyLine]);
+                  final polyLine = _toPolyLine(routeStops, directedRoute);
+                  return PolylineLayer(
+                      polylineCulling: true, polylines: [polyLine]);
                 }));
-  });
-}
+  }
 
-polylineWidget({required List<Polyline> polyLines}) =>
-    PolylineLayer(polylineCulling: true, polylines: polyLines);
+  Polyline _toPolyLine(
+      List<RouteLandMark> routeStops, DirectedRoute directedRoute) {
+    final filteredStops = routeStops
+        .where((stop) =>
+            stop.route.canonicalIdentifier ==
+                directedRoute.canonicalIdentifier &&
+            stop.route.id == directedRoute.id)
+        .toList();
 
-Polyline toPolyLine(
-    List<RouteLandMark> routeStops, DirectedRoute directedRoute) {
-  final filteredStops = routeStops
-      .where((stop) =>
-          stop.route.canonicalIdentifier == directedRoute.canonicalIdentifier &&
-          stop.route.id == directedRoute.id)
-      .toList();
-
-  return Polyline(
-      color: Colors.blue,
-      strokeWidth: 7.0,
-      points: filteredStops
-          .map((stop) =>
-              LatLng(stop.location.latitude!, stop.location.longitude!))
-          .toList());
+    return Polyline(
+        color: Colors.blue,
+        strokeWidth: 7.0,
+        points: filteredStops
+            .map((stop) =>
+                LatLng(stop.location.latitude!, stop.location.longitude!))
+            .toList());
+  }
 }

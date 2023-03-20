@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$panelControllerHash() => r'4bbb4c7380033273c4cf84f6d3a67a9da28fff2c';
+String _$panelControllerHash() => r'8ec0bdaa4ee2ed1cb2828006b2f259f9783efc04';
 
 /// See also [panelController].
 final panelControllerProvider = AutoDisposeProvider<PanelController>(

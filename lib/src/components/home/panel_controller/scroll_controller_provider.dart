@@ -1,4 +1,5 @@
-import 'package:dartz/dartz.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,12 +7,16 @@ part 'scroll_controller_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class PanelScrollController extends _$PanelScrollController {
+  final _scCompleter = Completer<ScrollController>();
+
   @override
-  Option<ScrollController> build() {
-    return const None();
+  FutureOr<ScrollController> build() {
+    return _scCompleter.future;
   }
 
-  setScrollController(ScrollController sc) {
-    state = Some(sc);
+  initialize(ScrollController sc) {
+    if (!_scCompleter.isCompleted) {
+      _scCompleter.complete(sc);
+    }
   }
 }

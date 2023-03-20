@@ -4,6 +4,4 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 part 'panel_controller_provider.g.dart';
 
 @riverpod
-PanelController panelController(PanelControllerRef ref) {
-  return PanelController();
-}
+PanelController panelController(PanelControllerRef ref) => PanelController();

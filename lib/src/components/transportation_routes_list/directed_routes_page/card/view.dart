@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/home/map/map.dart';
 import 'package:vamonos_mgp/src/components/common/list_card.dart';
+import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
+import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/directed_routes_page/card/widget.dart';
 
 class DirectedRouteCardView
@@ -28,9 +28,9 @@ class DirectedRouteCardView
                       ),
                       backgroundColor: Theme.of(context).primaryColorDark,
                     ),
-                    body: NavigationMap(
-                      view: MapBrowserView.routeView,
+                    body: RouteMap(
                       directedRoute: widget.directedRoute,
+                      stops: const [],
                     ))),
           );
         },

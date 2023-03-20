@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/home/map/widget/widget_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/directed_routes_card/widget.dart';
 import 'package:vamonos_mgp/src/components/common/list_card.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
