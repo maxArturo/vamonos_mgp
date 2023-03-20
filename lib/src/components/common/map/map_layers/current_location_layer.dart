@@ -25,10 +25,34 @@ class CurrentLocationLayer extends ConsumerWidget {
                         )),
               ],
             ),
-        orElse: () => const Icon(
-              Icons.warning,
-              color: Colors.red,
-              size: 40,
+        orElse: () => Align(
+              alignment: const Alignment(0.0, -0.9),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: ColoredBox(
+                  color: const Color.fromARGB(204, 203, 65, 65),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: Text(
+                                "Current Location Not Available",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ));
   }
 }
