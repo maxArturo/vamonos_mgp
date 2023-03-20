@@ -47,17 +47,14 @@ class HttpAdapter {
     Map<String, dynamic>? extraHeaders,
     Duration? maxDuration,
   }) async {
-    final requestOptions = Options(
-        headers: {
-          ..._defaultHeaders,
-          ...extraHeaders ?? {},
-        },
-        extra: maxDuration != null
-            ? {
-                ResponseCacheInterceptor.cacheMaxAgeSecondsKey:
-                    maxDuration.inSeconds
-              }
-            : {});
+    final requestOptions = Options(headers: {
+      ..._defaultHeaders,
+      ...extraHeaders ?? {},
+    }, extra: {
+      if (maxDuration != null) ...{
+        ResponseCacheInterceptor.cacheMaxAgeSecondsKey: maxDuration.inSeconds
+      }
+    });
 
     final Response<dynamic> response =
         await _dio.post(url, data: body, options: requestOptions);

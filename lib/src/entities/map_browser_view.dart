@@ -1,0 +1,4 @@
+enum MapBrowserView {
+  stopView,
+  routeView,
+}
