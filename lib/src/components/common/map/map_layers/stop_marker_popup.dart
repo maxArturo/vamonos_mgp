@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/stop_arrivals/stop_arrivals_provider.dart';
-import 'package:vamonos_mgp/src/util/errors.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class StopMarkerPopup extends ConsumerWidget {
   final StopMarker stop;
@@ -20,23 +20,15 @@ class StopMarkerPopup extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Flexible(child: Text("Route Name: ${stop.routeStop.route.name}\n")),
-        arrivals.maybeWhen(
-            data: (arrivalData) => arrivalData.fold((l) {
-                  String errorMessage;
-                  switch (l.errorType) {
-                    case ErrorType.dataNotFoundError:
-                      errorMessage = "data not found for this stop";
-                      break;
-
-                    default:
-                      errorMessage = "An unexpected error occurred";
-                  }
-                  return Text(
-                    errorMessage,
-                    key: const Key('error'),
-                    style: const TextStyle(color: Colors.red),
-                  );
-                }, (r) => Flexible(child: Text(r[0].arrival))),
+        arrivals.fold(
+            data: (r) => Flexible(child: Text(r[0].arrival)),
+            error: (l) {
+              return Text(
+                l.userText,
+                key: const Key('error'),
+                style: const TextStyle(color: Colors.red),
+              );
+            },
             loading: () => Flexible(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -47,11 +39,6 @@ class StopMarkerPopup extends ConsumerWidget {
                       )
                     ],
                   ),
-                ),
-            orElse: () => const Text(
-                  "An unexpected error occurred",
-                  key: Key('error'),
-                  style: TextStyle(color: Colors.red),
                 )),
         Flexible(
           child: TextButton(

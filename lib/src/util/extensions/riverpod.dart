@@ -8,7 +8,7 @@ extension AsyncValueEither<T extends AppError, U> on AsyncValue<Either<T, U>> {
     bool skipLoadingOnRefresh = true,
     bool skipError = false,
     required R Function(U data) data,
-    required R Function(T error, StackTrace stackTrace) error,
+    required R Function(T error) error,
     required R Function() loading,
   }) {
     if (isLoading) {
@@ -30,9 +30,9 @@ extension AsyncValueEither<T extends AppError, U> on AsyncValue<Either<T, U>> {
       } else {
         err = LibraryImplementationError(description: this.error!.toString());
       }
-      return error(err as T, stackTrace!);
+      return error(err as T);
     }
 
-    return requireValue.fold<R>((l) => error(l, l.stackTrace), (r) => data(r));
+    return requireValue.fold<R>((l) => error(l), (r) => data(r));
   }
 }

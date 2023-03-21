@@ -7,6 +7,7 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class RoutesSection extends ConsumerWidget {
   final ScrollController sc;
@@ -16,85 +17,76 @@ class RoutesSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(builder: (context, ref, child) {
       final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-      return provider.maybeWhen(
-          data: (data) {
-            return data.fold(
-                (l) => const Text(
-                      "An unexpected error occurred",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                (r) => AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: Builder(
-                          key: ValueKey(r.isEmpty),
-                          builder: (BuildContext context) {
-                            if (r.isEmpty) {
-                              return Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        const SizedBox(height: 30),
-                                        const Icon(
-                                          Icons.block_sharp,
-                                          size: 30,
-                                          color:
-                                              Color.fromARGB(255, 194, 63, 63),
-                                        ),
-                                        const SizedBox(height: 30),
-                                        Text("No routes near you".toUpperCase(),
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                            )),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 13),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              r.sort(
-                                  (a, b) => a.routeName.compareTo(b.routeName));
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
+      return provider.fold(
+          data: (r) => AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: Builder(
+                    key: ValueKey(r.isEmpty),
+                    builder: (BuildContext context) {
+                      if (r.isEmpty) {
+                        return Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
                                 children: [
-                                  Flexible(
-                                    child: AutomaticAnimatedList(
-                                      items: r,
-                                      controller: sc,
-                                      keyingFunction: (route) =>
-                                          Key(route.routeName),
-                                      itemBuilder: (BuildContext context,
-                                          routeCardData,
-                                          Animation<double> animation) {
-                                        return FadeTransition(
-                                          opacity: animation,
-                                          child: SizeTransition(
-                                            sizeFactor: CurvedAnimation(
-                                                parent: animation,
-                                                curve: Curves.easeInOut),
-                                            child: RouteCard(
-                                                data: routeCardData,
-                                                routeName:
-                                                    routeCardData.routeName),
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                  const SizedBox(height: 30),
+                                  const Icon(
+                                    Icons.block_sharp,
+                                    size: 30,
+                                    color: Color.fromARGB(255, 194, 63, 63),
                                   ),
+                                  const SizedBox(height: 30),
+                                  Text("No routes near you".toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      )),
                                 ],
-                              );
-                            }
-                          }),
-                    ));
-          },
-          orElse: () => const Text(
-                "An unexpected error occurred",
-                key: Key('error'),
-                style: TextStyle(color: Colors.red),
+                              ),
+                              const SizedBox(width: 13),
+                            ],
+                          ),
+                        );
+                      } else {
+                        r.sort((a, b) => a.routeName.compareTo(b.routeName));
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: AutomaticAnimatedList(
+                                items: r,
+                                controller: sc,
+                                keyingFunction: (route) => Key(route.routeName),
+                                itemBuilder: (BuildContext context,
+                                    routeCardData,
+                                    Animation<double> animation) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: SizeTransition(
+                                      sizeFactor: CurvedAnimation(
+                                          parent: animation,
+                                          curve: Curves.easeInOut),
+                                      child: RouteCard(
+                                          data: routeCardData,
+                                          routeName: routeCardData.routeName),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
+              ),
+          error: (l) => Text(
+                l.userText,
+                style: const TextStyle(color: Colors.red),
+              ),
+          loading: () => const Center(
+                key: Key('loading'),
+                child: CircularProgressIndicator(),
               ));
     });
   }

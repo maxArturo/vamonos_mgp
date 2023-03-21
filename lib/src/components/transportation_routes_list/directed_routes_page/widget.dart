@@ -5,6 +5,7 @@ import 'package:vamonos_mgp/src/entities/route.dart' as entity;
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/route_landmarks/route_landmarks_provider.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class DirectedRoutesPage extends ConsumerStatefulWidget {
   const DirectedRoutesPage({super.key, required this.route});
@@ -25,28 +26,19 @@ class DirectedRoutesPageController extends ConsumerState<DirectedRoutesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ref.watch(RouteLandMarksByIdProvider(route: widget.route)).maybeWhen(
-          loading: () => const Center(
-            key: Key('loading'),
-            child: CircularProgressIndicator(),
-          ),
-          orElse: () => const Text(
-            "An unexpected error occurred",
-            key: Key('error'),
-            style: TextStyle(color: Colors.red),
-          ),
-          data: (data) {
-            return data.fold(
-                (l) => const Text(
-                      "An unexpected error occurred",
-                      key: Key('error'),
-                      style: TextStyle(color: Colors.red),
-                    ),
-                (r) => DirectedRoutesPageView(
-                      this,
-                      directedRoutes: toDirectedRoutes(r),
-                    ));
-          },
-        );
+    return ref.watch(RouteLandMarksByIdProvider(route: widget.route)).fold(
+        data: (r) => DirectedRoutesPageView(
+              this,
+              directedRoutes: toDirectedRoutes(r),
+            ),
+        error: (err) => Text(
+              err.userText,
+              key: const Key('error'),
+              style: const TextStyle(color: Colors.red),
+            ),
+        loading: () => const Center(
+              key: Key('loading'),
+              child: CircularProgressIndicator(),
+            ));
   }
 }
