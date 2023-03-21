@@ -52,8 +52,8 @@ class StopMapView extends WidgetView<StopMap, StopMapController> {
         ],
         children: const [
           TileLayerWidget(),
-          CurrentLocationLayer(),
           StopMarkerLayer(),
+          CurrentLocationLayer(),
         ],
       ),
     );

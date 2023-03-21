@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamonos_mgp/src/entities/route.dart' as entity;
+import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
@@ -17,10 +16,10 @@ part 'landmark_provider.g.dart';
 LandmarkService landMarkService(LandMarkServiceRef ref) {
   final routeList = ref.watch(latestRouteListProvider.future);
 
-  routeLandmarksById(entity.Route route) =>
+  routeLandmarksById(Route route) =>
       ref.watch(routeLandMarksByIdProvider(route: route).future);
 
-  routeStopsByRoute(entity.Route route) =>
+  routeStopsByRoute(Route route) =>
       ref.watch(routeStopsByRouteProvider(route: route).future);
 
   return LandmarkService(
@@ -34,10 +33,6 @@ LandmarkService landMarkService(LandMarkServiceRef ref) {
 Future<Either<AppError, List<RouteLandMark>>> allLandMarksBySource(
     AllLandMarksBySourceRef ref,
     {required TransportationProvider provider}) {
-  debugPrint("[allLandMarksBySourceProvider] INITIALIZED");
-  ref.onDispose(() {
-    debugPrint("[allLandMarksBySourceProvider] DISPOSED");
-  });
   return ref
       .watch(landMarkServiceProvider)
       .allLandMarksByProvider(TransportationProvider.municipioGeneralPurreydon);
@@ -50,3 +45,12 @@ Future<Either<AppError, List<RouteStop>>> allStopsBySource(
     ref
         .watch(landMarkServiceProvider)
         .allStopsByProvider(TransportationProvider.municipioGeneralPurreydon);
+
+@riverpod
+Future<Either<AppError, List<RouteLandMark>>> allLandmarksByRoute(
+        AllLandmarksByRouteRef ref,
+        {required TransportationProvider provider,
+        required Route route}) =>
+    ref
+        .watch(landMarkServiceProvider)
+        .allLandMarksByProviderAndRoute(provider: provider, route: route);

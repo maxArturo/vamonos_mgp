@@ -15,11 +15,11 @@ class BaseToast extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.check),
-          const SizedBox(
-            width: 12.0,
-          ),
-          Text(toastText),
+          FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                toastText,
+              )),
         ],
       ),
     );

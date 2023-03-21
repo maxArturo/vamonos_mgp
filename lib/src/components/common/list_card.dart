@@ -33,8 +33,12 @@ class ListCard extends StatelessWidget {
             children: [
               FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(topRowText.toUpperCase(),
-                    style: const TextStyle(color: Colors.white, fontSize: 40)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Text(topRowText.toUpperCase(),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 40)),
+                ),
               ),
               if (bottomWidget != null)
                 FittedBox(

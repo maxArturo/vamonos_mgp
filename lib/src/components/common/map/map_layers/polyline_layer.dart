@@ -15,10 +15,12 @@ class PolylineLayerWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref
-        .watch(AllLandMarksBySourceProvider(
+        .watch(allLandmarksByRouteProvider(
+            route: directedRoute,
             provider: TransportationProvider.municipioGeneralPurreydon))
         .maybeWhen(
-            orElse: () => const Text("An unhandled error occurred"),
+            orElse: () =>
+                const Center(child: Text("An unhandled error occurred")),
             loading: () => Center(
                   child: SizedBox(
                     height: 100,

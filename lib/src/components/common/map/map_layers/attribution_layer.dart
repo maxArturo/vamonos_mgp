@@ -13,41 +13,47 @@ class AttributionLayer extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              onTap: () => launchUrl(Uri.https('appsl.mardelplata.gob.ar',
-                  'app_cuando_llega/web/cuando.php')),
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Text(
-                        "MGP/Cuando Llega",
-                        style: TextStyle(color: Color(0xFF0078a8)),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: GestureDetector(
+                onTap: () => launchUrl(Uri.https('appsl.mardelplata.gob.ar',
+                    'app_cuando_llega/web/cuando.php')),
+                child: Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "MGP/Cuando Llega",
+                          style: TextStyle(color: Color(0xFF0078a8)),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () =>
-                  launchUrl(Uri.https('www.openstreetmap.org', '/fixthemap')),
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Text(
-                        "OpenStreetMap",
-                        style: TextStyle(color: Color(0xFF0078a8)),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: GestureDetector(
+                onTap: () =>
+                    launchUrl(Uri.https('www.openstreetmap.org', '/fixthemap')),
+                child: Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "OpenStreetMap",
+                          style: TextStyle(color: Color(0xFF0078a8)),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

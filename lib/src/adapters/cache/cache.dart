@@ -24,4 +24,8 @@ class CacheAdapter {
       {Duration? maxAge = const Duration(days: 1)}) async {
     return await _cacheManager.putFile(key, bytes, maxAge: maxAge!);
   }
+
+  Future<void> clearCache() {
+    return _cacheManager.emptyCache();
+  }
 }

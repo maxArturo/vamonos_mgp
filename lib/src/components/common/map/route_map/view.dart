@@ -15,7 +15,7 @@ import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
 class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
   final LocationData initialLocation;
-  final defaultZoom = 17.0;
+  final defaultZoom = 13.0;
 
   const RouteMapView(
     super.state, {
@@ -50,9 +50,9 @@ class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
         ],
         children: [
           const TileLayerWidget(),
-          const CurrentLocationLayer(),
           PolylineLayerWidget(directedRoute: widget.directedRoute),
-          RouteMarkerLayer(routeStopMarkers: widget.stops)
+          RouteMarkerLayer(routeStopMarkers: widget.stops),
+          const CurrentLocationLayer(),
         ],
       ),
     );
