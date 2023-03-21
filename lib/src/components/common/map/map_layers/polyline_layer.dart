@@ -7,6 +7,7 @@ import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class PolylineLayerWidget extends ConsumerWidget {
   final DirectedRoute directedRoute;
@@ -18,9 +19,16 @@ class PolylineLayerWidget extends ConsumerWidget {
         .watch(allLandmarksByRouteProvider(
             route: directedRoute,
             provider: TransportationProvider.municipioGeneralPurreydon))
-        .maybeWhen(
-            orElse: () =>
-                const Center(child: Text("An unhandled error occurred")),
+        .fold(
+            data: (routeStops) {
+              final polyLine = _toPolyLine(routeStops, directedRoute);
+              return PolylineLayer(
+                  polylineCulling: true, polylines: [polyLine]);
+            },
+            error: (err) {
+              return Center(
+                  child: Text("An error of type ${err.errorType} occurred"));
+            },
             loading: () => Center(
                   child: SizedBox(
                     height: 100,
@@ -48,14 +56,7 @@ class PolylineLayerWidget extends ConsumerWidget {
                       ),
                     ),
                   ),
-                ),
-            data: (data) => data.fold(
-                    (l) => Text("An error of type ${l.errorType} occurred"),
-                    (routeStops) {
-                  final polyLine = _toPolyLine(routeStops, directedRoute);
-                  return PolylineLayer(
-                      polylineCulling: true, polylines: [polyLine]);
-                }));
+                ));
   }
 
   Polyline _toPolyLine(

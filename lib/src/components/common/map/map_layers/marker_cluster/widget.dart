@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
@@ -42,7 +44,7 @@ class MarkerClusterWidget extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                width: MediaQuery.of(context).size.width * .5,
+                width: min(MediaQuery.of(context).size.width * .5, 300),
                 height: 100,
                 child: GestureDetector(
                   child: StopMarkerPopup(

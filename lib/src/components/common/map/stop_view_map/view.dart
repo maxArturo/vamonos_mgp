@@ -12,6 +12,7 @@ import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart'
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/widget.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
+import 'package:vamonos_mgp/src/services/map/map_view_provider.dart';
 
 class StopMapView extends WidgetView<StopMap, StopMapController> {
   final LocationData initialLocation;
@@ -39,6 +40,8 @@ class StopMapView extends WidgetView<StopMap, StopMapController> {
               ref
                   .read(stopViewMapControllerProvider.notifier)
                   .initialize(state.mc);
+
+              ref.read(mapViewProvider.notifier).setStopView();
             },
             center: mapCenter,
             zoom: defaultZoom,

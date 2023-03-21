@@ -5,7 +5,7 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/marker_cluster/
 import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
-import 'package:vamonos_mgp/src/util/errors.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class RouteMarkerLayer extends ConsumerWidget {
   final List<StopMarker> routeStopMarkers;
@@ -29,23 +29,17 @@ class StopMarkerLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(markersWithinMapBoundsProvider).maybeWhen(
-        orElse: () => ErrorLayer(
-              error: UntypedError(),
-              alignment: const Alignment(0, -0.8),
-              color: Colors.red,
-            ),
-        loading: () => const SizedBox.shrink(), // empty widget
-        data: (data) => data.fold(
-              (err) => ErrorLayer(
-                error: err,
-                alignment: const Alignment(0, -0.8),
-                color: Colors.red,
-              ),
-              (markers) => MarkerClusterWidget(
-                  markers: markers,
-                  popupState: ref.watch(stopViewPopupStateProvider),
-                  popupController: ref.watch(stopViewPopupControllerProvider)),
-            ));
+    return ref.watch(markersWithinMapBoundsProvider).fold(
+          data: (markers) => MarkerClusterWidget(
+              markers: markers,
+              popupState: ref.watch(stopViewPopupStateProvider),
+              popupController: ref.watch(stopViewPopupControllerProvider)),
+          error: (err) => ErrorLayer(
+            error: err,
+            alignment: const Alignment(0, -0.8),
+            color: Colors.red,
+          ),
+          loading: () => const SizedBox.shrink(), // empty widget
+        );
   }
 }
