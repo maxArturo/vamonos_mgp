@@ -12,21 +12,23 @@ class CurrentLocationLayer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(updatedLocationServiceProvider).maybeWhen(
-        data: (loc) => MarkerLayer(
-              markers: [
-                Marker(
-                    rotate: true,
-                    point: LatLng(loc.latitude!, loc.longitude!),
-                    anchorPos: AnchorPos.align(AnchorAlign.center),
-                    height: 40,
-                    width: 40,
-                    builder: (context) => const Icon(
-                          Icons.location_on_sharp,
-                          color: Colors.red,
-                          size: 40,
-                        )),
-              ],
-            ),
+        data: (either) => either.fold(
+            (l) => ErrorLayer(error: l),
+            (r) => MarkerLayer(
+                  markers: [
+                    Marker(
+                        rotate: true,
+                        point: LatLng(r.latitude!, r.longitude!),
+                        anchorPos: AnchorPos.align(AnchorAlign.center),
+                        height: 40,
+                        width: 40,
+                        builder: (context) => const Icon(
+                              Icons.location_on_sharp,
+                              color: Colors.red,
+                              size: 40,
+                            )),
+                  ],
+                )),
         loading: () => const SizedBox.shrink(), // empty widget
         orElse: () => ErrorLayer(error: LocationServiceError()));
   }

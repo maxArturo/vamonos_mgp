@@ -43,9 +43,9 @@ mixin MapFunctionality on AsyncNotifier<MapController> {
 
   recenterMapLocation() => ref
       .read(updatedLocationServiceProvider)
-      .whenData((value) => updateMapLocation(value));
+      .whenData((value) => value.map((el) => updateMapLocation(el)));
 
-  updateMapLocation(LocationData location) {
+  void updateMapLocation(LocationData location) {
     state.whenData((controller) {
       controller.moveAndRotate(
           LatLng(location.latitude!, location.longitude!), 17, 0);

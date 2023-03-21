@@ -5,6 +5,7 @@ import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/components/common/map/config.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/view.dart';
 import 'package:vamonos_mgp/src/entities/map_browser_view.dart';
+import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 
 class StopMap extends ConsumerStatefulWidget {
   final MapBrowserView view = MapBrowserView.stopView;
@@ -21,7 +22,15 @@ class StopMapController extends ConsumerState<StopMap> {
 
   @override
   Widget build(BuildContext context) {
-    return StopMapView(this,
-        initialLocation: widget.initialLocation ?? defaultCenterLocation);
+    if (widget.initialLocation != null) {
+      return StopMapView(this, initialLocation: widget.initialLocation!);
+    }
+    return ref.watch(locationServiceProvider).maybeWhen(
+        data: (locationData) => locationData.fold(
+            (l) => StopMapView(this, initialLocation: defaultCenterLocation),
+            (r) => StopMapView(this, initialLocation: r)),
+        loading: () => const SizedBox.shrink(),
+        orElse: () =>
+            StopMapView(this, initialLocation: defaultCenterLocation));
   }
 }

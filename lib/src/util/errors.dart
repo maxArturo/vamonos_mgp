@@ -67,14 +67,14 @@ class ParsingError extends AppError {
 }
 
 class UntypedError extends AppError {
-  UntypedError()
+  UntypedError({super.description})
       : super(
             errorType: ErrorType.parsingError,
             userText: "An unexpected error occurred");
 }
 
 class LocationServiceError extends AppError {
-  LocationServiceError()
+  LocationServiceError({super.description})
       : super(
             errorType: ErrorType.locationServiceError,
             userText: "Current location not available");
