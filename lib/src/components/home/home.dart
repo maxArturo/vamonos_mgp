@@ -12,6 +12,7 @@ import 'package:vamonos_mgp/src/components/home/panel_controller/scroll_controll
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 import '../common/map/markers/markers_provider.dart';
 import 'sliding_up_drawer.dart';
@@ -69,14 +70,12 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         // TODO review best way to display this toastbar
         ref.listen(allMarkersProvider, (prev, curr) {
-          curr.maybeWhen(
-              data: (data) => data.fold(
-                    (l) => null,
-                    (r) => state.fToast.showToast(
-                        gravity: ToastGravity.TOP,
-                        child: BaseToast(toastText: "Got ${r.length} stops")),
-                  ),
-              orElse: () {});
+          curr.fold(
+              data: (r) => state.fToast.showToast(
+                  gravity: ToastGravity.TOP,
+                  child: BaseToast(toastText: "Got ${r.length} stops")),
+              error: (_) => null,
+              loading: () => null);
         });
         return Scaffold(
           drawer: const HomeDrawer(),

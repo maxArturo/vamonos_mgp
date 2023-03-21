@@ -8,6 +8,7 @@ import 'package:vamonos_mgp/src/components/common/list_card.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/stop_arrivals/stop_arrivals_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
+import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class DirectedRouteCardView
     extends WidgetView<DirectedRouteCard, DirectedRouteCardController> {
@@ -27,40 +28,35 @@ class DirectedRouteCardView
               .watch(stopViewPopupControllerProvider)
               .showPopupsOnlyFor([widget.stop]);
         },
-        bottomWidget: arrivals.maybeWhen(
-            data: (arrivalData) => arrivalData.fold((l) {
-                  String errorMessage;
-                  switch (l.errorType) {
-                    case ErrorType.dataNotFoundError:
-                      errorMessage = "data not found for this stop";
-                      break;
+        bottomWidget: arrivals.fold(
+          data: (r) => Text(r[0].arrival,
+              style: const TextStyle(color: Colors.white, fontSize: 20)),
+          error: (l) {
+            String errorMessage;
+            switch (l.errorType) {
+              case ErrorType.dataNotFoundError:
+                errorMessage = "data not found for this stop";
+                break;
 
-                    default:
-                      errorMessage = "An unexpected error occurred";
-                  }
-                  return Text(
-                    errorMessage,
-                    key: const Key('error'),
-                    style: const TextStyle(color: Colors.red),
-                  );
-                },
-                    (r) => Text(r[0].arrival,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 20))),
-            loading: () => Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SpinKitWave(
-                      color: Colors.blue,
-                      size: 20,
-                    )
-                  ],
-                ),
-            orElse: () => const Text(
-                  "An unexpected error occurred",
-                  key: Key('error'),
-                  style: TextStyle(color: Colors.red),
-                )),
+              default:
+                errorMessage = "An unexpected error occurred";
+            }
+            return Text(
+              errorMessage,
+              key: const Key('error'),
+              style: const TextStyle(color: Colors.red),
+            );
+          },
+          loading: () => Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              SpinKitWave(
+                color: Colors.blue,
+                size: 20,
+              )
+            ],
+          ),
+        ),
         topRowText:
             "${widget.stop.routeStop.route.destination} Via ${widget.stop.routeStop.route.pathName}",
       );

@@ -103,41 +103,32 @@ class RoutesNearYouListView
       final provider = ref.watch(routeStopMapMarkersNearYouProvider);
       return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: provider.maybeWhen(
-              data: (data) {
-                return data.fold(
-                    (l) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.warning_amber,
-                              color: Colors.redAccent,
-                            ),
-                            const SizedBox.shrink(),
-                            Text(
-                              l.userText,
-                              style: const TextStyle(
-                                  color: Colors.redAccent, fontSize: 18),
-                            ),
-                            FilledButton(
-                                onPressed: () =>
-                                    ref.refresh(latestRouteListProvider.future),
-                                child: const Text("Tap to retry"))
-                          ],
-                        ),
-                    (r) => Center(
-                        key: const Key('data'),
-                        child: mainRoutePage(context, r)));
-              },
-              loading: () => const Center(
-                    key: Key('loading'),
-                    child: CircularProgressIndicator(),
-                  ),
-              orElse: () => const Text(
-                    "An unexpected error occurred",
-                    key: Key('error'),
-                    style: TextStyle(color: Colors.red),
-                  )));
+          child: provider.fold(
+            data: (r) => Center(
+                key: const Key('data'), child: mainRoutePage(context, r)),
+            error: (l) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.warning_amber,
+                  color: Colors.redAccent,
+                ),
+                const SizedBox.shrink(),
+                Text(
+                  l.userText,
+                  style: const TextStyle(color: Colors.redAccent, fontSize: 18),
+                ),
+                FilledButton(
+                    onPressed: () =>
+                        ref.refresh(latestRouteListProvider.future),
+                    child: const Text("Tap to retry"))
+              ],
+            ),
+            loading: () => const Center(
+              key: Key('loading'),
+              child: CircularProgressIndicator(),
+            ),
+          ));
     });
   }
 
