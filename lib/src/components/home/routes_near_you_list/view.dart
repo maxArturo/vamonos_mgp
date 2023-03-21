@@ -6,6 +6,7 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/widget.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
+import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
 
 class RoutesSection extends ConsumerWidget {
   final ScrollController sc;
@@ -113,10 +114,24 @@ class RoutesNearYouListView
           child: provider.maybeWhen(
               data: (data) {
                 return data.fold(
-                    (l) => const Text(
-                          "An unexpected error occurred",
-                          key: Key('error'),
-                          style: TextStyle(color: Colors.red),
+                    (l) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.warning_amber,
+                              color: Colors.redAccent,
+                            ),
+                            const SizedBox.shrink(),
+                            Text(
+                              l.userText,
+                              style: const TextStyle(
+                                  color: Colors.redAccent, fontSize: 18),
+                            ),
+                            FilledButton(
+                                onPressed: () =>
+                                    ref.refresh(latestRouteListProvider.future),
+                                child: const Text("Tap to retry"))
+                          ],
                         ),
                     (r) => Center(
                         key: const Key('data'),

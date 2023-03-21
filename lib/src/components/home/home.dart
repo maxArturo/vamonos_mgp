@@ -70,11 +70,12 @@ class HomePageView extends WidgetView<HomePage, HomePageController> {
         // TODO review best way to display this toastbar
         ref.listen(allMarkersProvider, (prev, curr) {
           curr.maybeWhen(
-              data: (data) => state.fToast.showToast(
-                  gravity: ToastGravity.TOP,
-                  child: BaseToast(
-                      toastText: data.fold((l) => "Got error of ${l.errorType}",
-                          (r) => "Got ${r.length} stops"))),
+              data: (data) => data.fold(
+                    (l) => null,
+                    (r) => state.fToast.showToast(
+                        gravity: ToastGravity.TOP,
+                        child: BaseToast(toastText: "Got ${r.length} stops")),
+                  ),
               orElse: () {});
         });
         return Scaffold(
@@ -146,7 +147,7 @@ class RecenterMapButton extends ConsumerWidget {
     return Positioned(
       right: 20,
       top: panelHeightOpen +
-          MediaQuery.of(context).size.height * 0.1 -
+          MediaQuery.of(context).size.height * 0.15 -
           fabHeight,
       child: FloatingActionButton(
         onPressed: () => recenterLocation(),

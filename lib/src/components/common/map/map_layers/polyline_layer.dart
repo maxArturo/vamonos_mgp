@@ -18,7 +18,8 @@ class PolylineLayerWidget extends ConsumerWidget {
         .watch(AllLandMarksBySourceProvider(
             provider: TransportationProvider.municipioGeneralPurreydon))
         .maybeWhen(
-            orElse: () => const Text("An unhandled error occurred"),
+            orElse: () =>
+                const Center(child: Text("An unhandled error occurred")),
             loading: () => Center(
                   child: SizedBox(
                     height: 100,
