@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$landMarkServiceHash() => r'7ded69631156da09f04d4ec36caebc2945551547';
+String _$landMarkServiceHash() => r'4eb872352a6c604f8ade9ac0c5f0258687043c06';
 
 /// See also [landMarkService].
 final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
@@ -41,7 +41,7 @@ final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
 );
 typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
 String _$allLandMarksBySourceHash() =>
-    r'619d376f12823d37439d6f8137dfe83bd9b17fb0';
+    r'59c80406f80767a78ab373bc651bc64c4235919e';
 
 /// See also [allLandMarksBySource].
 class AllLandMarksBySourceProvider
@@ -187,4 +187,88 @@ class AllStopsBySourceFamily
 
   @override
   String? get name => r'allStopsBySourceProvider';
+}
+
+String _$allLandmarksByRouteHash() =>
+    r'efe380359269f50d9b2e31a6fca0e0e60f756531';
+
+/// See also [allLandmarksByRoute].
+class AllLandmarksByRouteProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
+  AllLandmarksByRouteProvider({
+    required this.provider,
+    required this.route,
+  }) : super(
+          (ref) => allLandmarksByRoute(
+            ref,
+            provider: provider,
+            route: route,
+          ),
+          from: allLandmarksByRouteProvider,
+          name: r'allLandmarksByRouteProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allLandmarksByRouteHash,
+        );
+
+  final TransportationProvider provider;
+  final Route route;
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllLandmarksByRouteProvider &&
+        other.provider == provider &&
+        other.route == route;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, provider.hashCode);
+    hash = _SystemHash.combine(hash, route.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef AllLandmarksByRouteRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
+
+/// See also [allLandmarksByRoute].
+final allLandmarksByRouteProvider = AllLandmarksByRouteFamily();
+
+class AllLandmarksByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
+  AllLandmarksByRouteFamily();
+
+  AllLandmarksByRouteProvider call({
+    required TransportationProvider provider,
+    required Route route,
+  }) {
+    return AllLandmarksByRouteProvider(
+      provider: provider,
+      route: route,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
+      getProviderOverride(
+    covariant AllLandmarksByRouteProvider provider,
+  ) {
+    return call(
+      provider: provider.provider,
+      route: provider.route,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'allLandmarksByRouteProvider';
 }

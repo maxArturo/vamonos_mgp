@@ -15,7 +15,8 @@ class PolylineLayerWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref
-        .watch(AllLandMarksBySourceProvider(
+        .watch(allLandmarksByRouteProvider(
+            route: directedRoute,
             provider: TransportationProvider.municipioGeneralPurreydon))
         .maybeWhen(
             orElse: () =>

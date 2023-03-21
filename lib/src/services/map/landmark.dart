@@ -72,4 +72,16 @@ class LandmarkService {
         throw UnimplementedError();
     }
   }
+
+  /// Gets landmarks by provider and route
+  Future<Either<AppError, List<RouteLandMark>>> allLandMarksByProviderAndRoute(
+      {required TransportationProvider provider, required Route route}) async {
+    switch (provider) {
+      case TransportationProvider.municipioGeneralPurreydon:
+        return await routeStopLandMarksById(route);
+
+      default:
+        throw UnimplementedError();
+    }
+  }
 }

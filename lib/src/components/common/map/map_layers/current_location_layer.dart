@@ -27,6 +27,7 @@ class CurrentLocationLayer extends ConsumerWidget {
                         )),
               ],
             ),
+        loading: () => const SizedBox.shrink(), // empty widget
         orElse: () => ErrorLayer(error: LocationServiceError()));
   }
 }

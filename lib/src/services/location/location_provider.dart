@@ -9,9 +9,6 @@ final locationServiceProvider =
 
 final updatedLocationServiceProvider =
     StreamProvider.autoDispose<LocationData>((AutoDisposeRef ref) async* {
-  final updatedLocationStream = ref.watch(updatedLocationProvider.stream);
-
-  await for (final newLocation in updatedLocationStream) {
-    yield newLocation;
-  }
+  yield await ref.watch(locationServiceProvider.future);
+  yield* ref.watch(updatedLocationProvider.stream);
 });

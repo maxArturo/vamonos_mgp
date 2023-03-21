@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/routes_list.dart';
 
@@ -17,17 +20,28 @@ class HomeDrawer extends StatelessWidget {
         children: [
           SizedBox(
             height: 150,
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              ),
-              child: Text(
-                'Vamonos - MGP'.toUpperCase(),
-                style: TextStyle(
-                    fontSize: 30,
-                    color: Theme.of(context).colorScheme.inversePrimary),
-              ),
-            ),
+            child: Consumer(builder: (context, ref, child) {
+              return GestureDetector(
+                onTap: () {
+                  if (!kReleaseMode) {
+                    final cacheClear = ref.read(cacheAdapterProvider);
+                    debugPrint("[DEBUG] tapping to clear cache");
+                    cacheClear.clearCache();
+                  }
+                },
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: Text(
+                    'Vamonos - MGP'.toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Theme.of(context).colorScheme.inversePrimary),
+                  ),
+                ),
+              );
+            }),
           ),
           ListTile(
             title: Text('Map Search'.toUpperCase()),

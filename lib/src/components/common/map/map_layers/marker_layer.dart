@@ -35,6 +35,7 @@ class StopMarkerLayer extends ConsumerWidget {
               alignment: const Alignment(0, -0.8),
               color: Colors.red,
             ),
+        loading: () => const SizedBox.shrink(), // empty widget
         data: (data) => data.fold(
               (err) => ErrorLayer(
                 error: err,
