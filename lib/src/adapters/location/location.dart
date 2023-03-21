@@ -19,7 +19,7 @@ class LocationAdapter {
       if (!_serviceEnabled) {
         _serviceEnabled = await _systemLocation.requestService();
         if (!_serviceEnabled) {
-          throw ServiceUnavailableError();
+          throw LocationServiceError();
         }
       }
 
