@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
-import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
+import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'stops_within_bounds_provider.g.dart';
@@ -16,7 +16,7 @@ Stream<Either<AppError, List<RouteLandMark>>> stopsWithinMapBounds(
           provider: TransportationProvider.municipioGeneralPurreydon)
       .future);
 
-  final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
+  final mapEventStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
     yield allStops.flatMap((stopList) {

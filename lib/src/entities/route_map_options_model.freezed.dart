@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RouteMapState {
-  bool? get showAllStops => throw _privateConstructorUsedError;
+  bool get showAllStops => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RouteMapStateCopyWith<RouteMapState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $RouteMapStateCopyWith<$Res> {
           RouteMapState value, $Res Function(RouteMapState) then) =
       _$RouteMapStateCopyWithImpl<$Res, RouteMapState>;
   @useResult
-  $Res call({bool? showAllStops});
+  $Res call({bool showAllStops});
 }
 
 /// @nodoc
@@ -45,13 +45,13 @@ class _$RouteMapStateCopyWithImpl<$Res, $Val extends RouteMapState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showAllStops = freezed,
+    Object? showAllStops = null,
   }) {
     return _then(_value.copyWith(
-      showAllStops: freezed == showAllStops
+      showAllStops: null == showAllStops
           ? _value.showAllStops
           : showAllStops // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
     ) as $Val);
   }
 }
@@ -64,7 +64,7 @@ abstract class _$$_RouteMapStateCopyWith<$Res>
       __$$_RouteMapStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool? showAllStops});
+  $Res call({bool showAllStops});
 }
 
 /// @nodoc
@@ -78,13 +78,13 @@ class __$$_RouteMapStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? showAllStops = freezed,
+    Object? showAllStops = null,
   }) {
     return _then(_$_RouteMapState(
-      showAllStops: freezed == showAllStops
+      showAllStops: null == showAllStops
           ? _value.showAllStops
           : showAllStops // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
     ));
   }
 }
@@ -92,11 +92,11 @@ class __$$_RouteMapStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RouteMapState implements _RouteMapState {
-  const _$_RouteMapState({this.showAllStops = false});
+  const _$_RouteMapState({this.showAllStops = true});
 
   @override
   @JsonKey()
-  final bool? showAllStops;
+  final bool showAllStops;
 
   @override
   String toString() {
@@ -123,10 +123,10 @@ class _$_RouteMapState implements _RouteMapState {
 }
 
 abstract class _RouteMapState implements RouteMapState {
-  const factory _RouteMapState({final bool? showAllStops}) = _$_RouteMapState;
+  const factory _RouteMapState({final bool showAllStops}) = _$_RouteMapState;
 
   @override
-  bool? get showAllStops;
+  bool get showAllStops;
   @override
   @JsonKey(ignore: true)
   _$$_RouteMapStateCopyWith<_$_RouteMapState> get copyWith =>

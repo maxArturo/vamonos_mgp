@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'stops_within_bounds_provider.dart';
+part of 'map_event_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -29,17 +29,23 @@ class _SystemHash {
   }
 }
 
-String _$stopsWithinMapBoundsHash() =>
-    r'4df0e019a41ff5d478a9a6ca9e93744c51e6d0ef';
+String _$UnifiedMapEventStreamHash() =>
+    r'4f8d5df9f1be186fd2cca57071984b4d0abefb35';
 
-/// See also [stopsWithinMapBounds].
-final stopsWithinMapBoundsProvider =
-    AutoDisposeProvider<Stream<Either<AppError, List<RouteLandMark>>>>(
-  stopsWithinMapBounds,
-  name: r'stopsWithinMapBoundsProvider',
+/// See also [UnifiedMapEventStream].
+final unifiedMapEventStreamProvider = AutoDisposeNotifierProvider<
+    UnifiedMapEventStream, Stream<MapEventWithBounds>>(
+  UnifiedMapEventStream.new,
+  name: r'unifiedMapEventStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$stopsWithinMapBoundsHash,
+      : _$UnifiedMapEventStreamHash,
 );
-typedef StopsWithinMapBoundsRef
-    = AutoDisposeProviderRef<Stream<Either<AppError, List<RouteLandMark>>>>;
+typedef UnifiedMapEventStreamRef
+    = AutoDisposeNotifierProviderRef<Stream<MapEventWithBounds>>;
+
+abstract class _$UnifiedMapEventStream
+    extends AutoDisposeNotifier<Stream<MapEventWithBounds>> {
+  @override
+  Stream<MapEventWithBounds> build();
+}

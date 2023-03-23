@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
-import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
+import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'markers_provider.g.dart';
@@ -41,7 +41,7 @@ final markersWithinMapBoundsProvider =
         (AutoDisposeRef ref) async* {
   final allMarkers = await ref.watch(allMarkersProvider.future);
 
-  final mapEventStream = ref.watch(mapOnEndEventStreamProvider.stream);
+  final mapEventStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
     yield allMarkers.flatMap((markerList) {
