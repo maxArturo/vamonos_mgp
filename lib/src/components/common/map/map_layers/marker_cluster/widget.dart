@@ -4,18 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_popup.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 
 class MarkerClusterWidget extends StatelessWidget {
   final List<StopMarker> markers;
   final PopupState popupState;
   final PopupController popupController;
+  final int maxClusterRadius;
 
   const MarkerClusterWidget(
       {super.key,
       required this.markers,
       required this.popupController,
-      required this.popupState});
+      required this.popupState,
+      this.maxClusterRadius = 50});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class MarkerClusterWidget extends StatelessWidget {
         animationsOptions: const AnimationsOptions(
             spiderfy: Duration(milliseconds: 500),
             zoom: Duration(milliseconds: 500)),
-        maxClusterRadius: 50,
+        maxClusterRadius: maxClusterRadius,
         size: const Size(40, 40),
         anchor: AnchorPos.align(AnchorAlign.center),
         fitBoundsOptions: const FitBoundsOptions(

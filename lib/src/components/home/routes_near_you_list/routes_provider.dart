@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
@@ -31,8 +31,8 @@ final routeStopMapMarkersNearYouProvider =
         } else {
           final currentClosest = closestMarkerByDirectedRoute[
               marker.routeStop.route.canonicalIdentifier]!;
-          if (getTotalDistance(currentClosest.point, mapCenter) >
-              getTotalDistance(marker.point, mapCenter)) {
+          if (_getTotalDistance(currentClosest.point, mapCenter) >
+              _getTotalDistance(marker.point, mapCenter)) {
             closestMarkerByDirectedRoute[
                 marker.routeStop.route.canonicalIdentifier] = marker;
           }
@@ -56,7 +56,7 @@ final routeStopMapMarkersNearYouProvider =
   }
 });
 
-getTotalDistance(LatLng coordinates, LatLng other) =>
+_getTotalDistance(LatLng coordinates, LatLng other) =>
     coordinates.latitude -
     other.latitude +
     coordinates.longitude -

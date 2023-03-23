@@ -3,18 +3,18 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'popup_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 PopupController stopViewPopupController(StopViewPopupControllerRef ref) {
   return PopupController();
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 PopupState stopViewPopupState(StopViewPopupStateRef ref) => PopupState();
 
-@Riverpod(keepAlive: true)
+@riverpod
 PopupController routeViewPopupController(RouteViewPopupControllerRef ref) {
   return PopupController();
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 PopupState routeViewPopupState(RouteViewPopupStateRef ref) => PopupState();

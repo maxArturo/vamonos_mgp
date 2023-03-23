@@ -44,3 +44,21 @@ abstract class _$MapView extends AutoDisposeNotifier<MapBrowserView> {
   @override
   MapBrowserView build();
 }
+
+String _$RouteMapViewStateHash() => r'db7453c6c733bf48ff0c4f4cb4b52e0f54ad32cb';
+
+/// See also [RouteMapViewState].
+final routeMapViewStateProvider =
+    AutoDisposeNotifierProvider<RouteMapViewState, RouteMapState>(
+  RouteMapViewState.new,
+  name: r'routeMapViewStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$RouteMapViewStateHash,
+);
+typedef RouteMapViewStateRef = AutoDisposeNotifierProviderRef<RouteMapState>;
+
+abstract class _$RouteMapViewState extends AutoDisposeNotifier<RouteMapState> {
+  @override
+  RouteMapState build();
+}

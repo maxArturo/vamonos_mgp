@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  async: ^2.10.0
   quiver: ^3.2.1
   concurrent_queue: ^1.4.0
   stream_transform: ^2.1.0

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AttributionLayer extends StatelessWidget {
-  const AttributionLayer({super.key});
+  final bool dockToBottom;
+  const AttributionLayer({super.key, this.dockToBottom = false});
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const Alignment(0.0, 0.57),
+      alignment: Alignment(0.0, dockToBottom ? 0.8 : 0.57),
       child: ColoredBox(
         color: const Color(0xCCFFFFFF),
         child: Column(

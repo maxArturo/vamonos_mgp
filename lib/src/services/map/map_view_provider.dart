@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/entities/map_browser_view.dart';
+import 'package:vamonos_mgp/src/entities/route_map_options_model.dart';
 
 part 'map_view_provider.g.dart';
 
@@ -19,5 +20,17 @@ class MapView extends _$MapView {
   void setStopView() {
     debugPrint("[$runtimeType] set state to stop");
     state = MapBrowserView.stopView;
+  }
+}
+
+@riverpod
+class RouteMapViewState extends _$RouteMapViewState {
+  @override
+  RouteMapState build() {
+    return const RouteMapState();
+  }
+
+  void toggleAllStops() {
+    state = state.copyWith(showAllStops: !state.showAllStops);
   }
 }
