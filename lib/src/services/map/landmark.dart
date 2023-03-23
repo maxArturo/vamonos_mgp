@@ -50,6 +50,17 @@ class LandmarkService {
     }
   }
 
+  Future<Either<AppError, List<RouteStop>>> allStopsByRoute(
+      TransportationProvider provider, Route route) async {
+    switch (provider) {
+      case TransportationProvider.municipioGeneralPurreydon:
+        return (await routeStopsByRoute(route));
+
+      default:
+        throw UnimplementedError();
+    }
+  }
+
   /// Gets all landmarks available, depending on provider implementation
   Future<Either<AppError, List<RouteLandMark>>> allLandMarksByProvider(
       TransportationProvider provider) async {

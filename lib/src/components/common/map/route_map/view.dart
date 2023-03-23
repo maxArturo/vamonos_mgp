@@ -54,7 +54,9 @@ class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
         children: [
           const TileLayerWidget(),
           PolylineLayerWidget(directedRoute: widget.directedRoute),
-          RouteMarkerLayer(selectedMarker: widget.selectedMarker),
+          RouteMarkerLayer(
+              directedRoute: widget.directedRoute,
+              selectedMarker: widget.selectedMarker),
           const CurrentLocationLayer(),
         ],
       ),

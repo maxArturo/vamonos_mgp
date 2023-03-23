@@ -7,11 +7,12 @@ import 'package:vamonos_mgp/src/entities/route_stop.dart';
 class StopMarker extends Marker {
   final RouteStop routeStop;
   final String stopName;
+  final Color color;
 
   StopMarker(
       {required this.stopName,
       required this.routeStop,
-      Color? color = Colors.black})
+      this.color = Colors.black})
       : super(
             anchorPos: AnchorPos.align(AnchorAlign.center),
             height: 30,
@@ -25,4 +26,11 @@ class StopMarker extends Marker {
                 color: color,
               );
             });
+
+  StopMarker copyWith({RouteStop? routeStop, String? stopName, Color? color}) {
+    return StopMarker(
+        stopName: stopName ?? this.stopName,
+        routeStop: routeStop ?? this.routeStop,
+        color: color ?? this.color);
+  }
 }

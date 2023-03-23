@@ -1,16 +1,11 @@
-import 'dart:async';
-
 import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rxdart/transformers.dart';
 import 'package:vamonos_mgp/src/entities/map_browser_view.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
-
-part 'map_event_provider.g.dart';
 
 enum AppMapEventSource { initialized, recentered, external }
 
@@ -115,22 +110,8 @@ AutoDisposeStreamProvider<MapEventWithBounds> createOnEndMapStreamProvider(
   });
 }
 
-final routeMapEventStreamProvider =
+final routeMapOnEndEventStreamProvider =
     createOnEndMapStreamProvider(MapBrowserView.routeView);
 
 final stopMapOnEndEventStreamProvider =
     createOnEndMapStreamProvider(MapBrowserView.stopView);
-
-@riverpod
-class UnifiedMapEventStream extends _$UnifiedMapEventStream {
-  final _controller = StreamController<MapEventWithBounds>.broadcast();
-
-  @override
-  Stream<MapEventWithBounds> build() {
-    final stopStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
-    _controller.sink.addStream(stopStream);
-    return _controller.stream;
-  }
-
-  get sink => _controller.sink;
-}

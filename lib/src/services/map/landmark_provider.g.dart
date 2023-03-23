@@ -189,6 +189,89 @@ class AllStopsBySourceFamily
   String? get name => r'allStopsBySourceProvider';
 }
 
+String _$allStopsByRouteHash() => r'671b396277788c9ff706b991adcd52b659209220';
+
+/// See also [allStopsByRoute].
+class AllStopsByRouteProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>> {
+  AllStopsByRouteProvider({
+    required this.provider,
+    required this.route,
+  }) : super(
+          (ref) => allStopsByRoute(
+            ref,
+            provider: provider,
+            route: route,
+          ),
+          from: allStopsByRouteProvider,
+          name: r'allStopsByRouteProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allStopsByRouteHash,
+        );
+
+  final TransportationProvider provider;
+  final Route route;
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllStopsByRouteProvider &&
+        other.provider == provider &&
+        other.route == route;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, provider.hashCode);
+    hash = _SystemHash.combine(hash, route.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef AllStopsByRouteRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>>;
+
+/// See also [allStopsByRoute].
+final allStopsByRouteProvider = AllStopsByRouteFamily();
+
+class AllStopsByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteStop>>>> {
+  AllStopsByRouteFamily();
+
+  AllStopsByRouteProvider call({
+    required TransportationProvider provider,
+    required Route route,
+  }) {
+    return AllStopsByRouteProvider(
+      provider: provider,
+      route: route,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>>
+      getProviderOverride(
+    covariant AllStopsByRouteProvider provider,
+  ) {
+    return call(
+      provider: provider.provider,
+      route: provider.route,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'allStopsByRouteProvider';
+}
+
 String _$allLandmarksByRouteHash() =>
     r'efe380359269f50d9b2e31a6fca0e0e60f756531';
 

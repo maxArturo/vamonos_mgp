@@ -47,6 +47,14 @@ Future<Either<AppError, List<RouteStop>>> allStopsBySource(
         .allStopsByProvider(TransportationProvider.municipioGeneralPurreydon);
 
 @riverpod
+Future<Either<AppError, List<RouteStop>>> allStopsByRoute(
+        AllStopsBySourceRef ref,
+        {required TransportationProvider provider,
+        required Route route}) =>
+    ref.watch(landMarkServiceProvider).allStopsByRoute(
+        TransportationProvider.municipioGeneralPurreydon, route);
+
+@riverpod
 Future<Either<AppError, List<RouteLandMark>>> allLandmarksByRoute(
         AllLandmarksByRouteRef ref,
         {required TransportationProvider provider,

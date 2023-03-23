@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_popup.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/markers.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 
 class MarkerClusterWidget extends StatelessWidget {
   final List<StopMarker> markers;

@@ -44,3 +44,77 @@ final allMarkersProvider =
 );
 typedef AllMarkersRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
+String _$allMarkersByRouteHash() => r'fe0b3e85331836f42d46a7ad5e99f1efdeee7569';
+
+/// See also [allMarkersByRoute].
+class AllMarkersByRouteProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>> {
+  AllMarkersByRouteProvider(
+    this.directedRoute,
+  ) : super(
+          (ref) => allMarkersByRoute(
+            ref,
+            directedRoute,
+          ),
+          from: allMarkersByRouteProvider,
+          name: r'allMarkersByRouteProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allMarkersByRouteHash,
+        );
+
+  final DirectedRoute directedRoute;
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllMarkersByRouteProvider &&
+        other.directedRoute == directedRoute;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, directedRoute.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef AllMarkersByRouteRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
+
+/// See also [allMarkersByRoute].
+final allMarkersByRouteProvider = AllMarkersByRouteFamily();
+
+class AllMarkersByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<StopMarker>>>> {
+  AllMarkersByRouteFamily();
+
+  AllMarkersByRouteProvider call(
+    DirectedRoute directedRoute,
+  ) {
+    return AllMarkersByRouteProvider(
+      directedRoute,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>
+      getProviderOverride(
+    covariant AllMarkersByRouteProvider provider,
+  ) {
+    return call(
+      provider.directedRoute,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'allMarkersByRouteProvider';
+}
