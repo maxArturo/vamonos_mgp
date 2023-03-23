@@ -5,8 +5,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/attribution_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/current_location_layer.dart';
-import 'package:vamonos_mgp/src/components/common/map/map_layers/marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/polyline_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_layers/route_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
@@ -54,7 +54,7 @@ class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
         children: [
           const TileLayerWidget(),
           PolylineLayerWidget(directedRoute: widget.directedRoute),
-          RouteMarkerLayer(routeStopMarkers: widget.stops),
+          RouteMarkerLayer(selectedMarker: widget.selectedMarker),
           const CurrentLocationLayer(),
         ],
       ),

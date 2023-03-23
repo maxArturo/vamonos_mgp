@@ -1,4 +1,3 @@
-// import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';

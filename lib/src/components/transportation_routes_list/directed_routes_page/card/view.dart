@@ -30,7 +30,6 @@ class DirectedRouteCardView
                     ),
                     body: RouteMap(
                       directedRoute: widget.directedRoute,
-                      stops: const [],
                     ))),
           );
         },

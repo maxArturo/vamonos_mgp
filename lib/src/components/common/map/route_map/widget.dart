@@ -11,13 +11,13 @@ class RouteMap extends StatefulWidget {
   final MapBrowserView view = MapBrowserView.routeView;
   final DirectedRoute directedRoute;
   final LocationData? initialLocation;
-  final List<StopMarker> stops;
+  final StopMarker? selectedMarker;
 
   const RouteMap({
     super.key,
     required this.directedRoute,
     this.initialLocation,
-    required this.stops,
+    this.selectedMarker,
   });
 
   @override

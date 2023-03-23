@@ -80,7 +80,7 @@ class StopMarkerPopup extends ConsumerWidget {
                             body: RouteMap(
                               directedRoute: stop.routeStop.route,
                               initialLocation: stop.routeStop.location,
-                              stops: [stop],
+                              selectedMarker: stop,
                             ))),
                   );
                 },

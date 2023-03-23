@@ -5,7 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/attribution_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/current_location_layer.dart';
-import 'package:vamonos_mgp/src/components/common/map/map_layers/marker_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stops_center_pin_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';

@@ -31,8 +31,8 @@ final routeStopMapMarkersNearYouProvider =
         } else {
           final currentClosest = closestMarkerByDirectedRoute[
               marker.routeStop.route.canonicalIdentifier]!;
-          if (getTotalDistance(currentClosest.point, mapCenter) >
-              getTotalDistance(marker.point, mapCenter)) {
+          if (_getTotalDistance(currentClosest.point, mapCenter) >
+              _getTotalDistance(marker.point, mapCenter)) {
             closestMarkerByDirectedRoute[
                 marker.routeStop.route.canonicalIdentifier] = marker;
           }
@@ -56,7 +56,7 @@ final routeStopMapMarkersNearYouProvider =
   }
 });
 
-getTotalDistance(LatLng coordinates, LatLng other) =>
+_getTotalDistance(LatLng coordinates, LatLng other) =>
     coordinates.latitude -
     other.latitude +
     coordinates.longitude -
