@@ -25,8 +25,8 @@ class RouteMarkerLayer extends ConsumerWidget {
       return res.fold(
         data: (markers) => MarkerClusterWidget(
             markers: markers,
-            popupState: ref.watch(stopViewPopupStateProvider),
-            popupController: ref.watch(stopViewPopupControllerProvider)),
+            popupState: ref.watch(routeViewPopupStateProvider),
+            popupController: ref.watch(routeViewPopupControllerProvider)),
         error: (err) => ErrorLayer(
           error: err,
           alignment: const Alignment(0, -0.8),
