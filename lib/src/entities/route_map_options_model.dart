@@ -4,7 +4,6 @@ part 'route_map_options_model.freezed.dart';
 
 @freezed
 class RouteMapState with _$RouteMapState {
-  // TODO revert true to false
-  const factory RouteMapState({@Default(true) bool showAllStops}) =
+  const factory RouteMapState({@Default(false) bool showAllStops}) =
       _RouteMapState;
 }

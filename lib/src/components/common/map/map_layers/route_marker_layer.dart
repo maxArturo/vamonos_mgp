@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/common/map/map_layers/error_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/marker_cluster/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
@@ -24,15 +23,12 @@ class RouteMarkerLayer extends ConsumerWidget {
 
       return res.fold(
         data: (markers) => MarkerClusterWidget(
+            maxClusterRadius: 35,
             markers: markers,
             popupState: ref.watch(routeViewPopupStateProvider),
             popupController: ref.watch(routeViewPopupControllerProvider)),
-        error: (err) => ErrorLayer(
-          error: err,
-          alignment: const Alignment(0, -0.8),
-          color: Colors.red,
-        ),
         loading: () => const SizedBox.shrink(), // empty widget
+        error: (_) => const SizedBox.shrink(),
       );
     }
 

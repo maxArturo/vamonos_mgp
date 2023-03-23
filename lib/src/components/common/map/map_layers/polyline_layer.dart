@@ -3,6 +3,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_layers/error_layer.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
@@ -25,10 +26,11 @@ class PolylineLayerWidget extends ConsumerWidget {
               return PolylineLayer(
                   polylineCulling: true, polylines: [polyLine]);
             },
-            error: (err) {
-              return Center(
-                  child: Text("An error of type ${err.errorType} occurred"));
-            },
+            error: (err) => ErrorLayer(
+                  error: err,
+                  alignment: const Alignment(0, -0.85),
+                  color: Colors.red,
+                ),
             loading: () => Center(
                   child: SizedBox(
                     height: 100,

@@ -92,7 +92,7 @@ class __$$_RouteMapStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RouteMapState implements _RouteMapState {
-  const _$_RouteMapState({this.showAllStops = true});
+  const _$_RouteMapState({this.showAllStops = false});
 
   @override
   @JsonKey()

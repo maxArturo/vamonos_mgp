@@ -18,7 +18,7 @@ class StopMarkerLayer extends ConsumerWidget {
               popupController: ref.watch(stopViewPopupControllerProvider)),
           error: (err) => ErrorLayer(
             error: err,
-            alignment: const Alignment(0, -0.8),
+            alignment: const Alignment(0, -0.85),
             color: Colors.red,
           ),
           loading: () => const SizedBox.shrink(), // empty widget

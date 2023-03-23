@@ -9,7 +9,7 @@ class ErrorLayer extends StatelessWidget {
     super.key,
     required this.error,
     this.color,
-    this.alignment = const Alignment(0.0, -0.9),
+    this.alignment = const Alignment(0.0, -0.85),
   });
 
   @override

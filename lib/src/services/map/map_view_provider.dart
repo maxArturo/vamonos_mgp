@@ -30,11 +30,7 @@ class RouteMapViewState extends _$RouteMapViewState {
     return const RouteMapState();
   }
 
-  void showAllStops() {
-    state = state.copyWith(showAllStops: true);
-  }
-
-  void hideAllStops() {
-    state = state.copyWith(showAllStops: false);
+  void toggleAllStops() {
+    state = state.copyWith(showAllStops: !state.showAllStops);
   }
 }

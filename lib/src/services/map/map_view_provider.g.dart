@@ -45,7 +45,7 @@ abstract class _$MapView extends AutoDisposeNotifier<MapBrowserView> {
   MapBrowserView build();
 }
 
-String _$RouteMapViewStateHash() => r'6a342fb1390bff444c9a5c2fbed3e2321f52d10a';
+String _$RouteMapViewStateHash() => r'db7453c6c733bf48ff0c4f4cb4b52e0f54ad32cb';
 
 /// See also [RouteMapViewState].
 final routeMapViewStateProvider =
