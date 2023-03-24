@@ -6,36 +6,34 @@ import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/directed_routes_page/card/widget.dart';
 
 class DirectedRouteCardView
-    extends WidgetView<DirectedRouteCard, DirectedRouteCardController> {
+    extends ConsumerWidgetView<DirectedRouteCard, DirectedRouteCardController> {
   const DirectedRouteCardView(super.state, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      return ListCard(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                maintainState: false,
-                builder: (context) => Scaffold(
-                    appBar: AppBar(
-                      title: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                            '${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}'
-                                .toUpperCase(),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                      backgroundColor: Theme.of(context).primaryColorDark,
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListCard(
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              maintainState: false,
+              builder: (context) => Scaffold(
+                  appBar: AppBar(
+                    title: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                          '${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}'
+                              .toUpperCase(),
+                          style: const TextStyle(color: Colors.white)),
                     ),
-                    body: RouteMap(
-                      directedRoute: widget.directedRoute,
-                    ))),
-          );
-        },
-        topRowText:
-            "${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}",
-      );
-    });
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                  ),
+                  body: RouteMap(
+                    directedRoute: widget.directedRoute,
+                  ))),
+        );
+      },
+      topRowText:
+          "${widget.directedRoute.destination} Via ${widget.directedRoute.pathName}",
+    );
   }
 }

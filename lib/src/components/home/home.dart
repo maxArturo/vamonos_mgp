@@ -58,72 +58,67 @@ class HomePageController extends State<HomePage> {
   }
 }
 
-class HomePageView extends WidgetView<HomePage, HomePageController> {
+class HomePageView extends ConsumerWidgetView<HomePage, HomePageController> {
   const HomePageView(super.state, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     state.panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
     state.panelHeightClosed = MediaQuery.of(context).size.height * 0.2;
 
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        // TODO review best way to display this toastbar
-        ref.listen(allMarkersProvider, (prev, curr) {
-          curr.fold(
-              data: (r) => state.fToast.showToast(
-                  gravity: ToastGravity.TOP,
-                  child: BaseToast(toastText: "Got ${r.length} stops")),
-              error: (_) => null,
-              loading: () => null);
-        });
-        return Scaffold(
-          drawer: const HomeDrawer(),
-          floatingActionButton: const FloatingMenuButton(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          body: Material(
-            child: Consumer(
-              builder: (context, ref, child) => Stack(
-                alignment: Alignment.topCenter,
-                children: <Widget>[
-                  SlidingUpPanel(
-                      maxHeight: state.panelHeightOpen,
-                      minHeight: state.panelHeightClosed,
-                      parallaxEnabled: true,
-                      controller: ref.watch(panelControllerProvider),
-                      parallaxOffset: .7,
-                      panelSnapping: false,
-                      isDraggable: true,
-                      body: const StopMap(),
-                      panelBuilder: (sc) {
-                        ref
-                            .watch(panelScrollControllerProvider.notifier)
-                            .initialize(sc);
+    // TODO review best way to display this toastbar
+    ref.listen(allMarkersProvider, (prev, curr) {
+      curr.fold(
+          data: (r) => state.fToast.showToast(
+              gravity: ToastGravity.TOP,
+              child: BaseToast(toastText: "Got ${r.length} stops")),
+          error: (_) => null,
+          loading: () => null);
+    });
+    return Scaffold(
+      drawer: const HomeDrawer(),
+      floatingActionButton: const FloatingMenuButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      body: Material(
+        child: Consumer(
+          builder: (context, ref, child) => Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
+              SlidingUpPanel(
+                  maxHeight: state.panelHeightOpen,
+                  minHeight: state.panelHeightClosed,
+                  parallaxEnabled: true,
+                  controller: ref.watch(panelControllerProvider),
+                  parallaxOffset: .7,
+                  panelSnapping: false,
+                  isDraggable: true,
+                  body: const StopMap(),
+                  panelBuilder: (sc) {
+                    ref
+                        .watch(panelScrollControllerProvider.notifier)
+                        .initialize(sc);
 
-                        return SlidingUpDrawer(sc);
-                      },
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24)),
-                      onPanelSlide: (double pos) => state.updateFabHeight(pos *
-                              (state.panelHeightOpen -
-                                  state.panelHeightClosed) +
+                    return SlidingUpDrawer(sc);
+                  },
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24)),
+                  onPanelSlide: (double pos) => state.updateFabHeight(
+                      pos * (state.panelHeightOpen - state.panelHeightClosed) +
                           state.initFabHeight)),
-                  RecenterMapButton(
-                    panelHeightClosed: state.panelHeightClosed,
-                    panelHeightOpen: state.panelHeightOpen,
-                    fabHeight: state.fabHeight,
-                    recenterLocation: ref
-                        .watch(stopViewMapControllerProvider.notifier)
-                        .recenterMapLocation,
-                  ),
-                  const FloatingBlurredBar(),
-                ],
+              RecenterMapButton(
+                panelHeightClosed: state.panelHeightClosed,
+                panelHeightOpen: state.panelHeightOpen,
+                fabHeight: state.fabHeight,
+                recenterLocation: ref
+                    .watch(stopViewMapControllerProvider.notifier)
+                    .recenterMapLocation,
               ),
-            ),
+              const FloatingBlurredBar(),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
