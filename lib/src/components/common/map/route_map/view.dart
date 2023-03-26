@@ -8,14 +8,14 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/current_locatio
 import 'package:vamonos_mgp/src/components/common/map/map_layers/polyline_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/route_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_overlay/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
-import 'package:vamonos_mgp/src/components/common/map/route_map/stop_marker_toggle/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_view_provider.dart';
 
-class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
+class RouteMapView extends ConsumerWidgetView<RouteMap, RouteMapController> {
   final LocationData initialLocation;
   final defaultZoom = 13.0;
 
@@ -26,48 +26,46 @@ class RouteMapView extends WidgetView<RouteMap, RouteMapController> {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final mapCenter = LatLng(
         initialLocation.latitude ?? 0.0, initialLocation.longitude ?? 0.0);
 
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) => Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          FlutterMap(
-            key: ValueKey(widget.view),
-            mapController: state.mc,
-            options: MapOptions(
-                onMapReady: () {
-                  ref
-                      .read(routeViewMapControllerProvider.notifier)
-                      .initialize(state.mc);
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        FlutterMap(
+          key: ValueKey(widget.view),
+          mapController: state.mc,
+          options: MapOptions(
+              onMapReady: () {
+                ref
+                    .read(routeViewMapControllerProvider.notifier)
+                    .initialize(state.mc);
 
-                  ref.read(mapViewProvider.notifier).setRouteView();
-                },
-                center: mapCenter,
-                zoom: defaultZoom,
-                maxZoom: 18,
-                minZoom: 12,
-                onTap: (tapPosition, point) =>
-                    ref.read(routeViewPopupControllerProvider).hideAllPopups()),
-            nonRotatedChildren: const [
-              AttributionLayer(
-                dockToBottom: true,
-              ),
-            ],
-            children: [
-              const TileLayerWidget(),
-              PolylineLayerWidget(directedRoute: widget.directedRoute),
-              RouteMarkerLayer(
-                  directedRoute: widget.directedRoute,
-                  selectedMarker: widget.selectedMarker),
-              const CurrentLocationLayer(),
-            ],
-          ),
-          const StopMarkerToggle(),
-        ],
-      ),
+                ref.read(mapViewProvider.notifier).setRouteView();
+              },
+              center: mapCenter,
+              zoom: defaultZoom,
+              maxZoom: 18,
+              minZoom: 12,
+              onTap: (tapPosition, point) =>
+                  ref.read(routeViewPopupControllerProvider).hideAllPopups()),
+          nonRotatedChildren: const [
+            AttributionLayer(
+              dockToBottom: true,
+            ),
+          ],
+          children: [
+            const TileLayerWidget(),
+            PolylineLayerWidget(directedRoute: widget.directedRoute),
+            RouteMarkerLayer(
+                directedRoute: widget.directedRoute,
+                selectedMarker: widget.selectedMarker),
+            const CurrentLocationLayer(),
+          ],
+        ),
+        const MapOverlay(),
+      ],
     );
   }
 }

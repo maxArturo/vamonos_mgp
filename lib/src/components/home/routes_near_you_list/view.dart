@@ -84,52 +84,49 @@ class RoutesSection extends ConsumerWidget {
                 l.userText,
                 style: const TextStyle(color: Colors.red),
               ),
-          loading: () => const Center(
-                key: Key('loading'),
-                child: CircularProgressIndicator(),
+          loading: () => Center(
+                key: UniqueKey(),
+                child: const CircularProgressIndicator(),
               ));
     });
   }
 }
 
 class RoutesNearYouListView
-    extends WidgetView<RoutesNearYouList, RoutesNearYouListController> {
+    extends ConsumerWidgetView<RoutesNearYouList, RoutesNearYouListController> {
   const RoutesNearYouListView(super.state, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // TODO revisit nested consumer if performance is impacted
-    return Consumer(builder: (context, ref, child) {
-      final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-      return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: provider.fold(
-            data: (r) => Center(
-                key: const Key('data'), child: mainRoutePage(context, r)),
-            error: (l) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.warning_amber,
-                  color: Colors.redAccent,
-                ),
-                const SizedBox.shrink(),
-                Text(
-                  l.userText,
-                  style: const TextStyle(color: Colors.redAccent, fontSize: 18),
-                ),
-                FilledButton(
-                    onPressed: () =>
-                        ref.refresh(latestRouteListProvider.future),
-                    child: const Text("Tap to retry"))
-              ],
-            ),
-            loading: () => const Center(
-              key: Key('loading'),
-              child: CircularProgressIndicator(),
-            ),
-          ));
-    });
+    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
+    return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: provider.fold(
+          data: (r) =>
+              Center(key: const Key('data'), child: mainRoutePage(context, r)),
+          error: (l) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.warning_amber,
+                color: Colors.redAccent,
+              ),
+              const SizedBox.shrink(),
+              Text(
+                l.userText,
+                style: const TextStyle(color: Colors.redAccent, fontSize: 18),
+              ),
+              FilledButton(
+                  onPressed: () => ref.refresh(latestRouteListProvider),
+                  child: const Text("Tap to retry"))
+            ],
+          ),
+          loading: () => Center(
+            key: UniqueKey(),
+            child: const CircularProgressIndicator(),
+          ),
+        ));
   }
 
   Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {

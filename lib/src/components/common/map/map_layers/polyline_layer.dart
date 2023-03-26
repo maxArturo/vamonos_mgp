@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamonos_mgp/src/components/common/map/map_layers/error_layer.dart';
+import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
@@ -22,15 +23,12 @@ class PolylineLayerWidget extends ConsumerWidget {
             provider: TransportationProvider.municipioGeneralPurreydon))
         .fold(
             data: (routeStops) {
+              // return SizedBox.shrink();
               final polyLine = _toPolyLine(routeStops, directedRoute);
               return PolylineLayer(
                   polylineCulling: true, polylines: [polyLine]);
             },
-            error: (err) => ErrorLayer(
-                  error: err,
-                  alignment: const Alignment(0, -0.85),
-                  color: Colors.red,
-                ),
+            error: (err) => errorToastSink(err),
             loading: () => Center(
                   child: SizedBox(
                     height: 100,

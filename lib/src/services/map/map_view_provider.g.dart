@@ -62,3 +62,23 @@ abstract class _$RouteMapViewState extends AutoDisposeNotifier<RouteMapState> {
   @override
   RouteMapState build();
 }
+
+String _$MapOverlayStateHash() => r'26b8e536d6e2597e83fede6b9b08b4b976dcdeb9';
+
+/// See also [MapOverlayState].
+final mapOverlayStateProvider =
+    AutoDisposeNotifierProvider<MapOverlayState, Map<MapOverlaySource, String>>(
+  MapOverlayState.new,
+  name: r'mapOverlayStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$MapOverlayStateHash,
+);
+typedef MapOverlayStateRef
+    = AutoDisposeNotifierProviderRef<Map<MapOverlaySource, String>>;
+
+abstract class _$MapOverlayState
+    extends AutoDisposeNotifier<Map<MapOverlaySource, String>> {
+  @override
+  Map<MapOverlaySource, String> build();
+}

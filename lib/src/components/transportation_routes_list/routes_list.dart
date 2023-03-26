@@ -50,126 +50,132 @@ class MainRoutesListController extends State<MainRoutesList> {
 typedef ViewInput = dartz.Either<AppError, List<route_entity.Route>>;
 
 class MainRoutesListView
-    extends WidgetView<MainRoutesList, MainRoutesListController> {
+    extends ConsumerWidgetView<MainRoutesList, MainRoutesListController> {
   const MainRoutesListView(super.state, {super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Flexible(child: Consumer(builder: (context, ref, child) {
-            return ref.watch(latestRouteListProvider).fold(
-                data: (data) => RefreshIndicator(
+          Flexible(
+              child: ref.watch(latestRouteListProvider).fold(
+                  data: (data) => RefreshIndicator(
+                        onRefresh: () =>
+                            ref.refresh(latestRouteListProvider.future),
+                        child: ListView.builder(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            itemCount: data.length,
+                            itemBuilder: (context, idx) {
+                              if (data.isEmpty) {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Icon(
+                                          Icons.block_sharp,
+                                          size: 30,
+                                          color:
+                                              Color.fromARGB(255, 194, 63, 63),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: FittedBox(
+                                            fit: BoxFit.fitWidth,
+                                            child: Text(
+                                                "No routes near you"
+                                                    .toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 13),
+                                  ],
+                                );
+                              }
+
+                              final routeName = data[idx].name;
+                              return ListCard(
+                                  topRowText: routeName,
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => Scaffold(
+                                                  appBar: AppBar(
+                                                    title: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text(
+                                                          routeName
+                                                              .toUpperCase(),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white)),
+                                                    ),
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .primaryColorDark,
+                                                  ),
+                                                  backgroundColor:
+                                                      Colors.blueGrey,
+                                                  body: DirectedRoutesPage(
+                                                    route: data[idx],
+                                                  ),
+                                                )));
+                                  });
+                            }),
+                      ),
+                  error: (err) {
+                    return RefreshIndicator(
                       onRefresh: () =>
                           ref.refresh(latestRouteListProvider.future),
-                      child: ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          itemCount: data.length,
-                          itemBuilder: (context, idx) {
-                            if (data.isEmpty) {
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    children: [
-                                      const Icon(
-                                        Icons.block_sharp,
-                                        size: 30,
-                                        color: Color.fromARGB(255, 194, 63, 63),
+                      child: LayoutBuilder(
+                        builder: (context, viewport) {
+                          return SingleChildScrollView(
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            child: ConstrainedBox(
+                              constraints:
+                                  BoxConstraints(minHeight: viewport.maxHeight),
+                              child: IntrinsicHeight(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Center(
+                                      child: Icon(
+                                        Icons.warning_amber,
+                                        color: Colors.white70,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: FittedBox(
-                                          fit: BoxFit.fitWidth,
-                                          child: Text(
-                                              "No routes near you"
-                                                  .toUpperCase(),
-                                              style: const TextStyle(
-                                                  color: Colors.white)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 13),
-                                ],
-                              );
-                            }
-
-                            final routeName = data[idx].name;
-                            return ListCard(
-                                topRowText: routeName,
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Scaffold(
-                                            appBar: AppBar(
-                                              title: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text(
-                                                    routeName.toUpperCase(),
-                                                    style: const TextStyle(
-                                                        color: Colors.white)),
-                                              ),
-                                              backgroundColor: Theme.of(context)
-                                                  .primaryColorDark,
-                                            ),
-                                            backgroundColor: Colors.blueGrey,
-                                            body: DirectedRoutesPage(
-                                              route: data[idx],
-                                            ),
-                                          )));
-                                });
-                          }),
-                    ),
-                error: (err) {
-                  return RefreshIndicator(
-                    onRefresh: () =>
-                        ref.refresh(latestRouteListProvider.future),
-                    child: LayoutBuilder(
-                      builder: (context, viewport) {
-                        return SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          child: ConstrainedBox(
-                            constraints:
-                                BoxConstraints(minHeight: viewport.maxHeight),
-                            child: IntrinsicHeight(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Center(
-                                    child: Icon(
-                                      Icons.warning_amber,
-                                      color: Colors.white70,
                                     ),
-                                  ),
-                                  const SizedBox.shrink(),
-                                  Text(
-                                    err.userText,
-                                    style: const TextStyle(
-                                        color: Colors.white70, fontSize: 18),
-                                  ),
-                                  const Text(
-                                    "Pull down to retry",
-                                    style: TextStyle(
-                                        color: Colors.white70, fontSize: 18),
-                                  )
-                                ],
+                                    const SizedBox.shrink(),
+                                    Text(
+                                      err.userText,
+                                      style: const TextStyle(
+                                          color: Colors.white70, fontSize: 18),
+                                    ),
+                                    const Text(
+                                      "Pull down to retry",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 18),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-                loading: () => const Center(
-                      key: Key('loading'),
-                      child: CircularProgressIndicator(),
-                    ));
-          }))
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  loading: () => Center(
+                        key: UniqueKey(),
+                        child: const CircularProgressIndicator(),
+                      )))
         ]);
   }
 }
