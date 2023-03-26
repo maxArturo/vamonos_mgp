@@ -172,9 +172,9 @@ class MainRoutesListView
                       ),
                     );
                   },
-                  loading: () => const Center(
-                        key: Key('loading'),
-                        child: CircularProgressIndicator(),
+                  loading: () => Center(
+                        key: UniqueKey(),
+                        child: const CircularProgressIndicator(),
                       )))
         ]);
   }

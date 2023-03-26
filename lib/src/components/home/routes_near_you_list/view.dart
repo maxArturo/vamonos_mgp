@@ -84,9 +84,9 @@ class RoutesSection extends ConsumerWidget {
                 l.userText,
                 style: const TextStyle(color: Colors.red),
               ),
-          loading: () => const Center(
-                key: Key('loading'),
-                child: CircularProgressIndicator(),
+          loading: () => Center(
+                key: UniqueKey(),
+                child: const CircularProgressIndicator(),
               ));
     });
   }
@@ -122,9 +122,9 @@ class RoutesNearYouListView
                   child: const Text("Tap to retry"))
             ],
           ),
-          loading: () => const Center(
-            key: Key('loading'),
-            child: CircularProgressIndicator(),
+          loading: () => Center(
+            key: UniqueKey(),
+            child: const CircularProgressIndicator(),
           ),
         ));
   }

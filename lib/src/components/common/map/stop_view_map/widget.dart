@@ -28,13 +28,14 @@ class StopMapController extends ConsumerState<StopMap> {
       return StopMapView(this, initialLocation: widget.initialLocation!);
     }
     return ref.watch(locationServiceProvider).fold(
-          data: (r) => StopMapView(this, initialLocation: r),
+          data: (r) => StopMapView(key: UniqueKey(), this, initialLocation: r),
           error: (l) {
             errorToastSink(l);
-            return StopMapView(this, initialLocation: defaultCenterLocation);
+            return StopMapView(
+                key: UniqueKey(), this, initialLocation: defaultCenterLocation);
           },
-          loading: () =>
-              StopMapView(this, initialLocation: defaultCenterLocation),
+          loading: () => StopMapView(
+              key: UniqueKey(), this, initialLocation: defaultCenterLocation),
         );
   }
 }

@@ -79,20 +79,23 @@ class RequestCacheInterceptor extends QueuedInterceptorsWrapper {
     final key = "${options.uri}_${options.data}";
     final cacheResponse = (await _cacheAdapter.getFile(key));
 
-    if (failureEnabled) {
-      if (Random().nextBool()) {
-        debugPrint("[$runtimeType] debug failure enabled, failing with 500...");
-        return handler.resolve(Response(
-          requestOptions: options,
-          statusCode: 500,
-        ));
+    if (!kReleaseMode) {
+      if (failureEnabled) {
+        if (Random().nextBool()) {
+          debugPrint(
+              "[$runtimeType] debug failure enabled, failing with 500...");
+          return handler.resolve(Response(
+            requestOptions: options,
+            statusCode: 500,
+          ));
+        }
       }
-    }
 
-    if (debugDelayEnabled != null) {
-      debugPrint(
-          "[$runtimeType] debug delay enabled for $debugDelayEnabled seconds");
-      await Future.delayed(Duration(milliseconds: debugDelayEnabled!));
+      if (debugDelayEnabled != null) {
+        debugPrint(
+            "[$runtimeType] debug delay enabled for $debugDelayEnabled seconds");
+        await Future.delayed(Duration(milliseconds: debugDelayEnabled!));
+      }
     }
 
     return cacheResponse.fold(() {
