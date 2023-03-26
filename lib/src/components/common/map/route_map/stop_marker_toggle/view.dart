@@ -13,44 +13,26 @@ class StopMarkerToggleView
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Positioned(
-      top: MediaQuery.of(context).size.height / 40,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: ColoredBox(
-          color: const Color(0xCCFFFFFF),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 3, right: 3),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Show all stops",
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 67, 59, 59)),
-                      ),
-                      Switch(
-                        thumbIcon: state.checkIcon,
-                        value:
-                            ref.watch(routeMapViewStateProvider).showAllStops,
-                        onChanged: (bool value) {
-                          ref
-                              .read(routeMapViewStateProvider.notifier)
-                              .toggleAllStops();
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 3, right: 3),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Show all stops",
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Color.fromARGB(255, 67, 59, 59)),
+            ),
+            Switch(
+              thumbIcon: state.checkIcon,
+              value: ref.watch(routeMapViewStateProvider).showAllStops,
+              onChanged: (bool value) {
+                ref.read(routeMapViewStateProvider.notifier).toggleAllStops();
+              },
+            )
+          ],
         ),
       ),
     );

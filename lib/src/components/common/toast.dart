@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vamonos_mgp/src/util/errors.dart';
 
 class BaseToast extends StatelessWidget {
   final String toastText;
@@ -24,4 +26,20 @@ class BaseToast extends StatelessWidget {
       ),
     );
   }
+}
+
+SizedBox errorToastSink(AppError err) {
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    await Fluttertoast.showToast(
+        msg: err.userText,
+        toastLength: Toast.LENGTH_LONG, //duration
+        gravity: ToastGravity.TOP, //location
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red, //background color
+        textColor: Colors.white, //text Color
+        fontSize: 16.0 //font size
+        );
+  });
+
+  return const SizedBox.shrink();
 }

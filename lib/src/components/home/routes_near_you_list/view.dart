@@ -118,7 +118,7 @@ class RoutesNearYouListView
                 style: const TextStyle(color: Colors.redAccent, fontSize: 18),
               ),
               FilledButton(
-                  onPressed: () => ref.refresh(latestRouteListProvider.future),
+                  onPressed: () => ref.refresh(latestRouteListProvider),
                   child: const Text("Tap to retry"))
             ],
           ),

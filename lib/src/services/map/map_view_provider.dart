@@ -34,3 +34,25 @@ class RouteMapViewState extends _$RouteMapViewState {
     state = state.copyWith(showAllStops: !state.showAllStops);
   }
 }
+
+enum MapOverlaySource {
+  currentLocationLayer,
+}
+
+@riverpod
+class MapOverlayState extends _$MapOverlayState {
+  @override
+  Map<MapOverlaySource, String> build() {
+    return {};
+  }
+
+  void setLocationMessage(String message) {
+    state = {...state, MapOverlaySource.currentLocationLayer: message};
+  }
+
+  void clearLocationMessage() {
+    final newState = {...state};
+    newState.remove(MapOverlaySource.currentLocationLayer);
+    state = newState;
+  }
+}

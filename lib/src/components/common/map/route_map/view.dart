@@ -8,8 +8,8 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/current_locatio
 import 'package:vamonos_mgp/src/components/common/map/map_layers/polyline_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/route_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_overlay/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
-import 'package:vamonos_mgp/src/components/common/map/route_map/stop_marker_toggle/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/route_map/widget.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
@@ -64,7 +64,7 @@ class RouteMapView extends ConsumerWidgetView<RouteMap, RouteMapController> {
             const CurrentLocationLayer(),
           ],
         ),
-        const StopMarkerToggle(),
+        const MapOverlay(),
       ],
     );
   }

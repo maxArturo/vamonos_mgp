@@ -8,6 +8,7 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/current_locatio
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stops_center_pin_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_overlay/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/widget.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
@@ -29,32 +30,37 @@ class StopMapView extends ConsumerWidgetView<StopMap, StopMapController> {
     final mapCenter = LatLng(
         initialLocation.latitude ?? 0.0, initialLocation.longitude ?? 0.0);
 
-    debugPrint("[StopMapView]: rebuilt");
-    return FlutterMap(
-      key: ValueKey(widget.view),
-      mapController: state.mc,
-      options: MapOptions(
-          onMapReady: () {
-            ref
-                .read(stopViewMapControllerProvider.notifier)
-                .initialize(state.mc);
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        FlutterMap(
+          key: ValueKey(widget.view),
+          mapController: state.mc,
+          options: MapOptions(
+              onMapReady: () {
+                ref
+                    .read(stopViewMapControllerProvider.notifier)
+                    .initialize(state.mc);
 
-            ref.read(mapViewProvider.notifier).setStopView();
-          },
-          center: mapCenter,
-          zoom: defaultZoom,
-          maxZoom: 18,
-          minZoom: 16.5,
-          onTap: (tapPosition, point) =>
-              ref.read(stopViewPopupControllerProvider).hideAllPopups()),
-      nonRotatedChildren: const [
-        StopsCenterPinLayer(),
-        AttributionLayer(),
-      ],
-      children: const [
-        TileLayerWidget(),
-        StopMarkerLayer(),
-        CurrentLocationLayer(),
+                ref.read(mapViewProvider.notifier).setStopView();
+              },
+              center: mapCenter,
+              zoom: defaultZoom,
+              maxZoom: 18,
+              minZoom: 16.5,
+              onTap: (tapPosition, point) =>
+                  ref.read(stopViewPopupControllerProvider).hideAllPopups()),
+          nonRotatedChildren: const [
+            StopsCenterPinLayer(),
+            AttributionLayer(),
+          ],
+          children: const [
+            TileLayerWidget(),
+            StopMarkerLayer(),
+            CurrentLocationLayer(),
+          ],
+        ),
+        const MapOverlay(),
       ],
     );
   }

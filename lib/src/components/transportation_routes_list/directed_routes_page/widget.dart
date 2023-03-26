@@ -31,11 +31,46 @@ class DirectedRoutesPageController extends ConsumerState<DirectedRoutesPage> {
               this,
               directedRoutes: toDirectedRoutes(r),
             ),
-        error: (err) => Text(
-              err.userText,
-              key: const Key('error'),
-              style: const TextStyle(color: Colors.red),
+        error: (err) {
+          return RefreshIndicator(
+            onRefresh: () => ref.refresh(
+                RouteLandMarksByIdProvider(route: widget.route).future),
+            child: LayoutBuilder(
+              builder: (context, viewport) {
+                return SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: viewport.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Center(
+                            child: Icon(
+                              Icons.warning_amber,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          const SizedBox.shrink(),
+                          Text(
+                            err.userText,
+                            style: const TextStyle(
+                                color: Colors.white70, fontSize: 18),
+                          ),
+                          const Text(
+                            "Pull down to retry",
+                            style:
+                                TextStyle(color: Colors.white70, fontSize: 18),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
+          );
+        },
         loading: () => const Center(
               key: Key('loading'),
               child: CircularProgressIndicator(),

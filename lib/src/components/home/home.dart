@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/widget.dart';
 import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
@@ -14,7 +15,6 @@ import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
-import '../common/map/markers/markers_provider.dart';
 import 'sliding_up_drawer.dart';
 
 class HomePage extends StatefulWidget {
