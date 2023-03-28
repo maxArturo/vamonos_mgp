@@ -50,7 +50,7 @@ final defaultHeadersProvider = Provider<Map<String, String>>(
       : _$defaultHeadersHash,
 );
 typedef DefaultHeadersRef = ProviderRef<Map<String, String>>;
-String _$httpAdapterHash() => r'5106f01064e9bc4f3456ea7ab8b2bdee43525578';
+String _$httpAdapterHash() => r'7d8431e677a40128fd449485e584cf49f90f1ba5';
 
 /// See also [httpAdapter].
 final httpAdapterProvider = Provider<HttpAdapter>(
@@ -61,7 +61,7 @@ final httpAdapterProvider = Provider<HttpAdapter>(
 );
 typedef HttpAdapterRef = ProviderRef<HttpAdapter>;
 String _$requestCacheInterceptorHash() =>
-    r'cfb66a875d9b35c164637071ed7b1e2ba80a6b71';
+    r'1aa9b61c0797b9266e1335ae8158ec5145675327';
 
 /// See also [requestCacheInterceptor].
 final requestCacheInterceptorProvider = Provider<RequestCacheInterceptor>(
