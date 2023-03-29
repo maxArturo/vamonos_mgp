@@ -524,10 +524,10 @@ packages:
     dependency: "direct main"
     description:
       name: liquid_swipe
-      sha256: "0d890834cfd5cc1a526a6aa8965cd25b84d77420b2ec8755c9490271fdfc42d6"
+      sha256: "04277568a4a5a5e8e1dfa8b222b4e497e294cf64e72113d936fcc54ef0e29149"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   lists:
     dependency: transitive
     description:
