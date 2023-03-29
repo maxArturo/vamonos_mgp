@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'components/home/home.dart';
+import 'package:vamonos_mgp/src/components/onboard/widget.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -16,6 +15,6 @@ class App extends StatelessWidget {
           colorScheme:
               ColorScheme.fromSeed(seedColor: Colors.lightBlue.shade400),
         ),
-        home: const HomePage());
+        home: const OnboardingPage());
   }
 }

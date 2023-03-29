@@ -16,6 +16,7 @@ class OnboardingPage extends StatefulWidget {
 
 class OnboardingPageController extends State<OnboardingPage> {
   int page = 0;
+  bool isLastPage = false;
   late LiquidController liquidController;
   late UpdateType updateType;
   List<OnboardingData> pagesData = [
@@ -47,6 +48,7 @@ class OnboardingPageController extends State<OnboardingPage> {
   pageChangeCallback(int currPage) {
     setState(() {
       page = currPage;
+      isLastPage = currPage == pagesData.length - 1;
     });
   }
 }

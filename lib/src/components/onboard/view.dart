@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
+import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
 
 class OnboardingPageView
@@ -51,13 +52,14 @@ class OnboardingPageView
             padding: const EdgeInsets.fromLTRB(25, 25, 25, 40),
             child: TextButton(
               onPressed: () {
-                state.liquidController.animateToPage(
-                    page: state.pagesData.length - 1, duration: 700);
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const HomePage()));
               },
               style: TextButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(0.01),
                   foregroundColor: Colors.black),
-              child: const Text("Skip to End"),
+              child: Text(
+                  (state.isLastPage ? "finish" : "skip intro").toUpperCase()),
             ),
           ),
         ),
@@ -67,6 +69,10 @@ class OnboardingPageView
             padding: const EdgeInsets.fromLTRB(25, 25, 25, 40),
             child: TextButton(
               onPressed: () {
+                if (state.isLastPage) {
+                  return;
+                }
+
                 state.liquidController.jumpToPage(
                     page: state.liquidController.currentPage + 1 >
                             state.pagesData.length - 1
@@ -75,8 +81,9 @@ class OnboardingPageView
               },
               style: TextButton.styleFrom(
                   backgroundColor: Colors.white.withOpacity(0.01),
-                  foregroundColor: Colors.black),
-              child: const Text("Next"),
+                  foregroundColor:
+                      state.isLastPage ? Colors.grey : Colors.black),
+              child: Text("Next".toUpperCase()),
             ),
           ),
         )
