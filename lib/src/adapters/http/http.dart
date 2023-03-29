@@ -4,33 +4,31 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:vamonos_mgp/src/adapters/cache/cache.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 typedef HttpAdapterResponse<T> = Future<Either<AppError, T>>;
 
-String? cacheDisabled = dotenv.env['CACHE_DISABLED'];
-int? debugDelayEnabled =
-    int.tryParse(dotenv.env['DEBUG_HTTP_ADD_CACHE_DELAY_MS'] ?? "");
-// TODO add checks for release mode so this doesn't get shipped
-bool failureEnabled =
-    dotenv.env['DEBUG_HTTP_ADD_NETWORK_FAILURE']?.isNotEmpty ?? false;
-
 class HttpAdapter {
-  final Dio _dio;
-  final RequestCacheInterceptor _requestCacheInterceptor;
-  final ResponseCacheInterceptor _responseCacheInterceptor;
-  final Map<String, String> _defaultHeaders;
+  final Dio dio;
+  final RequestCacheInterceptor requestCacheInterceptor;
+  final ResponseCacheInterceptor responseCacheInterceptor;
+  final Map<String, String> defaultHeaders;
+  final bool cacheDisabled;
 
-  HttpAdapter(this._dio, this._requestCacheInterceptor,
-      this._responseCacheInterceptor, this._defaultHeaders) {
-    _dio.interceptors.addAll([
-      if (cacheDisabled == null) _requestCacheInterceptor,
+  HttpAdapter({
+    required this.dio,
+    required this.requestCacheInterceptor,
+    required this.responseCacheInterceptor,
+    required this.defaultHeaders,
+    required this.cacheDisabled,
+  }) {
+    dio.interceptors.addAll([
+      if (!cacheDisabled) requestCacheInterceptor,
       PrettyDioLogger(requestBody: true, responseBody: false),
       RetryInterceptor(
-        dio: _dio,
+        dio: dio,
         logPrint: debugPrint,
         retries: 3,
         retryDelays: const [
@@ -39,9 +37,9 @@ class HttpAdapter {
           Duration(seconds: 3),
         ],
       ),
-      if (cacheDisabled == null) _responseCacheInterceptor,
+      if (!cacheDisabled) responseCacheInterceptor,
     ]);
-    _dio.interceptors.removeImplyContentTypeInterceptor();
+    dio.interceptors.removeImplyContentTypeInterceptor();
   }
 
   HttpAdapterResponse<dynamic> post({
@@ -51,7 +49,7 @@ class HttpAdapter {
     Duration? maxDuration,
   }) async {
     final requestOptions = Options(headers: {
-      ..._defaultHeaders,
+      ...defaultHeaders,
       ...extraHeaders ?? {},
     }, extra: {
       if (maxDuration != null) ...{
@@ -60,7 +58,7 @@ class HttpAdapter {
     });
 
     final Response<dynamic> response =
-        await _dio.post(url, data: body, options: requestOptions);
+        await dio.post(url, data: body, options: requestOptions);
 
     if (defaultRetryableStatuses.contains(response.statusCode)) {
       return Left(HttpError());
@@ -70,32 +68,31 @@ class HttpAdapter {
 }
 
 class RequestCacheInterceptor extends QueuedInterceptorsWrapper {
-  final CacheAdapter _cacheAdapter;
-  RequestCacheInterceptor(this._cacheAdapter);
+  final CacheAdapter cacheAdapter;
+  final bool failureEnabled;
+  final int? delayMs;
+  RequestCacheInterceptor(
+      {required this.cacheAdapter, this.failureEnabled = false, this.delayMs});
 
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     final key = "${options.uri}_${options.data}";
-    final cacheResponse = (await _cacheAdapter.getFile(key));
+    final cacheResponse = (await cacheAdapter.getFile(key));
 
-    if (!kReleaseMode) {
-      if (failureEnabled) {
-        if (Random().nextBool()) {
-          debugPrint(
-              "[$runtimeType] debug failure enabled, failing with 500...");
-          return handler.resolve(Response(
-            requestOptions: options,
-            statusCode: 500,
-          ));
-        }
+    if (failureEnabled) {
+      if (Random().nextBool()) {
+        debugPrint("[$runtimeType] debug failure enabled, failing with 500...");
+        return handler.resolve(Response(
+          requestOptions: options,
+          statusCode: 500,
+        ));
       }
+    }
 
-      if (debugDelayEnabled != null) {
-        debugPrint(
-            "[$runtimeType] debug delay enabled for $debugDelayEnabled seconds");
-        await Future.delayed(Duration(milliseconds: debugDelayEnabled!));
-      }
+    if (delayMs != null) {
+      debugPrint("[$runtimeType] debug delay enabled for $delayMs seconds");
+      await Future.delayed(Duration(milliseconds: delayMs!));
     }
 
     return cacheResponse.fold(() {

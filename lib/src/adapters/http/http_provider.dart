@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
 import 'package:vamonos_mgp/src/adapters/http/config.dart' as config;
+import 'package:vamonos_mgp/src/util/config_provider.dart';
 
 import 'http.dart';
 
@@ -15,17 +16,29 @@ Map<String, String> defaultHeaders(DefaultHeadersRef ref) =>
     config.defaultHeaders;
 
 @Riverpod(keepAlive: true)
-HttpAdapter httpAdapter(HttpAdapterRef ref) => HttpAdapter(
-    ref.watch(dioProvider),
-    ref.watch(requestCacheInterceptorProvider),
-    ref.watch(responseCacheInterceptorProvider),
-    ref.watch(defaultHeadersProvider));
+HttpAdapter httpAdapter(HttpAdapterRef ref) {
+  final config = ref.watch(configProvider);
+  return HttpAdapter(
+    dio: ref.watch(dioProvider),
+    requestCacheInterceptor: ref.watch(requestCacheInterceptorProvider),
+    responseCacheInterceptor: ref.watch(responseCacheInterceptorProvider),
+    defaultHeaders: ref.watch(defaultHeadersProvider),
+    cacheDisabled: config.cacheDisabled,
+  );
+}
 
 @Riverpod(keepAlive: true)
 RequestCacheInterceptor requestCacheInterceptor(
-        RequestCacheInterceptorRef ref) =>
-    RequestCacheInterceptor(ref.watch(cacheAdapterProvider));
+    RequestCacheInterceptorRef ref) {
+  final config = ref.watch(configProvider);
+  return RequestCacheInterceptor(
+    cacheAdapter: ref.watch(cacheAdapterProvider),
+    failureEnabled: config.httpAddNetworkFailure,
+    delayMs: config.httpCacheAddDelayMs,
+  );
+}
 
+// failureEnabled: config.httpAddNetworkFailure,
 @Riverpod(keepAlive: true)
 ResponseCacheInterceptor responseCacheInterceptor(
         ResponseCacheInterceptorRef ref) =>

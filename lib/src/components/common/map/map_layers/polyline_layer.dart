@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
@@ -23,7 +22,6 @@ class PolylineLayerWidget extends ConsumerWidget {
             provider: TransportationProvider.municipioGeneralPurreydon))
         .fold(
             data: (routeStops) {
-              // return SizedBox.shrink();
               final polyLine = _toPolyLine(routeStops, directedRoute);
               return PolylineLayer(
                   polylineCulling: true, polylines: [polyLine]);

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/components/common/map/config.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/view.dart';
-import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/entities/map_browser_view.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
@@ -28,14 +27,11 @@ class StopMapController extends ConsumerState<StopMap> {
       return StopMapView(this, initialLocation: widget.initialLocation!);
     }
     return ref.watch(locationServiceProvider).fold(
-          data: (r) => StopMapView(key: UniqueKey(), this, initialLocation: r),
-          error: (l) {
-            errorToastSink(l);
-            return StopMapView(
-                key: UniqueKey(), this, initialLocation: defaultCenterLocation);
-          },
-          loading: () => StopMapView(
-              key: UniqueKey(), this, initialLocation: defaultCenterLocation),
-        );
+        data: (r) => StopMapView(this, initialLocation: r),
+        error: (l) => StopMapView(this, initialLocation: defaultCenterLocation),
+        loading: () => Center(
+              key: UniqueKey(),
+              child: const CircularProgressIndicator(),
+            ));
   }
 }
