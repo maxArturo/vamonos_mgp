@@ -39,7 +39,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
             ),
         data: (_) => const Center(
                 child: Icon(
-              Icons.location_on_sharp,
+              Icons.gps_fixed_sharp,
               color: Colors.black,
               size: 40,
               weight: 800,
