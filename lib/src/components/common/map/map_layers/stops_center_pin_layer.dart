@@ -22,7 +22,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        "Loading stops... please wait",
+                        "Cargando paradas... espere",
                         style: TextStyle(
                             color: Color.fromARGB(255, 10, 23, 28),
                             fontSize: 15),
@@ -44,6 +44,6 @@ class StopsCenterPinLayer extends ConsumerWidget {
               size: 40,
               weight: 800,
             )),
-        orElse: () => const Text("error here"));
+        orElse: () => const Text("Error"));
   }
 }

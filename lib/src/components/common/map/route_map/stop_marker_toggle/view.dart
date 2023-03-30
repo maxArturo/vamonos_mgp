@@ -21,7 +21,7 @@ class StopMarkerToggleView
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              "Show all stops",
+              "Mostrar todas las paradas",
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Color.fromARGB(255, 67, 59, 59)),
             ),

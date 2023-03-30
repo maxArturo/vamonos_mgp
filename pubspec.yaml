@@ -34,6 +34,7 @@ dependencies:
   stream_transform: ^2.1.0
   intl: ^0.18.0
   rxdart: ^0.27.7
+  path_provider: ^2.0.14
 
   # map dependencies
   latlong2: ^0.8.1
@@ -49,6 +50,7 @@ dependencies:
   fluttertoast: ^8.2.1
   font_awesome_flutter: ^10.4.0
   liquid_swipe: ^3.0.0
+  google_fonts: ^4.0.3
 
   # dio (HTTP), retry, logging
   dio: ^5.0.1

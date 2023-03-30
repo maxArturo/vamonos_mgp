@@ -38,7 +38,8 @@ class RoutesSection extends ConsumerWidget {
                                     color: Color.fromARGB(255, 194, 63, 63),
                                   ),
                                   const SizedBox(height: 30),
-                                  Text("No routes near you".toUpperCase(),
+                                  Text(
+                                      "No hay rutas en esta area".toUpperCase(),
                                       style: const TextStyle(
                                         color: Colors.black,
                                       )),
@@ -119,7 +120,7 @@ class RoutesNearYouListView
               ),
               FilledButton(
                   onPressed: () => ref.refresh(latestRouteListProvider),
-                  child: const Text("Tap to retry"))
+                  child: const Text("Pulsa para reintentar"))
             ],
           ),
           loading: () => Center(
@@ -145,7 +146,7 @@ class RoutesNearYouListView
                       automaticallyImplyLeading: false,
                       title: FittedBox(
                         fit: BoxFit.fitWidth,
-                        child: Text('routes near you'.toUpperCase(),
+                        child: Text('rutas cercanas'.toUpperCase(),
                             style: const TextStyle(color: Colors.white)),
                       ),
                       backgroundColor: Theme.of(context).primaryColorDark,

@@ -40,7 +40,7 @@ class PolylineLayerWidget extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
                           Text(
-                            "Loading route... please wait",
+                            "Cargando rutas... un momento",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 10, 23, 28),
                                 fontSize: 15),

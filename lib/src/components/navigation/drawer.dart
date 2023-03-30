@@ -42,7 +42,7 @@ class HomeDrawer extends StatelessWidget {
             }),
           ),
           ListTile(
-            title: Text('Map Search'.toUpperCase()),
+            title: Text('Mapa'.toUpperCase()),
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const HomePage()));
@@ -50,7 +50,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Route List'.toUpperCase()),
+            title: Text('Lista de rutas'.toUpperCase()),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const MainRoutesPage()));
@@ -58,14 +58,14 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('About'.toUpperCase()),
+            title: Text('acerca del app'.toUpperCase()),
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const AboutPage()));
             },
           ),
           ListTile(
-            title: Text('Relaunch intro'.toUpperCase()),
+            title: Text('Ver intro nuevamente'.toUpperCase()),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const OnboardingPage()));

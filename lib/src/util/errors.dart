@@ -7,7 +7,8 @@ enum ErrorType {
   parsingError,
   dataNotFoundError,
   locationServiceError,
-  libraryImplementationError
+  libraryImplementationError,
+  fileSystemError,
 }
 
 abstract class AppError {
@@ -81,7 +82,7 @@ class LocationServiceError extends AppError {
   LocationServiceError({super.description, super.stackTrace})
       : super(
             errorType: ErrorType.locationServiceError,
-            userText: "Current location not available");
+            userText: "Ubicación actual no disponible");
 }
 
 class LibraryImplementationError extends AppError {
@@ -89,4 +90,11 @@ class LibraryImplementationError extends AppError {
       : super(
             errorType: ErrorType.libraryImplementationError,
             userText: "A software internal error occurred");
+}
+
+class FileSystemError extends AppError {
+  FileSystemError({super.description, super.stackTrace})
+      : super(
+            errorType: ErrorType.fileSystemError,
+            userText: "Error reading file");
 }

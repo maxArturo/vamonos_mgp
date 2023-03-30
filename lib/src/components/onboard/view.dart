@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:vamonos_mgp/src/adapters/filesystem/persisted_state_provider.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
@@ -50,17 +53,25 @@ class OnboardingPageView
           alignment: Alignment.bottomRight,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(25, 25, 25, 40),
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-              },
-              style: TextButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.01),
-                  foregroundColor: Colors.black),
-              child: Text(
-                  (state.isLastPage ? "finish" : "skip intro").toUpperCase()),
-            ),
+            child: Consumer(builder: (context, ref, child) {
+              return TextButton(
+                onPressed: () async {
+                  WidgetsBinding.instance.addPostFrameCallback((_) async {
+                    await ref
+                        .read(persistedStateProvider.notifier)
+                        .setDemoShown();
+                  });
+
+                  await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HomePage()));
+                },
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.01),
+                    foregroundColor: Colors.black),
+                child: Text((state.isLastPage ? "ir al app" : "saltar intro")
+                    .toUpperCase()),
+              );
+            }),
           ),
         ),
         Align(
@@ -83,7 +94,7 @@ class OnboardingPageView
                   backgroundColor: Colors.white.withOpacity(0.01),
                   foregroundColor:
                       state.isLastPage ? Colors.grey : Colors.black),
-              child: Text("Next".toUpperCase()),
+              child: Text("Siguiente".toUpperCase()),
             ),
           ),
         )
@@ -126,14 +137,14 @@ class OnboardingPageWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
             width: double.infinity,
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 3 * 2,
+                  height: MediaQuery.of(context).size.height / 2,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     child: Image.asset(
@@ -142,14 +153,17 @@ class OnboardingPageWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  data.text,
-                  style: TextStyle(
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 40, 30),
+                  child: Text(
+                    data.text,
+                    style: GoogleFonts.openSans(
                       fontSize:
-                          MediaQuery.of(context).size.width > 500 ? 30 : 15,
-                      fontFamily: "Billy",
-                      fontWeight: FontWeight.w600),
+                          MediaQuery.of(context).size.height > 600 ? 18 : 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -58,7 +58,7 @@ class DirectedRoutesPageController extends ConsumerState<DirectedRoutesPage> {
                                 color: Colors.white70, fontSize: 18),
                           ),
                           const Text(
-                            "Pull down to retry",
+                            "Jala hacia abajo para reintentar",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 18),
                           )
