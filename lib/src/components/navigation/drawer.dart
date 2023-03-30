@@ -57,13 +57,13 @@ class HomeDrawer extends StatelessWidget {
               // Navigator.pop(context);
             },
           ),
-          ListTile(
-            title: Text('acerca del app'.toUpperCase()),
-            onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AboutPage()));
-            },
-          ),
+          // ListTile(
+          //   title: Text('acerca del app'.toUpperCase()),
+          //   onTap: () {
+          //     Navigator.of(context).push(
+          //         MaterialPageRoute(builder: (context) => const AboutPage()));
+          //   },
+          // ),
           ListTile(
             title: Text('Ver intro nuevamente'.toUpperCase()),
             onTap: () {
