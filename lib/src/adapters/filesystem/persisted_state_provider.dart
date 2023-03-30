@@ -56,6 +56,13 @@ class PersistedState extends _$PersistedState {
     }
   }
 
+  clearFile() async {
+    final file = await _getFile();
+    if (await file.exists()) {
+      await file.delete();
+    }
+  }
+
   setDemoShown() async {
     final file = await _getFile();
     final currState = await getCurrState();

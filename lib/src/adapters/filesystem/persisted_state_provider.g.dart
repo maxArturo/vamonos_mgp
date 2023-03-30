@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$PersistedStateHash() => r'201c4bd11d6b7930b19bf4c7bc517f96985d9f73';
+String _$PersistedStateHash() => r'9527f474fda8aab7f5f727555d25317f41bbca09';
 
 /// See also [PersistedState].
 final persistedStateProvider = AutoDisposeAsyncNotifierProvider<PersistedState,
