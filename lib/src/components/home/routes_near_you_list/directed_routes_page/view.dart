@@ -32,7 +32,7 @@ class DirectedRoutesPageView
                         size: 30,
                         color: Color.fromARGB(255, 194, 63, 63),
                       ),
-                      Text("No routes near you".toUpperCase(),
+                      Text("No hay rutas cercanas".toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ],
                   ),

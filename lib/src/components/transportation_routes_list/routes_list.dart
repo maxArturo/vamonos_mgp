@@ -21,7 +21,7 @@ class MainRoutesPage extends StatelessWidget {
         appBar: AppBar(
           title: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text('routes near you'.toUpperCase(),
+            child: Text('rutas cercanas'.toUpperCase(),
                 style: const TextStyle(color: Colors.white)),
           ),
           backgroundColor: Theme.of(context).primaryColorDark,
@@ -87,7 +87,7 @@ class MainRoutesListView
                                           child: FittedBox(
                                             fit: BoxFit.fitWidth,
                                             child: Text(
-                                                "No routes near you"
+                                                "no hay rutas cercanas"
                                                     .toUpperCase(),
                                                 style: const TextStyle(
                                                     color: Colors.white)),
@@ -159,7 +159,7 @@ class MainRoutesListView
                                           color: Colors.white70, fontSize: 18),
                                     ),
                                     const Text(
-                                      "Pull down to retry",
+                                      "Jala hacia abajo para reintentar",
                                       style: TextStyle(
                                           color: Colors.white70, fontSize: 18),
                                     )

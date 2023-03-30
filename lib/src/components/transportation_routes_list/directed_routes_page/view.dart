@@ -32,7 +32,8 @@ class DirectedRoutesPageView
                         size: 30,
                         color: Color.fromARGB(255, 194, 63, 63),
                       ),
-                      Text("No directed routes found".toUpperCase(),
+                      Text(
+                          "No se encontraron direcciones de ruta".toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ],
                   ),

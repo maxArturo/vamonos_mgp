@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/Helpers/Helpers.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
@@ -21,17 +19,25 @@ class OnboardingPageController extends State<OnboardingPage> {
   late UpdateType updateType;
   List<OnboardingData> pagesData = [
     OnboardingData(
-        assetLocation: 'assets/images/page_one_map.png',
+        assetLocation: 'assets/images/intro_1.gif',
         color: Colors.blueAccent,
-        text: 'Hey from first page'),
+        text: "VAMONOS es un app que utiliza los datos GPS oficiales del"
+            " Municpio para la flota urbana, de forma facil y accesible."),
     OnboardingData(
-        assetLocation: 'assets/images/page_two_routes.png',
+        assetLocation: 'assets/images/intro_2.gif',
         color: Colors.greenAccent,
-        text: 'Hey from second page'),
+        text: "Encontrá todas las paradas cercanas usando el mapa interactivo. "
+            "Mové el mapa para mostrar las paradas alrededor del indicador central."),
     OnboardingData(
-        assetLocation: 'assets/images/page_three_map_arrivals.png',
+        assetLocation: 'assets/images/intro_3.gif',
         color: Colors.purpleAccent,
-        text: 'Hey from third page'),
+        text:
+            "Consultá el arribo de todas las paradas cercanas al instante, al seleccionar una ruta."),
+    OnboardingData(
+        assetLocation: 'assets/images/intro_4.gif',
+        color: Colors.orangeAccent,
+        text:
+            "En el menú también podés consultar rutas por dirección y sus paradas con respectivos arribos."),
   ];
 
   @override

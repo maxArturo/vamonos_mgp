@@ -21,7 +21,7 @@ class StopMarkerPopup extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Flexible(child: Text("Route Name: ${stop.routeStop.route.name}\n")),
+        Flexible(child: Text("Ruta: ${stop.routeStop.route.name}\n")),
         arrivals.fold(
             data: (r) => Flexible(child: Text(r[0].arrival)),
             error: (l) {
@@ -69,7 +69,7 @@ class StopMarkerPopup extends ConsumerWidget {
                               title: FittedBox(
                                 fit: BoxFit.fitWidth,
                                 child: Text(
-                                    '${stop.routeStop.route.destination} via ${stop.routeStop.route.pathName}'
+                                    '${stop.routeStop.route.destination} Por ${stop.routeStop.route.pathName}'
                                         .toUpperCase(),
                                     style:
                                         const TextStyle(color: Colors.white)),
@@ -84,7 +84,7 @@ class StopMarkerPopup extends ConsumerWidget {
                             ))),
                   );
                 },
-                child: const Text("see route")),
+                child: const Text("Ver ruta")),
           )
       ],
     );

@@ -16,7 +16,7 @@ class AboutPageView extends WidgetView<AboutPage, AboutPageController> {
       appBar: AppBar(
         title: FittedBox(
           fit: BoxFit.fitWidth,
-          child: Text('About'.toUpperCase(),
+          child: Text('Acerca de este app'.toUpperCase(),
               style: const TextStyle(color: Colors.white)),
         ),
         backgroundColor: Theme.of(context).primaryColorDark,
