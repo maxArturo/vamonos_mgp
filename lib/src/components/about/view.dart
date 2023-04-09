@@ -72,17 +72,18 @@ class AboutPageView extends WidgetView<AboutPage, AboutPageController> {
               bodyText:
                   "En realidad no. De hecho el app oficial y éste usan los mismos datos del Municipio para las línas y "
                   "arribos. Por lo mismo, si sale mal data o el municipio decide cerrar acceso a los datos el app no va a "
-                  "andar bien.\n\n Es más que nada una alternativa para que los usuarios del transporte público usen los datos "
+                  "andar bien.\n\n"
+                  "Es más que nada una alternativa para que los usuarios del transporte público usen los datos "
                   "ya existentes de forma fácil y rápida.",
             ),
             const AboutSection(
-                title:
-                    "¿Porqué un app más, si ya hay moovit y todas esas otras?",
+                title: "¿Porqué un app más, si ya hay otras alternativas?",
                 bodyText:
-                    "También probé usar otras apps y no me gustaron por varias cosas: \n"
+                    "Probé usar otras apps y no me gustaron por varias cosas: \n"
                     "- tienen ads \n"
-                    "- no son de tiempo real\n"
-                    "- por alguna razón no me cerraban\n"),
+                    "- no son fáciles de usar\n"
+                    "- no son de tiempo real \n"
+                    "Si no te gustan esas cosas, puede te guste este app en vez."),
             const AboutSection(
               title:
                   "No hay nada grátis en la vida. ¿Qué datos míos estás chorreando?",
@@ -99,8 +100,7 @@ class AboutPageView extends WidgetView<AboutPage, AboutPageController> {
                   "estabas haciendo con el mayor detalle posible y lo trataré de identificar. Si te gustó el app, también mandame "
                   "mail, me encantaría saber tu opinión!",
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
+            Center(
               child: ElevatedButton.icon(
                   onPressed: () =>
                       launchUrlString("mailto:92l1ax1sq@mozmail.com"),
