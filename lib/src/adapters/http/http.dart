@@ -48,22 +48,27 @@ class HttpAdapter {
     Map<String, dynamic>? extraHeaders,
     Duration? maxDuration,
   }) async {
-    final requestOptions = Options(headers: {
-      ...defaultHeaders,
-      ...extraHeaders ?? {},
-    }, extra: {
-      if (maxDuration != null) ...{
-        ResponseCacheInterceptor.cacheMaxAgeSecondsKey: maxDuration.inSeconds
+    try {
+      final requestOptions = Options(headers: {
+        ...defaultHeaders,
+        ...extraHeaders ?? {},
+      }, extra: {
+        if (maxDuration != null) ...{
+          ResponseCacheInterceptor.cacheMaxAgeSecondsKey: maxDuration.inSeconds
+        }
+      });
+
+      final Response<dynamic> response =
+          await dio.post(url, data: body, options: requestOptions);
+
+      if (defaultRetryableStatuses.contains(response.statusCode)) {
+        throw HttpError();
       }
-    });
 
-    final Response<dynamic> response =
-        await dio.post(url, data: body, options: requestOptions);
-
-    if (defaultRetryableStatuses.contains(response.statusCode)) {
-      return Left(HttpError());
+      return Right(response.data);
+    } catch (e) {
+      return Left(HttpError(description: e.toString()));
     }
-    return Right(response.data);
   }
 }
 

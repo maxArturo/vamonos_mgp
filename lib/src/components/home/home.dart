@@ -2,18 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/widget.dart';
-import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/panel_controller/panel_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/home/panel_controller/scroll_controller_provider.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/navigation/menu_button.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
-import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 import 'sliding_up_drawer.dart';
 
@@ -25,30 +21,20 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageController extends State<HomePage> {
-  late FToast fToast;
   final double initFabHeight = 60;
   double fabHeight = 0;
   double panelHeightOpen = 300;
   double panelHeightClosed = 100.0;
-  bool searchBarFocused = false;
 
   @override
   void initState() {
     super.initState();
     fabHeight = initFabHeight;
-    fToast = FToast();
-    fToast.init(context);
   }
 
   void updateFabHeight(double newFabHeight) {
     setState(() {
       fabHeight = newFabHeight;
-    });
-  }
-
-  void setSearchBarFocused(bool focused) {
-    setState(() {
-      searchBarFocused = focused;
     });
   }
 
@@ -66,15 +52,6 @@ class HomePageView extends ConsumerWidgetView<HomePage, HomePageController> {
     state.panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
     state.panelHeightClosed = MediaQuery.of(context).size.height * 0.2;
 
-    // TODO review best way to display this toastbar
-    ref.listen(allMarkersProvider, (prev, curr) {
-      curr.fold(
-          data: (r) => state.fToast.showToast(
-              gravity: ToastGravity.TOP,
-              child: BaseToast(toastText: "Got ${r.length} stops")),
-          error: (_) => null,
-          loading: () => null);
-    });
     return Scaffold(
       drawer: const HomeDrawer(),
       floatingActionButton: const FloatingMenuButton(),

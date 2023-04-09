@@ -18,7 +18,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
             size: 40,
             weight: 800,
           )),
-          error: (e) => errorToastSink(e),
+          error: (e) => errorSink(e),
           loading: () => Center(
             child: SizedBox(
               height: 100,

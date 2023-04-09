@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
 import 'package:vamonos_mgp/src/adapters/filesystem/persisted_state_provider.dart';
+import 'package:vamonos_mgp/src/components/about/widget.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/routes_list.dart';
@@ -58,13 +59,13 @@ class HomeDrawer extends StatelessWidget {
               // Navigator.pop(context);
             },
           ),
-          // ListTile(
-          //   title: Text('acerca del app'.toUpperCase()),
-          //   onTap: () {
-          //     Navigator.of(context).push(
-          //         MaterialPageRoute(builder: (context) => const AboutPage()));
-          //   },
-          // ),
+          ListTile(
+            title: Text('acerca del app'.toUpperCase()),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const AboutPage()));
+            },
+          ),
           ListTile(
             title: Text('Ver intro nuevamente'.toUpperCase()),
             onTap: () {

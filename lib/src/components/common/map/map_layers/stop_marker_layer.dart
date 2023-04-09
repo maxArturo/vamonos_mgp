@@ -16,7 +16,7 @@ class StopMarkerLayer extends ConsumerWidget {
               markers: markers,
               popupState: ref.watch(stopViewPopupStateProvider),
               popupController: ref.watch(stopViewPopupControllerProvider)),
-          error: (err) => errorToastSink(err),
+          error: (err) => errorSink(err),
           loading: () => const SizedBox.shrink(), // empty widget
         );
   }
