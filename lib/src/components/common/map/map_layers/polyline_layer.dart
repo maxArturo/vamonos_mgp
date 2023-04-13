@@ -26,7 +26,7 @@ class PolylineLayerWidget extends ConsumerWidget {
               return PolylineLayer(
                   polylineCulling: true, polylines: [polyLine]);
             },
-            error: (err) => errorToastSink(err),
+            error: (err) => errorSink(err),
             loading: () => Center(
                   child: SizedBox(
                     height: 100,

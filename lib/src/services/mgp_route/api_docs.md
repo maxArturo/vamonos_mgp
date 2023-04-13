@@ -149,3 +149,12 @@ var directedRoute = armarBandera(
 ```
 
 You can overlay this data on top of a polyline to get the full layout of the stops.
+
+## proxy setup
+
+we're using a proxy to make sure we have control of caching/throttling and avoiding issues with upstream providers. the URIs look like the below
+
+```
+MGP_ROUTE_API_URL=http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php
+OSM_API_URL=http://localhost:8080/map_tiles/osm
+```

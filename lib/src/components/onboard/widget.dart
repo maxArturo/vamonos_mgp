@@ -22,7 +22,7 @@ class OnboardingPageController extends State<OnboardingPage> {
         assetLocation: 'assets/images/intro_1.gif',
         color: Colors.blueAccent,
         text: "VAMONOS es un app que utiliza los datos GPS oficiales del"
-            " Municpio para la flota urbana, de forma facil y accesible."),
+            " Municpio General Puerreydón para la flota urbana, de forma facil y accesible."),
     OnboardingData(
         assetLocation: 'assets/images/intro_2.gif',
         color: Colors.greenAccent,
