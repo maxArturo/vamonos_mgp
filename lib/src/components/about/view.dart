@@ -86,9 +86,9 @@ class AboutPageView extends WidgetView<AboutPage, AboutPageController> {
                     "Si no te gustan esas cosas, puede te guste este app en vez."),
             const AboutSection(
               title:
-                  "No hay nada grátis en la vida. ¿Qué datos míos estás chorreando?",
+                  "No hay nada grátis en la vida. ¿Qué datos míos estás usando?",
               bodyText:
-                  "El app no colecta ningún dato tuyo identificable. Si lo permitís, recolecta datos de frecuencia de uso y errores para saber si "
+                  "El app no colecta ningún dato tuyo identificable. Se analizan estadísticas en agregado para saber si "
                   "estamos sobrecargando los servidores del Municipio o de OpenStreetMap (lo del mapita). No quiero que se calienten y cierren el acceso, así que mejor "
                   "estar al tanto.",
             ),
