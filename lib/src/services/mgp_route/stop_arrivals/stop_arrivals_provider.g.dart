@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$stopArrivalsHash() => r'ea8db77002a8cec7c6e102edd0771dd9aebaf1cc';
+String _$stopArrivalsHash() => r'59ea54183cfd3fa613f967c4c3e1250aeb6bccf4';
 
 /// See also [stopArrivals].
 final stopArrivalsProvider = AutoDisposeProvider<StopArrivalService>(

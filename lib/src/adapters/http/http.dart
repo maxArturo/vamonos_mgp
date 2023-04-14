@@ -51,7 +51,7 @@ class HttpAdapter {
     try {
       final requestOptions = Options(headers: {
         ...defaultHeaders,
-        ...extraHeaders ?? {},
+        if (extraHeaders != null) ...extraHeaders,
       }, extra: {
         if (maxDuration != null) ...{
           ResponseCacheInterceptor.cacheMaxAgeSecondsKey: maxDuration.inSeconds

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
 import 'package:vamonos_mgp/src/entities/transportation_mode.dart';
@@ -11,14 +10,13 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 class RouteListService {
   final HttpAdapter _http;
+  final String _routeApiUrl;
 
-  RouteListService(this._http);
-
-  String routeApiUrl = dotenv.env['MGP_ROUTE_API_URL']!;
+  RouteListService(this._http, this._routeApiUrl);
 
   Future<Either<AppError, List<entity.Route>>> getAllAvailableRoutes() async {
     return (await _http.post(
-            url: routeApiUrl,
+            url: _routeApiUrl,
             body: 'accion=RecuperarLineaPorCuandoLlega',
             extraHeaders: {
               ...baseApiHeaders,
