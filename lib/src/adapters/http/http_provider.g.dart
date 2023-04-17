@@ -39,7 +39,7 @@ final dioProvider = Provider<Dio>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$dioHash,
 );
 typedef DioRef = ProviderRef<Dio>;
-String _$defaultHeadersHash() => r'0af5ce3385a10c7171f839905851735855ce98fe';
+String _$defaultHeadersHash() => r'1d4070d549384ae15263c851d686c3f1f974b4f3';
 
 /// See also [defaultHeaders].
 final defaultHeadersProvider = Provider<Map<String, String>>(

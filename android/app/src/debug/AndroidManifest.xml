@@ -4,5 +4,8 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- The FOREGROUND_SERVICE permission is required for displaying a user's location
+        in the map, relative to their stops.
+    -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 </manifest>

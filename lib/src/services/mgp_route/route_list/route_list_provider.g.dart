@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$routeListHash() => r'48eb2061ad957493ab0e61cb9ecf65a91c73551a';
+String _$routeListHash() => r'97e675be801c0f5a5b9ca4c2c465b0d548fac09f';
 
 /// See also [routeList].
 final routeListProvider = AutoDisposeProvider<RouteListService>(

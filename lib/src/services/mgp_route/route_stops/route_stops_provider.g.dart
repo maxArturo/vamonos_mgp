@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$routeStopsHash() => r'338ac918bfd6720a611542b14faf124ae7ecfc9e';
+String _$routeStopsHash() => r'bf8b0746e48053b555186e889221588c1730a059';
 
 /// See also [routeStops].
 final routeStopsProvider = AutoDisposeProvider<RouteStopService>(

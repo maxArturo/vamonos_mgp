@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$routeLandmarksHash() => r'3d16eb66aee46d4802820b079d50a787b8737dc9';
+String _$routeLandmarksHash() => r'3c5465d01f4b6c6f77ade4e820db0431eec75835';
 
 /// See also [routeLandmarks].
 final routeLandmarksProvider = Provider<RouteLandMarks>(

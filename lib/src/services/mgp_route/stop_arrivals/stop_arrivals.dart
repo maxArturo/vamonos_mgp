@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 import 'package:vamonos_mgp/src/entities/stop_arrival.dart';
@@ -11,15 +10,14 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 class StopArrivalService {
   final HttpAdapter _http;
+  final String _routeApiUrl;
 
-  StopArrivalService(this._http);
-
-  String routeApiUrl = dotenv.env['MGP_ROUTE_API_URL']!;
+  StopArrivalService(this._http, this._routeApiUrl);
 
   Future<Either<AppError, List<StopArrival>>> getAllStopArrivals(
       RouteStop stop) async {
     return (await _http.post(
-            url: routeApiUrl,
+            url: _routeApiUrl,
             body:
                 "accion=RecuperarProximosArribosW&identificadorParada=${stop.name}&codigoLineaParada=${stop.route.id}",
             extraHeaders: {

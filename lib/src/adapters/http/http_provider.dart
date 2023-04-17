@@ -12,8 +12,13 @@ part 'http_provider.g.dart';
 Dio dio(DioRef ref) => Dio();
 
 @Riverpod(keepAlive: true)
-Map<String, String> defaultHeaders(DefaultHeadersRef ref) =>
-    config.defaultHeaders;
+Map<String, String> defaultHeaders(DefaultHeadersRef ref) {
+  final apiToken = ref.watch(configProvider).apiToken;
+  return {
+    ...config.defaultHeaders,
+    if (apiToken != null) 'X-Auth-Token': apiToken
+  };
+}
 
 @Riverpod(keepAlive: true)
 HttpAdapter httpAdapter(HttpAdapterRef ref) {

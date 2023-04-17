@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
@@ -12,15 +11,14 @@ import 'package:vamonos_mgp/src/util/errors.dart';
 
 class RouteLandMarks {
   final HttpAdapter _http;
+  final String _routeApiUrl;
 
-  RouteLandMarks(this._http);
-
-  String routeApiUrl = dotenv.env['MGP_ROUTE_API_URL']!;
+  RouteLandMarks(this._http, this._routeApiUrl);
 
   Future<Either<AppError, List<RouteLandMark>>> getAllRouteLandMarks(
       entity.Route route) async {
     return (await _http.post(
-            url: routeApiUrl,
+            url: _routeApiUrl,
             body:
                 "accion=RecuperarRecorridoParaMapaAbrevYAmpliPorEntidadYLinea&codLinea=${route.id}&isSublinea=0",
             extraHeaders: {

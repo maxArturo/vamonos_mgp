@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamonos_mgp/src/util/config.dart';
+import 'package:vamonos_mgp/src/util/config_model.dart';
 
 part 'config_provider.g.dart';
 
@@ -17,6 +17,11 @@ class Config extends _$Config {
       ),
       httpAddNetworkFailure:
           toBool(dotenv.env['DEBUG_HTTP_ADD_NETWORK_FAILURE']),
+      osmApiUrl:
+          dotenv.env['OSM_API_URL'] ?? 'http://localhost:8080/map_tiles/osm',
+      mgpApiUrl: dotenv.env['MGP_ROUTE_API_URL'] ??
+          'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php',
+      apiToken: dotenv.env['API_TOKEN'],
     );
   }
 
