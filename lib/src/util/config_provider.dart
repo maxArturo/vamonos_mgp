@@ -21,8 +21,7 @@ class Config extends _$Config {
           dotenv.env['OSM_API_URL'] ?? 'http://localhost:8080/map_tiles/osm',
       mgpApiUrl: dotenv.env['MGP_ROUTE_API_URL'] ??
           'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php',
-      apiUser: dotenv.env['API_USER'],
-      apiPw: dotenv.env['API_PW'],
+      apiToken: dotenv.env['API_TOKEN'],
     );
   }
 

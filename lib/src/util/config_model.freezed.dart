@@ -23,8 +23,7 @@ mixin _$ConfigOptions {
   bool get httpAddNetworkFailure => throw _privateConstructorUsedError;
   String get osmApiUrl => throw _privateConstructorUsedError;
   String get mgpApiUrl => throw _privateConstructorUsedError;
-  String? get apiUser => throw _privateConstructorUsedError;
-  String? get apiPw => throw _privateConstructorUsedError;
+  String? get apiToken => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConfigOptionsCopyWith<ConfigOptions> get copyWith =>
@@ -45,8 +44,7 @@ abstract class $ConfigOptionsCopyWith<$Res> {
       bool httpAddNetworkFailure,
       String osmApiUrl,
       String mgpApiUrl,
-      String? apiUser,
-      String? apiPw});
+      String? apiToken});
 }
 
 /// @nodoc
@@ -69,8 +67,7 @@ class _$ConfigOptionsCopyWithImpl<$Res, $Val extends ConfigOptions>
     Object? httpAddNetworkFailure = null,
     Object? osmApiUrl = null,
     Object? mgpApiUrl = null,
-    Object? apiUser = freezed,
-    Object? apiPw = freezed,
+    Object? apiToken = freezed,
   }) {
     return _then(_value.copyWith(
       isReleaseMode: null == isReleaseMode
@@ -101,13 +98,9 @@ class _$ConfigOptionsCopyWithImpl<$Res, $Val extends ConfigOptions>
           ? _value.mgpApiUrl
           : mgpApiUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      apiUser: freezed == apiUser
-          ? _value.apiUser
-          : apiUser // ignore: cast_nullable_to_non_nullable
-              as String?,
-      apiPw: freezed == apiPw
-          ? _value.apiPw
-          : apiPw // ignore: cast_nullable_to_non_nullable
+      apiToken: freezed == apiToken
+          ? _value.apiToken
+          : apiToken // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -129,8 +122,7 @@ abstract class _$$_ConfigOptionsCopyWith<$Res>
       bool httpAddNetworkFailure,
       String osmApiUrl,
       String mgpApiUrl,
-      String? apiUser,
-      String? apiPw});
+      String? apiToken});
 }
 
 /// @nodoc
@@ -151,8 +143,7 @@ class __$$_ConfigOptionsCopyWithImpl<$Res>
     Object? httpAddNetworkFailure = null,
     Object? osmApiUrl = null,
     Object? mgpApiUrl = null,
-    Object? apiUser = freezed,
-    Object? apiPw = freezed,
+    Object? apiToken = freezed,
   }) {
     return _then(_$_ConfigOptions(
       isReleaseMode: null == isReleaseMode
@@ -183,13 +174,9 @@ class __$$_ConfigOptionsCopyWithImpl<$Res>
           ? _value.mgpApiUrl
           : mgpApiUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      apiUser: freezed == apiUser
-          ? _value.apiUser
-          : apiUser // ignore: cast_nullable_to_non_nullable
-              as String?,
-      apiPw: freezed == apiPw
-          ? _value.apiPw
-          : apiPw // ignore: cast_nullable_to_non_nullable
+      apiToken: freezed == apiToken
+          ? _value.apiToken
+          : apiToken // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -207,8 +194,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       this.osmApiUrl = 'http://localhost:8080/map_tiles/osm',
       this.mgpApiUrl =
           'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php',
-      this.apiUser,
-      this.apiPw})
+      this.apiToken})
       : super._();
 
   @override
@@ -233,13 +219,11 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
   @JsonKey()
   final String mgpApiUrl;
   @override
-  final String? apiUser;
-  @override
-  final String? apiPw;
+  final String? apiToken;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ConfigOptions(isReleaseMode: $isReleaseMode, httpCacheAddDelayMs: $httpCacheAddDelayMs, clearCacheOnHeaderTap: $clearCacheOnHeaderTap, cacheDisabled: $cacheDisabled, httpAddNetworkFailure: $httpAddNetworkFailure, osmApiUrl: $osmApiUrl, mgpApiUrl: $mgpApiUrl, apiUser: $apiUser, apiPw: $apiPw)';
+    return 'ConfigOptions(isReleaseMode: $isReleaseMode, httpCacheAddDelayMs: $httpCacheAddDelayMs, clearCacheOnHeaderTap: $clearCacheOnHeaderTap, cacheDisabled: $cacheDisabled, httpAddNetworkFailure: $httpAddNetworkFailure, osmApiUrl: $osmApiUrl, mgpApiUrl: $mgpApiUrl, apiToken: $apiToken)';
   }
 
   @override
@@ -254,8 +238,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('httpAddNetworkFailure', httpAddNetworkFailure))
       ..add(DiagnosticsProperty('osmApiUrl', osmApiUrl))
       ..add(DiagnosticsProperty('mgpApiUrl', mgpApiUrl))
-      ..add(DiagnosticsProperty('apiUser', apiUser))
-      ..add(DiagnosticsProperty('apiPw', apiPw));
+      ..add(DiagnosticsProperty('apiToken', apiToken));
   }
 
   @override
@@ -277,8 +260,8 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
                 other.osmApiUrl == osmApiUrl) &&
             (identical(other.mgpApiUrl, mgpApiUrl) ||
                 other.mgpApiUrl == mgpApiUrl) &&
-            (identical(other.apiUser, apiUser) || other.apiUser == apiUser) &&
-            (identical(other.apiPw, apiPw) || other.apiPw == apiPw));
+            (identical(other.apiToken, apiToken) ||
+                other.apiToken == apiToken));
   }
 
   @override
@@ -291,8 +274,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       httpAddNetworkFailure,
       osmApiUrl,
       mgpApiUrl,
-      apiUser,
-      apiPw);
+      apiToken);
 
   @JsonKey(ignore: true)
   @override
@@ -310,8 +292,7 @@ abstract class _ConfigOptions extends ConfigOptions {
       final bool httpAddNetworkFailure,
       final String osmApiUrl,
       final String mgpApiUrl,
-      final String? apiUser,
-      final String? apiPw}) = _$_ConfigOptions;
+      final String? apiToken}) = _$_ConfigOptions;
   const _ConfigOptions._() : super._();
 
   @override
@@ -329,9 +310,7 @@ abstract class _ConfigOptions extends ConfigOptions {
   @override
   String get mgpApiUrl;
   @override
-  String? get apiUser;
-  @override
-  String? get apiPw;
+  String? get apiToken;
   @override
   @JsonKey(ignore: true)
   _$$_ConfigOptionsCopyWith<_$_ConfigOptions> get copyWith =>

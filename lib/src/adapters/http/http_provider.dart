@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
@@ -16,14 +13,10 @@ Dio dio(DioRef ref) => Dio();
 
 @Riverpod(keepAlive: true)
 Map<String, String> defaultHeaders(DefaultHeadersRef ref) {
-  final apiUser = ref.watch(configProvider).apiUser;
-  final apiPw = ref.watch(configProvider).apiPw;
-
+  final apiToken = ref.watch(configProvider).apiToken;
   return {
     ...config.defaultHeaders,
-    if (apiUser != null && apiPw != null)
-      HttpHeaders.authorizationHeader:
-          "Basic ${base64Encode(utf8.encode('$apiUser:$apiPw'))}"
+    if (apiToken != null) 'X-Auth-Token': apiToken
   };
 }
 

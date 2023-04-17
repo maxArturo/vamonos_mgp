@@ -14,8 +14,7 @@ class ConfigOptions with _$ConfigOptions {
     @Default('http://localhost:8080/map_tiles/osm') String osmApiUrl,
     @Default('http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php')
         String mgpApiUrl,
-    String? apiUser,
-    String? apiPw,
+    String? apiToken,
   }) = _ConfigOptions;
 
   const ConfigOptions._();
