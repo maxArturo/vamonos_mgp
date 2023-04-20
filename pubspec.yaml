@@ -95,6 +95,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
   build_runner: ^2.3.3
   riverpod_generator: ^1.1.1
@@ -151,3 +152,20 @@ flutter_native_splash:
   info_plist_files:
     - 'ios/Runner/Info-Debug.plist'
     - 'ios/Runner/Info-Release.plist'
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: 'assets/images/app_icon_main.png'
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: 'assets/images/app_icon_main.png'
+    background_color: '#304794'
+  windows:
+    generate: true
+    image_path: 'assets/images/app_icon_main.png'
+    icon_size: 256 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: 'assets/images/app_icon_main.png'
