@@ -51,6 +51,7 @@ dependencies:
   liquid_swipe: ^3.0.0
   google_fonts: ^4.0.3
   responsive_framework: ^0.2.0
+  flutter_native_splash: ^2.2.19
 
   # dio (HTTP), retry, logging
   dio: ^5.0.1
@@ -143,3 +144,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: '#304794'
+  image: assets/images/app_icon_splash.png
+  info_plist_files:
+    - 'ios/Runner/Info-Debug.plist'
+    - 'ios/Runner/Info-Release.plist'

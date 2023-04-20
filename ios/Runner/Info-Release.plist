@@ -27,7 +27,7 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<true/>
+		<string>Your location is required for this app to show transit near you.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
@@ -50,6 +50,8 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>UIStatusBarHidden</key>
 		<false/>
 	</dict>
 </plist>
