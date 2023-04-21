@@ -15,4 +15,8 @@ flutter clean &&
         rm ios/Podfile.lock pubspec.lock &&
         rm -rf ios/Pods ios/Runner.xcworkspace &&
         flutter build ipa --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
-                --obfuscate --split-debug-info=build/versions/"$SEMVER"+"$BUILD_NUMBER"
+                --obfuscate --split-debug-info=build/ios/versions/"$SEMVER"+"$BUILD_NUMBER"
+
+cd ios
+source fastlane/.env
+fastlane beta

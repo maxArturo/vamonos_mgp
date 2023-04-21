@@ -31,69 +31,59 @@ jobs:
         with:
           token: ${{secrets.github_token}}
 
-  build_ios:
-    needs:
-      - build_number
-      - release_please
-    runs-on: macos-latest
-    env:
-      BUILD_NUMBER: '${{ needs.build_number.outputs.build_number }}'
-      VERSION: '${{ needs.release_please.outputs.version }}'
-      FLUTTER_VERSION: 3.7.12
+  # build_ios:
+  #   needs:
+  #     - build_number
+  #     - release_please
+  #   runs-on: macos-latest
+  #   env:
+  #     BUILD_NUMBER: '${{ needs.build_number.outputs.build_number }}'
+  #     VERSION: '${{ needs.release_please.outputs.version }}'
+  #     FLUTTER_VERSION: 3.7.12
 
-    steps:
-      - name: Print new build number
-        run: echo "Build number is ${{ env.BUILD_NUMBER }}"
+  #   steps:
+  #     - name: Print new build number
+  #       run: echo "Build number is ${{ env.BUILD_NUMBER }}"
 
-      - name: Checkout the code
-        uses: actions/checkout@v2
+  #     - name: Checkout the code
+  #       uses: actions/checkout@v2
 
-      - name: Install Apple Certificate
-        uses: apple-actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.P12_APPLE_DISTRIBUTION_CERT_BASE64 }}
-          p12-password: ${{ secrets.P12_APPLE_DISTRIBUTION_CERT_PASSWORD }}
+  #     - name: Install and set Flutter version
+  #       uses: subosito/flutter-action@v2.10.0
+  #       with:
+  #         flutter-version: '${{ env.FLUTTER_VERSION }}'
+  #         cache: true
 
-      - name: Install the provisioning profile
-        env:
-          PROVISIONING_PROFILE_BASE64: ${{ secrets.APPLE_MOBILE_PROVISIONING_PROFILE_BASE64 }}
-        run: |
-          # create variables
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+  #     - name: cache pub packages
+  #       id: cache-pubdev
+  #       uses: actions/cache@v3
+  #       env:
+  #         cache-name: cache-pubdev
+  #       with:
+  #         path: ~/.pub-cache
+  #         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pubspec.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-build-${{ env.cache-name }}
 
-          # import provisioning profile from secrets
-          echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+  #     - if: ${{ steps.cache-pubdev.outputs.cache-hit != 'true' }}
+  #       name: pub cache miss/get deps
+  #       continue-on-error: true
+  #       run: |
+  #         echo "Pub cache missed for ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('pubspec.lock') }}"
+  #         flutter pub get
 
-          # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+  #     - name: manually install cocoapods deps
+  #       run: find . -name "Podfile" -execdir pod install \;
 
-      - name: Install and set Flutter version
-        uses: subosito/flutter-action@v2.10.0
-        with:
-          flutter-version: '${{ env.FLUTTER_VERSION }}'
-
-      - name: Restore packages
-        run: flutter pub get
-
-      - name: Build ipa bundle
-        env:
-          SEMVER: '${{ env.VERSION }}'
-          BUILD_NUMBER: '${{ env.BUILD_NUMBER }}'
-        run: ./bin/build_release_ios.sh
-
-      - name: Publish iOS ipa
-        uses: actions/upload-artifact@v3
-        with:
-          name: 'release-ios-${{ env.VERSION }}+${{ env.BUILD_NUMBER }}'
-          path: build-output/ios/ipa/vamonos_mgp.ipa
-
-      # - name: Build resolve Swift dependencies
-      #   run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }}
-
-      # - name: Build xArchive
-      #   run: |
-      #     xcodebuild -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }} DEVELOPMENT_TEAM=${{ env.TEAM_ID }} -sdk 'iphoneos' -destination 'generic/platform=iOS' -archivePath build-output/app.xcarchive PROVISIONING_PROFILE=106bdc42-25d3-4f77-a431-e69c56fc0b49 clean archive CODE_SIGN_IDENTITY="Apple Distribution: Damien Aicheh"
-
-      # - name: Export ipa
-      #   run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportPath build-output/ios -exportOptionsPlist ios/ExportOptions.plist
+  #     - name: push to testflight beta
+  #       env:
+  #         APP_STORE_CONNECT_ISSUER_ID: '${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}'
+  #         APP_STORE_CONNECT_KEY_IDENTIFIER: '${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}'
+  #         APP_STORE_CONNECT_PRIVATE_KEY_BASE64: '${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY_BASE64 }}'
+  #       run: |
+  #         export APP_STORE_CONNECT_PRIVATE_KEY_PATH=$RUNNER_TEMP/private_key.p8
+  #         echo -n "$APP_STORE_CONNECT_PRIVATE_KEY_BASE64" | base64 --decode --output $APP_STORE_CONNECT_PRIVATE_KEY_PATH
+  #         cd ios
+  #         gem install bundler
+  #         bundle install
+  #         fastlane beta

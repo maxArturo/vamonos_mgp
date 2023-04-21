@@ -34,3 +34,22 @@ THis is handled by `json_annotation` package. Run the code generation script via
 ```shell
 flutter pub run build_runner watch --delete-conflicting-outputs
 ```
+
+## Release and build
+
+### beta release to app store (iOS)
+
+The script for this uses [fastlane](https://docs.fastlane.tools/getting-started/ios/beta-deployment/) to handle building and releasing to TestFlight. Be sure to have a file under `ios/fastlane/.env` file with the following params:
+
+```shell
+export APP_STORE_CONNECT_KEY_IDENTIFIER="xxx"
+export APP_STORE_CONNECT_ISSUER_ID="xxx"
+export APP_STORE_CONNECT_PRIVATE_KEY_PATH="fastlane/appstore_connect_api_key.p8" # need to have this private key available
+
+```
+
+Then run the following command:
+
+```shell
+SEMVER=<semver> BUILD_NUMBER=<build no> ./bin/build_release_ios.sh
+```

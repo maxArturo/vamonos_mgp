@@ -45,4 +45,14 @@ app.*.map.json
 
 # env files
 *.env
+*.env.dev
+*.env.qa
 *.env.prod
+
+# any pw files (yikes)
+*.p8
+*.p12
+
+report.xml
+*.zip
+*.ipa
