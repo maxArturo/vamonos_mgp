@@ -1,10 +1,25 @@
-name: Flutter_iOS
+name: release_builds
 
 on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
+  release_please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: dart
+          package-name: vamonos-mgp
+    outputs:
+      version: '${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}'
+
   build_number:
     runs-on: ubuntu-latest
     outputs:
@@ -22,9 +37,8 @@ jobs:
       - release_please
     runs-on: macos-latest
     env:
-      BUILD_CONFIGURATION: Release
       BUILD_NUMBER: '${{ needs.build_number.outputs.build_number }}'
-      VERSION: '${{ needs.release_please.outputs.build_number }}'
+      VERSION: '${{ needs.release_please.outputs.version }}'
       FLUTTER_VERSION: 3.7.12
 
     steps:
