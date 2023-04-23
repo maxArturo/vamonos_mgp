@@ -48,6 +48,10 @@ app.*.map.json
 *.env.dev
 *.env.qa
 *.env.prod
+env.json
+env.qa.json
+env.stage.json
+env.prod.json
 
 # any pw files (yikes)
 *.p8

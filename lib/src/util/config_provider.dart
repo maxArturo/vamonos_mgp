@@ -1,4 +1,3 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/util/config_model.dart';
 
@@ -8,20 +7,34 @@ part 'config_provider.g.dart';
 class Config extends _$Config {
   @override
   ConfigOptions build() {
+    // super sad state of affairs but everything needs to be const
+
+    const apiToken = String.fromEnvironment(
+      'API_TOKEN',
+    );
+    const osmApiUrl = String.fromEnvironment('OSM_API_URL',
+        defaultValue: 'http://localhost:8080/map_tiles/osm');
+
+    const mpgApiUrl = String.fromEnvironment('MGP_ROUTE_API_URL',
+        defaultValue:
+            'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php');
+    const debugAddCacheDelay =
+        String.fromEnvironment('DEBUG_HTTP_ADD_CACHE_DELAY_MS');
+
+    const debugCacheDisabled = String.fromEnvironment('DEBUG_CACHE_DISABLED');
+    const debugClearCacheOnTap =
+        String.fromEnvironment('DEBUG_CLEAR_CACHE_ON_TAP');
+    const debugAddNetworkFailure =
+        String.fromEnvironment('DEBUG_HTTP_ADD_NETWORK_FAILURE');
+
     return ConfigOptions(
-      httpCacheAddDelayMs:
-          int.tryParse(dotenv.env['DEBUG_HTTP_ADD_CACHE_DELAY_MS'] ?? ""),
-      cacheDisabled: toBool(dotenv.env['DEBUG_CACHE_DISABLED']),
-      clearCacheOnHeaderTap: toBool(
-        dotenv.env['DEBUG_CLEAR_CACHE_ON_TAP'],
-      ),
-      httpAddNetworkFailure:
-          toBool(dotenv.env['DEBUG_HTTP_ADD_NETWORK_FAILURE']),
-      osmApiUrl:
-          dotenv.env['OSM_API_URL'] ?? 'http://localhost:8080/map_tiles/osm',
-      mgpApiUrl: dotenv.env['MGP_ROUTE_API_URL'] ??
-          'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php',
-      apiToken: dotenv.env['API_TOKEN'],
+      httpCacheAddDelayMs: int.tryParse(debugAddCacheDelay),
+      cacheDisabled: toBool(debugCacheDisabled),
+      clearCacheOnHeaderTap: toBool(debugClearCacheOnTap),
+      httpAddNetworkFailure: toBool(debugAddNetworkFailure),
+      osmApiUrl: osmApiUrl,
+      mgpApiUrl: mpgApiUrl,
+      apiToken: apiToken,
     );
   }
 
