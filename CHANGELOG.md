@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0-rc.3](https://github.com/maxArturo/vamonos_mgp/compare/v0.2.0-rc.3...v0.3.0-rc.3) (2023-04-23)
+
+
+### Features
+
+* **envvars:** big cleanup of env vars ([#35](https://github.com/maxArturo/vamonos_mgp/issues/35)) ([9ab8b00](https://github.com/maxArturo/vamonos_mgp/commit/9ab8b002a9789d51ba59e506e025ba462872043d))
+
+
+### Bug Fixes
+
+* update ios build scripts ([13d2a3f](https://github.com/maxArturo/vamonos_mgp/commit/13d2a3f52efb4aed71b123ab900a3691508f0e84))
+
 ## [0.2.0-rc.3](https://github.com/maxArturo/vamonos_mgp/compare/v0.1.0-rc.3...v0.2.0-rc.3) (2023-04-22)
 
 
