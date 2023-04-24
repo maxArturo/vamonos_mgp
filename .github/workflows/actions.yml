@@ -20,16 +20,16 @@ jobs:
     outputs:
       version: '${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}'
 
-  build_number:
-    runs-on: ubuntu-latest
-    outputs:
-      build_number: ${{ steps.buildnumber.outputs.build_number }}
-    steps:
-      - name: Generate build number
-        id: buildnumber
-        uses: onyxmueller/build-tag-number@v1
-        with:
-          token: ${{secrets.github_token}}
+  # build_number:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     build_number: ${{ steps.buildnumber.outputs.build_number }}
+  #   steps:
+  #     - name: Generate build number
+  #       id: buildnumber
+  #       uses: onyxmueller/build-tag-number@v1
+  #       with:
+  #         token: ${{secrets.github_token}}
 
   # build_ios:
   #   needs:

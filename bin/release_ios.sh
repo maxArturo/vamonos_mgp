@@ -4,6 +4,9 @@ set -euo pipefail
 SEMVER=$(cat <pubspec.yaml | awk '/version:/ {print $2}' | awk -F \+ '{print $1}')
 BUILD_NUMBER=$(cat <pubspec.yaml | awk '/version:/ {print $2}' | awk -F \+ '{print $2}')
 
+echo "Semver is: $SEMVER"
+echo "build no is: $BUILD_NUMBER"
+
 flutter clean &&
         rm ios/Podfile.lock pubspec.lock &&
         rm -rf ios/Pods ios/Runner.xcworkspace &&
