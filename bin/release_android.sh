@@ -8,12 +8,10 @@ echo "Building release version of app for beta release in Google Play Store"
 echo "Semver is: $SEMVER"
 echo "build no is: $BUILD_NUMBER"
 
-flutter clean &&
-        flutter build appbundle \
-                --dart-define-from-file './env.prod.json' \
-                --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
-                --obfuscate --split-debug-info=build/android/versions/"$SEMVER"+"$BUILD_NUMBER"
+flutter build appbundle \
+        --dart-define-from-file './env.prod.json' \
+        --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
+        --obfuscate --split-debug-info=build/android/versions/"$SEMVER"+"$BUILD_NUMBER"
 
 # cd android
-# source fastlane/.env
-# fastlane beta
+# fastlane supply
