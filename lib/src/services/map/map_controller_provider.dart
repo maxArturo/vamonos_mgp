@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:vamonos_mgp/src/components/common/map/config.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
 
@@ -35,6 +36,8 @@ mixin MapFunctionality on AsyncNotifier<MapController> {
   }
 
   get initialized => _mapInitializer.isCompleted;
+
+  resetMapLocation() => updateMapLocation(defaultCenterLocation);
 
   recenterMapLocation() => ref
       .read(updatedLocationServiceProvider)
