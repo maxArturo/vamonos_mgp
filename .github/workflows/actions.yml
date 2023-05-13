@@ -17,6 +17,8 @@ jobs:
         with:
           release-type: dart
           package-name: vamonos-mgp
+          release-search-depth: 1
+          commit-search-depth: 1
     outputs:
       version: '${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}'
 
