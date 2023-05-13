@@ -2,6 +2,9 @@
 
 Alternate flutter app for Municipio de General Purreydon's [public transit tracker](https://appsl.mardelplata.gob.ar/app_cuando_llega/web/cuando.php).
 
+![image](https://github.com/maxArturo/vamonos_mgp/assets/5713763/a612246d-94a1-497d-98b3-2d6e2278a3f8)
+
+
 ## Why?
 
 I got fed up with the original one. Please note that the data will _not_ be any better than what the "source" API surfaces; just prettier and hopefully more user-friendly.
