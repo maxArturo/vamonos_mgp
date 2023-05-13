@@ -60,3 +60,8 @@ env.prod.json
 report.xml
 *.zip
 *.ipa
+
+# android build private files
+key.properties
+google_play_service_account.json
+upload-keystore.jks

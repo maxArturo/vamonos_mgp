@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/map/default_reset_map_button.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/directed_routes_card/widget.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/widget.dart';
+import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
-class DirectedRoutesPageView
-    extends WidgetView<DirectedRoutesPage, DirectedRoutesPageController> {
+class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
+    DirectedRoutesPageController> {
   final ScrollController scrollController;
   const DirectedRoutesPageView(super.state,
       {super.key, required this.scrollController});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -34,6 +37,11 @@ class DirectedRoutesPageView
                       ),
                       Text("No hay rutas cercanas".toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
+                      const SizedBox(height: 15),
+                      DefaultResetMapbutton(
+                          recenterLocation: ref
+                              .watch(stopViewMapControllerProvider.notifier)
+                              .resetMapLocation)
                     ],
                   ),
                   const SizedBox(width: 13),

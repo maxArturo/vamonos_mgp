@@ -1,11 +1,13 @@
 import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/map/default_reset_map_button.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/widget.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
+import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
@@ -15,6 +17,7 @@ class RoutesSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO remove consumer, seems redundant
     return Consumer(builder: (context, ref, child) {
       final provider = ref.watch(routeStopMapMarkersNearYouProvider);
       return provider.fold(
@@ -43,6 +46,12 @@ class RoutesSection extends ConsumerWidget {
                                       style: const TextStyle(
                                         color: Colors.black,
                                       )),
+                                  const SizedBox(height: 15),
+                                  DefaultResetMapbutton(
+                                      recenterLocation: ref
+                                          .watch(stopViewMapControllerProvider
+                                              .notifier)
+                                          .resetMapLocation)
                                 ],
                               ),
                               const SizedBox(width: 13),
