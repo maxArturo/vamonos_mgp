@@ -9,9 +9,9 @@ echo "Semver is: $SEMVER"
 echo "build no is: $BUILD_NUMBER"
 
 flutter build appbundle \
-        --dart-define-from-file './env.prod.json' \
-        --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
-        --obfuscate --split-debug-info=build/android/versions/"$SEMVER"+"$BUILD_NUMBER"
+  --dart-define-from-file './env.prod.json' \
+  --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
+  --obfuscate --split-debug-info=build/android/versions/"$SEMVER"+"$BUILD_NUMBER"
 
-# cd android
-# fastlane supply
+cd android
+fastlane supply --aab ../build/app/outputs/bundle/release/app-release.aab --track beta
