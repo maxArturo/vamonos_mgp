@@ -1,0 +1,3 @@
+Vamonos es un app que utiliza los datos GPS oficiales del Municpio General Puerreydón para la flota urbana, de forma facil y accesible.
+
+Encontrá todas las paradas cercanas usando el mapa interactivo, moviendo el mapa para mostrar las paradas alrededor del indicador central. Consultá el arribo de todas las paradas cercanas al instante, al seleccionar una ruta. En el menú también podés consultar rutas por dirección y sus paradas con respectivos arribos.
