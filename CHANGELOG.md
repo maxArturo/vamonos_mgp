@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.0.0...v1.1.0) (2023-05-14)
+
+
+### Features
+
+* [[#40](https://github.com/maxArturo/vamonos_mgp/issues/40)] automated beta releases for both ios and android ([#43](https://github.com/maxArturo/vamonos_mgp/issues/43)) ([858259a](https://github.com/maxArturo/vamonos_mgp/commit/858259a9c47b2a0b2ccb3c92096aec654f9fe274))
+
+
+### Bug Fixes
+
+* update package names ([#51](https://github.com/maxArturo/vamonos_mgp/issues/51)) ([87070cc](https://github.com/maxArturo/vamonos_mgp/commit/87070ccab46289a018694b0e157db07e6f13e244))
+
 ## 1.0.0 (2023-05-13)
 
 
