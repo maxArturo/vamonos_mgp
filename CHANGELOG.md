@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/maxArturo/vamonos_mgp/compare/v1.1.0...v1.1.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* [[#53](https://github.com/maxArturo/vamonos_mgp/issues/53)] android launch icon visuals ([#56](https://github.com/maxArturo/vamonos_mgp/issues/56)) ([0f49759](https://github.com/maxArturo/vamonos_mgp/commit/0f49759efe23aea038faec983f031f71cb527688))
+* useful missing arrival time message ([#54](https://github.com/maxArturo/vamonos_mgp/issues/54)) ([68f41fa](https://github.com/maxArturo/vamonos_mgp/commit/68f41fa2ad7d6d9b5a9d7c947a24360bbe2b4d7f))
+
 ## [1.1.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.0.0...v1.1.0) (2023-05-14)
 
 
