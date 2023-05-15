@@ -151,8 +151,11 @@ flutter_native_splash:
 flutter_launcher_icons:
   android: true
   ios: true
+  remove_alpha_ios: true
   image_path: 'assets/images/app_icon_main.png'
   min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: '#304794'
+  adaptive_icon_foreground: 'assets/images/app_icon_main_padding.png'
   web:
     generate: true
     image_path: 'assets/images/app_icon_main.png'
