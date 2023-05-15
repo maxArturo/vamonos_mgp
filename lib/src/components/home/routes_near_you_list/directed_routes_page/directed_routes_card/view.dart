@@ -34,11 +34,11 @@ class DirectedRouteCardView
           String errorMessage;
           switch (l.errorType) {
             case ErrorType.dataNotFoundError:
-              errorMessage = "data not found for this stop";
+              errorMessage = "Datos no disponibles para esta ruta";
               break;
 
             default:
-              errorMessage = "An unexpected error occurred";
+              errorMessage = "Arribo no disponible en este momento";
           }
           return Text(
             errorMessage,
