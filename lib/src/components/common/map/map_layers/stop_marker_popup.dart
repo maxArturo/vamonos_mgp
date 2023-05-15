@@ -25,10 +25,10 @@ class StopMarkerPopup extends ConsumerWidget {
         arrivals.fold(
             data: (r) => Flexible(child: Text(r[0].arrival)),
             error: (l) {
-              return Text(
-                l.userText,
-                key: const Key('error'),
-                style: const TextStyle(color: Colors.red),
+              return const Text(
+                "Arribo no disponible",
+                key: Key('error'),
+                style: TextStyle(color: Colors.red),
               );
             },
             loading: () => Flexible(
