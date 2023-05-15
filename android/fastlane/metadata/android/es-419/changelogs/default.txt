@@ -1,1 +1,5 @@
-Esta edicion es un beta inicial para usuarios de Android.
+1.1.1 (2023-05-15)
+Ajustes
+
+    [#53] Visuales de icono de arranque (#56) (0f49759)
+    Mensaje en caso de error de tiempos de arribo (#54) (68f41fa)
