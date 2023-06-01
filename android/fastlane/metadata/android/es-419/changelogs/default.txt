@@ -1,3 +1,8 @@
+1.2.0 (2023-06-01)
+Features
+
+    Aclarar tiempos de arribo en la interfaz de usuario (#59) (9ad231c)
+
 1.1.1 (2023-05-15)
 Ajustes
 
