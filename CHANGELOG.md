@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.1.1...v1.2.0) (2023-06-01)
+
+
+### Features
+
+* clarify arrival times in UI copy ([#59](https://github.com/maxArturo/vamonos_mgp/issues/59)) ([9ad231c](https://github.com/maxArturo/vamonos_mgp/commit/9ad231c5c9d7158c067adcf9adb4aa0a9fd7beb6))
+
 ## [1.1.1](https://github.com/maxArturo/vamonos_mgp/compare/v1.1.0...v1.1.1) (2023-05-15)
 
 
