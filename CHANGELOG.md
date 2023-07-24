@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.2.0...v1.3.0) (2023-07-24)
+
+
+### Features
+
+* [[#64](https://github.com/maxArturo/vamonos_mgp/issues/64)] add build ID to ui ([#66](https://github.com/maxArturo/vamonos_mgp/issues/66)) ([db3fa82](https://github.com/maxArturo/vamonos_mgp/commit/db3fa82e07ef1f0aa885d57179bbaa4bb9500fc4))
+
+
+### Bug Fixes
+
+* resize drawer for version label ([#68](https://github.com/maxArturo/vamonos_mgp/issues/68)) ([4f9e18f](https://github.com/maxArturo/vamonos_mgp/commit/4f9e18f45c77c2143154aff5ba0614a58e53ddea))
+
 ## [1.2.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.1.1...v1.2.0) (2023-06-01)
 
 
