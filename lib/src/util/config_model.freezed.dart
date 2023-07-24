@@ -23,6 +23,7 @@ mixin _$ConfigOptions {
   bool get httpAddNetworkFailure => throw _privateConstructorUsedError;
   String get osmApiUrl => throw _privateConstructorUsedError;
   String get mgpApiUrl => throw _privateConstructorUsedError;
+  String get buildId => throw _privateConstructorUsedError;
   String? get apiToken => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -44,6 +45,7 @@ abstract class $ConfigOptionsCopyWith<$Res> {
       bool httpAddNetworkFailure,
       String osmApiUrl,
       String mgpApiUrl,
+      String buildId,
       String? apiToken});
 }
 
@@ -67,6 +69,7 @@ class _$ConfigOptionsCopyWithImpl<$Res, $Val extends ConfigOptions>
     Object? httpAddNetworkFailure = null,
     Object? osmApiUrl = null,
     Object? mgpApiUrl = null,
+    Object? buildId = null,
     Object? apiToken = freezed,
   }) {
     return _then(_value.copyWith(
@@ -98,6 +101,10 @@ class _$ConfigOptionsCopyWithImpl<$Res, $Val extends ConfigOptions>
           ? _value.mgpApiUrl
           : mgpApiUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      buildId: null == buildId
+          ? _value.buildId
+          : buildId // ignore: cast_nullable_to_non_nullable
+              as String,
       apiToken: freezed == apiToken
           ? _value.apiToken
           : apiToken // ignore: cast_nullable_to_non_nullable
@@ -122,6 +129,7 @@ abstract class _$$_ConfigOptionsCopyWith<$Res>
       bool httpAddNetworkFailure,
       String osmApiUrl,
       String mgpApiUrl,
+      String buildId,
       String? apiToken});
 }
 
@@ -143,6 +151,7 @@ class __$$_ConfigOptionsCopyWithImpl<$Res>
     Object? httpAddNetworkFailure = null,
     Object? osmApiUrl = null,
     Object? mgpApiUrl = null,
+    Object? buildId = null,
     Object? apiToken = freezed,
   }) {
     return _then(_$_ConfigOptions(
@@ -174,6 +183,10 @@ class __$$_ConfigOptionsCopyWithImpl<$Res>
           ? _value.mgpApiUrl
           : mgpApiUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      buildId: null == buildId
+          ? _value.buildId
+          : buildId // ignore: cast_nullable_to_non_nullable
+              as String,
       apiToken: freezed == apiToken
           ? _value.apiToken
           : apiToken // ignore: cast_nullable_to_non_nullable
@@ -194,6 +207,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       this.osmApiUrl = 'http://localhost:8080/map_tiles/osm',
       this.mgpApiUrl =
           'http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php',
+      required this.buildId,
       this.apiToken})
       : super._();
 
@@ -219,11 +233,13 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
   @JsonKey()
   final String mgpApiUrl;
   @override
+  final String buildId;
+  @override
   final String? apiToken;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ConfigOptions(isReleaseMode: $isReleaseMode, httpCacheAddDelayMs: $httpCacheAddDelayMs, clearCacheOnHeaderTap: $clearCacheOnHeaderTap, cacheDisabled: $cacheDisabled, httpAddNetworkFailure: $httpAddNetworkFailure, osmApiUrl: $osmApiUrl, mgpApiUrl: $mgpApiUrl, apiToken: $apiToken)';
+    return 'ConfigOptions(isReleaseMode: $isReleaseMode, httpCacheAddDelayMs: $httpCacheAddDelayMs, clearCacheOnHeaderTap: $clearCacheOnHeaderTap, cacheDisabled: $cacheDisabled, httpAddNetworkFailure: $httpAddNetworkFailure, osmApiUrl: $osmApiUrl, mgpApiUrl: $mgpApiUrl, buildId: $buildId, apiToken: $apiToken)';
   }
 
   @override
@@ -238,6 +254,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('httpAddNetworkFailure', httpAddNetworkFailure))
       ..add(DiagnosticsProperty('osmApiUrl', osmApiUrl))
       ..add(DiagnosticsProperty('mgpApiUrl', mgpApiUrl))
+      ..add(DiagnosticsProperty('buildId', buildId))
       ..add(DiagnosticsProperty('apiToken', apiToken));
   }
 
@@ -260,6 +277,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
                 other.osmApiUrl == osmApiUrl) &&
             (identical(other.mgpApiUrl, mgpApiUrl) ||
                 other.mgpApiUrl == mgpApiUrl) &&
+            (identical(other.buildId, buildId) || other.buildId == buildId) &&
             (identical(other.apiToken, apiToken) ||
                 other.apiToken == apiToken));
   }
@@ -274,6 +292,7 @@ class _$_ConfigOptions extends _ConfigOptions with DiagnosticableTreeMixin {
       httpAddNetworkFailure,
       osmApiUrl,
       mgpApiUrl,
+      buildId,
       apiToken);
 
   @JsonKey(ignore: true)
@@ -292,6 +311,7 @@ abstract class _ConfigOptions extends ConfigOptions {
       final bool httpAddNetworkFailure,
       final String osmApiUrl,
       final String mgpApiUrl,
+      required final String buildId,
       final String? apiToken}) = _$_ConfigOptions;
   const _ConfigOptions._() : super._();
 
@@ -309,6 +329,8 @@ abstract class _ConfigOptions extends ConfigOptions {
   String get osmApiUrl;
   @override
   String get mgpApiUrl;
+  @override
+  String get buildId;
   @override
   String? get apiToken;
   @override

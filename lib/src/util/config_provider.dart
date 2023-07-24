@@ -7,11 +7,11 @@ part 'config_provider.g.dart';
 class Config extends _$Config {
   @override
   ConfigOptions build() {
-    // super sad state of affairs but everything needs to be const
+    const buildId =
+        String.fromEnvironment('BUILD_ID', defaultValue: 'development');
 
-    const apiToken = String.fromEnvironment(
-      'API_TOKEN',
-    );
+    const apiToken = String.fromEnvironment('API_TOKEN', defaultValue: '');
+
     const osmApiUrl = String.fromEnvironment('OSM_API_URL',
         defaultValue: 'http://localhost:8080/map_tiles/osm');
 
@@ -28,14 +28,14 @@ class Config extends _$Config {
         String.fromEnvironment('DEBUG_HTTP_ADD_NETWORK_FAILURE');
 
     return ConfigOptions(
-      httpCacheAddDelayMs: int.tryParse(debugAddCacheDelay),
-      cacheDisabled: toBool(debugCacheDisabled),
-      clearCacheOnHeaderTap: toBool(debugClearCacheOnTap),
-      httpAddNetworkFailure: toBool(debugAddNetworkFailure),
-      osmApiUrl: osmApiUrl,
-      mgpApiUrl: mpgApiUrl,
-      apiToken: apiToken,
-    );
+        httpCacheAddDelayMs: int.tryParse(debugAddCacheDelay),
+        cacheDisabled: toBool(debugCacheDisabled),
+        clearCacheOnHeaderTap: toBool(debugClearCacheOnTap),
+        httpAddNetworkFailure: toBool(debugAddNetworkFailure),
+        osmApiUrl: osmApiUrl,
+        mgpApiUrl: mpgApiUrl,
+        apiToken: apiToken,
+        buildId: buildId);
   }
 
   bool toBool(dynamic val) {
