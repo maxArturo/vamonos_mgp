@@ -19,11 +19,11 @@ class AttributionLayer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => launchUrl(Uri.https('appsl.mardelplata.gob.ar',
                     'app_cuando_llega/web/cuando.php')),
-                child: Padding(
-                  padding: const EdgeInsets.all(3),
+                child: const Padding(
+                  padding: EdgeInsets.all(3),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Text(
@@ -41,11 +41,11 @@ class AttributionLayer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () =>
                     launchUrl(Uri.https('www.openstreetmap.org', '/fixthemap')),
-                child: Padding(
-                  padding: const EdgeInsets.all(3),
+                child: const Padding(
+                  padding: EdgeInsets.all(3),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: Text(

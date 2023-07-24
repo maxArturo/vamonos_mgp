@@ -46,9 +46,9 @@ class DirectedRouteCardView
             style: const TextStyle(color: Colors.red),
           );
         },
-        loading: () => Row(
+        loading: () => const Row(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             SpinKitWave(
               color: Colors.blue,
               size: 20,
