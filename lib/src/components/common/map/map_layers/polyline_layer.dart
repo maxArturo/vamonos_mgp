@@ -36,9 +36,9 @@ class PolylineLayerWidget extends ConsumerWidget {
                         color: const Color(0xCCFFFFFF),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text(
                             "Cargando rutas... un momento",
                             style: TextStyle(
