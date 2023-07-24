@@ -19,7 +19,7 @@ class HomeDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 150,
+            height: 200,
             child: Consumer(builder: (context, ref, child) {
               return GestureDetector(
                 onTap: () async {

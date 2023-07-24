@@ -10,6 +10,7 @@ echo "build no is: $BUILD_NUMBER"
 
 flutter build appbundle \
   --dart-define-from-file './env.prod.json' \
+  --dart-define="BUILD_ID=$SEMVER.$BUILD_NUMBER" \
   --build-name="$SEMVER" --build-number="$BUILD_NUMBER" \
   --obfuscate --split-debug-info=build/android/versions/"$SEMVER"+"$BUILD_NUMBER"
 
