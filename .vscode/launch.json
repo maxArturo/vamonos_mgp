@@ -21,7 +21,7 @@
       "flutterMode": "profile",
       "toolArgs": [
         "--dart-define-from-file",
-        "${workspaceFolder}/env.json"
+        "${workspaceFolder}/env.json",
       ]
     },
     {

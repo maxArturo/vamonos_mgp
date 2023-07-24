@@ -31,10 +31,10 @@ class StopMarkerPopup extends ConsumerWidget {
                 style: TextStyle(color: Colors.red),
               );
             },
-            loading: () => Flexible(
+            loading: () => const Flexible(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       SpinKitWave(
                         color: Colors.blue,
                         size: 20,

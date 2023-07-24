@@ -7,6 +7,7 @@ import 'package:vamonos_mgp/src/components/about/widget.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/routes_list.dart';
+import 'package:vamonos_mgp/src/util/config_provider.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
@@ -23,9 +24,9 @@ class HomeDrawer extends StatelessWidget {
               return GestureDetector(
                 onTap: () async {
                   if (!kReleaseMode) {
-                    final cacheClear = ref.read(cacheAdapterProvider);
+                    final cache = ref.read(cacheAdapterProvider);
                     debugPrint("[DEBUG] tapping to clear cache");
-                    cacheClear.clearCache();
+                    cache.clearCache();
                     await ref.read(persistedStateProvider.notifier).clearFile();
                   }
                 },
@@ -33,11 +34,27 @@ class HomeDrawer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                   ),
-                  child: Text(
-                    'Vamonos - MGP'.toUpperCase(),
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Theme.of(context).colorScheme.inversePrimary),
+                  child: SafeArea(
+                    bottom: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Vamonos - MGP'.toUpperCase(),
+                          style: TextStyle(
+                              fontSize: 30,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary),
+                        ),
+                        Text(
+                          ref.watch(configProvider).buildId,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color:
+                                  Theme.of(context).colorScheme.inverseSurface),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );

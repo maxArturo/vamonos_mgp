@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
-import 'package:vamonos_mgp/src/adapters/http/config.dart' as config;
+import 'package:vamonos_mgp/src/adapters/http/config.dart' as http_config;
 import 'package:vamonos_mgp/src/util/config_provider.dart';
 
 import 'http.dart';
@@ -13,10 +13,14 @@ Dio dio(DioRef ref) => Dio();
 
 @Riverpod(keepAlive: true)
 Map<String, String> defaultHeaders(DefaultHeadersRef ref) {
-  final apiToken = ref.watch(configProvider).apiToken;
+  final config = ref.watch(configProvider);
+  final apiToken = config.apiToken;
+  final buildId = config.buildId;
+
   return {
-    ...config.defaultHeaders,
-    if (apiToken != null) 'X-Auth-Token': apiToken
+    ...http_config.defaultHeaders,
+    if (apiToken != null) 'X-Auth-Token': apiToken,
+    'X-Build-Id': buildId
   };
 }
 

@@ -13,7 +13,8 @@ class ConfigOptions with _$ConfigOptions {
     @Default(false) bool httpAddNetworkFailure,
     @Default('http://localhost:8080/map_tiles/osm') String osmApiUrl,
     @Default('http://localhost:8080/providers/mgp/app_cuando_llega/webWS.php')
-        String mgpApiUrl,
+    String mgpApiUrl,
+    required String buildId,
     String? apiToken,
   }) = _ConfigOptions;
 

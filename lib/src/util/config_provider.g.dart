@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$ConfigHash() => r'552486cb2e4a1eb28f830c3d06b0cd4bb1b457bd';
+String _$ConfigHash() => r'594008564f5fd0c7ba52e9be4fa7a189a9e6da10';
 
 /// See also [Config].
 final configProvider = NotifierProvider<Config, ConfigOptions>(
