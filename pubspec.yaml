@@ -52,6 +52,7 @@ dependencies:
   google_fonts: ^4.0.3
   responsive_framework: ^0.2.0
   flutter_native_splash: ^2.2.19
+  flutter_platform_widgets: ^3.3.5
 
   # dio (HTTP), retry, logging
   dio: ^5.0.1

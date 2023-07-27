@@ -47,8 +47,8 @@ class OnboardingPageController extends State<OnboardingPage> {
 
   @override
   void initState() {
-    liquidController = LiquidController();
     super.initState();
+    liquidController = LiquidController();
   }
 
   pageChangeCallback(int currPage) {
