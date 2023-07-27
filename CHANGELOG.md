@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/maxArturo/vamonos_mgp/compare/v1.3.0...v1.3.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* release store screenshots and gov attribution ([#69](https://github.com/maxArturo/vamonos_mgp/issues/69)) ([558c0e9](https://github.com/maxArturo/vamonos_mgp/commit/558c0e9fde132213fae74e5ec1ea7c57eaf236e2))
+
 ## [1.3.0](https://github.com/maxArturo/vamonos_mgp/compare/v1.2.0...v1.3.0) (2023-07-24)
 
 
