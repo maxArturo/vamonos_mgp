@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vamonos_mgp/src/components/about/widget.dart';
 import 'package:vamonos_mgp/src/components/common/about_section.dart';
+import 'package:vamonos_mgp/src/components/common/attribution/government.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
@@ -31,6 +32,22 @@ class AboutPageView extends WidgetView<AboutPage, AboutPageController> {
             const SizedBox(
               height: 18.0,
             ),
+            AboutSection(
+                title: "*** AVISO ***",
+                child: RichText(
+                    text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: govSourceCopy,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.black),
+                    ),
+                    govSourceLink(
+                        style: Theme.of(context).textTheme.bodyMedium),
+                  ],
+                ))),
             AboutSection(
               title: "¿Cómo uso el app de nuevo?",
               child: RichText(

@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:vamonos_mgp/src/adapters/filesystem/persisted_state_provider.dart';
+import 'package:vamonos_mgp/src/components/common/attribution/government.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
@@ -18,6 +20,11 @@ class OnboardingPageView
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+        Duration.zero,
+        () => showPlatformDialog(
+            context: context, builder: (_) => const OnboardingAlert()));
+
     return Scaffold(
         body: Stack(
       children: [
@@ -170,6 +177,37 @@ class OnboardingPageWidget extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class OnboardingAlert extends StatelessWidget {
+  const OnboardingAlert({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PlatformAlertDialog(
+      title: const Text('AVISO'),
+      content: RichText(
+          text: TextSpan(
+        children: [
+          TextSpan(
+            text: govSourceCopy,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: Colors.black),
+          ),
+          govSourceLink(style: Theme.of(context).textTheme.bodyMedium),
+        ],
+      )),
+      actions: [
+        PlatformDialogAction(
+            child: PlatformText('Entendido'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+      ],
     );
   }
 }

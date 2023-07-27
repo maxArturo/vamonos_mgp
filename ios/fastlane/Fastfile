@@ -29,4 +29,14 @@ platform :ios do
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     upload_to_testflight
   end
+  lane :release do
+    # app_store_connect_api_key(
+    #   key_id: ENV['APP_STORE_CONNECT_KEY_IDENTIFIER'],
+    #   issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+    #   key_filepath: ENV['APP_STORE_CONNECT_PRIVATE_KEY_PATH'],
+    #   duration: 1200, # optional (maximum 1200)
+    #   in_house: false # optional but may be required if using match/sigh
+    # )
+    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
+  end
 end
