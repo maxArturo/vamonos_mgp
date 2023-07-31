@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/adapters/cache/cache_provider.dart';
-import 'package:vamonos_mgp/src/adapters/filesystem/persisted_state_provider.dart';
 import 'package:vamonos_mgp/src/components/about/widget.dart';
 import 'package:vamonos_mgp/src/components/home/home.dart';
 import 'package:vamonos_mgp/src/components/onboard/widget.dart';
+import 'package:vamonos_mgp/src/components/settings/widget.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/routes_list.dart';
 import 'package:vamonos_mgp/src/util/config_provider.dart';
 
@@ -21,40 +19,30 @@ class HomeDrawer extends StatelessWidget {
           SizedBox(
             height: 200,
             child: Consumer(builder: (context, ref, child) {
-              return GestureDetector(
-                onTap: () async {
-                  if (!kReleaseMode) {
-                    final cache = ref.read(cacheAdapterProvider);
-                    debugPrint("[DEBUG] tapping to clear cache");
-                    cache.clearCache();
-                    await ref.read(persistedStateProvider.notifier).clearFile();
-                  }
-                },
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: SafeArea(
-                    bottom: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          'Vamonos - MGP'.toUpperCase(),
-                          style: TextStyle(
-                              fontSize: 30,
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary),
-                        ),
-                        Text(
-                          ref.watch(configProvider).buildId,
-                          style: TextStyle(
-                              fontSize: 15,
-                              color:
-                                  Theme.of(context).colorScheme.inverseSurface),
-                        )
-                      ],
-                    ),
+              return DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Vamonos - MGP'.toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 30,
+                            color:
+                                Theme.of(context).colorScheme.inversePrimary),
+                      ),
+                      Text(
+                        ref.watch(configProvider).buildId,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color:
+                                Theme.of(context).colorScheme.inverseSurface),
+                      )
+                    ],
                   ),
                 ),
               );
@@ -90,6 +78,13 @@ class HomeDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const AboutPage()));
             },
           ),
+          ListTile(
+            title: listText('ajustes y avanzado'),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SettingsPage()));
+            },
+          )
         ],
       ),
     );

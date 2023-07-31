@@ -20,11 +20,6 @@ class OnboardingPageView
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(
-        Duration.zero,
-        () => showPlatformDialog(
-            context: context, builder: (_) => const OnboardingAlert()));
-
     return Scaffold(
         body: Stack(
       children: [

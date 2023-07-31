@@ -5,4 +5,4 @@ part 'base_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 CacheManager baseCacheManager(BaseCacheManagerRef ref) => CacheManager(
-    Config('vamonos_mgp_cache', stalePeriod: const Duration(hours: 1)));
+    Config('vamonos_mgp_cache', stalePeriod: const Duration(days: 7)));
