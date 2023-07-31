@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:liquid_swipe/Helpers/Helpers.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
 import 'package:vamonos_mgp/src/components/onboard/view.dart';
@@ -15,6 +16,7 @@ class OnboardingPage extends StatefulWidget {
 class OnboardingPageController extends State<OnboardingPage> {
   int page = 0;
   bool isLastPage = false;
+  bool shownWarning = false;
   late LiquidController liquidController;
   late UpdateType updateType;
   List<OnboardingData> pagesData = [
@@ -49,6 +51,15 @@ class OnboardingPageController extends State<OnboardingPage> {
   void initState() {
     super.initState();
     liquidController = LiquidController();
+
+    if (!shownWarning) {
+      Future.delayed(Duration.zero, () {
+        showPlatformDialog(
+            context: context, builder: (_) => const OnboardingAlert());
+        shownWarning = true;
+      });
+      shownWarning = true;
+    }
   }
 
   pageChangeCallback(int currPage) {
