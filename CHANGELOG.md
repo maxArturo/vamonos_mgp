@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/maxArturo/vamonos_mgp/compare/v1.3.1...v1.3.2) (2023-07-31)
+
+
+### Bug Fixes
+
+* rm multiple warnings, clear cache on demand ([#72](https://github.com/maxArturo/vamonos_mgp/issues/72)) ([fdffde5](https://github.com/maxArturo/vamonos_mgp/commit/fdffde516de1130dffbecbed16731dfb814e46d7))
+
 ## [1.3.1](https://github.com/maxArturo/vamonos_mgp/compare/v1.3.0...v1.3.1) (2023-07-27)
 
 
