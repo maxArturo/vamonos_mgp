@@ -124,7 +124,7 @@ class RecenterMapButton extends ConsumerWidget {
         onPressed: () => recenterLocation(),
         backgroundColor: Colors.white,
         child: Icon(
-          Icons.near_me_sharp,
+          Icons.gps_fixed_sharp,
           color: Theme.of(context).primaryColor,
         ),
       ),
