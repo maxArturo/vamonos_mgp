@@ -112,3 +112,77 @@ class ArrivalsByStopFamily
   @override
   String? get name => r'arrivalsByStopProvider';
 }
+
+String _$arrivalsByMarkerHash() => r'19e3f39304f4628ad56131474f28f8099112e99b';
+
+/// See also [arrivalsByMarker].
+class ArrivalsByMarkerProvider
+    extends AutoDisposeFutureProvider<Either<AppError, List<StopArrival>>> {
+  ArrivalsByMarkerProvider({
+    required this.marker,
+  }) : super(
+          (ref) => arrivalsByMarker(
+            ref,
+            marker: marker,
+          ),
+          from: arrivalsByMarkerProvider,
+          name: r'arrivalsByMarkerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$arrivalsByMarkerHash,
+        );
+
+  final StopMarker marker;
+
+  @override
+  bool operator ==(Object other) {
+    return other is ArrivalsByMarkerProvider && other.marker == marker;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, marker.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef ArrivalsByMarkerRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<StopArrival>>>;
+
+/// See also [arrivalsByMarker].
+final arrivalsByMarkerProvider = ArrivalsByMarkerFamily();
+
+class ArrivalsByMarkerFamily
+    extends Family<AsyncValue<Either<AppError, List<StopArrival>>>> {
+  ArrivalsByMarkerFamily();
+
+  ArrivalsByMarkerProvider call({
+    required StopMarker marker,
+  }) {
+    return ArrivalsByMarkerProvider(
+      marker: marker,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<Either<AppError, List<StopArrival>>>
+      getProviderOverride(
+    covariant ArrivalsByMarkerProvider provider,
+  ) {
+    return call(
+      marker: provider.marker,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'arrivalsByMarkerProvider';
+}

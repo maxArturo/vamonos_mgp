@@ -29,18 +29,48 @@ class _SystemHash {
   }
 }
 
-String _$stopViewPopupControllerHash() =>
-    r'c91f83bc1f2dde7d2b0c1795552ce14c08b4968c';
+String _$StopViewPopupControllerHash() =>
+    r'a007ff13419d8f61d18528b22f34d2643f67a5e1';
 
-/// See also [stopViewPopupController].
-final stopViewPopupControllerProvider = AutoDisposeProvider<PopupController>(
-  stopViewPopupController,
+/// See also [StopViewPopupController].
+final stopViewPopupControllerProvider =
+    AutoDisposeNotifierProvider<StopViewPopupController, PopupController>(
+  StopViewPopupController.new,
   name: r'stopViewPopupControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$stopViewPopupControllerHash,
+      : _$StopViewPopupControllerHash,
 );
-typedef StopViewPopupControllerRef = AutoDisposeProviderRef<PopupController>;
+typedef StopViewPopupControllerRef
+    = AutoDisposeNotifierProviderRef<PopupController>;
+
+abstract class _$StopViewPopupController
+    extends AutoDisposeNotifier<PopupController> {
+  @override
+  PopupController build();
+}
+
+String _$RouteViewPopupControllerHash() =>
+    r'aa7f82f533b1cde610f3ad7e6b447fc0a51773e2';
+
+/// See also [RouteViewPopupController].
+final routeViewPopupControllerProvider =
+    AutoDisposeNotifierProvider<RouteViewPopupController, PopupController>(
+  RouteViewPopupController.new,
+  name: r'routeViewPopupControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$RouteViewPopupControllerHash,
+);
+typedef RouteViewPopupControllerRef
+    = AutoDisposeNotifierProviderRef<PopupController>;
+
+abstract class _$RouteViewPopupController
+    extends AutoDisposeNotifier<PopupController> {
+  @override
+  PopupController build();
+}
+
 String _$stopViewPopupStateHash() =>
     r'ac821084dfee06274d283cc60fd72b25c2d5876c';
 
@@ -53,18 +83,6 @@ final stopViewPopupStateProvider = AutoDisposeProvider<PopupState>(
       : _$stopViewPopupStateHash,
 );
 typedef StopViewPopupStateRef = AutoDisposeProviderRef<PopupState>;
-String _$routeViewPopupControllerHash() =>
-    r'bbdd39c594dd5a638801d027d1f7b52f4e6e7f2e';
-
-/// See also [routeViewPopupController].
-final routeViewPopupControllerProvider = AutoDisposeProvider<PopupController>(
-  routeViewPopupController,
-  name: r'routeViewPopupControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$routeViewPopupControllerHash,
-);
-typedef RouteViewPopupControllerRef = AutoDisposeProviderRef<PopupController>;
 String _$routeViewPopupStateHash() =>
     r'e4f5c2539f4b2f3fbf287e29eb830981860b6d97';
 

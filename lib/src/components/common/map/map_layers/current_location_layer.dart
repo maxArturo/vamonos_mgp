@@ -21,7 +21,7 @@ class CurrentLocationLayer extends ConsumerWidget {
               markers: [
                 Marker(
                     rotate: true,
-                    point: LatLng(r.latitude!, r.longitude!),
+                    point: LatLng(r.latitude, r.longitude),
                     anchorPos: AnchorPos.align(AnchorAlign.center),
                     height: 40,
                     width: 40,

@@ -29,7 +29,20 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersMGPHash() => r'0cf335c8329f48b664b05a739485fd0d56cef7a4';
+String _$markersMGPStoreHash() => r'72bcd4fbbe009359fa13b625ac906f802ec0cf0c';
+
+/// See also [markersMGPStore].
+final markersMGPStoreProvider =
+    AutoDisposeFutureProvider<Either<AppError, Map<RouteStop, StopMarker>>>(
+  markersMGPStore,
+  name: r'markersMGPStoreProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$markersMGPStoreHash,
+);
+typedef MarkersMGPStoreRef = AutoDisposeFutureProviderRef<
+    Either<AppError, Map<RouteStop, StopMarker>>>;
+String _$allMarkersMGPHash() => r'0f37349a69fdec0db6882120671690ac556eac93';
 
 /// See also [allMarkersMGP].
 final allMarkersMGPProvider =
@@ -43,7 +56,7 @@ final allMarkersMGPProvider =
 typedef AllMarkersMGPRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
 String _$allMarkersByRouteMGPHash() =>
-    r'e1ff59dd5ebce170f835a1d8fcd28e336915584e';
+    r'651f3fde46f1b1ccc15de70d3be4bef44ec8a7f3';
 
 /// See also [allMarkersByRouteMGP].
 class AllMarkersByRouteMGPProvider

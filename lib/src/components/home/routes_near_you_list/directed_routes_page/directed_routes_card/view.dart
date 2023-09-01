@@ -18,12 +18,13 @@ class DirectedRouteCardView
   Widget build(BuildContext context, WidgetRef ref) {
     final arrivals = ref.watch(arrivalsByStopProvider(stop: widget.stop));
     return ListCard(
-      onPressed: () {
+      onPressed: () async {
         ref
             .read(stopViewMapControllerProvider.notifier)
             .updateMapLocation(widget.stop.location);
+
         ref
-            .watch(stopViewPopupControllerProvider)
+            .watch(stopViewPopupControllerProvider.notifier)
             .showPopupsOnlyFor([widget.stop]);
       },
       bottomWidget: arrivals.fold(

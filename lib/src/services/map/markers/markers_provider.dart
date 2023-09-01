@@ -1,42 +1,48 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/landmark/landmark_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
+import 'package:vamonos_mgp/src/services/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 part 'markers_provider.g.dart';
 
-routeStopsToMarkers(Either<AppError, Map<int, RouteStop>> routeStops) =>
-    routeStops.flatMap<List<StopMarker>>((stops) {
+/// helper function to render out map markers from route stops
+routeStopsToMarkerStore(Either<AppError, Map<int, RouteStop>> routeStops) =>
+    routeStops.flatMap<Map<RouteStop, StopMarker>>((stops) {
       try {
-        final stopMarkers = stops.entries
-            .where((el) =>
-                el.value.location.latitude != null &&
-                el.value.location.longitude != null &&
-                el.value.isStoppingPoint)
-            .map((entry) => StopMarker.makeStop(
-                routeStop: entry.value, hashCode: entry.key))
-            .toList();
+        final markerStore = Map.fromEntries(stops.entries.map((entry) =>
+            MapEntry(
+                entry.value,
+                StopMarker.makeStop(
+                    routeStop: entry.value, hashCode: entry.key))));
 
-        return Right(stopMarkers);
+        return Right(markerStore);
       } catch (e) {
         return Left(ParsingError());
       }
     });
 
 @riverpod
-Future<Either<AppError, List<StopMarker>>> allMarkersMGP(
-    AllMarkersMGPRef ref) async {
+Future<Either<AppError, Map<RouteStop, StopMarker>>> markersMGPStore(
+    MarkersMGPStoreRef ref) async {
   final routeStore = await ref.watch(stopsStoreBySourceProvider(
           provider: TransportationProvider.municipioGeneralPurreydon)
       .future);
 
-  return routeStopsToMarkers(routeStore);
+  return routeStopsToMarkerStore(routeStore);
+}
+
+@riverpod
+Future<Either<AppError, List<StopMarker>>> allMarkersMGP(
+    AllMarkersMGPRef ref) async {
+  final markerStore = await ref.watch(markersMGPStoreProvider.future);
+
+  return markerStore.map((store) => store.values.toList());
 }
 
 @riverpod
@@ -47,34 +53,25 @@ Future<Either<AppError, List<StopMarker>>> allMarkersByRouteMGP(
           route: directedRoute)
       .future);
 
-  return routeStopsToMarkers(routeStore);
+  return routeStopsToMarkerStore(routeStore);
 }
 
-Either<AppError, List<StopMarker>> filterStopsByEventBoundary(
+Either<AppError, List<StopMarker>> getVisibleMarkers(
         {required MapEventWithBounds event,
-        required Map<int, RouteStop> routeStopStore,
         required List<StopMarker> markerList}) =>
     catching(() => markerList
         .where((marker) => event.bounds.contains(marker.point))
-        .where((marker) =>
-            (routeStopStore[marker.routeStopHashCode])?.isStoppingPoint ??
-            false)
         .toList()).leftMap((e) => ParsingError(description: e.toString()));
 
 final markersWithinMapBoundsMGPProvider =
     StreamProvider.autoDispose<Either<AppError, List<StopMarker>>>(
         (AutoDisposeRef ref) async* {
   final allMarkers = await ref.watch(allMarkersMGPProvider.future);
-  final stopStore = await ref.watch(stopsStoreBySourceProvider(
-          provider: TransportationProvider.municipioGeneralPurreydon)
-      .future);
   final mapEventStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
-    yield stopStore.flatMap((store) => allMarkers.flatMap((markerList) {
-          return filterStopsByEventBoundary(
-              event: event, routeStopStore: store, markerList: markerList);
-        }));
+    allMarkers.flatMap((markerList) =>
+        getVisibleMarkers(event: event, markerList: markerList));
   }
 });
 
@@ -83,15 +80,9 @@ final routeMarkersWithinMapBoundsMGPProvider = StreamProvider.autoDispose
         (ref, directedRoute) async* {
   final allRouteMarkers =
       await ref.watch(AllMarkersByRouteMGPProvider(directedRoute).future);
-  final stopStore = await ref.watch(stopsStoreByRouteProvider(
-          provider: TransportationProvider.municipioGeneralPurreydon,
-          route: directedRoute)
-      .future);
   final mapEventStream = ref.watch(routeMapOnEndEventStreamProvider.stream);
   await for (final event in mapEventStream) {
-    yield stopStore.flatMap((store) => allRouteMarkers.flatMap((markerList) {
-          return filterStopsByEventBoundary(
-              event: event, routeStopStore: store, markerList: markerList);
-        }));
+    yield allRouteMarkers.flatMap((markerList) =>
+        getVisibleMarkers(event: event, markerList: markerList));
   }
 });
