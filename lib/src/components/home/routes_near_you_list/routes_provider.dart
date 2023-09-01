@@ -2,49 +2,58 @@ import 'dart:collection';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
-import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
+import 'package:vamonos_mgp/src/entities/route_stop.dart';
+import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
+import 'package:vamonos_mgp/src/services/map/stops_within_bounds_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
-final routeStopMapMarkersNearYouProvider =
+/// uses the map bounds to collect set of available routes, sorted by proximity
+/// to map center.
+final visibleRoutesCardProvider =
     StreamProvider.autoDispose<Either<AppError, List<RouteCardData>>>(
         (AutoDisposeStreamProviderRef ref) async* {
   final mapController = await ref.watch(stopViewMapControllerProvider.future);
 
-  final stopsWithinBoundsStream =
-      ref.watch(markersWithinMapBoundsProvider.stream);
+  final stopsWithinBoundsStream = ref.watch(stopsWithinMapBoundsProvider(
+      provider: TransportationProvider.municipioGeneralPurreydon));
 
   await for (final latestStops in stopsWithinBoundsStream) {
-    yield latestStops.map((markersList) {
-      final mapCenter = mapController.center;
-      final SplayTreeMap<String, StopMarker> closestMarkerByDirectedRoute =
+    yield latestStops.map((stopsList) {
+      final mapCenter = Coordinate(
+          latitude: mapController.center.latitude,
+          longitude: mapController.center.longitude);
+
+      final SplayTreeMap<String, RouteStop> closestStopByDirectedRoute =
           SplayTreeMap();
 
-      for (final marker in markersList) {
-        if (!closestMarkerByDirectedRoute
-            .containsKey(marker.routeStop.route.canonicalIdentifier)) {
-          closestMarkerByDirectedRoute[
-              marker.routeStop.route.canonicalIdentifier] = marker;
+      for (final stop in stopsList) {
+        final currStopRoute = stop.route;
+        if (!closestStopByDirectedRoute
+            .containsKey(currStopRoute.canonicalIdentifier)) {
+          closestStopByDirectedRoute[currStopRoute.canonicalIdentifier] = stop;
         } else {
-          final currentClosest = closestMarkerByDirectedRoute[
-              marker.routeStop.route.canonicalIdentifier]!;
-          if (_getTotalDistance(currentClosest.point, mapCenter) >
-              _getTotalDistance(marker.point, mapCenter)) {
-            closestMarkerByDirectedRoute[
-                marker.routeStop.route.canonicalIdentifier] = marker;
+          final currClosestCoordinates =
+              closestStopByDirectedRoute[currStopRoute.canonicalIdentifier]!
+                  .location;
+          if (currClosestCoordinates.distanceTo(mapCenter) >
+              stop.location.distanceTo(mapCenter)) {
+            closestStopByDirectedRoute[currStopRoute.canonicalIdentifier] =
+                stop;
           }
         }
       }
 
-      final Map<String, List<StopMarker>> result = {};
-      for (final marker in closestMarkerByDirectedRoute.values) {
-        if (!result.containsKey(marker.routeStop.route.name)) {
-          result[marker.routeStop.route.name] = [marker];
+      /// group route stops by route (as there could be several directions per
+      /// route)
+      final Map<String, List<RouteStop>> result = {};
+      for (final routeStop in closestStopByDirectedRoute.values) {
+        if (!result.containsKey(routeStop.route.name)) {
+          result[routeStop.route.name] = [routeStop];
         } else {
-          result[marker.routeStop.route.name]!.add(marker);
+          result[routeStop.route.name]!.add(routeStop);
         }
       }
 
@@ -55,9 +64,3 @@ final routeStopMapMarkersNearYouProvider =
     });
   }
 });
-
-_getTotalDistance(LatLng coordinates, LatLng other) =>
-    coordinates.latitude -
-    other.latitude +
-    coordinates.longitude -
-    other.longitude;

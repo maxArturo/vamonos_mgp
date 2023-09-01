@@ -11,7 +11,7 @@ class StopMarkerLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(markersWithinMapBoundsProvider).fold(
+    return ref.watch(markersWithinMapBoundsMGPProvider).fold(
           data: (markers) => MarkerClusterWidget(
               markers: markers,
               popupState: ref.watch(stopViewPopupStateProvider),

@@ -16,13 +16,12 @@ class DirectedRouteCardView
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final arrivals =
-        ref.watch(stopArrivalsByStopProvider(stop: widget.stop.routeStop));
+    final arrivals = ref.watch(arrivalsByStopProvider(stop: widget.stop));
     return ListCard(
       onPressed: () {
         ref
             .read(stopViewMapControllerProvider.notifier)
-            .updateMapLocation(widget.stop.routeStop.location);
+            .updateMapLocation(widget.stop.location);
         ref
             .watch(stopViewPopupControllerProvider)
             .showPopupsOnlyFor([widget.stop]);
@@ -57,7 +56,7 @@ class DirectedRouteCardView
         ),
       ),
       topRowText:
-          "${widget.stop.routeStop.route.destination} Via ${widget.stop.routeStop.route.pathName}",
+          "${widget.stop.route.destination} Via ${widget.stop.route.pathName}",
     );
   }
 }

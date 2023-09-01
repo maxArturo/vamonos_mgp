@@ -26,7 +26,5 @@ class SlidingUpDrawerView
   const SlidingUpDrawerView(super.state, {super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return RoutesNearYouList(widget.sc);
-  }
+  Widget build(BuildContext context) => RoutesNearYouList(widget.sc);
 }

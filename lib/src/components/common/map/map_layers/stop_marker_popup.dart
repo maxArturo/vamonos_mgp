@@ -14,6 +14,7 @@ class StopMarkerPopup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final routeStopStore
     final arrivals =
         ref.watch(stopArrivalsByStopProvider(stop: stop.routeStop));
     return Column(

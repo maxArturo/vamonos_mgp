@@ -1,8 +1,8 @@
-import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
+import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
 class RouteCardData {
   final String routeName;
-  final List<StopMarker> closestStopsByUniqueDirection;
+  final List<RouteStop> closestStopsByUniqueDirection;
 
   RouteCardData(
       {required this.routeName, required this.closestStopsByUniqueDirection});

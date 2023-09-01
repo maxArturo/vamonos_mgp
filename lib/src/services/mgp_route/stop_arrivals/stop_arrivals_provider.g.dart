@@ -39,32 +39,31 @@ final stopArrivalsProvider = AutoDisposeProvider<StopArrivalService>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$stopArrivalsHash,
 );
 typedef StopArrivalsRef = AutoDisposeProviderRef<StopArrivalService>;
-String _$stopArrivalsByStopHash() =>
-    r'7c795cc6659ae6d065e11a7ae6559bbcfbfb740e';
+String _$arrivalsByStopHash() => r'92d5c6487e7e341e4f8dd3a625208c98a057321a';
 
-/// See also [stopArrivalsByStop].
-class StopArrivalsByStopProvider
+/// See also [arrivalsByStop].
+class ArrivalsByStopProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<StopArrival>>> {
-  StopArrivalsByStopProvider({
+  ArrivalsByStopProvider({
     required this.stop,
   }) : super(
-          (ref) => stopArrivalsByStop(
+          (ref) => arrivalsByStop(
             ref,
             stop: stop,
           ),
-          from: stopArrivalsByStopProvider,
-          name: r'stopArrivalsByStopProvider',
+          from: arrivalsByStopProvider,
+          name: r'arrivalsByStopProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$stopArrivalsByStopHash,
+                  : _$arrivalsByStopHash,
         );
 
   final RouteStop stop;
 
   @override
   bool operator ==(Object other) {
-    return other is StopArrivalsByStopProvider && other.stop == stop;
+    return other is ArrivalsByStopProvider && other.stop == stop;
   }
 
   @override
@@ -76,20 +75,20 @@ class StopArrivalsByStopProvider
   }
 }
 
-typedef StopArrivalsByStopRef
+typedef ArrivalsByStopRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopArrival>>>;
 
-/// See also [stopArrivalsByStop].
-final stopArrivalsByStopProvider = StopArrivalsByStopFamily();
+/// See also [arrivalsByStop].
+final arrivalsByStopProvider = ArrivalsByStopFamily();
 
-class StopArrivalsByStopFamily
+class ArrivalsByStopFamily
     extends Family<AsyncValue<Either<AppError, List<StopArrival>>>> {
-  StopArrivalsByStopFamily();
+  ArrivalsByStopFamily();
 
-  StopArrivalsByStopProvider call({
+  ArrivalsByStopProvider call({
     required RouteStop stop,
   }) {
-    return StopArrivalsByStopProvider(
+    return ArrivalsByStopProvider(
       stop: stop,
     );
   }
@@ -97,7 +96,7 @@ class StopArrivalsByStopFamily
   @override
   AutoDisposeFutureProvider<Either<AppError, List<StopArrival>>>
       getProviderOverride(
-    covariant StopArrivalsByStopProvider provider,
+    covariant ArrivalsByStopProvider provider,
   ) {
     return call(
       stop: provider.stop,
@@ -111,5 +110,5 @@ class StopArrivalsByStopFamily
   List<ProviderOrFamily>? get dependencies => null;
 
   @override
-  String? get name => r'stopArrivalsByStopProvider';
+  String? get name => r'arrivalsByStopProvider';
 }

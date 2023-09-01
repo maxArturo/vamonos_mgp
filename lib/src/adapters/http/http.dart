@@ -46,6 +46,8 @@ class HttpAdapter {
     required String url,
     required String body,
     Map<String, dynamic>? extraHeaders,
+
+    /// defines max duration in the internal response cache.
     Duration? maxDuration,
   }) async {
     try {

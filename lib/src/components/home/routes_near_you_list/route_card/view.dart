@@ -16,7 +16,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                   appBar: AppBar(
                     title: FittedBox(
                       fit: BoxFit.fitWidth,
-                      child: Text(widget.routeName.toUpperCase(),
+                      child: Text(widget.data.routeName.toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ),
                     backgroundColor: Theme.of(context).primaryColorDark,
@@ -27,7 +27,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                           widget.data.closestStopsByUniqueDirection),
                 )));
       },
-      topRowText: widget.routeName,
+      topRowText: widget.data.routeName,
     );
   }
 }

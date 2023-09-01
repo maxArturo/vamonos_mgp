@@ -24,7 +24,7 @@ abstract class AppError {
   AppError(
       {required ErrorType errorType,
       required String userText,
-      this.description,
+      this.description = "An unexpected error occurred",
       StackTrace? stackTrace})
       : _errorType = errorType,
         _userText = userText,
@@ -74,7 +74,7 @@ class ParsingError extends AppError {
 class UntypedError extends AppError {
   UntypedError({super.description, super.stackTrace})
       : super(
-            errorType: ErrorType.parsingError,
+            errorType: ErrorType.untypedError,
             userText: "An unexpected error occurred");
 }
 

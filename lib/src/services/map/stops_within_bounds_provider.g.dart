@@ -30,16 +30,76 @@ class _SystemHash {
 }
 
 String _$stopsWithinMapBoundsHash() =>
-    r'4df0e019a41ff5d478a9a6ca9e93744c51e6d0ef';
+    r'44baf688da97fe5af5dd595ed17e2a41587f9e0e';
 
 /// See also [stopsWithinMapBounds].
-final stopsWithinMapBoundsProvider =
-    AutoDisposeProvider<Stream<Either<AppError, List<RouteLandMark>>>>(
-  stopsWithinMapBounds,
-  name: r'stopsWithinMapBoundsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stopsWithinMapBoundsHash,
-);
+class StopsWithinMapBoundsProvider
+    extends AutoDisposeProvider<Stream<Either<AppError, List<RouteStop>>>> {
+  StopsWithinMapBoundsProvider({
+    required this.provider,
+  }) : super(
+          (ref) => stopsWithinMapBounds(
+            ref,
+            provider: provider,
+          ),
+          from: stopsWithinMapBoundsProvider,
+          name: r'stopsWithinMapBoundsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$stopsWithinMapBoundsHash,
+        );
+
+  final TransportationProvider provider;
+
+  @override
+  bool operator ==(Object other) {
+    return other is StopsWithinMapBoundsProvider && other.provider == provider;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, provider.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
 typedef StopsWithinMapBoundsRef
-    = AutoDisposeProviderRef<Stream<Either<AppError, List<RouteLandMark>>>>;
+    = AutoDisposeProviderRef<Stream<Either<AppError, List<RouteStop>>>>;
+
+/// See also [stopsWithinMapBounds].
+final stopsWithinMapBoundsProvider = StopsWithinMapBoundsFamily();
+
+class StopsWithinMapBoundsFamily
+    extends Family<Stream<Either<AppError, List<RouteStop>>>> {
+  StopsWithinMapBoundsFamily();
+
+  StopsWithinMapBoundsProvider call({
+    required TransportationProvider provider,
+  }) {
+    return StopsWithinMapBoundsProvider(
+      provider: provider,
+    );
+  }
+
+  @override
+  AutoDisposeProvider<Stream<Either<AppError, List<RouteStop>>>>
+      getProviderOverride(
+    covariant StopsWithinMapBoundsProvider provider,
+  ) {
+    return call(
+      provider: provider.provider,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'stopsWithinMapBoundsProvider';
+}

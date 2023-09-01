@@ -7,7 +7,7 @@ import 'package:vamonos_mgp/src/components/common/toast.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
-import 'package:vamonos_mgp/src/services/map/landmark_provider.dart';
+import 'package:vamonos_mgp/src/services/map/landmark/landmark_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class PolylineLayerWidget extends ConsumerWidget {
@@ -71,7 +71,7 @@ class PolylineLayerWidget extends ConsumerWidget {
         strokeWidth: 7.0,
         points: filteredStops
             .map((stop) =>
-                LatLng(stop.location.latitude!, stop.location.longitude!))
+                LatLng(stop.location.latitude, stop.location.longitude))
             .toList());
   }
 }

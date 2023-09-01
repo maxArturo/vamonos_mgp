@@ -4,33 +4,32 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
+/// intended for rendering purposes only. Uses the `routeStopHashCode` property
+/// to map into the corresponding [RouteStop]s and their relevant info.
 class StopMarker extends Marker {
-  final RouteStop routeStop;
-  final String stopName;
-  final Color color;
+  final int routeStopHashCode;
 
   StopMarker(
-      {required this.stopName,
-      required this.routeStop,
-      this.color = Colors.black})
+      {required this.routeStopHashCode,
+      height = 30,
+      width = 30,
+      required double latitude,
+      required double longitude})
       : super(
             anchorPos: AnchorPos.align(AnchorAlign.center),
-            height: 30,
-            width: 30,
-            point: LatLng(
-                routeStop.location.latitude!, routeStop.location.longitude!),
+            height: height,
+            width: width,
+            point: LatLng(latitude, longitude),
             builder: (ctx) {
-              return FaIcon(
-                FontAwesomeIcons.mapPin,
-                size: 35,
-                color: color,
-              );
+              return const FaIcon(FontAwesomeIcons.mapPin,
+                  size: 35, color: Colors.black);
             });
 
-  StopMarker copyWith({RouteStop? routeStop, String? stopName, Color? color}) {
+  factory StopMarker.makeStop(
+      {required RouteStop routeStop, required int hashCode}) {
     return StopMarker(
-        stopName: stopName ?? this.stopName,
-        routeStop: routeStop ?? this.routeStop,
-        color: color ?? this.color);
+        routeStopHashCode: hashCode,
+        latitude: routeStop.location.latitude,
+        longitude: routeStop.location.longitude);
   }
 }

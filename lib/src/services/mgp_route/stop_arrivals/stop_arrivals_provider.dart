@@ -16,7 +16,7 @@ StopArrivalService stopArrivals(StopArrivalsRef ref) {
 }
 
 @riverpod
-Future<Either<AppError, List<StopArrival>>> stopArrivalsByStop(
-        StopArrivalsByStopRef ref,
+Future<Either<AppError, List<StopArrival>>> arrivalsByStop(
+        ArrivalsByStopRef ref,
         {required RouteStop stop}) =>
     ref.watch(stopArrivalsProvider).getAllStopArrivals(stop);

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:location/location.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 import 'package:vamonos_mgp/src/util/fn.dart';
 
@@ -10,15 +11,17 @@ class LocationAdapter {
 
   LocationAdapter() : _systemLocation = Location();
 
-  get updateStream => _systemLocation.onLocationChanged;
+  Stream<LocationData> get updateStream => _systemLocation.onLocationChanged;
 
-  Future<Either<AppError, LocationData>> getLocationData() async {
+  Future<Either<AppError, Coordinate>> getLocationData() async {
     return catching(() async {
       _serviceEnabled = await _systemLocation.serviceEnabled();
       if (!_serviceEnabled) {
         _serviceEnabled = await _systemLocation.requestService();
         if (!_serviceEnabled) {
-          throw LocationServiceError();
+          throw LocationServiceError(
+              description:
+                  "was not able to request or enable location services");
         }
       }
 
@@ -27,13 +30,16 @@ class LocationAdapter {
       if (_permissionGranted == PermissionStatus.denied) {
         _permissionGranted = await _systemLocation.requestPermission();
         if (_permissionGranted != PermissionStatus.granted) {
-          throw PermissionError;
+          throw LocationServiceError(
+              description: "Was not granted location service permissions");
         }
       }
 
-      return await _systemLocation.getLocation();
+      final rawLocation = await _systemLocation.getLocation();
+      return Coordinate(
+          latitude: rawLocation.latitude!, longitude: rawLocation.longitude!);
     })
-        .leftMap((l) => castOrFallback(l, UntypedError()))
+        .leftMap((l) => castOrFallback(l, LocationServiceError()))
         .traverseFuture((r) async => (await r));
   }
 }

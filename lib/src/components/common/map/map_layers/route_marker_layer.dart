@@ -19,7 +19,8 @@ class RouteMarkerLayer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewState = ref.watch(routeMapViewStateProvider);
     if (viewState.showAllStops) {
-      final res = ref.watch(routeMarkersWithinMapBoundsProvider(directedRoute));
+      final res =
+          ref.watch(routeMarkersWithinMapBoundsMGPProvider(directedRoute));
 
       return res.fold(
         data: (markers) => MarkerClusterWidget(

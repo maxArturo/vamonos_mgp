@@ -17,88 +17,83 @@ class RoutesSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO remove consumer, seems redundant
-    return Consumer(builder: (context, ref, child) {
-      final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-      return provider.fold(
-          data: (r) => AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child: Builder(
-                    key: ValueKey(r.isEmpty),
-                    builder: (BuildContext context) {
-                      if (r.isEmpty) {
-                        return Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(height: 30),
-                                  const Icon(
-                                    Icons.block_sharp,
-                                    size: 30,
-                                    color: Color.fromARGB(255, 194, 63, 63),
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Text(
-                                      "No hay rutas en esta area".toUpperCase(),
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                      )),
-                                  const SizedBox(height: 15),
-                                  DefaultResetMapbutton(
-                                      recenterLocation: ref
-                                          .watch(stopViewMapControllerProvider
-                                              .notifier)
-                                          .resetMapLocation)
-                                ],
-                              ),
-                              const SizedBox(width: 13),
-                            ],
-                          ),
-                        );
-                      } else {
-                        r.sort((a, b) => a.routeName.compareTo(b.routeName));
-                        return Column(
+    final provider = ref.watch(visibleRoutesCardProvider);
+    return provider.fold(
+        data: (r) => AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: Builder(
+                  key: ValueKey(r.isEmpty),
+                  builder: (BuildContext context) {
+                    if (r.isEmpty) {
+                      return Center(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Flexible(
-                              child: AutomaticAnimatedList(
-                                items: r,
-                                controller: sc,
-                                keyingFunction: (route) => Key(route.routeName),
-                                itemBuilder: (BuildContext context,
-                                    routeCardData,
-                                    Animation<double> animation) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: SizeTransition(
-                                      sizeFactor: CurvedAnimation(
-                                          parent: animation,
-                                          curve: Curves.easeInOut),
-                                      child: RouteCard(
-                                          data: routeCardData,
-                                          routeName: routeCardData.routeName),
-                                    ),
-                                  );
-                                },
-                              ),
+                            Column(
+                              children: [
+                                const SizedBox(height: 30),
+                                const Icon(
+                                  Icons.block_sharp,
+                                  size: 30,
+                                  color: Color.fromARGB(255, 194, 63, 63),
+                                ),
+                                const SizedBox(height: 30),
+                                Text("No hay rutas en esta area".toUpperCase(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    )),
+                                const SizedBox(height: 15),
+                                DefaultResetMapbutton(
+                                    recenterLocation: ref
+                                        .watch(stopViewMapControllerProvider
+                                            .notifier)
+                                        .resetMapLocation)
+                              ],
                             ),
+                            const SizedBox(width: 13),
                           ],
-                        );
-                      }
-                    }),
-              ),
-          error: (l) => Text(
-                l.userText,
-                style: const TextStyle(color: Colors.red),
-              ),
-          loading: () => Center(
-                key: UniqueKey(),
-                child: const CircularProgressIndicator(),
-              ));
-    });
+                        ),
+                      );
+                    } else {
+                      r.sort((a, b) => a.routeName.compareTo(b.routeName));
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: AutomaticAnimatedList(
+                              items: r,
+                              controller: sc,
+                              keyingFunction: (route) => Key(route.routeName),
+                              itemBuilder: (BuildContext context, routeCardData,
+                                  Animation<double> animation) {
+                                return FadeTransition(
+                                  opacity: animation,
+                                  child: SizeTransition(
+                                    sizeFactor: CurvedAnimation(
+                                        parent: animation,
+                                        curve: Curves.easeInOut),
+                                    child: RouteCard(
+                                      data: routeCardData,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  }),
+            ),
+        error: (l) => Text(
+              l.userText,
+              style: const TextStyle(color: Colors.red),
+            ),
+        loading: () => Center(
+              key: UniqueKey(),
+              child: const CircularProgressIndicator(),
+            ));
   }
 }
 
@@ -108,8 +103,7 @@ class RoutesNearYouListView
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO revisit nested consumer if performance is impacted
-    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
+    final provider = ref.watch(visibleRoutesCardProvider);
     return AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         child: provider.fold(

@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/components/common/map/config.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
 
@@ -43,10 +44,10 @@ mixin MapFunctionality on AsyncNotifier<MapController> {
       .read(updatedLocationServiceProvider)
       .whenData((value) => value.map((el) => updateMapLocation(el)));
 
-  void updateMapLocation(LocationData location) {
+  void updateMapLocation(Coordinate location) {
     state.whenData((controller) {
       controller.moveAndRotate(
-          LatLng(location.latitude!, location.longitude!), 17, 0);
+          LatLng(location.latitude, location.longitude), 17, 0);
       controller.mapEventSink.add(MapEventInitialized(
           bounds: controller.bounds!,
           zoom: controller.zoom,

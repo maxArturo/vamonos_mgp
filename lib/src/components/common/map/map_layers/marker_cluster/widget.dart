@@ -17,7 +17,7 @@ class MarkerClusterWidget extends StatelessWidget {
       required this.markers,
       required this.popupController,
       required this.popupState,
-      this.maxClusterRadius = 50});
+      this.maxClusterRadius = 5});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,10 @@ class MarkerClusterWidget extends StatelessWidget {
             spiderfy: Duration(milliseconds: 500),
             zoom: Duration(milliseconds: 500)),
         maxClusterRadius: maxClusterRadius,
-        size: const Size(40, 40),
+        size: const Size(20, 20),
         anchor: AnchorPos.align(AnchorAlign.center),
         fitBoundsOptions: const FitBoundsOptions(
-          padding: EdgeInsets.all(50),
+          padding: EdgeInsets.all(5),
           maxZoom: 15,
         ),
         markers: markers,

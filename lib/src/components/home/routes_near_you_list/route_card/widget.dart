@@ -4,9 +4,8 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/
 
 class RouteCard extends StatefulWidget {
   final RouteCardData data;
-  final String routeName;
 
-  const RouteCard({required this.routeName, required this.data, super.key});
+  const RouteCard({required this.data, super.key});
 
   @override
   State<RouteCard> createState() => RouteCardController();

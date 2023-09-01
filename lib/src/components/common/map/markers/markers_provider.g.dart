@@ -29,46 +29,45 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersHash() => r'8b9bf8af82f7ba2e0d41fed1171c6f7e6a95da99';
+String _$allMarkersMGPHash() => r'0cf335c8329f48b664b05a739485fd0d56cef7a4';
 
-/// TODO rename to allStopMarkers since it only returns route stops, not
-/// landmarks on a route
-///
-/// Copied from [allMarkers].
-final allMarkersProvider =
+/// See also [allMarkersMGP].
+final allMarkersMGPProvider =
     AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>(
-  allMarkers,
-  name: r'allMarkersProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$allMarkersHash,
+  allMarkersMGP,
+  name: r'allMarkersMGPProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$allMarkersMGPHash,
 );
-typedef AllMarkersRef
+typedef AllMarkersMGPRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
-String _$allMarkersByRouteHash() => r'fe0b3e85331836f42d46a7ad5e99f1efdeee7569';
+String _$allMarkersByRouteMGPHash() =>
+    r'e1ff59dd5ebce170f835a1d8fcd28e336915584e';
 
-/// See also [allMarkersByRoute].
-class AllMarkersByRouteProvider
+/// See also [allMarkersByRouteMGP].
+class AllMarkersByRouteMGPProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>> {
-  AllMarkersByRouteProvider(
+  AllMarkersByRouteMGPProvider(
     this.directedRoute,
   ) : super(
-          (ref) => allMarkersByRoute(
+          (ref) => allMarkersByRouteMGP(
             ref,
             directedRoute,
           ),
-          from: allMarkersByRouteProvider,
-          name: r'allMarkersByRouteProvider',
+          from: allMarkersByRouteMGPProvider,
+          name: r'allMarkersByRouteMGPProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$allMarkersByRouteHash,
+                  : _$allMarkersByRouteMGPHash,
         );
 
   final DirectedRoute directedRoute;
 
   @override
   bool operator ==(Object other) {
-    return other is AllMarkersByRouteProvider &&
+    return other is AllMarkersByRouteMGPProvider &&
         other.directedRoute == directedRoute;
   }
 
@@ -81,20 +80,20 @@ class AllMarkersByRouteProvider
   }
 }
 
-typedef AllMarkersByRouteRef
+typedef AllMarkersByRouteMGPRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
 
-/// See also [allMarkersByRoute].
-final allMarkersByRouteProvider = AllMarkersByRouteFamily();
+/// See also [allMarkersByRouteMGP].
+final allMarkersByRouteMGPProvider = AllMarkersByRouteMGPFamily();
 
-class AllMarkersByRouteFamily
+class AllMarkersByRouteMGPFamily
     extends Family<AsyncValue<Either<AppError, List<StopMarker>>>> {
-  AllMarkersByRouteFamily();
+  AllMarkersByRouteMGPFamily();
 
-  AllMarkersByRouteProvider call(
+  AllMarkersByRouteMGPProvider call(
     DirectedRoute directedRoute,
   ) {
-    return AllMarkersByRouteProvider(
+    return AllMarkersByRouteMGPProvider(
       directedRoute,
     );
   }
@@ -102,7 +101,7 @@ class AllMarkersByRouteFamily
   @override
   AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>
       getProviderOverride(
-    covariant AllMarkersByRouteProvider provider,
+    covariant AllMarkersByRouteMGPProvider provider,
   ) {
     return call(
       provider.directedRoute,
@@ -116,5 +115,5 @@ class AllMarkersByRouteFamily
   List<ProviderOrFamily>? get dependencies => null;
 
   @override
-  String? get name => r'allMarkersByRouteProvider';
+  String? get name => r'allMarkersByRouteMGPProvider';
 }

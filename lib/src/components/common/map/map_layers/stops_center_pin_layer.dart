@@ -11,7 +11,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(allMarkersProvider).fold(
+    return ref.watch(allMarkersMGPProvider).fold(
           data: (_) => const Center(
               child: FaIcon(
             FontAwesomeIcons.circleDot,
