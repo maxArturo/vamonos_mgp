@@ -57,11 +57,11 @@ Future<Either<AppError, List<StopMarker>>> allMarkersByRouteMGP(
 }
 
 Either<AppError, List<StopMarker>> getVisibleMarkers(
-        {required MapEventWithBounds event,
-        required List<StopMarker> markerList}) =>
-    catching(() => markerList
-        .where((marker) => event.bounds.contains(marker.point))
-        .toList()).leftMap((e) => ParsingError(description: e.toString()));
+    {required MapEventWithBounds event, required List<StopMarker> markerList}) {
+  return catching(() => markerList
+      .where((marker) => event.bounds.contains(marker.point))
+      .toList()).leftMap((e) => ParsingError(description: e.toString()));
+}
 
 final markersWithinMapBoundsMGPProvider =
     StreamProvider.autoDispose<Either<AppError, List<StopMarker>>>(
@@ -70,8 +70,9 @@ final markersWithinMapBoundsMGPProvider =
   final mapEventStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
-    allMarkers.flatMap((markerList) =>
-        getVisibleMarkers(event: event, markerList: markerList));
+    allMarkers.flatMap((markerList) {
+      return getVisibleMarkers(event: event, markerList: markerList);
+    });
   }
 });
 
