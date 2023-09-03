@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/config.dart';
@@ -37,10 +37,9 @@ class RouteStopService {
                         destination: stop.destination,
                         pathName: stop.pathName,
                         route: route),
-                    location: LocationData.fromMap({
-                      'latitude': stop.latitude,
-                      'longitude': stop.longitude
-                    }),
+                    location: Coordinate(
+                        latitude: stop.latitude!.toDouble(),
+                        longitude: stop.longitude!.toDouble()),
                     description: stop.description,
                     id: stop.stopCode,
                     name: stop.stopIdentifier);

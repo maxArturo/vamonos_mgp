@@ -23,8 +23,6 @@ Future<Either<AppError, List<StopMarker>>> allMarkers(AllMarkersRef ref) async {
     try {
       final stopMarkers = stops
           .where((el) =>
-              el.location.latitude != null &&
-              el.location.longitude != null &&
               el.isStoppingPoint)
           .map((routeStop) =>
               StopMarker(stopName: routeStop.description, routeStop: routeStop))
@@ -49,8 +47,6 @@ Future<Either<AppError, List<StopMarker>>> allMarkersByRoute(
     try {
       final stopMarkers = stops
           .where((el) =>
-              el.location.latitude != null &&
-              el.location.longitude != null &&
               el.isStoppingPoint)
           .map((routeStop) =>
               StopMarker(stopName: routeStop.description, routeStop: routeStop))
@@ -75,8 +71,8 @@ final markersWithinMapBoundsProvider =
       return catching(() {
         final result = markerList
             .where((marker) => event.bounds.contains(LatLng(
-                marker.routeStop.location.latitude!,
-                marker.routeStop.location.longitude!)))
+                marker.routeStop.location.latitude,
+                marker.routeStop.location.longitude)))
             .where((marker) => marker.routeStop.isStoppingPoint)
             .toList();
 
@@ -98,8 +94,8 @@ final routeMarkersWithinMapBoundsProvider = StreamProvider.autoDispose
       return catching(() {
         final result = markerList
             .where((marker) => event.bounds.contains(LatLng(
-                marker.routeStop.location.latitude!,
-                marker.routeStop.location.longitude!)))
+                marker.routeStop.location.latitude,
+                marker.routeStop.location.longitude)))
             .where((marker) => marker.routeStop.isStoppingPoint)
             .where((marker) =>
                 marker.routeStop.route.canonicalIdentifier ==

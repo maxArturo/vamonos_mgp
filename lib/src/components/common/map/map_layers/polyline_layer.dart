@@ -71,7 +71,7 @@ class PolylineLayerWidget extends ConsumerWidget {
         strokeWidth: 7.0,
         points: filteredStops
             .map((stop) =>
-                LatLng(stop.location.latitude!, stop.location.longitude!))
+                LatLng(stop.location.latitude, stop.location.longitude))
             .toList());
   }
 }
