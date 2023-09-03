@@ -1,7 +1,7 @@
-import 'package:location/location.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
 
 class LandMark {
-  final LocationData location;
+  final Coordinate location;
 
   LandMark({required this.location});
 }

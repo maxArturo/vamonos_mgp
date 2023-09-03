@@ -18,7 +18,7 @@ class StopMarker extends Marker {
             height: 30,
             width: 30,
             point: LatLng(
-                routeStop.location.latitude!, routeStop.location.longitude!),
+                routeStop.location.latitude, routeStop.location.longitude),
             builder: (ctx) {
               return FaIcon(
                 FontAwesomeIcons.mapPin,

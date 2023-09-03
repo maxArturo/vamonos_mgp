@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:location/location.dart';
 import 'package:vamonos_mgp/src/adapters/http/http.dart';
+import 'package:vamonos_mgp/src/entities/coordinates.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/config.dart';
@@ -36,8 +36,9 @@ class RouteLandMarks {
                     pathName: r.pathName,
                     route: route),
                 isStoppingPoint: r.isCrossingPoint,
-                location: LocationData.fromMap(
-                    {'latitude': r.latitude, 'longitude': r.longitude})))
+                location: Coordinate(
+                    latitude: r.latitude!.toDouble(),
+                    longitude: r.longitude!.toDouble())))
             .toList());
       } catch (e) {
         return Left(ParsingError(description: e.toString()));
