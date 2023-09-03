@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
@@ -23,7 +24,7 @@ routeStopsToMarkerStore(Either<AppError, Map<int, RouteStop>> routeStops) =>
 
         return Right(markerStore);
       } catch (e) {
-        return Left(ParsingError());
+        return Left(ParsingError(description: e.toString()));
       }
     });
 
@@ -70,8 +71,11 @@ final markersWithinMapBoundsMGPProvider =
   final mapEventStream = ref.watch(stopMapOnEndEventStreamProvider.stream);
 
   await for (final event in mapEventStream) {
-    allMarkers.flatMap((markerList) {
-      return getVisibleMarkers(event: event, markerList: markerList);
+    yield allMarkers.flatMap((markerList) {
+      final visibleMarkers =
+          getVisibleMarkers(event: event, markerList: markerList);
+      debugPrint("running from markerswithinmapbounds for markers");
+      return visibleMarkers;
     });
   }
 });

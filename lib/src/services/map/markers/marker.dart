@@ -11,8 +11,8 @@ class StopMarker extends Marker {
 
   StopMarker(
       {required this.routeStopHashCode,
-      height = 30,
-      width = 30,
+      double height = 30.0,
+      double width = 30.0,
       required double latitude,
       required double longitude})
       : super(

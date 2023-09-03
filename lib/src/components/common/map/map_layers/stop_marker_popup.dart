@@ -50,65 +50,118 @@ class StopMarkerPopup extends ConsumerWidget {
                   )
                 ]),
         if (ref.watch(mapViewProvider) == MapBrowserView.stopView)
-          StopToRouteViewWidget(
-            marker: marker,
-          )
+          Consumer(
+              builder: ((parentContext, ref, child) => ref
+                  .watch(findRouteStopByMarkerMGPProvider(marker))
+                  .fold(
+                    data: (routeStop) => Flexible(
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.of(parentContext).push(
+                              MaterialPageRoute(
+                                  maintainState: false,
+                                  builder: (context) => Scaffold(
+                                      appBar: AppBar(
+                                        leading: Builder(
+                                          builder: (BuildContext context) {
+                                            return IconButton(
+                                              icon: const Icon(
+                                                  Icons.arrow_back_sharp),
+                                              onPressed: () {
+                                                // TODO push context here
+                                                // or straight up navigate
+                                                ref
+                                                    .read(mapViewProvider
+                                                        .notifier)
+                                                    .setStopView();
+
+                                                Navigator.pop(parentContext);
+                                              },
+                                              tooltip: MaterialLocalizations.of(
+                                                      context)
+                                                  .openAppDrawerTooltip,
+                                            );
+                                          },
+                                        ),
+                                        title: FittedBox(
+                                          fit: BoxFit.fitWidth,
+                                          child: Text(
+                                              '${routeStop.route.destination} Por ${routeStop.route.pathName}'
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                        backgroundColor:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                      body: RouteMap(
+                                        directedRoute: routeStop.route,
+                                        initialLocation: routeStop.location,
+                                        selectedMarker: marker,
+                                      ))),
+                            );
+                          },
+                          child: const Text("Ver ruta")),
+                    ),
+                    loading: () => const SizedBox.shrink(), // empty widget
+                    error: (_) => const SizedBox.shrink(), // empty widget
+                  )))
       ],
     );
   }
 }
 
-class StopToRouteViewWidget extends ConsumerWidget {
-  final StopMarker marker;
-  const StopToRouteViewWidget({super.key, required this.marker});
+// class StopToRouteViewWidget extends ConsumerWidget {
+//   final StopMarker marker;
+//   const StopToRouteViewWidget({super.key, required this.marker});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final routeStore = ref.watch(findRouteStopByMarkerMGPProvider(marker));
-    return routeStore.fold(
-      data: (routeStop) => Flexible(
-        child: TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                    maintainState: false,
-                    builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          leading: Builder(
-                            builder: (BuildContext context) {
-                              return IconButton(
-                                icon: const Icon(Icons.arrow_back_sharp),
-                                onPressed: () {
-                                  ref
-                                      .read(mapViewProvider.notifier)
-                                      .setStopView();
-                                  Navigator.pop(context);
-                                },
-                                tooltip: MaterialLocalizations.of(context)
-                                    .openAppDrawerTooltip,
-                              );
-                            },
-                          ),
-                          title: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                                '${routeStop.route.destination} Por ${routeStop.route.pathName}'
-                                    .toUpperCase(),
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                          backgroundColor: Theme.of(context).primaryColorDark,
-                        ),
-                        body: RouteMap(
-                          directedRoute: routeStop.route,
-                          initialLocation: routeStop.location,
-                          selectedMarker: marker,
-                        ))),
-              );
-            },
-            child: const Text("Ver ruta")),
-      ),
-      loading: () => const SizedBox.shrink(), // empty widget
-      error: (_) => const SizedBox.shrink(), // empty widget
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final routeStore = ref.watch(findRouteStopByMarkerMGPProvider(marker));
+//     return routeStore.fold(
+//       data: (routeStop) => Flexible(
+//         child: TextButton(
+//             onPressed: () {
+//               Navigator.of(context).push(
+//                 MaterialPageRoute(
+//                     maintainState: false,
+//                     builder: (context) => Scaffold(
+//                         appBar: AppBar(
+//                           leading: Builder(
+//                             builder: (BuildContext context) {
+//                               return IconButton(
+//                                 icon: const Icon(Icons.arrow_back_sharp),
+//                                 onPressed: () {
+//                                   ref
+//                                       .read(mapViewProvider.notifier)
+//                                       .setStopView();
+//                                   Navigator.pop(context);
+//                                 },
+//                                 tooltip: MaterialLocalizations.of(context)
+//                                     .openAppDrawerTooltip,
+//                               );
+//                             },
+//                           ),
+//                           title: FittedBox(
+//                             fit: BoxFit.fitWidth,
+//                             child: Text(
+//                                 '${routeStop.route.destination} Por ${routeStop.route.pathName}'
+//                                     .toUpperCase(),
+//                                 style: const TextStyle(color: Colors.white)),
+//                           ),
+//                           backgroundColor: Theme.of(context).primaryColorDark,
+//                         ),
+//                         body: RouteMap(
+//                           directedRoute: routeStop.route,
+//                           initialLocation: routeStop.location,
+//                           selectedMarker: marker,
+//                         ))),
+//               );
+//             },
+//             child: const Text("Ver ruta")),
+//       ),
+//       loading: () => const SizedBox.shrink(), // empty widget
+//       error: (_) => const SizedBox.shrink(), // empty widget
+//     );
+//   }
+// }
