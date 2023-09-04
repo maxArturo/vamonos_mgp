@@ -7,6 +7,7 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/current_locatio
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stops_center_pin_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_layers/zoom_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_overlay/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
 import 'package:vamonos_mgp/src/components/common/map/stop_view_map/widget.dart';
@@ -14,6 +15,7 @@ import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/entities/coordinates.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_view_provider.dart';
+import 'package:vamonos_mgp/src/util/config_provider.dart';
 
 class StopMapView extends ConsumerWidgetView<StopMap, StopMapController> {
   final Coordinate initialLocation;
@@ -47,12 +49,16 @@ class StopMapView extends ConsumerWidgetView<StopMap, StopMapController> {
               center: mapCenter,
               zoom: defaultZoom,
               maxZoom: 18,
-              minZoom: 16.5,
+              minZoom: 12,
               onTap: (tapPosition, point) =>
                   ref.read(stopViewPopupControllerProvider).hideAllPopups()),
-          nonRotatedChildren: const [
-            StopsCenterPinLayer(),
-            AttributionLayer(),
+          nonRotatedChildren: [
+            const StopsCenterPinLayer(),
+            const AttributionLayer(),
+            if (!ref.watch(configProvider).isReleaseMode)
+              Builder(
+                  builder: (context) => ZoomGaugeLayer(
+                      currZoom: FlutterMapState.maybeOf(context)?.zoom)),
           ],
           children: const [
             TileLayerWidget(),
