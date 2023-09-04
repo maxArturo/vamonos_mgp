@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vamonos_mgp/src/adapters/location/location.dart';
-import 'package:vamonos_mgp/src/entities/coordinates.dart';
+import 'package:vamonos_mgp/src/entities/coordinate.dart';
 
 final locationAdapterProvider =
     Provider<LocationAdapter>((ref) => LocationAdapter());

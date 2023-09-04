@@ -1,4 +1,4 @@
-import 'package:vamonos_mgp/src/entities/coordinates.dart';
+import 'package:vamonos_mgp/src/entities/coordinate.dart';
 
 class LandMark {
   final Coordinate location;

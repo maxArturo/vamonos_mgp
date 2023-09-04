@@ -7,7 +7,8 @@ class ZoomGaugeLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-        alignment: Alignment.topLeft, child: Text(currZoom.toString()));
+    return SafeArea(
+        child: Align(
+            alignment: Alignment.topLeft, child: Text(currZoom.toString())));
   }
 }

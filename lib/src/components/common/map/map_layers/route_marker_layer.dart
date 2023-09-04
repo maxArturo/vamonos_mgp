@@ -22,6 +22,7 @@ class RouteMarkerLayer extends ConsumerWidget {
       final res = ref.watch(routeMarkersWithinMapBoundsProvider(directedRoute));
 
       return res.fold(
+        skipLoadingOnReload: true,
         data: (markers) => MarkerClusterWidget(
             maxClusterRadius: 35,
             markers: markers,

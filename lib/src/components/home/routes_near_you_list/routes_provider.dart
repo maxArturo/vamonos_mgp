@@ -10,50 +10,47 @@ import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 
 final routeStopMapMarkersNearYouProvider =
-    StreamProvider.autoDispose<Either<AppError, List<RouteCardData>>>(
-        (AutoDisposeStreamProviderRef ref) async* {
+    FutureProvider.autoDispose<Either<AppError, List<RouteCardData>>>(
+        (ref) async {
   final mapController = await ref.watch(stopViewMapControllerProvider.future);
 
-  final stopsWithinBoundsStream =
-      ref.watch(markersWithinMapBoundsProvider.stream);
+  final latestStops = await ref.watch(markersWithinMapBoundsProvider.future);
 
-  await for (final latestStops in stopsWithinBoundsStream) {
-    yield latestStops.map((markersList) {
-      final mapCenter = mapController.center;
-      final SplayTreeMap<String, StopMarker> closestMarkerByDirectedRoute =
-          SplayTreeMap();
+  return latestStops.map((markersList) {
+    final mapCenter = mapController.center;
+    final SplayTreeMap<String, StopMarker> closestMarkerByDirectedRoute =
+        SplayTreeMap();
 
-      for (final marker in markersList) {
-        if (!closestMarkerByDirectedRoute
-            .containsKey(marker.routeStop.route.canonicalIdentifier)) {
+    for (final marker in markersList) {
+      if (!closestMarkerByDirectedRoute
+          .containsKey(marker.routeStop.route.canonicalIdentifier)) {
+        closestMarkerByDirectedRoute[
+            marker.routeStop.route.canonicalIdentifier] = marker;
+      } else {
+        final currentClosest = closestMarkerByDirectedRoute[
+            marker.routeStop.route.canonicalIdentifier]!;
+        if (_getTotalDistance(currentClosest.point, mapCenter) >
+            _getTotalDistance(marker.point, mapCenter)) {
           closestMarkerByDirectedRoute[
               marker.routeStop.route.canonicalIdentifier] = marker;
-        } else {
-          final currentClosest = closestMarkerByDirectedRoute[
-              marker.routeStop.route.canonicalIdentifier]!;
-          if (_getTotalDistance(currentClosest.point, mapCenter) >
-              _getTotalDistance(marker.point, mapCenter)) {
-            closestMarkerByDirectedRoute[
-                marker.routeStop.route.canonicalIdentifier] = marker;
-          }
         }
       }
+    }
 
-      final Map<String, List<StopMarker>> result = {};
-      for (final marker in closestMarkerByDirectedRoute.values) {
-        if (!result.containsKey(marker.routeStop.route.name)) {
-          result[marker.routeStop.route.name] = [marker];
-        } else {
-          result[marker.routeStop.route.name]!.add(marker);
-        }
+    final Map<String, List<StopMarker>> result = {};
+    for (final marker in closestMarkerByDirectedRoute.values) {
+      if (!result.containsKey(marker.routeStop.route.name)) {
+        result[marker.routeStop.route.name] = [marker];
+      } else {
+        result[marker.routeStop.route.name]!.add(marker);
       }
+    }
 
-      return result.entries
-          .map((e) => RouteCardData(
-              routeName: e.key, closestStopsByUniqueDirection: e.value))
-          .toList();
-    });
-  }
+    return result.entries
+        .map((e) => RouteCardData(
+            routeName: e.key, closestStopsByUniqueDirection: e.value))
+        .toList();
+  });
 });
 
 _getTotalDistance(LatLng coordinates, LatLng other) =>

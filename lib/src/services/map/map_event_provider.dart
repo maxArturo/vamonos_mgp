@@ -74,17 +74,10 @@ AutoDisposeStreamProvider<MapEventWithBounds> createMapStreamProvider(
     yield MapEventInitialized(
         bounds: mc.bounds!, zoom: mc.zoom, center: mc.center);
 
-    yield* mc.mapEventStream.map((event) {
+    final streamSplitter =
+        StreamSplitter.splitFrom(mc.mapEventStream.map((event) {
       return MapEventWrapped(bounds: mc.bounds!, originalEvent: event);
-    });
-  });
-}
-
-AutoDisposeStreamProvider<MapEventWithBounds> createOnEndMapStreamProvider(
-    MapBrowserView view) {
-  return StreamProvider.autoDispose((AutoDisposeStreamProviderRef ref) {
-    final stream = ref.watch(createMapStreamProvider(view).stream);
-    final streamSplitter = StreamSplitter.splitFrom(stream, 2);
+    }), 2);
 
     final debouncedStream = streamSplitter[0]
         .where((event) =>
@@ -106,12 +99,12 @@ AutoDisposeStreamProvider<MapEventWithBounds> createOnEndMapStreamProvider(
       },
     );
 
-    return StreamGroup.merge([debouncedStream, appEventsStream]);
+    yield* StreamGroup.merge([debouncedStream, appEventsStream]);
   });
 }
 
 final routeMapOnEndEventStreamProvider =
-    createOnEndMapStreamProvider(MapBrowserView.routeView);
+    createMapStreamProvider(MapBrowserView.routeView);
 
 final stopMapOnEndEventStreamProvider =
-    createOnEndMapStreamProvider(MapBrowserView.stopView);
+    createMapStreamProvider(MapBrowserView.stopView);

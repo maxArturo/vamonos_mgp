@@ -19,7 +19,7 @@ class PolylineLayerWidget extends ConsumerWidget {
     return ref
         .watch(allLandmarksByRouteProvider(
             route: directedRoute,
-            provider: TransportationProvider.municipioGeneralPurreydon))
+            transProvider: TransportationProvider.municipioGeneralPurreydon))
         .fold(
             data: (routeStops) {
               final polyLine = _toPolyLine(routeStops, directedRoute);

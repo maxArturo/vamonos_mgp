@@ -6,7 +6,23 @@ part of 'markers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$allMarkersHash() => r'6f410e6196eda2b690d81754a4a3d58391d680ff';
+
+/// See also [allMarkers].
+@ProviderFor(allMarkers)
+final allMarkersProvider =
+    AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>.internal(
+  allMarkers,
+  name: r'allMarkersProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$allMarkersHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AllMarkersRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
+String _$allMarkersByRouteHash() => r'4819d4aca16cca6266ae1df37c04100356b7e7cc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,31 +45,58 @@ class _SystemHash {
   }
 }
 
-String _$allMarkersHash() => r'8b9bf8af82f7ba2e0d41fed1171c6f7e6a95da99';
+/// See also [allMarkersByRoute].
+@ProviderFor(allMarkersByRoute)
+const allMarkersByRouteProvider = AllMarkersByRouteFamily();
 
-/// TODO rename to allStopMarkers since it only returns route stops, not
-/// landmarks on a route
-///
-/// Copied from [allMarkers].
-final allMarkersProvider =
-    AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>(
-  allMarkers,
-  name: r'allMarkersProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$allMarkersHash,
-);
-typedef AllMarkersRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
-String _$allMarkersByRouteHash() => r'fe0b3e85331836f42d46a7ad5e99f1efdeee7569';
+/// See also [allMarkersByRoute].
+class AllMarkersByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<StopMarker>>>> {
+  /// See also [allMarkersByRoute].
+  const AllMarkersByRouteFamily();
+
+  /// See also [allMarkersByRoute].
+  AllMarkersByRouteProvider call(
+    DirectedRoute directedRoute,
+  ) {
+    return AllMarkersByRouteProvider(
+      directedRoute,
+    );
+  }
+
+  @override
+  AllMarkersByRouteProvider getProviderOverride(
+    covariant AllMarkersByRouteProvider provider,
+  ) {
+    return call(
+      provider.directedRoute,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'allMarkersByRouteProvider';
+}
 
 /// See also [allMarkersByRoute].
 class AllMarkersByRouteProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>> {
+  /// See also [allMarkersByRoute].
   AllMarkersByRouteProvider(
-    this.directedRoute,
-  ) : super(
+    DirectedRoute directedRoute,
+  ) : this._internal(
           (ref) => allMarkersByRoute(
-            ref,
+            ref as AllMarkersByRouteRef,
             directedRoute,
           ),
           from: allMarkersByRouteProvider,
@@ -62,9 +105,49 @@ class AllMarkersByRouteProvider
               const bool.fromEnvironment('dart.vm.product')
                   ? null
                   : _$allMarkersByRouteHash,
+          dependencies: AllMarkersByRouteFamily._dependencies,
+          allTransitiveDependencies:
+              AllMarkersByRouteFamily._allTransitiveDependencies,
+          directedRoute: directedRoute,
         );
 
+  AllMarkersByRouteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.directedRoute,
+  }) : super.internal();
+
   final DirectedRoute directedRoute;
+
+  @override
+  Override overrideWith(
+    FutureOr<Either<AppError, List<StopMarker>>> Function(
+            AllMarkersByRouteRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllMarkersByRouteProvider._internal(
+        (ref) => create(ref as AllMarkersByRouteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        directedRoute: directedRoute,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Either<AppError, List<StopMarker>>>
+      createElement() {
+    return _AllMarkersByRouteProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -81,40 +164,20 @@ class AllMarkersByRouteProvider
   }
 }
 
-typedef AllMarkersByRouteRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
-
-/// See also [allMarkersByRoute].
-final allMarkersByRouteProvider = AllMarkersByRouteFamily();
-
-class AllMarkersByRouteFamily
-    extends Family<AsyncValue<Either<AppError, List<StopMarker>>>> {
-  AllMarkersByRouteFamily();
-
-  AllMarkersByRouteProvider call(
-    DirectedRoute directedRoute,
-  ) {
-    return AllMarkersByRouteProvider(
-      directedRoute,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<Either<AppError, List<StopMarker>>>
-      getProviderOverride(
-    covariant AllMarkersByRouteProvider provider,
-  ) {
-    return call(
-      provider.directedRoute,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'allMarkersByRouteProvider';
+mixin AllMarkersByRouteRef
+    on AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>> {
+  /// The parameter `directedRoute` of this provider.
+  DirectedRoute get directedRoute;
 }
+
+class _AllMarkersByRouteProviderElement
+    extends AutoDisposeFutureProviderElement<Either<AppError, List<StopMarker>>>
+    with AllMarkersByRouteRef {
+  _AllMarkersByRouteProviderElement(super.provider);
+
+  @override
+  DirectedRoute get directedRoute =>
+      (origin as AllMarkersByRouteProvider).directedRoute;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
