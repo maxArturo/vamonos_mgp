@@ -131,11 +131,10 @@ class __$$_RouteStopsCopyWithImpl<$Res>
 class _$_RouteStops with DiagnosticableTreeMixin implements _RouteStops {
   const _$_RouteStops(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required this.statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required this.statusMessage,
+      required this.statusCode,
+      @JsonKey(name: 'MensajeEstado') required this.statusMessage,
       @JsonKey(name: 'paradas')
-          required final Map<String, List<RouteStopData>> stops})
+      required final Map<String, List<RouteStopData>> stops})
       : _stops = stops;
 
   factory _$_RouteStops.fromJson(Map<String, dynamic> json) =>
@@ -204,13 +203,11 @@ class _$_RouteStops with DiagnosticableTreeMixin implements _RouteStops {
 
 abstract class _RouteStops implements RouteStops {
   const factory _RouteStops(
-          {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-              required final String statusCode,
-          @JsonKey(name: 'MensajeEstado')
-              required final String statusMessage,
-          @JsonKey(name: 'paradas')
-              required final Map<String, List<RouteStopData>> stops}) =
-      _$_RouteStops;
+      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
+      required final String statusCode,
+      @JsonKey(name: 'MensajeEstado') required final String statusMessage,
+      @JsonKey(name: 'paradas')
+      required final Map<String, List<RouteStopData>> stops}) = _$_RouteStops;
 
   factory _RouteStops.fromJson(Map<String, dynamic> json) =
       _$_RouteStops.fromJson;
@@ -264,20 +261,15 @@ abstract class $RouteStopDataCopyWith<$Res> {
       _$RouteStopDataCopyWithImpl<$Res, RouteStopData>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'Codigo', fromJson: _toString)
-          String stopCode,
+      {@JsonKey(name: 'Codigo', fromJson: _toString) String stopCode,
       @JsonKey(name: 'Identificador', fromJson: _toString)
-          String stopIdentifier,
-      @JsonKey(name: 'Descripcion', fromJson: _toString)
-          String description,
-      @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          String pathName,
+      String stopIdentifier,
+      @JsonKey(name: 'Descripcion', fromJson: _toString) String description,
+      @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString) String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          String destination,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
-          num? latitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
-          num? longitude});
+      String destination,
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble) num? latitude,
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble) num? longitude});
 }
 
 /// @nodoc
@@ -343,20 +335,15 @@ abstract class _$$_RouteStopDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'Codigo', fromJson: _toString)
-          String stopCode,
+      {@JsonKey(name: 'Codigo', fromJson: _toString) String stopCode,
       @JsonKey(name: 'Identificador', fromJson: _toString)
-          String stopIdentifier,
-      @JsonKey(name: 'Descripcion', fromJson: _toString)
-          String description,
-      @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          String pathName,
+      String stopIdentifier,
+      @JsonKey(name: 'Descripcion', fromJson: _toString) String description,
+      @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString) String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          String destination,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
-          num? latitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
-          num? longitude});
+      String destination,
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble) num? latitude,
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble) num? longitude});
 }
 
 /// @nodoc
@@ -415,20 +402,17 @@ class __$$_RouteStopDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
   const _$_RouteStopData(
-      {@JsonKey(name: 'Codigo', fromJson: _toString)
-          required this.stopCode,
+      {@JsonKey(name: 'Codigo', fromJson: _toString) required this.stopCode,
       @JsonKey(name: 'Identificador', fromJson: _toString)
-          required this.stopIdentifier,
+      required this.stopIdentifier,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required this.description,
+      required this.description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          required this.pathName,
+      required this.pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          required this.destination,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
-          this.latitude,
-      @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
-          this.longitude});
+      required this.destination,
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble) this.latitude,
+      @JsonKey(name: 'LongitudParada', fromJson: _toDouble) this.longitude});
 
   factory _$_RouteStopData.fromJson(Map<String, dynamic> json) =>
       _$$_RouteStopDataFromJson(json);
@@ -517,19 +501,18 @@ class _$_RouteStopData with DiagnosticableTreeMixin implements _RouteStopData {
 abstract class _RouteStopData implements RouteStopData {
   const factory _RouteStopData(
       {@JsonKey(name: 'Codigo', fromJson: _toString)
-          required final String stopCode,
+      required final String stopCode,
       @JsonKey(name: 'Identificador', fromJson: _toString)
-          required final String stopIdentifier,
+      required final String stopIdentifier,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required final String description,
+      required final String description,
       @JsonKey(name: 'AbreviaturaBandera', fromJson: _toString)
-          required final String pathName,
+      required final String pathName,
       @JsonKey(name: 'AbreviaturaAmpliadaBandera', fromJson: _toString)
-          required final String destination,
-      @JsonKey(name: 'LatitudParada', fromJson: _toDouble)
-          final num? latitude,
+      required final String destination,
+      @JsonKey(name: 'LatitudParada', fromJson: _toDouble) final num? latitude,
       @JsonKey(name: 'LongitudParada', fromJson: _toDouble)
-          final num? longitude}) = _$_RouteStopData;
+      final num? longitude}) = _$_RouteStopData;
 
   factory _RouteStopData.fromJson(Map<String, dynamic> json) =
       _$_RouteStopData.fromJson;

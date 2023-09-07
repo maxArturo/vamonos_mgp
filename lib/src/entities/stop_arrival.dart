@@ -2,7 +2,8 @@ import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
 class StopArrival {
   final RouteStop stop;
-  final String arrival;
+  // this will be < 0 if not available
+  final int nextArrivalInMinutes;
 
-  StopArrival({required this.stop, required this.arrival});
+  StopArrival({required this.stop, required this.nextArrivalInMinutes});
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/marker_cluster/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
@@ -22,22 +23,17 @@ class RouteMarkerLayer extends ConsumerWidget {
       final res = ref.watch(routeMarkersWithinMapBoundsProvider(directedRoute));
 
       return res.fold(
-        skipLoadingOnReload: true,
-        data: (markers) => MarkerClusterWidget(
-            maxClusterRadius: 35,
-            markers: markers,
-            popupState: ref.watch(routeViewPopupStateProvider),
-            popupController: ref.watch(routeViewPopupControllerProvider)),
-        loading: () => const SizedBox.shrink(), // empty widget
-        error: (_) => const SizedBox.shrink(),
-      );
+          skipLoadingOnReload: true,
+          data: (markers) => MarkerClusterWidget(
+              maxClusterRadius: 35,
+              markers: markers,
+              popupController: ref.watch(routeViewPopupControllerProvider)),
+          loading: () => const SizedBox.shrink(), // empty widget
+          error: errorSink);
     }
 
-    return MarkerClusterWidget(
-        markers: [
-          if (selectedMarker != null) selectedMarker!,
-        ],
-        popupState: ref.watch(routeViewPopupStateProvider),
-        popupController: ref.watch(routeViewPopupControllerProvider));
+    return MarkerClusterWidget(markers: [
+      if (selectedMarker != null) selectedMarker!,
+    ], popupController: ref.watch(routeViewPopupControllerProvider));
   }
 }

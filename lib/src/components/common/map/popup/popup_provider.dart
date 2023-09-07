@@ -8,14 +8,7 @@ PopupController stopViewPopupController(StopViewPopupControllerRef ref) {
   return PopupController();
 }
 
-@riverpod
-PopupState stopViewPopupState(StopViewPopupStateRef ref) => PopupState();
-
 @Riverpod(keepAlive: true)
-@riverpod
 PopupController routeViewPopupController(RouteViewPopupControllerRef ref) {
   return PopupController();
 }
-
-@riverpod
-PopupState routeViewPopupState(RouteViewPopupStateRef ref) => PopupState();

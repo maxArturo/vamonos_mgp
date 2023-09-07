@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/attribution_layer.dart';
@@ -35,36 +36,39 @@ class StopMapView extends ConsumerWidgetView<StopMap, StopMapController> {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        FlutterMap(
-          key: ValueKey(widget.view),
-          mapController: state.mc,
-          options: MapOptions(
-              onMapReady: () {
-                ref
-                    .read(stopViewMapControllerProvider.notifier)
-                    .initialize(state.mc);
+        PopupScope(
+          popupController: ref.watch(stopViewPopupControllerProvider),
+          child: FlutterMap(
+            key: ValueKey(widget.view),
+            mapController: state.mc,
+            options: MapOptions(
+                onMapReady: () {
+                  ref
+                      .read(stopViewMapControllerProvider.notifier)
+                      .initialize(state.mc);
 
-                ref.read(mapViewProvider.notifier).setStopView();
-              },
-              center: mapCenter,
-              zoom: defaultZoom,
-              maxZoom: 18,
-              minZoom: 12,
-              onTap: (tapPosition, point) =>
-                  ref.read(stopViewPopupControllerProvider).hideAllPopups()),
-          nonRotatedChildren: [
-            const StopsCenterPinLayer(),
-            const AttributionLayer(),
-            if (!ref.watch(configProvider).isReleaseMode)
-              Builder(
-                  builder: (context) => ZoomGaugeLayer(
-                      currZoom: FlutterMapState.maybeOf(context)?.zoom)),
-          ],
-          children: const [
-            TileLayerWidget(),
-            StopMarkerLayer(),
-            CurrentLocationLayer(),
-          ],
+                  ref.read(mapViewProvider.notifier).setStopView();
+                },
+                center: mapCenter,
+                zoom: defaultZoom,
+                maxZoom: 18,
+                minZoom: 12,
+                onTap: (tapPosition, point) =>
+                    ref.read(stopViewPopupControllerProvider).hideAllPopups()),
+            nonRotatedChildren: [
+              const StopsCenterPinLayer(),
+              const AttributionLayer(),
+              if (!ref.watch(configProvider).isReleaseMode)
+                Builder(
+                    builder: (context) => ZoomGaugeLayer(
+                        currZoom: FlutterMapState.maybeOf(context)?.zoom)),
+            ],
+            children: const [
+              TileLayerWidget(),
+              StopMarkerLayer(),
+              CurrentLocationLayer(),
+            ],
+          ),
         ),
         const MapOverlay(),
       ],

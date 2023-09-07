@@ -20,10 +20,10 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
         Flexible(
             child: ListView.builder(
           controller: scrollController,
-          itemCount: widget.directedRouteStops.length,
+          itemCount: widget.directedRouteMarkers.length,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            if (widget.directedRouteStops.isEmpty) {
+            if (widget.directedRouteMarkers.isEmpty) {
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,8 +48,8 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
                 ],
               );
             }
-            final stopMarker = widget.directedRouteStops[index];
-            return DirectedRouteCard(stop: stopMarker);
+            final directedRouteMarker = widget.directedRouteMarkers[index];
+            return DirectedRouteCard(stopAndMarker: directedRouteMarker);
           },
         )),
       ],

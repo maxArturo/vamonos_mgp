@@ -1,6 +1,7 @@
 import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/components/common/map/default_reset_map_button.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
@@ -10,6 +11,82 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
+
+class RoutesNearYouListView
+    extends ConsumerWidgetView<RoutesNearYouList, RoutesNearYouListController> {
+  const RoutesNearYouListView(super.state, {super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
+    return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: provider.fold(
+          skipLoadingOnReload: true,
+          data: (r) =>
+              Center(key: const Key('data'), child: mainRoutePage(context, r)),
+          error: (l) => errorSink(l,
+              widget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.warning_amber,
+                    color: Colors.redAccent,
+                  ),
+                  const SizedBox.shrink(),
+                  Text(
+                    l.userText,
+                    style:
+                        const TextStyle(color: Colors.redAccent, fontSize: 18),
+                  ),
+                  FilledButton(
+                      onPressed: () => ref.refresh(latestRouteListProvider),
+                      child: const Text("Pulsa para reintentar")),
+                  errorSink(l),
+                ],
+              )),
+          loading: () => Center(
+            key: UniqueKey(),
+            child: const CircularProgressIndicator(),
+          ),
+        ));
+  }
+
+  Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Navigator(
+        initialRoute: '/',
+        onGenerateRoute: (settings) {
+          WidgetBuilder builder;
+          switch (settings.name) {
+            case '/':
+              builder = (context) => Scaffold(
+                    backgroundColor: Colors.blueGrey,
+                    appBar: AppBar(
+                      automaticallyImplyLeading: false,
+                      title: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text('rutas cercanas'.toUpperCase(),
+                            style: const TextStyle(color: Colors.white)),
+                      ),
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                    ),
+                    body: RoutesSection(
+                      sc: widget.scrollController,
+                    ),
+                  );
+              break;
+            default:
+              throw UnimplementedError();
+          }
+          return MaterialPageRoute(maintainState: false, builder: builder);
+        },
+      ),
+    );
+  }
+}
 
 class RoutesSection extends ConsumerWidget {
   final ScrollController sc;
@@ -57,7 +134,8 @@ class RoutesSection extends ConsumerWidget {
                         ),
                       );
                     } else {
-                      r.sort((a, b) => a.routeName.compareTo(b.routeName));
+                      r.sort((a, b) =>
+                          a.displayedRouteName.compareTo(b.displayedRouteName));
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -65,7 +143,8 @@ class RoutesSection extends ConsumerWidget {
                             child: AutomaticAnimatedList(
                               items: r,
                               controller: sc,
-                              keyingFunction: (route) => Key(route.routeName),
+                              keyingFunction: (route) =>
+                                  Key(route.displayedRouteName),
                               itemBuilder: (BuildContext context, routeCardData,
                                   Animation<double> animation) {
                                 return FadeTransition(
@@ -76,7 +155,8 @@ class RoutesSection extends ConsumerWidget {
                                         curve: Curves.easeInOut),
                                     child: RouteCard(
                                         data: routeCardData,
-                                        routeName: routeCardData.routeName),
+                                        routeName:
+                                            routeCardData.displayedRouteName),
                                   ),
                                 );
                               },
@@ -95,76 +175,5 @@ class RoutesSection extends ConsumerWidget {
               key: UniqueKey(),
               child: const CircularProgressIndicator(),
             ));
-  }
-}
-
-class RoutesNearYouListView
-    extends ConsumerWidgetView<RoutesNearYouList, RoutesNearYouListController> {
-  const RoutesNearYouListView(super.state, {super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
-    return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: provider.fold(
-          skipLoadingOnReload: true,
-          data: (r) =>
-              Center(key: const Key('data'), child: mainRoutePage(context, r)),
-          error: (l) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.warning_amber,
-                color: Colors.redAccent,
-              ),
-              const SizedBox.shrink(),
-              Text(
-                l.userText,
-                style: const TextStyle(color: Colors.redAccent, fontSize: 18),
-              ),
-              FilledButton(
-                  onPressed: () => ref.refresh(latestRouteListProvider),
-                  child: const Text("Pulsa para reintentar"))
-            ],
-          ),
-          loading: () => Center(
-            key: UniqueKey(),
-            child: const CircularProgressIndicator(),
-          ),
-        ));
-  }
-
-  Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {
-    return MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: Navigator(
-        initialRoute: '/',
-        onGenerateRoute: (settings) {
-          WidgetBuilder builder;
-          switch (settings.name) {
-            case '/':
-              builder = (context) => Scaffold(
-                    backgroundColor: Colors.blueGrey,
-                    appBar: AppBar(
-                      automaticallyImplyLeading: false,
-                      title: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text('rutas cercanas'.toUpperCase(),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                      backgroundColor: Theme.of(context).primaryColorDark,
-                    ),
-                    body: RoutesSection(sc: widget.scrollController),
-                  );
-              break;
-            default:
-              throw UnimplementedError();
-          }
-          return MaterialPageRoute(maintainState: false, builder: builder);
-        },
-      ),
-    );
   }
 }

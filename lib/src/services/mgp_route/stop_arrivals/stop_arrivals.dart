@@ -14,11 +14,12 @@ class StopArrivalService {
 
   StopArrivalService(this._http, this._routeApiUrl);
 
-  String formatArrivalTime(String rawArrivalTime) {
-    if (rawArrivalTime.contains(RegExp('[0-9]'))) {
-      return "Arribando en $rawArrivalTime";
-    }
-    return rawArrivalTime;
+  int extractArrivalTimeNumeral(String rawArrivalTime) {
+    final maybeArrival = RegExp('arribando', caseSensitive: false)
+        .firstMatch(rawArrivalTime)?[0];
+    if (maybeArrival != null) return 0;
+
+    return int.parse(RegExp('[0-9]+').firstMatch(rawArrivalTime)?[0] ?? "");
   }
 
   Future<Either<AppError, List<StopArrival>>> getAllStopArrivals(
@@ -53,7 +54,8 @@ class StopArrivalService {
 
         return Right(stopArrivals.stops!.map((arrival) {
           return StopArrival(
-              stop: stop, arrival: formatArrivalTime(arrival.arrival));
+              stop: stop,
+              nextArrivalInMinutes: extractArrivalTimeNumeral(arrival.arrival));
         }).toList());
       } catch (e) {
         return Left(ParsingError(description: e.toString()));

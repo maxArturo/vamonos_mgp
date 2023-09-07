@@ -6,7 +6,7 @@ part of 'markers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allMarkersHash() => r'6f410e6196eda2b690d81754a4a3d58391d680ff';
+String _$allMarkersHash() => r'fe31ccff39a2351ece3e40993d5c31c6fc9403b4';
 
 /// See also [allMarkers].
 @ProviderFor(allMarkers)
@@ -22,7 +22,7 @@ final allMarkersProvider =
 
 typedef AllMarkersRef
     = AutoDisposeFutureProviderRef<Either<AppError, List<StopMarker>>>;
-String _$allMarkersByRouteHash() => r'4819d4aca16cca6266ae1df37c04100356b7e7cc';
+String _$allMarkersByRouteHash() => r'939b17dcffa82a9ca3efe903d28605be04197413';
 
 /// Copied from Dart SDK
 class _SystemHash {

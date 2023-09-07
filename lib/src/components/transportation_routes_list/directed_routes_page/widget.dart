@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/components/transportation_routes_list/directed_routes_page/view.dart';
 import 'package:vamonos_mgp/src/entities/route.dart' as entity;
 import 'package:vamonos_mgp/src/entities/route.dart';
@@ -32,44 +33,46 @@ class DirectedRoutesPageController extends ConsumerState<DirectedRoutesPage> {
               directedRoutes: toDirectedRoutes(r),
             ),
         error: (err) {
-          return RefreshIndicator(
-            onRefresh: () => ref.refresh(
-                RouteLandMarksByIdProvider(route: widget.route).future),
-            child: LayoutBuilder(
-              builder: (context, viewport) {
-                return SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(minHeight: viewport.maxHeight),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Center(
-                            child: Icon(
-                              Icons.warning_amber,
-                              color: Colors.white70,
-                            ),
+          return errorSink(err,
+              widget: RefreshIndicator(
+                onRefresh: () => ref.refresh(
+                    RouteLandMarksByIdProvider(route: widget.route).future),
+                child: LayoutBuilder(
+                  builder: (context, viewport) {
+                    return SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: viewport.maxHeight),
+                        child: IntrinsicHeight(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Center(
+                                child: Icon(
+                                  Icons.warning_amber,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox.shrink(),
+                              Text(
+                                err.userText,
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 18),
+                              ),
+                              const Text(
+                                "Jala hacia abajo para reintentar",
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 18),
+                              )
+                            ],
                           ),
-                          const SizedBox.shrink(),
-                          Text(
-                            err.userText,
-                            style: const TextStyle(
-                                color: Colors.white70, fontSize: 18),
-                          ),
-                          const Text(
-                            "Jala hacia abajo para reintentar",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 18),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
+                    );
+                  },
+                ),
+              ));
         },
         loading: () => Center(
               key: UniqueKey(),

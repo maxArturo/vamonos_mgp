@@ -23,8 +23,7 @@ class RouteCardView extends WidgetView<RouteCard, RouteCardController> {
                   ),
                   backgroundColor: Colors.blueGrey,
                   body: DirectedRoutesPage(
-                      directedRouteStops:
-                          widget.data.closestStopsByUniqueDirection),
+                      directedRouteMarkers: widget.data.directedRoutes),
                 )));
       },
       topRowText: widget.routeName,

@@ -6,7 +6,23 @@ part of 'route_landmarks_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$routeLandmarksHash() => r'3c5465d01f4b6c6f77ade4e820db0431eec75835';
+
+/// See also [routeLandmarks].
+@ProviderFor(routeLandmarks)
+final routeLandmarksProvider = Provider<RouteLandMarks>.internal(
+  routeLandmarks,
+  name: r'routeLandmarksProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$routeLandmarksHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef RouteLandmarksRef = ProviderRef<RouteLandMarks>;
+String _$routeLandMarksByIdHash() =>
+    r'396de8471f400d21d65cd92377a1f7d0901ec375';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,28 +45,58 @@ class _SystemHash {
   }
 }
 
-String _$routeLandmarksHash() => r'3c5465d01f4b6c6f77ade4e820db0431eec75835';
+/// See also [routeLandMarksById].
+@ProviderFor(routeLandMarksById)
+const routeLandMarksByIdProvider = RouteLandMarksByIdFamily();
 
-/// See also [routeLandmarks].
-final routeLandmarksProvider = Provider<RouteLandMarks>(
-  routeLandmarks,
-  name: r'routeLandmarksProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$routeLandmarksHash,
-);
-typedef RouteLandmarksRef = ProviderRef<RouteLandMarks>;
-String _$routeLandMarksByIdHash() =>
-    r'396de8471f400d21d65cd92377a1f7d0901ec375';
+/// See also [routeLandMarksById].
+class RouteLandMarksByIdFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
+  /// See also [routeLandMarksById].
+  const RouteLandMarksByIdFamily();
+
+  /// See also [routeLandMarksById].
+  RouteLandMarksByIdProvider call({
+    required Route route,
+  }) {
+    return RouteLandMarksByIdProvider(
+      route: route,
+    );
+  }
+
+  @override
+  RouteLandMarksByIdProvider getProviderOverride(
+    covariant RouteLandMarksByIdProvider provider,
+  ) {
+    return call(
+      route: provider.route,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'routeLandMarksByIdProvider';
+}
 
 /// See also [routeLandMarksById].
 class RouteLandMarksByIdProvider
     extends FutureProvider<Either<AppError, List<RouteLandMark>>> {
+  /// See also [routeLandMarksById].
   RouteLandMarksByIdProvider({
-    required this.route,
-  }) : super(
+    required Route route,
+  }) : this._internal(
           (ref) => routeLandMarksById(
-            ref,
+            ref as RouteLandMarksByIdRef,
             route: route,
           ),
           from: routeLandMarksByIdProvider,
@@ -59,9 +105,48 @@ class RouteLandMarksByIdProvider
               const bool.fromEnvironment('dart.vm.product')
                   ? null
                   : _$routeLandMarksByIdHash,
+          dependencies: RouteLandMarksByIdFamily._dependencies,
+          allTransitiveDependencies:
+              RouteLandMarksByIdFamily._allTransitiveDependencies,
+          route: route,
         );
 
+  RouteLandMarksByIdProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.route,
+  }) : super.internal();
+
   final Route route;
+
+  @override
+  Override overrideWith(
+    FutureOr<Either<AppError, List<RouteLandMark>>> Function(
+            RouteLandMarksByIdRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: RouteLandMarksByIdProvider._internal(
+        (ref) => create(ref as RouteLandMarksByIdRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        route: route,
+      ),
+    );
+  }
+
+  @override
+  FutureProviderElement<Either<AppError, List<RouteLandMark>>> createElement() {
+    return _RouteLandMarksByIdProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -77,39 +162,19 @@ class RouteLandMarksByIdProvider
   }
 }
 
-typedef RouteLandMarksByIdRef
-    = FutureProviderRef<Either<AppError, List<RouteLandMark>>>;
-
-/// See also [routeLandMarksById].
-final routeLandMarksByIdProvider = RouteLandMarksByIdFamily();
-
-class RouteLandMarksByIdFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
-  RouteLandMarksByIdFamily();
-
-  RouteLandMarksByIdProvider call({
-    required Route route,
-  }) {
-    return RouteLandMarksByIdProvider(
-      route: route,
-    );
-  }
-
-  @override
-  FutureProvider<Either<AppError, List<RouteLandMark>>> getProviderOverride(
-    covariant RouteLandMarksByIdProvider provider,
-  ) {
-    return call(
-      route: provider.route,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'routeLandMarksByIdProvider';
+mixin RouteLandMarksByIdRef
+    on FutureProviderRef<Either<AppError, List<RouteLandMark>>> {
+  /// The parameter `route` of this provider.
+  Route get route;
 }
+
+class _RouteLandMarksByIdProviderElement
+    extends FutureProviderElement<Either<AppError, List<RouteLandMark>>>
+    with RouteLandMarksByIdRef {
+  _RouteLandMarksByIdProviderElement(super.provider);
+
+  @override
+  Route get route => (origin as RouteLandMarksByIdProvider).route;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

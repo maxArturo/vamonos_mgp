@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_view_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
@@ -37,7 +38,7 @@ class CurrentLocationLayer extends ConsumerWidget {
             Future(() => ref
                 .read(mapOverlayStateProvider.notifier)
                 .setLocationMessage(l.userText));
-            return const SizedBox.shrink();
+            return errorSink(l);
           },
           loading: () => const SizedBox.shrink(), // empty widget
         );
