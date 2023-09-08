@@ -10,8 +10,6 @@ class RoutesNearYouList extends StatefulWidget {
 }
 
 class RoutesNearYouListController extends State<RoutesNearYouList> {
-  final animatedListKey = GlobalKey<AnimatedListState>();
-
   @override
   Widget build(BuildContext context) => RoutesNearYouListView(this);
 }

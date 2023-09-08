@@ -8,24 +8,20 @@ import 'package:vamonos_mgp/src/entities/route_stop.dart';
 class StopMarker extends Marker {
   final List<RouteStop> routeStops;
   final Coordinate coordinate;
-  final Color color;
 
-  StopMarker(
-      {required this.routeStops,
-      required this.coordinate,
-      this.color = Colors.black})
-      : super(
+  StopMarker({
+    required this.routeStops,
+    required this.coordinate,
+  }) : super(
             anchorPos: AnchorPos.align(AnchorAlign.center),
             height: 30,
             width: 30,
             point: LatLng(coordinate.latitude, coordinate.longitude),
-            builder: (ctx) {
-              return FaIcon(
-                FontAwesomeIcons.mapPin,
-                size: 35,
-                color: color,
-              );
-            });
+            builder: (ctx) => const FaIcon(
+                  FontAwesomeIcons.mapPin,
+                  size: 35,
+                  color: Colors.black,
+                ));
 
   StopMarker copyWith(
       {List<RouteStop>? routeStops,
@@ -34,7 +30,6 @@ class StopMarker extends Marker {
       Coordinate? coordinate}) {
     return StopMarker(
         routeStops: routeStops ?? this.routeStops,
-        color: color ?? this.color,
         coordinate: coordinate ?? this.coordinate);
   }
 }

@@ -52,7 +52,7 @@ class StopMapView extends ConsumerWidgetView<StopMap, StopMapController> {
                 center: mapCenter,
                 zoom: defaultZoom,
                 maxZoom: 18,
-                minZoom: 12,
+                minZoom: 11,
                 onTap: (tapPosition, point) =>
                     ref.read(stopViewPopupControllerProvider).hideAllPopups()),
             nonRotatedChildren: [

@@ -6,6 +6,8 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_ro
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/widget.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
+import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
+
 class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
     DirectedRoutesPageController> {
   final ScrollController scrollController;
@@ -14,6 +16,17 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(stopMapOnEndEventStreamProvider, ((previous, next) async {
+      next.whenData((value) {
+        if (previous != null) {
+          previous.whenData((prev) {
+            if (prev.center != value.center) {
+              if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+            }
+          });
+        }
+      });
+    }));
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

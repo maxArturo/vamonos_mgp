@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/stop_marker_popup/stop_marker_popup.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 
@@ -15,7 +16,7 @@ class MarkerClusterWidget extends StatelessWidget {
       {super.key,
       required this.markers,
       required this.popupController,
-      this.maxClusterRadius = 50});
+      this.maxClusterRadius = 40});
 
   @override
   Widget build(BuildContext context) {
@@ -53,15 +54,10 @@ class MarkerClusterWidget extends StatelessWidget {
               );
             }),
         builder: (context, markers) {
-          return Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: Colors.blue),
-            child: Center(
-              child: Text(
-                markers.length.toString(),
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
+          return const FaIcon(
+            FontAwesomeIcons.mapPin,
+            size: 35,
+            color: Colors.black,
           );
         },
       ),
