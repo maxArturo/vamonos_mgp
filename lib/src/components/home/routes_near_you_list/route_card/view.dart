@@ -15,6 +15,7 @@ class RouteCardView extends ConsumerWidgetView<RouteCard, RouteCardController> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => Scaffold(
                   appBar: AppBar(
+                    centerTitle: true,
                     title: FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Text(widget.routeName.toUpperCase(),
