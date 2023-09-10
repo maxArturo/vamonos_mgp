@@ -48,8 +48,8 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
                         size: 30,
                         color: Color.fromARGB(255, 194, 63, 63),
                       ),
-                      Text("No hay rutas cercanas".toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
+                      const Text("NO HAY RUTAS CERCANAS",
+                          style: TextStyle(color: Colors.white)),
                       const SizedBox(height: 15),
                       DefaultResetMapbutton(
                           recenterLocation: ref

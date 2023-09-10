@@ -1,85 +1,47 @@
 import 'package:automatic_animated_list/automatic_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/components/common/map/default_reset_map_button.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
-import 'package:vamonos_mgp/src/components/home/routes_near_you_list/models.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_card/widget.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/routes_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/widget.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
-import 'package:vamonos_mgp/src/services/mgp_route/route_list/route_list_provider.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class RoutesNearYouListView
-    extends ConsumerWidgetView<RoutesNearYouList, RoutesNearYouListController> {
+    extends WidgetView<RoutesNearYouList, RoutesNearYouListController> {
   const RoutesNearYouListView(super.state, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(routeStopMapMarkersNearYouProvider);
+  Widget build(BuildContext context) {
     return Expanded(
-      child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: provider.fold(
-            skipLoadingOnReload: true,
-            data: (r) => Center(
-                key: const Key('data'), child: mainRoutePage(context, r)),
-            error: (l) => errorSink(l,
-                widget: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.warning_amber,
-                      color: Colors.redAccent,
-                    ),
-                    const SizedBox.shrink(),
-                    Text(
-                      l.userText,
-                      style: const TextStyle(
-                          color: Colors.redAccent, fontSize: 18),
-                    ),
-                    FilledButton(
-                        onPressed: () => ref.refresh(latestRouteListProvider),
-                        child: const Text("Pulsa para reintentar")),
-                    errorSink(l),
-                  ],
-                )),
-            loading: () => Center(
-              key: UniqueKey(),
-              child: const CircularProgressIndicator(),
-            ),
-          )),
-    );
-  }
-
-  Widget mainRoutePage(BuildContext context, List<RouteCardData> data) {
-    return Navigator(
-      initialRoute: '/',
-      onGenerateRoute: (settings) {
-        WidgetBuilder builder;
-        switch (settings.name) {
-          case '/':
-            builder = (context) => Scaffold(
-                  backgroundColor: Colors.blueGrey,
-                  appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    centerTitle: true,
-                    title: const Text('RUTAS CERCANAS',
-                        style: TextStyle(color: Colors.white)),
+      child: Navigator(
+        initialRoute: '/',
+        onGenerateRoute: (settings) {
+          WidgetBuilder builder;
+          switch (settings.name) {
+            case '/':
+              builder = (context) => Scaffold(
                     backgroundColor: Theme.of(context).primaryColorDark,
-                  ),
-                  body: RoutesSection(
-                    sc: widget.scrollController,
-                  ),
-                );
-            break;
-          default:
-            throw UnimplementedError();
-        }
-        return MaterialPageRoute(maintainState: false, builder: builder);
-      },
+                    appBar: AppBar(
+                      automaticallyImplyLeading: false,
+                      centerTitle: true,
+                      title: const Text('RUTAS CERCANAS',
+                          style: TextStyle(color: Colors.white)),
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                    ),
+                    body: RoutesSection(
+                      sc: widget.scrollController,
+                    ),
+                  );
+              break;
+            default:
+              throw UnimplementedError();
+          }
+          return MaterialPageRoute(maintainState: false, builder: builder);
+        },
+      ),
     );
   }
 }
@@ -169,7 +131,9 @@ class RoutesSection extends ConsumerWidget {
             ),
         loading: () => Center(
               key: UniqueKey(),
-              child: const CircularProgressIndicator(),
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+              ),
             ));
   }
 }

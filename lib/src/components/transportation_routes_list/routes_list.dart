@@ -20,10 +20,11 @@ class MainRoutesPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.blueGrey,
         appBar: AppBar(
-          title: FittedBox(
+          centerTitle: true,
+          title: const FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text('rutas cercanas'.toUpperCase(),
-                style: const TextStyle(color: Colors.white)),
+            child:
+                Text('RUTAS CERCANAS', style: TextStyle(color: Colors.white)),
           ),
           backgroundColor: Theme.of(context).primaryColorDark,
         ),
@@ -70,33 +71,31 @@ class MainRoutesListView
                             itemCount: data.length,
                             itemBuilder: (context, idx) {
                               if (data.isEmpty) {
-                                return Row(
+                                return const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Column(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           Icons.block_sharp,
                                           size: 30,
                                           color:
                                               Color.fromARGB(255, 194, 63, 63),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(3.0),
+                                          padding: EdgeInsets.all(3.0),
                                           child: FittedBox(
                                             fit: BoxFit.fitWidth,
-                                            child: Text(
-                                                "no hay rutas cercanas"
-                                                    .toUpperCase(),
-                                                style: const TextStyle(
+                                            child: Text("NO HAY RUTAS CERCANAS",
+                                                style: TextStyle(
                                                     color: Colors.white)),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(width: 13),
+                                    SizedBox(width: 13),
                                   ],
                                 );
                               }
@@ -133,8 +132,7 @@ class MainRoutesListView
                             }),
                       ),
                   error: (err) {
-                    return errorSink(
-                        err,
+                    return errorSink(err,
                         widget: RefreshIndicator(
                           onRefresh: () =>
                               ref.refresh(latestRouteListProvider.future),
