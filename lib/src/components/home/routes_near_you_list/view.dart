@@ -17,6 +17,7 @@ class RoutesNearYouListView
   Widget build(BuildContext context) {
     return Expanded(
       child: Navigator(
+        key: state.navigatorKey,
         initialRoute: '/',
         onGenerateRoute: (settings) {
           WidgetBuilder builder;
