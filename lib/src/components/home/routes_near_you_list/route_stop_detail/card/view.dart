@@ -73,7 +73,7 @@ class RouteStopCardView
                     title: FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Text(
-                          '${widget.routeStop.route.destination} Por ${widget.routeStop.route.pathName}'
+                          '${widget.routeStop.route.destination} ${widget.routeStop.route.pathName}'
                               .toUpperCase(),
                           style: const TextStyle(color: Colors.white)),
                     ),

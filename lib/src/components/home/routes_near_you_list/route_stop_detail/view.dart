@@ -19,7 +19,7 @@ class RouteStopDetailView
         if (previous != null) {
           previous.whenData((prev) {
             if (prev.center != value.center) {
-              if (Navigator.of(context).canPop()) {
+              while (Navigator.of(context).canPop()) {
                 Navigator.of(context).pop();
               }
             }

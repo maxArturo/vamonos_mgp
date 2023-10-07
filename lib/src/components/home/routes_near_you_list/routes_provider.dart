@@ -42,7 +42,7 @@ final routeStopMapMarkersNearYouProvider =
     final Map<String, List<RouteStopMarker>> result = {};
 
     for (final markerEntry in closestMarkerByDirectedRoute.entries) {
-      // collect all markers and stops for a given route, all directions
+      // collect all stop markers for a given route, for all directions
       final currMarkerEntry = result[markerEntry.key.name];
       if (currMarkerEntry == null) {
         result[markerEntry.key.name] = [markerEntry.value];
@@ -53,7 +53,7 @@ final routeStopMapMarkersNearYouProvider =
 
     final res = result.entries
         .map((e) =>
-            RouteCardData(displayedRouteName: e.key, directedRoutes: e.value))
+            RouteCardData(displayedRouteName: e.key, routeStopMarkers: e.value))
         .toList();
 
     return res;

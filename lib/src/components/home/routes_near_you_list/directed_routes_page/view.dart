@@ -17,16 +17,20 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(stopMapOnEndEventStreamProvider, ((previous, next) async {
+      // go back to routes view if the map is moved around at all
       next.whenData((value) {
         if (previous != null) {
           previous.whenData((prev) {
             if (prev.center != value.center) {
-              if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+              while (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
             }
           });
         }
       });
     }));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

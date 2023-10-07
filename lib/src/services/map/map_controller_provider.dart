@@ -54,6 +54,10 @@ mixin MapFunctionality on AsyncNotifier<MapController> {
           center: controller.center));
     });
   }
+
+  void setZoom(double newZoom) {
+    state.whenData((controller) => controller.move(controller.center, newZoom));
+  }
 }
 
 @Riverpod(keepAlive: true)

@@ -13,7 +13,6 @@ class RouteCard extends StatefulWidget {
 }
 
 class RouteCardController extends State<RouteCard> {
-  final ValueNotifier<int> valueNotifier = ValueNotifier(0);
   final PageController pageController = PageController();
 
   @override

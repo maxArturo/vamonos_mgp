@@ -3,10 +3,10 @@ import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
 class RouteCardData {
   final String displayedRouteName;
-  final List<RouteStopMarker> directedRoutes;
+  final List<RouteStopMarker> routeStopMarkers;
 
   RouteCardData(
-      {required this.displayedRouteName, required this.directedRoutes});
+      {required this.displayedRouteName, required this.routeStopMarkers});
 }
 
 class RouteStopMarker {

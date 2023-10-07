@@ -18,8 +18,8 @@ class StopMarker extends Marker {
             width: 30,
             point: LatLng(coordinate.latitude, coordinate.longitude),
             builder: (ctx) => const FaIcon(
-                  FontAwesomeIcons.mapPin,
-                  size: 35,
+                  FontAwesomeIcons.circleDot,
+                  size: 25,
                   color: Colors.black,
                 ));
 

@@ -23,7 +23,6 @@ class MarkerClusterWidget extends ConsumerWidget {
     return MarkerClusterLayerWidget(
       options: MarkerClusterLayerOptions(
         onMarkerTap: (marker) async {
-          debugPrint("marker bouta tapped yo");
           ref.read(homeNavkeyProvider).whenData((key) {
             debugPrint("marker tapped yo");
             key.currentState?.push(MaterialPageRoute(
@@ -44,8 +43,8 @@ class MarkerClusterWidget extends ConsumerWidget {
         markers: markers,
         builder: (context, markers) {
           return const FaIcon(
-            FontAwesomeIcons.mapPin,
-            size: 35,
+            FontAwesomeIcons.circleDot,
+            size: 25,
             color: Colors.black,
           );
         },
