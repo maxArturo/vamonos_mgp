@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/marker.dart';
 import 'package:vamonos_mgp/src/components/common/navigation/home_navkey_provider.dart';
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/route_stop_detail/widget.dart';
@@ -42,11 +41,7 @@ class MarkerClusterWidget extends ConsumerWidget {
         ),
         markers: markers,
         builder: (context, markers) {
-          return const FaIcon(
-            FontAwesomeIcons.circleDot,
-            size: 25,
-            color: Colors.black,
-          );
+          return defaultMarkerIcon();
         },
       ),
     );

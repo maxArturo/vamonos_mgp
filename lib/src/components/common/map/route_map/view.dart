@@ -7,6 +7,7 @@ import 'package:vamonos_mgp/src/components/common/map/map_layers/attribution_lay
 import 'package:vamonos_mgp/src/components/common/map/map_layers/current_location_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/polyline_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/route_marker_layer.dart';
+import 'package:vamonos_mgp/src/components/common/map/map_layers/selected_marker_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_layers/tile_layer.dart';
 import 'package:vamonos_mgp/src/components/common/map/map_overlay/widget.dart';
 import 'package:vamonos_mgp/src/components/common/map/popup/popup_provider.dart';
@@ -48,7 +49,7 @@ class RouteMapView extends ConsumerWidgetView<RouteMap, RouteMapController> {
                   ref.read(mapViewProvider.notifier).setRouteView();
                 },
                 center: mapCenter,
-                zoom: defaultZoom,
+                zoom: widget.initalZoom ?? defaultZoom,
                 maxZoom: 18,
                 minZoom: 12,
                 onTap: (tapPosition, point) =>
@@ -64,6 +65,8 @@ class RouteMapView extends ConsumerWidgetView<RouteMap, RouteMapController> {
               RouteMarkerLayer(
                   directedRoute: widget.directedRoute,
                   selectedMarker: widget.selectedMarker),
+              if (widget.selectedMarker != null)
+                SelectedMarkerLayer(marker: widget.selectedMarker!),
               const CurrentLocationLayer(),
             ],
           ),

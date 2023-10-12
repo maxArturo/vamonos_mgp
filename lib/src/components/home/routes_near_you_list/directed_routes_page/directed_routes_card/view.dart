@@ -49,6 +49,7 @@ class DirectedRouteCardView
                     body: RouteMap(
                       directedRoute: stop.route,
                       initialLocation: stop.location,
+                      initalZoom: 16.0,
                       selectedMarker: marker,
                     ))),
           );

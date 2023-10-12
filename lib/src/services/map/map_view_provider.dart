@@ -27,7 +27,7 @@ class MapView extends _$MapView {
 class RouteMapViewState extends _$RouteMapViewState {
   @override
   RouteMapState build() {
-    return const RouteMapState();
+    return const RouteMapState(showAllStops: true);
   }
 
   void toggleAllStops() {

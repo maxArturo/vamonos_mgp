@@ -5,31 +5,45 @@ import 'package:latlong2/latlong.dart';
 import 'package:vamonos_mgp/src/entities/coordinate.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
+const defaultMarkerColor = Color.fromARGB(255, 21, 51, 247);
+defaultMarkerIcon({color = defaultMarkerColor, size = 25.0}) =>
+    FaIcon(FontAwesomeIcons.circleDot, size: size, color: color);
+
 class StopMarker extends Marker {
   final List<RouteStop> routeStops;
   final Coordinate coordinate;
 
-  StopMarker({
-    required this.routeStops,
-    required this.coordinate,
-  }) : super(
+  StopMarker(
+      {required this.routeStops,
+      required this.coordinate,
+      color = defaultMarkerColor,
+      double size = 25.0})
+      : super(
             anchorPos: AnchorPos.align(AnchorAlign.center),
-            height: 30,
-            width: 30,
+            height: size,
+            width: size,
             point: LatLng(coordinate.latitude, coordinate.longitude),
-            builder: (ctx) => const FaIcon(
-                  FontAwesomeIcons.circleDot,
-                  size: 25,
-                  color: Colors.black,
-                ));
+            builder: (ctx) => defaultMarkerIcon(color: color, size: size));
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is StopMarker && coordinate == other.coordinate;
+  }
 
   StopMarker copyWith(
       {List<RouteStop>? routeStops,
-      String? stopName,
       Color? color,
-      Coordinate? coordinate}) {
+      Coordinate? coordinate,
+      double? size}) {
     return StopMarker(
         routeStops: routeStops ?? this.routeStops,
-        coordinate: coordinate ?? this.coordinate);
+        coordinate: coordinate ?? this.coordinate,
+        color: color,
+        size: size ?? 30.0);
   }
+
+  @override
+  int get hashCode => coordinate.hashCode ^ routeStops.hashCode;
 }

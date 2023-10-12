@@ -24,16 +24,21 @@ class RouteMarkerLayer extends ConsumerWidget {
 
       return res.fold(
           skipLoadingOnReload: true,
-          data: (markers) => MarkerClusterWidget(
-              maxClusterRadius: 35,
-              markers: markers,
-              popupController: ref.watch(routeViewPopupControllerProvider)),
+          data: (markers) {
+            if (selectedMarker != null) {
+              markers.remove(selectedMarker!);
+            }
+            return MarkerClusterWidget(
+                maxClusterRadius: 35,
+                markers: markers,
+                popupController: ref.watch(routeViewPopupControllerProvider));
+          },
           loading: () => const SizedBox.shrink(), // empty widget
           error: errorSink);
     }
 
-    return MarkerClusterWidget(markers: [
-      if (selectedMarker != null) selectedMarker!,
-    ], popupController: ref.watch(routeViewPopupControllerProvider));
+    return MarkerClusterWidget(
+        markers: const [],
+        popupController: ref.watch(routeViewPopupControllerProvider));
   }
 }

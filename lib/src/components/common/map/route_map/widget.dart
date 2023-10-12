@@ -12,12 +12,14 @@ class RouteMap extends StatefulWidget {
   final DirectedRoute directedRoute;
   final Coordinate? initialLocation;
   final StopMarker? selectedMarker;
+  final double? initalZoom;
 
   const RouteMap({
     super.key,
     required this.directedRoute,
     this.initialLocation,
     this.selectedMarker,
+    this.initalZoom,
   });
 
   @override

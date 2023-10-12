@@ -14,7 +14,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
     return ref.watch(allMarkersProvider).fold(
           data: (_) => const Center(
               child: FaIcon(
-            FontAwesomeIcons.circleDot,
+            FontAwesomeIcons.crosshairs,
             size: 35,
             color: Colors.black,
           )),
