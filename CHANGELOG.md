@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.3](https://github.com/maxArturo/vamonos_mgp/compare/v1.3.2...v1.3.3) (2026-08-27)
+
+
+### Bug Fixes
+
+* match icons with google maps ([#74](https://github.com/maxArturo/vamonos_mgp/issues/74)) ([9a4a9ee](https://github.com/maxArturo/vamonos_mgp/commit/9a4a9ee666a6824c28ca97b16d838df451dd8469))
+* remove dependency on location package ([#76](https://github.com/maxArturo/vamonos_mgp/issues/76)) ([31d4470](https://github.com/maxArturo/vamonos_mgp/commit/31d44706ce6a70236e94c3a5f2f29c193c124b49))
+
 ## [1.3.2](https://github.com/maxArturo/vamonos_mgp/compare/v1.3.1...v1.3.2) (2023-07-31)
 
 
