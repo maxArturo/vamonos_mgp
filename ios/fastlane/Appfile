@@ -1,5 +1,9 @@
 app_identifier("com.maxalcala.vamonosmgp") # The bundle identifier of your app
-apple_id("maxarturo@gmail.com") # Your Apple Developer Portal username
+
+# Apple Developer Portal username. Unused when authenticating with an App Store
+# Connect API key (see the `beta` lane in the Fastfile); set FASTLANE_APPLE_ID in
+# ios/fastlane/.env if you need username-based auth instead.
+apple_id(ENV["FASTLANE_APPLE_ID"])
 
 itc_team_id("5934801") # App Store Connect Team ID
 team_id("RV6DF733Z8") # Developer Portal Team ID

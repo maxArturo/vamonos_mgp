@@ -45,6 +45,7 @@ flutter pub run build_runner watch --delete-conflicting-outputs
 The script for this uses [fastlane](https://docs.fastlane.tools/getting-started/ios/beta-deployment/) to handle building and releasing to TestFlight. Be sure to have a file under `ios/fastlane/.env` file with the following params:
 
 ```shell
+export FASTLANE_APPLE_ID="xxx" # your Apple Developer Portal username
 export APP_STORE_CONNECT_KEY_IDENTIFIER="xxx"
 export APP_STORE_CONNECT_ISSUER_ID="xxx"
 export APP_STORE_CONNECT_PRIVATE_KEY_PATH="fastlane/appstore_connect_api_key.p8" # need to have this private key available
