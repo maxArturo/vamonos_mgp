@@ -31,8 +31,8 @@ LandmarkService landMarkService(LandMarkServiceRef ref) {
 
 @riverpod
 Future<Either<AppError, List<RouteLandMark>>> allLandMarksBySource(
-    AllLandMarksBySourceRef ref,
-    {required TransportationProvider provider}) {
+  AllLandMarksBySourceRef ref,
+) {
   return ref
       .watch(landMarkServiceProvider)
       .allLandMarksByProvider(TransportationProvider.municipioGeneralPurreydon);
@@ -40,8 +40,8 @@ Future<Either<AppError, List<RouteLandMark>>> allLandMarksBySource(
 
 @riverpod
 Future<Either<AppError, List<RouteStop>>> allStopsBySource(
-        AllStopsBySourceRef ref,
-        {required TransportationProvider provider}) =>
+  AllStopsBySourceRef ref,
+) =>
     ref
         .watch(landMarkServiceProvider)
         .allStopsByProvider(TransportationProvider.municipioGeneralPurreydon);
@@ -49,16 +49,15 @@ Future<Either<AppError, List<RouteStop>>> allStopsBySource(
 @riverpod
 Future<Either<AppError, List<RouteStop>>> allStopsByRoute(
         AllStopsBySourceRef ref,
-        {required TransportationProvider provider,
-        required Route route}) =>
+        {required Route route}) =>
     ref.watch(landMarkServiceProvider).allStopsByRoute(
         TransportationProvider.municipioGeneralPurreydon, route);
 
 @riverpod
 Future<Either<AppError, List<RouteLandMark>>> allLandmarksByRoute(
         AllLandmarksByRouteRef ref,
-        {required TransportationProvider provider,
+        {required TransportationProvider transProvider,
         required Route route}) =>
     ref
         .watch(landMarkServiceProvider)
-        .allLandMarksByProviderAndRoute(provider: provider, route: route);
+        .allLandMarksByProviderAndRoute(provider: transProvider, route: route);

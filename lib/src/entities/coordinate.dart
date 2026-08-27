@@ -1,5 +1,8 @@
 import 'dart:math';
 
+/// This class contains domain-owned logic for operations and comparison of
+/// coordinates. A lot of logic is replicated here for purposes of not depending
+/// on other classes/packages for simple coordinate logic (such as [LatLng]).
 class Coordinate {
   final double latitude;
   final double longitude;

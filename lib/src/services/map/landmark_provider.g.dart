@@ -6,7 +6,57 @@ part of 'landmark_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$landMarkServiceHash() => r'4eb872352a6c604f8ade9ac0c5f0258687043c06';
+
+/// See also [landMarkService].
+@ProviderFor(landMarkService)
+final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>.internal(
+  landMarkService,
+  name: r'landMarkServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$landMarkServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
+String _$allLandMarksBySourceHash() =>
+    r'c3a587136aff4b8ebf38b55ac35d6c69d95d9b33';
+
+/// See also [allLandMarksBySource].
+@ProviderFor(allLandMarksBySource)
+final allLandMarksBySourceProvider =
+    AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>.internal(
+  allLandMarksBySource,
+  name: r'allLandMarksBySourceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$allLandMarksBySourceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AllLandMarksBySourceRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
+String _$allStopsBySourceHash() => r'c77d6f1ccd5f48311e83daa8eb76e73709baaf4e';
+
+/// See also [allStopsBySource].
+@ProviderFor(allStopsBySource)
+final allStopsBySourceProvider =
+    AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>>.internal(
+  allStopsBySource,
+  name: r'allStopsBySourceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$allStopsBySourceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AllStopsBySourceRef
+    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>>;
+String _$allStopsByRouteHash() => r'6c003cc3a27c63d7df9aa85c668df66b25294294';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,178 +79,58 @@ class _SystemHash {
   }
 }
 
-String _$landMarkServiceHash() => r'4eb872352a6c604f8ade9ac0c5f0258687043c06';
+/// See also [allStopsByRoute].
+@ProviderFor(allStopsByRoute)
+const allStopsByRouteProvider = AllStopsByRouteFamily();
 
-/// See also [landMarkService].
-final landMarkServiceProvider = AutoDisposeProvider<LandmarkService>(
-  landMarkService,
-  name: r'landMarkServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$landMarkServiceHash,
-);
-typedef LandMarkServiceRef = AutoDisposeProviderRef<LandmarkService>;
-String _$allLandMarksBySourceHash() =>
-    r'59c80406f80767a78ab373bc651bc64c4235919e';
-
-/// See also [allLandMarksBySource].
-class AllLandMarksBySourceProvider
-    extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
-  AllLandMarksBySourceProvider({
-    required this.provider,
-  }) : super(
-          (ref) => allLandMarksBySource(
-            ref,
-            provider: provider,
-          ),
-          from: allLandMarksBySourceProvider,
-          name: r'allLandMarksBySourceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$allLandMarksBySourceHash,
-        );
-
-  final TransportationProvider provider;
-
-  @override
-  bool operator ==(Object other) {
-    return other is AllLandMarksBySourceProvider && other.provider == provider;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, provider.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-typedef AllLandMarksBySourceRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
-
-/// See also [allLandMarksBySource].
-final allLandMarksBySourceProvider = AllLandMarksBySourceFamily();
-
-class AllLandMarksBySourceFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
-  AllLandMarksBySourceFamily();
-
-  AllLandMarksBySourceProvider call({
-    required TransportationProvider provider,
-  }) {
-    return AllLandMarksBySourceProvider(
-      provider: provider,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
-      getProviderOverride(
-    covariant AllLandMarksBySourceProvider provider,
-  ) {
-    return call(
-      provider: provider.provider,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'allLandMarksBySourceProvider';
-}
-
-String _$allStopsBySourceHash() => r'158d301ffe3bccf1bcddf7b7e038cf89209f66f2';
-
-/// See also [allStopsBySource].
-class AllStopsBySourceProvider
-    extends AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>> {
-  AllStopsBySourceProvider({
-    required this.provider,
-  }) : super(
-          (ref) => allStopsBySource(
-            ref,
-            provider: provider,
-          ),
-          from: allStopsBySourceProvider,
-          name: r'allStopsBySourceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$allStopsBySourceHash,
-        );
-
-  final TransportationProvider provider;
-
-  @override
-  bool operator ==(Object other) {
-    return other is AllStopsBySourceProvider && other.provider == provider;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, provider.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-typedef AllStopsBySourceRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>>;
-
-/// See also [allStopsBySource].
-final allStopsBySourceProvider = AllStopsBySourceFamily();
-
-class AllStopsBySourceFamily
+/// See also [allStopsByRoute].
+class AllStopsByRouteFamily
     extends Family<AsyncValue<Either<AppError, List<RouteStop>>>> {
-  AllStopsBySourceFamily();
+  /// See also [allStopsByRoute].
+  const AllStopsByRouteFamily();
 
-  AllStopsBySourceProvider call({
-    required TransportationProvider provider,
+  /// See also [allStopsByRoute].
+  AllStopsByRouteProvider call({
+    required Route route,
   }) {
-    return AllStopsBySourceProvider(
-      provider: provider,
+    return AllStopsByRouteProvider(
+      route: route,
     );
   }
 
   @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>>
-      getProviderOverride(
-    covariant AllStopsBySourceProvider provider,
+  AllStopsByRouteProvider getProviderOverride(
+    covariant AllStopsByRouteProvider provider,
   ) {
     return call(
-      provider: provider.provider,
+      route: provider.route,
     );
   }
 
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
-  List<ProviderOrFamily>? get dependencies => null;
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  String? get name => r'allStopsBySourceProvider';
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'allStopsByRouteProvider';
 }
-
-String _$allStopsByRouteHash() => r'671b396277788c9ff706b991adcd52b659209220';
 
 /// See also [allStopsByRoute].
 class AllStopsByRouteProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>> {
+  /// See also [allStopsByRoute].
   AllStopsByRouteProvider({
-    required this.provider,
-    required this.route,
-  }) : super(
+    required Route route,
+  }) : this._internal(
           (ref) => allStopsByRoute(
-            ref,
-            provider: provider,
+            ref as AllStopsByRouteRef,
             route: route,
           ),
           from: allStopsByRouteProvider,
@@ -209,82 +139,139 @@ class AllStopsByRouteProvider
               const bool.fromEnvironment('dart.vm.product')
                   ? null
                   : _$allStopsByRouteHash,
+          dependencies: AllStopsByRouteFamily._dependencies,
+          allTransitiveDependencies:
+              AllStopsByRouteFamily._allTransitiveDependencies,
+          route: route,
         );
 
-  final TransportationProvider provider;
+  AllStopsByRouteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.route,
+  }) : super.internal();
+
   final Route route;
 
   @override
+  Override overrideWith(
+    FutureOr<Either<AppError, List<RouteStop>>> Function(
+            AllStopsByRouteRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllStopsByRouteProvider._internal(
+        (ref) => create(ref as AllStopsByRouteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        route: route,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Either<AppError, List<RouteStop>>>
+      createElement() {
+    return _AllStopsByRouteProviderElement(this);
+  }
+
+  @override
   bool operator ==(Object other) {
-    return other is AllStopsByRouteProvider &&
-        other.provider == provider &&
-        other.route == route;
+    return other is AllStopsByRouteProvider && other.route == route;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, provider.hashCode);
     hash = _SystemHash.combine(hash, route.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-typedef AllStopsByRouteRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>>;
+mixin AllStopsByRouteRef
+    on AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>> {
+  /// The parameter `route` of this provider.
+  Route get route;
+}
 
-/// See also [allStopsByRoute].
-final allStopsByRouteProvider = AllStopsByRouteFamily();
+class _AllStopsByRouteProviderElement
+    extends AutoDisposeFutureProviderElement<Either<AppError, List<RouteStop>>>
+    with AllStopsByRouteRef {
+  _AllStopsByRouteProviderElement(super.provider);
 
-class AllStopsByRouteFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteStop>>>> {
-  AllStopsByRouteFamily();
+  @override
+  Route get route => (origin as AllStopsByRouteProvider).route;
+}
 
-  AllStopsByRouteProvider call({
-    required TransportationProvider provider,
+String _$allLandmarksByRouteHash() =>
+    r'5149e802b9bccf2e598f3753de300cf766505866';
+
+/// See also [allLandmarksByRoute].
+@ProviderFor(allLandmarksByRoute)
+const allLandmarksByRouteProvider = AllLandmarksByRouteFamily();
+
+/// See also [allLandmarksByRoute].
+class AllLandmarksByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
+  /// See also [allLandmarksByRoute].
+  const AllLandmarksByRouteFamily();
+
+  /// See also [allLandmarksByRoute].
+  AllLandmarksByRouteProvider call({
+    required TransportationProvider transProvider,
     required Route route,
   }) {
-    return AllStopsByRouteProvider(
-      provider: provider,
+    return AllLandmarksByRouteProvider(
+      transProvider: transProvider,
       route: route,
     );
   }
 
   @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>>
-      getProviderOverride(
-    covariant AllStopsByRouteProvider provider,
+  AllLandmarksByRouteProvider getProviderOverride(
+    covariant AllLandmarksByRouteProvider provider,
   ) {
     return call(
-      provider: provider.provider,
+      transProvider: provider.transProvider,
       route: provider.route,
     );
   }
 
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
-  List<ProviderOrFamily>? get dependencies => null;
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
-  String? get name => r'allStopsByRouteProvider';
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'allLandmarksByRouteProvider';
 }
-
-String _$allLandmarksByRouteHash() =>
-    r'efe380359269f50d9b2e31a6fca0e0e60f756531';
 
 /// See also [allLandmarksByRoute].
 class AllLandmarksByRouteProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>> {
+  /// See also [allLandmarksByRoute].
   AllLandmarksByRouteProvider({
-    required this.provider,
-    required this.route,
-  }) : super(
+    required TransportationProvider transProvider,
+    required Route route,
+  }) : this._internal(
           (ref) => allLandmarksByRoute(
-            ref,
-            provider: provider,
+            ref as AllLandmarksByRouteRef,
+            transProvider: transProvider,
             route: route,
           ),
           from: allLandmarksByRouteProvider,
@@ -293,65 +280,90 @@ class AllLandmarksByRouteProvider
               const bool.fromEnvironment('dart.vm.product')
                   ? null
                   : _$allLandmarksByRouteHash,
+          dependencies: AllLandmarksByRouteFamily._dependencies,
+          allTransitiveDependencies:
+              AllLandmarksByRouteFamily._allTransitiveDependencies,
+          transProvider: transProvider,
+          route: route,
         );
 
-  final TransportationProvider provider;
+  AllLandmarksByRouteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.transProvider,
+    required this.route,
+  }) : super.internal();
+
+  final TransportationProvider transProvider;
   final Route route;
+
+  @override
+  Override overrideWith(
+    FutureOr<Either<AppError, List<RouteLandMark>>> Function(
+            AllLandmarksByRouteRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllLandmarksByRouteProvider._internal(
+        (ref) => create(ref as AllLandmarksByRouteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        transProvider: transProvider,
+        route: route,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Either<AppError, List<RouteLandMark>>>
+      createElement() {
+    return _AllLandmarksByRouteProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
     return other is AllLandmarksByRouteProvider &&
-        other.provider == provider &&
+        other.transProvider == transProvider &&
         other.route == route;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, provider.hashCode);
+    hash = _SystemHash.combine(hash, transProvider.hashCode);
     hash = _SystemHash.combine(hash, route.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-typedef AllLandmarksByRouteRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>>;
+mixin AllLandmarksByRouteRef
+    on AutoDisposeFutureProviderRef<Either<AppError, List<RouteLandMark>>> {
+  /// The parameter `transProvider` of this provider.
+  TransportationProvider get transProvider;
 
-/// See also [allLandmarksByRoute].
-final allLandmarksByRouteProvider = AllLandmarksByRouteFamily();
-
-class AllLandmarksByRouteFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteLandMark>>>> {
-  AllLandmarksByRouteFamily();
-
-  AllLandmarksByRouteProvider call({
-    required TransportationProvider provider,
-    required Route route,
-  }) {
-    return AllLandmarksByRouteProvider(
-      provider: provider,
-      route: route,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteLandMark>>>
-      getProviderOverride(
-    covariant AllLandmarksByRouteProvider provider,
-  ) {
-    return call(
-      provider: provider.provider,
-      route: provider.route,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'allLandmarksByRouteProvider';
+  /// The parameter `route` of this provider.
+  Route get route;
 }
+
+class _AllLandmarksByRouteProviderElement
+    extends AutoDisposeFutureProviderElement<
+        Either<AppError, List<RouteLandMark>>> with AllLandmarksByRouteRef {
+  _AllLandmarksByRouteProviderElement(super.provider);
+
+  @override
+  TransportationProvider get transProvider =>
+      (origin as AllLandmarksByRouteProvider).transProvider;
+  @override
+  Route get route => (origin as AllLandmarksByRouteProvider).route;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

@@ -3,7 +3,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:vamonos_mgp/src/components/common/toast.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/entities/route.dart';
 import 'package:vamonos_mgp/src/entities/route_landmark.dart';
 import 'package:vamonos_mgp/src/entities/transportation_provider.dart';
@@ -19,7 +19,7 @@ class PolylineLayerWidget extends ConsumerWidget {
     return ref
         .watch(allLandmarksByRouteProvider(
             route: directedRoute,
-            provider: TransportationProvider.municipioGeneralPurreydon))
+            transProvider: TransportationProvider.municipioGeneralPurreydon))
         .fold(
             data: (routeStops) {
               final polyLine = _toPolyLine(routeStops, directedRoute);

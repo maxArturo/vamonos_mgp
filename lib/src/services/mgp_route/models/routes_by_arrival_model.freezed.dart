@@ -132,11 +132,9 @@ class _$_RoutesByArrival
     implements _RoutesByArrival {
   const _$_RoutesByArrival(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required this.statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required this.statusMessage,
-      @JsonKey(name: 'lineas')
-          required final List<Route> routes})
+      required this.statusCode,
+      @JsonKey(name: 'MensajeEstado') required this.statusMessage,
+      @JsonKey(name: 'lineas') required final List<Route> routes})
       : _routes = routes;
 
   factory _$_RoutesByArrival.fromJson(Map<String, dynamic> json) =>
@@ -205,12 +203,11 @@ class _$_RoutesByArrival
 
 abstract class _RoutesByArrival implements RoutesByArrival {
   const factory _RoutesByArrival(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
+          {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
           required final String statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required final String statusMessage,
-      @JsonKey(name: 'lineas')
-          required final List<Route> routes}) = _$_RoutesByArrival;
+          @JsonKey(name: 'MensajeEstado') required final String statusMessage,
+          @JsonKey(name: 'lineas') required final List<Route> routes}) =
+      _$_RoutesByArrival;
 
   factory _RoutesByArrival.fromJson(Map<String, dynamic> json) =
       _$_RoutesByArrival.fromJson;
@@ -354,13 +351,13 @@ class __$$_RouteCopyWithImpl<$Res> extends _$RouteCopyWithImpl<$Res, _$_Route>
 class _$_Route with DiagnosticableTreeMixin implements _Route {
   const _$_Route(
       {@JsonKey(name: 'CodigoLineaParada', fromJson: _toString)
-          required this.code,
+      required this.code,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required this.description,
+      required this.description,
       @JsonKey(name: 'CodigoEntidad', fromJson: _toString)
-          required this.entityCode,
+      required this.entityCode,
       @JsonKey(name: 'CodigoEmpresa', fromJson: _toString)
-          required this.companyCode});
+      required this.companyCode});
 
   factory _$_Route.fromJson(Map<String, dynamic> json) =>
       _$$_RouteFromJson(json);
@@ -430,13 +427,13 @@ class _$_Route with DiagnosticableTreeMixin implements _Route {
 abstract class _Route implements Route {
   const factory _Route(
       {@JsonKey(name: 'CodigoLineaParada', fromJson: _toString)
-          required final String code,
+      required final String code,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required final String description,
+      required final String description,
       @JsonKey(name: 'CodigoEntidad', fromJson: _toString)
-          required final String entityCode,
+      required final String entityCode,
       @JsonKey(name: 'CodigoEmpresa', fromJson: _toString)
-          required final String companyCode}) = _$_Route;
+      required final String companyCode}) = _$_Route;
 
   factory _Route.fromJson(Map<String, dynamic> json) = _$_Route.fromJson;
 

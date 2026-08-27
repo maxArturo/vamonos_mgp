@@ -6,6 +6,8 @@ import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_ro
 import 'package:vamonos_mgp/src/components/home/routes_near_you_list/directed_routes_page/widget.dart';
 import 'package:vamonos_mgp/src/services/map/map_controller_provider.dart';
 
+import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
+
 class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
     DirectedRoutesPageController> {
   final ScrollController scrollController;
@@ -14,16 +16,31 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(stopMapOnEndEventStreamProvider, ((previous, next) async {
+      // go back to routes view if the map is moved around at all
+      next.whenData((value) {
+        if (previous != null) {
+          previous.whenData((prev) {
+            if (prev.center != value.center) {
+              while (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+            }
+          });
+        }
+      });
+    }));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(
             child: ListView.builder(
           controller: scrollController,
-          itemCount: widget.directedRouteStops.length,
+          itemCount: widget.directedRouteMarkers.length,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            if (widget.directedRouteStops.isEmpty) {
+            if (widget.directedRouteMarkers.isEmpty) {
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,8 +52,8 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
                         size: 30,
                         color: Color.fromARGB(255, 194, 63, 63),
                       ),
-                      Text("No hay rutas cercanas".toUpperCase(),
-                          style: const TextStyle(color: Colors.white)),
+                      const Text("NO HAY RUTAS CERCANAS",
+                          style: TextStyle(color: Colors.white)),
                       const SizedBox(height: 15),
                       DefaultResetMapbutton(
                           recenterLocation: ref
@@ -48,8 +65,8 @@ class DirectedRoutesPageView extends ConsumerWidgetView<DirectedRoutesPage,
                 ],
               );
             }
-            final stopMarker = widget.directedRouteStops[index];
-            return DirectedRouteCard(stop: stopMarker);
+            final directedRouteMarker = widget.directedRouteMarkers[index];
+            return DirectedRouteCard(stopAndMarker: directedRouteMarker);
           },
         )),
       ],

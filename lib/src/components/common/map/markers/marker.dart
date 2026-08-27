@@ -2,35 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:vamonos_mgp/src/entities/coordinate.dart';
 import 'package:vamonos_mgp/src/entities/route_stop.dart';
 
+const defaultMarkerColor = Color.fromARGB(255, 21, 51, 247);
+defaultMarkerIcon({color = defaultMarkerColor, size = 25.0}) =>
+    FaIcon(FontAwesomeIcons.circleDot, size: size, color: color);
+
 class StopMarker extends Marker {
-  final RouteStop routeStop;
-  final String stopName;
-  final Color color;
+  final List<RouteStop> routeStops;
+  final Coordinate coordinate;
 
   StopMarker(
-      {required this.stopName,
-      required this.routeStop,
-      this.color = Colors.black})
+      {required this.routeStops,
+      required this.coordinate,
+      color = defaultMarkerColor,
+      double size = 25.0})
       : super(
             anchorPos: AnchorPos.align(AnchorAlign.center),
-            height: 30,
-            width: 30,
-            point: LatLng(
-                routeStop.location.latitude, routeStop.location.longitude),
-            builder: (ctx) {
-              return FaIcon(
-                FontAwesomeIcons.mapPin,
-                size: 35,
-                color: color,
-              );
-            });
+            height: size,
+            width: size,
+            point: LatLng(coordinate.latitude, coordinate.longitude),
+            builder: (ctx) => defaultMarkerIcon(color: color, size: size));
 
-  StopMarker copyWith({RouteStop? routeStop, String? stopName, Color? color}) {
-    return StopMarker(
-        stopName: stopName ?? this.stopName,
-        routeStop: routeStop ?? this.routeStop,
-        color: color ?? this.color);
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is StopMarker && coordinate == other.coordinate;
   }
+
+  StopMarker copyWith(
+      {List<RouteStop>? routeStops,
+      Color? color,
+      Coordinate? coordinate,
+      double? size}) {
+    return StopMarker(
+        routeStops: routeStops ?? this.routeStops,
+        coordinate: coordinate ?? this.coordinate,
+        color: color,
+        size: size ?? 30.0);
+  }
+
+  @override
+  int get hashCode => coordinate.hashCode ^ routeStops.hashCode;
 }

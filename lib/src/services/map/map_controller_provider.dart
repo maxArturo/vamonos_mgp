@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vamonos_mgp/src/components/common/map/config.dart';
-import 'package:vamonos_mgp/src/entities/coordinates.dart';
+import 'package:vamonos_mgp/src/entities/coordinate.dart';
 import 'package:vamonos_mgp/src/services/location/location_provider.dart';
 import 'package:vamonos_mgp/src/services/map/map_event_provider.dart';
 
@@ -53,6 +53,10 @@ mixin MapFunctionality on AsyncNotifier<MapController> {
           zoom: controller.zoom,
           center: controller.center));
     });
+  }
+
+  void setZoom(double newZoom) {
+    state.whenData((controller) => controller.move(controller.center, newZoom));
   }
 }
 

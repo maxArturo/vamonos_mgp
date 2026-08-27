@@ -272,33 +272,29 @@ abstract class $ArrivalCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'DescripcionLinea', fromJson: _toString)
-          String lineDescription,
+      String lineDescription,
       @JsonKey(name: 'DescripcionBandera', fromJson: _toString)
-          String destinationDescription,
-      @JsonKey(name: 'Arribo', fromJson: _toString)
-          String arrival,
-      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
-          num? busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
-          num? busLongitude,
+      String destinationDescription,
+      @JsonKey(name: 'Arribo', fromJson: _toString) String arrival,
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule) num? busLatitude,
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule) num? busLongitude,
       @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
-          num? stopLatitude,
+      num? stopLatitude,
       @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
-          num? stopLongitude,
+      num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
-          String shortDestinationDescription,
+      String shortDestinationDescription,
       @JsonKey(name: 'DescripcionCartelBandera', fromJson: _toString)
-          String busLabelDescription,
-      @JsonKey(name: 'IdentificadorCoche', fromJson: _toString)
-          String busId,
+      String busLabelDescription,
+      @JsonKey(name: 'IdentificadorCoche', fromJson: _toString) String busId,
       @JsonKey(name: 'IdentificadorChofer', fromJson: _toString)
-          String driverId,
+      String driverId,
       @JsonKey(name: "DesvioHorario", fromJson: _toString)
-          String appointmentDelta,
+      String appointmentDelta,
       @JsonKey(name: "UltimaFechaHoraGPS", fromJson: _toDate)
-          DateTime lastGpsPing,
+      DateTime lastGpsPing,
       @JsonKey(name: "CodigoLineaParada", fromJson: _toString)
-          String lineCode});
+      String lineCode});
 }
 
 /// @nodoc
@@ -399,33 +395,29 @@ abstract class _$$_ArrivalCopyWith<$Res> implements $ArrivalCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'DescripcionLinea', fromJson: _toString)
-          String lineDescription,
+      String lineDescription,
       @JsonKey(name: 'DescripcionBandera', fromJson: _toString)
-          String destinationDescription,
-      @JsonKey(name: 'Arribo', fromJson: _toString)
-          String arrival,
-      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
-          num? busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
-          num? busLongitude,
+      String destinationDescription,
+      @JsonKey(name: 'Arribo', fromJson: _toString) String arrival,
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule) num? busLatitude,
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule) num? busLongitude,
       @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
-          num? stopLatitude,
+      num? stopLatitude,
       @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
-          num? stopLongitude,
+      num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
-          String shortDestinationDescription,
+      String shortDestinationDescription,
       @JsonKey(name: 'DescripcionCartelBandera', fromJson: _toString)
-          String busLabelDescription,
-      @JsonKey(name: 'IdentificadorCoche', fromJson: _toString)
-          String busId,
+      String busLabelDescription,
+      @JsonKey(name: 'IdentificadorCoche', fromJson: _toString) String busId,
       @JsonKey(name: 'IdentificadorChofer', fromJson: _toString)
-          String driverId,
+      String driverId,
       @JsonKey(name: "DesvioHorario", fromJson: _toString)
-          String appointmentDelta,
+      String appointmentDelta,
       @JsonKey(name: "UltimaFechaHoraGPS", fromJson: _toDate)
-          DateTime lastGpsPing,
+      DateTime lastGpsPing,
       @JsonKey(name: "CodigoLineaParada", fromJson: _toString)
-          String lineCode});
+      String lineCode});
 }
 
 /// @nodoc
@@ -519,33 +511,30 @@ class __$$_ArrivalCopyWithImpl<$Res>
 class _$_Arrival with DiagnosticableTreeMixin implements _Arrival {
   const _$_Arrival(
       {@JsonKey(name: 'DescripcionLinea', fromJson: _toString)
-          required this.lineDescription,
+      required this.lineDescription,
       @JsonKey(name: 'DescripcionBandera', fromJson: _toString)
-          required this.destinationDescription,
-      @JsonKey(name: 'Arribo', fromJson: _toString)
-          required this.arrival,
-      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
-          this.busLatitude,
-      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
-          this.busLongitude,
+      required this.destinationDescription,
+      @JsonKey(name: 'Arribo', fromJson: _toString) required this.arrival,
+      @JsonKey(name: 'Latitud', fromJson: _maybeToDobule) this.busLatitude,
+      @JsonKey(name: 'Longitud', fromJson: _maybeToDobule) this.busLongitude,
       @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
-          this.stopLatitude,
+      this.stopLatitude,
       @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
-          this.stopLongitude,
+      this.stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
-          required this.shortDestinationDescription,
+      required this.shortDestinationDescription,
       @JsonKey(name: 'DescripcionCartelBandera', fromJson: _toString)
-          required this.busLabelDescription,
+      required this.busLabelDescription,
       @JsonKey(name: 'IdentificadorCoche', fromJson: _toString)
-          required this.busId,
+      required this.busId,
       @JsonKey(name: 'IdentificadorChofer', fromJson: _toString)
-          required this.driverId,
+      required this.driverId,
       @JsonKey(name: "DesvioHorario", fromJson: _toString)
-          required this.appointmentDelta,
+      required this.appointmentDelta,
       @JsonKey(name: "UltimaFechaHoraGPS", fromJson: _toDate)
-          required this.lastGpsPing,
+      required this.lastGpsPing,
       @JsonKey(name: "CodigoLineaParada", fromJson: _toString)
-          required this.lineCode});
+      required this.lineCode});
 
   factory _$_Arrival.fromJson(Map<String, dynamic> json) =>
       _$$_ArrivalFromJson(json);
@@ -692,33 +681,33 @@ class _$_Arrival with DiagnosticableTreeMixin implements _Arrival {
 abstract class _Arrival implements Arrival {
   const factory _Arrival(
       {@JsonKey(name: 'DescripcionLinea', fromJson: _toString)
-          required final String lineDescription,
+      required final String lineDescription,
       @JsonKey(name: 'DescripcionBandera', fromJson: _toString)
-          required final String destinationDescription,
+      required final String destinationDescription,
       @JsonKey(name: 'Arribo', fromJson: _toString)
-          required final String arrival,
+      required final String arrival,
       @JsonKey(name: 'Latitud', fromJson: _maybeToDobule)
-          final num? busLatitude,
+      final num? busLatitude,
       @JsonKey(name: 'Longitud', fromJson: _maybeToDobule)
-          final num? busLongitude,
+      final num? busLongitude,
       @JsonKey(name: 'LatitudParada', fromJson: _maybeToDobule)
-          final num? stopLatitude,
+      final num? stopLatitude,
       @JsonKey(name: 'LongitudParada', fromJson: _maybeToDobule)
-          final num? stopLongitude,
+      final num? stopLongitude,
       @JsonKey(name: 'DescripcionCortaBandera', fromJson: _toString)
-          required final String shortDestinationDescription,
+      required final String shortDestinationDescription,
       @JsonKey(name: 'DescripcionCartelBandera', fromJson: _toString)
-          required final String busLabelDescription,
+      required final String busLabelDescription,
       @JsonKey(name: 'IdentificadorCoche', fromJson: _toString)
-          required final String busId,
+      required final String busId,
       @JsonKey(name: 'IdentificadorChofer', fromJson: _toString)
-          required final String driverId,
+      required final String driverId,
       @JsonKey(name: "DesvioHorario", fromJson: _toString)
-          required final String appointmentDelta,
+      required final String appointmentDelta,
       @JsonKey(name: "UltimaFechaHoraGPS", fromJson: _toDate)
-          required final DateTime lastGpsPing,
+      required final DateTime lastGpsPing,
       @JsonKey(name: "CodigoLineaParada", fromJson: _toString)
-          required final String lineCode}) = _$_Arrival;
+      required final String lineCode}) = _$_Arrival;
 
   factory _Arrival.fromJson(Map<String, dynamic> json) = _$_Arrival.fromJson;
 

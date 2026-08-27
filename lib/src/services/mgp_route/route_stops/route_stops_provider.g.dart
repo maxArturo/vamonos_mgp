@@ -6,7 +6,21 @@ part of 'route_stops_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-// ignore_for_file: avoid_private_typedef_functions, non_constant_identifier_names, subtype_of_sealed_class, invalid_use_of_internal_member, unused_element, constant_identifier_names, unnecessary_raw_strings, library_private_types_in_public_api
+String _$routeStopsHash() => r'bf8b0746e48053b555186e889221588c1730a059';
+
+/// See also [routeStops].
+@ProviderFor(routeStops)
+final routeStopsProvider = AutoDisposeProvider<RouteStopService>.internal(
+  routeStops,
+  name: r'routeStopsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$routeStopsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef RouteStopsRef = AutoDisposeProviderRef<RouteStopService>;
+String _$routeStopsByRouteHash() => r'78e517ee8800c5c5f990ec99c063e47e54996963';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,26 +43,58 @@ class _SystemHash {
   }
 }
 
-String _$routeStopsHash() => r'bf8b0746e48053b555186e889221588c1730a059';
+/// See also [routeStopsByRoute].
+@ProviderFor(routeStopsByRoute)
+const routeStopsByRouteProvider = RouteStopsByRouteFamily();
 
-/// See also [routeStops].
-final routeStopsProvider = AutoDisposeProvider<RouteStopService>(
-  routeStops,
-  name: r'routeStopsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routeStopsHash,
-);
-typedef RouteStopsRef = AutoDisposeProviderRef<RouteStopService>;
-String _$routeStopsByRouteHash() => r'78e517ee8800c5c5f990ec99c063e47e54996963';
+/// See also [routeStopsByRoute].
+class RouteStopsByRouteFamily
+    extends Family<AsyncValue<Either<AppError, List<RouteStop>>>> {
+  /// See also [routeStopsByRoute].
+  const RouteStopsByRouteFamily();
+
+  /// See also [routeStopsByRoute].
+  RouteStopsByRouteProvider call({
+    required Route route,
+  }) {
+    return RouteStopsByRouteProvider(
+      route: route,
+    );
+  }
+
+  @override
+  RouteStopsByRouteProvider getProviderOverride(
+    covariant RouteStopsByRouteProvider provider,
+  ) {
+    return call(
+      route: provider.route,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'routeStopsByRouteProvider';
+}
 
 /// See also [routeStopsByRoute].
 class RouteStopsByRouteProvider
     extends AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>> {
+  /// See also [routeStopsByRoute].
   RouteStopsByRouteProvider({
-    required this.route,
-  }) : super(
+    required Route route,
+  }) : this._internal(
           (ref) => routeStopsByRoute(
-            ref,
+            ref as RouteStopsByRouteRef,
             route: route,
           ),
           from: routeStopsByRouteProvider,
@@ -57,9 +103,49 @@ class RouteStopsByRouteProvider
               const bool.fromEnvironment('dart.vm.product')
                   ? null
                   : _$routeStopsByRouteHash,
+          dependencies: RouteStopsByRouteFamily._dependencies,
+          allTransitiveDependencies:
+              RouteStopsByRouteFamily._allTransitiveDependencies,
+          route: route,
         );
 
+  RouteStopsByRouteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.route,
+  }) : super.internal();
+
   final Route route;
+
+  @override
+  Override overrideWith(
+    FutureOr<Either<AppError, List<RouteStop>>> Function(
+            RouteStopsByRouteRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: RouteStopsByRouteProvider._internal(
+        (ref) => create(ref as RouteStopsByRouteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        route: route,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Either<AppError, List<RouteStop>>>
+      createElement() {
+    return _RouteStopsByRouteProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -75,40 +161,19 @@ class RouteStopsByRouteProvider
   }
 }
 
-typedef RouteStopsByRouteRef
-    = AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>>;
-
-/// See also [routeStopsByRoute].
-final routeStopsByRouteProvider = RouteStopsByRouteFamily();
-
-class RouteStopsByRouteFamily
-    extends Family<AsyncValue<Either<AppError, List<RouteStop>>>> {
-  RouteStopsByRouteFamily();
-
-  RouteStopsByRouteProvider call({
-    required Route route,
-  }) {
-    return RouteStopsByRouteProvider(
-      route: route,
-    );
-  }
-
-  @override
-  AutoDisposeFutureProvider<Either<AppError, List<RouteStop>>>
-      getProviderOverride(
-    covariant RouteStopsByRouteProvider provider,
-  ) {
-    return call(
-      route: provider.route,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'routeStopsByRouteProvider';
+mixin RouteStopsByRouteRef
+    on AutoDisposeFutureProviderRef<Either<AppError, List<RouteStop>>> {
+  /// The parameter `route` of this provider.
+  Route get route;
 }
+
+class _RouteStopsByRouteProviderElement
+    extends AutoDisposeFutureProviderElement<Either<AppError, List<RouteStop>>>
+    with RouteStopsByRouteRef {
+  _RouteStopsByRouteProviderElement(super.provider);
+
+  @override
+  Route get route => (origin as RouteStopsByRouteProvider).route;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member

@@ -27,6 +27,34 @@ class SlidingUpDrawerView
 
   @override
   Widget build(BuildContext context) {
-    return RoutesNearYouList(widget.sc);
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Container(
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorDark,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+          clipBehavior: Clip.hardEdge,
+          child: Column(children: [
+            const SizedBox(
+              height: 12.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 50,
+                  height: 5,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(12.0))),
+                ),
+              ],
+            ),
+            RoutesNearYouList(widget.sc)
+          ])),
+    );
   }
 }

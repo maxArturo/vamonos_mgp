@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vamonos_mgp/src/components/common/map/markers/markers_provider.dart';
-import 'package:vamonos_mgp/src/components/common/toast.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/util/extensions/riverpod.dart';
 
 class StopsCenterPinLayer extends ConsumerWidget {
@@ -14,7 +14,7 @@ class StopsCenterPinLayer extends ConsumerWidget {
     return ref.watch(allMarkersProvider).fold(
           data: (_) => const Center(
               child: FaIcon(
-            FontAwesomeIcons.circleDot,
+            FontAwesomeIcons.crosshairs,
             size: 35,
             color: Colors.black,
           )),

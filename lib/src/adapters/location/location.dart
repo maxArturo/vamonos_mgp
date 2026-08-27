@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:location/location.dart';
-import 'package:vamonos_mgp/src/entities/coordinates.dart';
+import 'package:vamonos_mgp/src/entities/coordinate.dart';
 import 'package:vamonos_mgp/src/util/errors.dart';
 import 'package:vamonos_mgp/src/util/fn.dart';
 

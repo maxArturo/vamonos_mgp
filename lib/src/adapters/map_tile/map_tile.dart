@@ -14,10 +14,11 @@ class CachedTileAdapter extends TileProvider {
         _defaultHeaders = defaultHeaders;
 
   @override
-  ImageProvider<Object> getImage(Coords<num> coords, TileLayer options) {
+  ImageProvider<Object> getImage(
+      TileCoordinates coordinates, TileLayer options) {
     return CachedNetworkImageProvider(
         cacheManager: _cacheManager,
         headers: _defaultHeaders,
-        getTileUrl(coords, options));
+        getTileUrl(coordinates, options));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vamonos_mgp/src/components/common/error_sink.dart';
 import 'package:vamonos_mgp/src/components/common/list_card.dart';
 import 'package:vamonos_mgp/src/components/common/widget_view.dart';
 import 'package:vamonos_mgp/src/components/navigation/drawer.dart';
@@ -19,10 +20,11 @@ class MainRoutesPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.blueGrey,
         appBar: AppBar(
-          title: FittedBox(
+          centerTitle: true,
+          title: const FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text('rutas cercanas'.toUpperCase(),
-                style: const TextStyle(color: Colors.white)),
+            child:
+                Text('RUTAS CERCANAS', style: TextStyle(color: Colors.white)),
           ),
           backgroundColor: Theme.of(context).primaryColorDark,
         ),
@@ -69,33 +71,31 @@ class MainRoutesListView
                             itemCount: data.length,
                             itemBuilder: (context, idx) {
                               if (data.isEmpty) {
-                                return Row(
+                                return const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Column(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           Icons.block_sharp,
                                           size: 30,
                                           color:
                                               Color.fromARGB(255, 194, 63, 63),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(3.0),
+                                          padding: EdgeInsets.all(3.0),
                                           child: FittedBox(
                                             fit: BoxFit.fitWidth,
-                                            child: Text(
-                                                "no hay rutas cercanas"
-                                                    .toUpperCase(),
-                                                style: const TextStyle(
+                                            child: Text("NO HAY RUTAS CERCANAS",
+                                                style: TextStyle(
                                                     color: Colors.white)),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(width: 13),
+                                    SizedBox(width: 13),
                                   ],
                                 );
                               }
@@ -132,45 +132,49 @@ class MainRoutesListView
                             }),
                       ),
                   error: (err) {
-                    return RefreshIndicator(
-                      onRefresh: () =>
-                          ref.refresh(latestRouteListProvider.future),
-                      child: LayoutBuilder(
-                        builder: (context, viewport) {
-                          return SingleChildScrollView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            child: ConstrainedBox(
-                              constraints:
-                                  BoxConstraints(minHeight: viewport.maxHeight),
-                              child: IntrinsicHeight(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Center(
-                                      child: Icon(
-                                        Icons.warning_amber,
-                                        color: Colors.white70,
-                                      ),
+                    return errorSink(err,
+                        widget: RefreshIndicator(
+                          onRefresh: () =>
+                              ref.refresh(latestRouteListProvider.future),
+                          child: LayoutBuilder(
+                            builder: (context, viewport) {
+                              return SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      minHeight: viewport.maxHeight),
+                                  child: IntrinsicHeight(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Center(
+                                          child: Icon(
+                                            Icons.warning_amber,
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                        const SizedBox.shrink(),
+                                        Text(
+                                          err.userText,
+                                          style: const TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 18),
+                                        ),
+                                        const Text(
+                                          "Jala hacia abajo para reintentar",
+                                          style: TextStyle(
+                                              color: Colors.white70,
+                                              fontSize: 18),
+                                        )
+                                      ],
                                     ),
-                                    const SizedBox.shrink(),
-                                    Text(
-                                      err.userText,
-                                      style: const TextStyle(
-                                          color: Colors.white70, fontSize: 18),
-                                    ),
-                                    const Text(
-                                      "Jala hacia abajo para reintentar",
-                                      style: TextStyle(
-                                          color: Colors.white70, fontSize: 18),
-                                    )
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
+                              );
+                            },
+                          ),
+                        ));
                   },
                   loading: () => Center(
                         key: UniqueKey(),

@@ -132,11 +132,9 @@ class _$_RouteLocations
     implements _RouteLocations {
   const _$_RouteLocations(
       {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
-          required this.statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required this.statusMessage,
-      @JsonKey(name: 'puntos')
-          required final List<RouteGeoData> routes})
+      required this.statusCode,
+      @JsonKey(name: 'MensajeEstado') required this.statusMessage,
+      @JsonKey(name: 'puntos') required final List<RouteGeoData> routes})
       : _routes = routes;
 
   factory _$_RouteLocations.fromJson(Map<String, dynamic> json) =>
@@ -205,12 +203,11 @@ class _$_RouteLocations
 
 abstract class _RouteLocations implements RouteLocations {
   const factory _RouteLocations(
-      {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
+          {@JsonKey(name: 'CodigoEstado', fromJson: _toString)
           required final String statusCode,
-      @JsonKey(name: 'MensajeEstado')
-          required final String statusMessage,
-      @JsonKey(name: 'puntos')
-          required final List<RouteGeoData> routes}) = _$_RouteLocations;
+          @JsonKey(name: 'MensajeEstado') required final String statusMessage,
+          @JsonKey(name: 'puntos') required final List<RouteGeoData> routes}) =
+      _$_RouteLocations;
 
   factory _RouteLocations.fromJson(Map<String, dynamic> json) =
       _$_RouteLocations.fromJson;
@@ -263,17 +260,13 @@ abstract class $RouteGeoDataCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          String routeDirection,
+      String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
-          String lineAbbreviation,
-      @JsonKey(name: 'IsPuntoPaso')
-          bool isCrossingPoint,
-      @JsonKey(name: 'Descripcion', fromJson: _toString)
-          String description,
-      @JsonKey(name: 'Latitud')
-          num? latitude,
-      @JsonKey(name: 'Longitud')
-          num? longitude});
+      String lineAbbreviation,
+      @JsonKey(name: 'IsPuntoPaso') bool isCrossingPoint,
+      @JsonKey(name: 'Descripcion', fromJson: _toString) String description,
+      @JsonKey(name: 'Latitud') num? latitude,
+      @JsonKey(name: 'Longitud') num? longitude});
 }
 
 /// @nodoc
@@ -335,17 +328,13 @@ abstract class _$$_RouteGeoDataCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          String routeDirection,
+      String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
-          String lineAbbreviation,
-      @JsonKey(name: 'IsPuntoPaso')
-          bool isCrossingPoint,
-      @JsonKey(name: 'Descripcion', fromJson: _toString)
-          String description,
-      @JsonKey(name: 'Latitud')
-          num? latitude,
-      @JsonKey(name: 'Longitud')
-          num? longitude});
+      String lineAbbreviation,
+      @JsonKey(name: 'IsPuntoPaso') bool isCrossingPoint,
+      @JsonKey(name: 'Descripcion', fromJson: _toString) String description,
+      @JsonKey(name: 'Latitud') num? latitude,
+      @JsonKey(name: 'Longitud') num? longitude});
 }
 
 /// @nodoc
@@ -400,17 +389,14 @@ class __$$_RouteGeoDataCopyWithImpl<$Res>
 class _$_RouteGeoData extends _RouteGeoData with DiagnosticableTreeMixin {
   const _$_RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          required this.routeDirection,
+      required this.routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
-          required this.lineAbbreviation,
-      @JsonKey(name: 'IsPuntoPaso')
-          required this.isCrossingPoint,
+      required this.lineAbbreviation,
+      @JsonKey(name: 'IsPuntoPaso') required this.isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required this.description,
-      @JsonKey(name: 'Latitud')
-          this.latitude,
-      @JsonKey(name: 'Longitud')
-          this.longitude})
+      required this.description,
+      @JsonKey(name: 'Latitud') this.latitude,
+      @JsonKey(name: 'Longitud') this.longitude})
       : super._();
 
   factory _$_RouteGeoData.fromJson(Map<String, dynamic> json) =>
@@ -494,17 +480,14 @@ class _$_RouteGeoData extends _RouteGeoData with DiagnosticableTreeMixin {
 abstract class _RouteGeoData extends RouteGeoData {
   const factory _RouteGeoData(
       {@JsonKey(name: 'AbreviaturaBanderaSMP', fromJson: _toString)
-          required final String routeDirection,
+      required final String routeDirection,
       @JsonKey(name: 'AbreviaturaLineaSMP', fromJson: _toString)
-          required final String lineAbbreviation,
-      @JsonKey(name: 'IsPuntoPaso')
-          required final bool isCrossingPoint,
+      required final String lineAbbreviation,
+      @JsonKey(name: 'IsPuntoPaso') required final bool isCrossingPoint,
       @JsonKey(name: 'Descripcion', fromJson: _toString)
-          required final String description,
-      @JsonKey(name: 'Latitud')
-          final num? latitude,
-      @JsonKey(name: 'Longitud')
-          final num? longitude}) = _$_RouteGeoData;
+      required final String description,
+      @JsonKey(name: 'Latitud') final num? latitude,
+      @JsonKey(name: 'Longitud') final num? longitude}) = _$_RouteGeoData;
   const _RouteGeoData._() : super._();
 
   factory _RouteGeoData.fromJson(Map<String, dynamic> json) =
